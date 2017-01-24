@@ -1,0 +1,26 @@
+#!/usr/bin/env php
+<?php
+
+ini_set('memory_limit', -1);
+ini_set('max_execution_time', -1);
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+
+$application = new Application();
+
+$parserHelper = new \UserAgentParserComparison\Command\Helper\Parsers();
+$application->getHelperSet()->set($parserHelper);
+
+$normalizeHelper = new \UserAgentParserComparison\Command\Helper\Normalize();
+$application->getHelperSet()->set($normalizeHelper);
+
+$application->add(new \UserAgentParserComparison\Command\Test());
+$application->add(new \UserAgentParserComparison\Command\Normalize());
+$application->add(new \UserAgentParserComparison\Command\Parse());
+$application->add(new \UserAgentParserComparison\Command\Benchmark());
+$application->add(new \UserAgentParserComparison\Command\Analyze());
+$application->add(new \UserAgentParserComparison\Command\Compare());
+
+$application->run();

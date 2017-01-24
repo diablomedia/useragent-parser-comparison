@@ -1,0 +1,5 @@
+{
+    "require": {
+        "piwik/device-detector": "3.7.5"
+    }
+}

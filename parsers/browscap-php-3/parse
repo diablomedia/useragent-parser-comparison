@@ -1,0 +1,56 @@
+#!/usr/bin/env php
+<?php
+
+ini_set('memory_limit', -1);
+ini_set('max_execution_time', -1);
+
+$agentListFile = $argv[1];
+$agents        = file($agentListFile, FILE_IGNORE_NEW_LINES);
+
+$results   = [];
+$parseTime = 0;
+
+$start = microtime(true);
+require __DIR__ . '/vendor/autoload.php';
+$cacheDir = __DIR__ . '/data';
+$bc       = new \BrowscapPHP\Browscap();
+$adapter  = new \WurflCache\Adapter\File([\WurflCache\Adapter\File::DIR => $cacheDir]);
+$bc->setCache($adapter);
+$bc->getBrowser('Test String');
+$initTime = microtime(true) - $start;
+
+foreach ($agents as $agentString) {
+    $start = microtime(true);
+    $r     = $bc->getBrowser($agentString);
+    $end   = microtime(true) - $start;
+
+    $results[] = [
+        'useragent' => $agentString,
+        'parsed'    => [
+            'browser' => [
+                'name'    => $r->browser,
+                'version' => $r->version,
+            ],
+            'platform' => [
+                'name'    => $r->platform,
+                'version' => $r->platform_version,
+            ],
+            'device' => [
+                'name'     => $r->device_name,
+                'brand'    => $r->device_maker,
+                'type'     => $r->device_type,
+                'ismobile' => $r->ismobiledevice ? 'true' : 'false',
+            ],
+        ],
+        'time' => $end,
+    ];
+
+    $parseTime += $end;
+}
+
+print json_encode([
+    'results'     => $results,
+    'parse_time'  => $parseTime,
+    'init_time'   => $initTime,
+    'memory_used' => memory_get_peak_usage(),
+]);

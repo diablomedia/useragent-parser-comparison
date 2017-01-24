@@ -1,0 +1,104 @@
+#!/usr/bin/env php
+<?php
+
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+use Symfony\Component\Yaml\Yaml;
+
+$tests = [];
+
+function isMobile($data)
+{
+    if (!isset($data['device']['type'])) {
+        return null;
+    }
+
+    $mobileTypes = ['mobile', 'tablet', 'ereader', 'media', 'watch', 'camera'];
+
+    if (in_array($data['device']['type'], $mobileTypes)) {
+        return true;
+    }
+
+    if ($data['device']['type'] == 'gaming') {
+        if (isset($data['device']['subtype']) && $data['device']['subtype'] == 'portable') {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+$directory = new \RecursiveDirectoryIterator(__DIR__ . '/vendor/whichbrowser/parser/tests/data');
+$filter    = new \RecursiveCallbackFilterIterator($directory, function ($current, $key, $iterator) {
+    if ($current->getFilename()[0] === '.') {
+        return false;
+    }
+    if ($current->isDir()) {
+        return true;
+    } else {
+        return strpos($current->getFilename(), '.yaml') !== false;
+    }
+});
+$iterator = new \RecursiveIteratorIterator($filter);
+
+$uas = [];
+
+foreach ($iterator as $fixture) {
+    $provider = Yaml::parse(file_get_contents($fixture->getPathname()));
+
+    foreach ($provider as $data) {
+        if (isset($data['useragent'])) {
+            // The behavior of the parser on records with this field seems to be inconsistent
+            // sometimes it uses the value here, other times it uses the User-Agent header in the 'headers'
+            // property. Excluding for now.
+            continue;
+        }
+
+        if (is_array($data['headers']) && !empty($data['headers']['User-Agent'])) {
+            if (count($data['headers']) > 1) {
+                // Ignoring the ones that have the additional headers since we can't guarantee the expected value
+                // for those cases (assuming that whichbrowser changes some data based on those headers).
+                continue;
+            } else {
+                $ua = $data['headers']['User-Agent'];
+            }
+        } else {
+            if (strpos($data['headers'], 'User-Agent: ') !== 0) {
+                // There are a few tests that don't have a "User-Agent:" header
+                // discarding those since other parsers don't parse different headers in this comparison
+                continue;
+            }
+
+            $ua = str_replace('User-Agent: ', '', $data['headers']);
+        }
+
+        $uas[$ua] = $data;
+    }
+}
+
+foreach ($uas as $ua => $data) {
+    $data = $data['result'];
+
+    $expected = [
+        'browser' => [
+            'name'    => $data['browser']['name'],
+            'version' => is_array($data['browser']['version']) ? $data['browser']['version']['value'] : $data['browser']['version'],
+        ],
+        'platform' => [
+            'name'    => $data['os']['name'],
+            'version' => is_array($data['os']['version']) ? $data['os']['version']['value'] : $data['os']['version'],
+        ],
+        'device' => [
+            'name'     => $data['device']['model'],
+            'brand'    => $data['device']['manufacturer'],
+            'type'     => $data['device']['type'],
+            'ismobile' => isMobile($data) ? 'true' : 'false',
+        ]
+    ];
+
+    $tests[$ua] = $expected;
+}
+
+print json_encode($tests);

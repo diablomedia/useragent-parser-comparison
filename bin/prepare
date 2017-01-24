@@ -1,0 +1,30 @@
+#!/bin/bash
+
+parent_path=$( cd "$(dirname "${BASH_SOURCE}")" ; pwd -P )
+cd "$parent_path"
+
+cd ../parsers
+
+for f in *; do
+    if [ -d ${f} ]; then
+        echo "Running prepare script for the $f parser"
+        cd $f
+        ./prepare
+        cd ..
+    fi
+done
+
+echo "Done preparing the parsers"
+
+cd ../tests
+
+for f in *; do
+    if [ -d ${f} ]; then
+        echo "Running prepare script for the $f test suite"
+        cd $f
+        ./prepare
+        cd ..
+    fi
+done
+
+echo "Done preparing the test suites"

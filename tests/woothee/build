@@ -1,0 +1,40 @@
+#!/usr/bin/env php
+<?php
+
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
+
+use DeviceDetector\Parser\Device\DeviceParserAbstract;
+use DeviceDetector\Parser\Client\Browser;
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+$tests = [];
+
+foreach (new FilesystemIterator(__DIR__ . '/vendor/woothee/woothee-testset/testsets') as $fixture) {
+    $provider = Spyc::YAMLLoad($fixture->getPathname());
+
+    foreach ($provider as $data) {
+        $ua = $data['target'];
+
+        $expected = [
+            'browser' => [
+                'name'    => isset($data['name']) ? $data['name'] : null,
+                'version' => isset($data['version']) ? $data['version'] : null,
+            ],
+            'platform' => [
+                'name'    => isset($data['os']) ? $data['os'] : null,
+                'version' => isset($data['os_version']) ? $data['os_version'] : null,
+            ],
+            'device' => [
+                'name'     => null,
+                'brand'    => null,
+                'type'     => isset($data['category']) ? $data['category'] : null,
+                'ismobile' => null,
+            ]
+        ];
+
+        $tests[$ua] = $expected;
+    }
+}
+
+print json_encode($tests);

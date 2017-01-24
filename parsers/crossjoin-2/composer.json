@@ -1,0 +1,5 @@
+{
+    "require": {
+        "crossjoin/browscap": "2.0.4"
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "require": {
+        "whichbrowser/parser": "^2.0",
+        "symfony/yaml": "^2.7"
+    }
+}

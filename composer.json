@@ -1,0 +1,13 @@
+{
+    "require": {
+        "symfony/console": "^3.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "UserAgentParserComparison\\": "src/"
+        }
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.0"
+    }
+}

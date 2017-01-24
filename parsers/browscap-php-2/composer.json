@@ -1,0 +1,5 @@
+{
+    "require": {
+        "browscap/browscap-php": "2.1.1"
+    }
+}

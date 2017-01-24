@@ -1,0 +1,6 @@
+{
+    "require": {
+        "woothee/woothee-testset": "^1.4",
+        "mustangostang/spyc": "^0.6.1"
+    }
+}

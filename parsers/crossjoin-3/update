@@ -1,0 +1,8 @@
+#!/bin/bash
+
+parent_path=$( cd "$(dirname "${BASH_SOURCE}")" ; pwd -P )
+cd "$parent_path"
+
+php70 /usr/local/bin/composer update
+
+php70 ./vendor/bin/browscap update --ini-load full --dir $parent_path/data

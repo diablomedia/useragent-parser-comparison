@@ -1,0 +1,59 @@
+#!/usr/bin/env php
+<?php
+
+ini_set('memory_limit', -1);
+ini_set('max_execution_time', -1);
+
+$agentListFile = $argv[1];
+
+$results   = [];
+$parseTime = 0;
+
+$start = microtime(true);
+require __DIR__ . '/vendor/autoload.php';
+$parser = UAParser\Parser::create();
+$parser->parse('Test String');
+$initTime = microtime(true) - $start;
+
+$file = new SplFileObject($agentListFile);
+$file->setFlags(SplFileObject::DROP_NEW_LINE);
+
+while (!$file->eof()) {
+    $agentString = $file->fgets();
+
+    $start = microtime(true);
+    $r     = $parser->parse($agentString);
+    $end   = microtime(true) - $start;
+
+    $results[] = [
+        'useragent' => $agentString,
+        'parsed'    => [
+            'browser' => [
+                'name'    => $r->ua->family,
+                'version' => $r->ua->toVersion(),
+            ],
+            'platform' => [
+                'name'    => $r->os->family,
+                'version' => $r->os->toVersion(),
+            ],
+            'device' => [
+                'name'     => $r->device->model === null ? '' : $r->device->model,
+                'brand'    => $r->device->brand === null ? '' : $r->device->brand,
+                'type'     => null,
+                'ismobile' => null,
+            ],
+        ],
+        'time' => $end,
+    ];
+
+    $parseTime += $end;
+}
+
+$file = null;
+
+print json_encode([
+    'results'     => $results,
+    'parse_time'  => $parseTime,
+    'init_time'   => $initTime,
+    'memory_used' => memory_get_peak_usage(),
+]);

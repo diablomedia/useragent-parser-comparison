@@ -1,0 +1,668 @@
+<?php
+
+namespace UserAgentParserComparison\Command;
+
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Helper\TableCell;
+use Symfony\Component\Console\Helper\TableSeparator;
+use Symfony\Component\Console\Question\ChoiceQuestion;
+use Symfony\Component\Console\Question\Question;
+use Symfony\Component\Console\Input\InputArgument;
+
+class Analyze extends Command
+{
+    protected $runDir     = __DIR__ . '/../../data/test-runs';
+    protected $options    = [];
+    protected $comparison = [];
+    protected $agents     = [];
+    protected $summaryTable;
+
+    protected $input;
+    protected $output;
+
+    protected function configure()
+    {
+        $this->setName('analyze')
+            ->setDescription('Analyzes the data from test runs')
+            ->addArgument('run', InputArgument::OPTIONAL, 'The name of the test run directory that you want to analyze')
+            ->setHelp('');
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $this->input  = $input;
+        $this->output = $output;
+
+        $run = $input->getArgument('run');
+
+        if (empty($run)) {
+            // Show user the available runs, perhaps limited to 10 or something
+        }
+
+        if (!file_exists($this->runDir . '/' . $run)) {
+            $output->writeln('<error>No run directory found with that id (' . $run . ')</error>');
+
+            return;
+        }
+
+        if (file_exists($this->runDir . '/' . $run . '/metadata.json')) {
+            $this->options = json_decode(file_get_contents($this->runDir . '/' . $run . '/metadata.json'), true);
+        } else {
+            $output->writeln('<error>No options file found for this test run</error>');
+
+            return;
+        }
+
+        $output->writeln('<info>Analyzing data from test run: ' . $run . '</info>');
+
+        $tests = $this->options['tests'];
+
+        $this->summaryTable = new Table($output);
+        $this->summaryTable->setHeaders(['Parser', 'Browser Results', 'Platform Results', 'Device Results', 'Time Taken', 'Accuracy Score']);
+        $rows   = [];
+        $totals = [];
+
+        foreach ($tests as $testName => $testData) {
+            $this->comparison[$testName] = [];
+
+            $rows[] = [new TableCell('<fg=yellow>Parser comparison for ' . $testName . ' test suite</>', ['colspan' => 6])];
+            $rows[] = new TableSeparator();
+
+            $expectedResults = json_decode(file_get_contents($this->runDir . '/' . $run . '/expected/normalized/' . $testName . '.json'), true);
+
+            foreach ($expectedResults as $agent => $result) {
+                if (!isset($this->agents[$agent])) {
+                    $this->agents[$agent] = count($this->agents);
+                }
+
+                foreach (['browser', 'platform', 'device'] as $compareKey) {
+                    $subs = ['name'];
+                    if ($compareKey == 'device') {
+                        $subs = ['name', 'brand', 'type'];
+                    }
+
+                    if (!isset($this->comparison[$testName][$compareKey])) {
+                        $this->comparison[$testName][$compareKey] = [];
+                    }
+
+                    foreach ($subs as $compareSubKey) {
+                        if (!isset($this->comparison[$testName][$compareKey][$compareSubKey])) {
+                            $this->comparison[$testName][$compareKey][$compareSubKey] = [];
+                        }
+
+                        if (isset($result[$compareKey][$compareSubKey]) && $result[$compareKey][$compareSubKey] !== null) {
+                            $expectedValue = $result[$compareKey][$compareSubKey];
+                        } else {
+                            $expectedValue = '[n/a]';
+                        }
+
+                        if (!isset($this->comparison[$testName][$compareKey][$compareSubKey][$expectedValue])) {
+                            $this->comparison[$testName][$compareKey][$compareSubKey][$expectedValue] = [
+                                'expected' => [
+                                    'count'  => 0,
+                                    'agents' => [],
+                                ]
+                            ];
+                        }
+
+                        $this->comparison[$testName][$compareKey][$compareSubKey][$expectedValue]['expected']['count']++;
+                        $this->comparison[$testName][$compareKey][$compareSubKey][$expectedValue]['expected']['agents'][] = $this->agents[$agent];
+                    }
+                }
+            }
+
+            foreach ($this->options['parsers'] as $parserName => $parserData) {
+                $testResult = json_decode(file_get_contents($this->runDir . '/' . $run . '/results/' . $parserName . '/normalized/' . $testName . '.json'), true);
+
+                $passFail = [
+                    'browser'  => ['pass' => 0, 'fail' => 0],
+                    'platform' => ['pass' => 0, 'fail' => 0],
+                    'device'   => ['pass' => 0, 'fail' => 0],
+                ];
+
+                $parserScores[$parserName][$testName] = 0;
+                $possibleScores[$testName]            = 0;
+
+                foreach ($testResult['results'] as $data) {
+                    $expected = $expectedResults[$data['useragent']];
+                    $failures = [];
+
+                    foreach (['browser', 'platform', 'device'] as $compareKey) {
+                        $subs = ['name'];
+                        if ($compareKey == 'device') {
+                            $subs = ['name', 'brand', 'type'];
+                        }
+
+                        foreach ($subs as $compareSubKey) {
+                            if (isset($expected[$compareKey][$compareSubKey]) && $expected[$compareKey][$compareSubKey] !== null) {
+                                $expectedValue = $expected[$compareKey][$compareSubKey];
+                            } else {
+                                $expectedValue = '[n/a]';
+                            }
+
+                            if (isset($data['parsed'][$compareKey][$compareSubKey]) && $data['parsed'][$compareKey][$compareSubKey] !== null) {
+                                $actualValue = $data['parsed'][$compareKey][$compareSubKey];
+                            } else {
+                                $actualValue = '[n/a]';
+                            }
+
+                            if (!isset($this->comparison[$testName][$compareKey][$compareSubKey][$expectedValue][$parserName])) {
+                                $this->comparison[$testName][$compareKey][$compareSubKey][$expectedValue][$parserName] = [];
+                            }
+
+                            if (!isset($this->comparison[$testName][$compareKey][$compareSubKey][$expectedValue][$parserName][$actualValue])) {
+                                $this->comparison[$testName][$compareKey][$compareSubKey][$expectedValue][$parserName][$actualValue] = [
+                                    'count'  => 0,
+                                    'agents' => [],
+                                ];
+                            }
+
+                            $this->comparison[$testName][$compareKey][$compareSubKey][$expectedValue][$parserName][$actualValue]['count']++;
+                            $this->comparison[$testName][$compareKey][$compareSubKey][$expectedValue][$parserName][$actualValue]['agents'][] = $this->agents[$data['useragent']];
+
+                            if ($expectedValue != $actualValue) {
+                                if ($expectedValue != '[n/a]' && $actualValue != '[n/a]') {
+                                    $this->comparison[$testName][$compareKey][$compareSubKey][$expectedValue]['expected']['hasFailures'] = true;
+                                }
+                            }
+                        }
+
+                        if ($expected[$compareKey] != $data['parsed'][$compareKey]) {
+                            $diff = $this->makeDiff($expected[$compareKey], $data['parsed'][$compareKey]);
+                            if (!empty($diff)) {
+                                $passFail[$compareKey]['fail']++;
+                                $failures[$compareKey] = $diff;
+                            } else {
+                                $passFail[$compareKey]['pass']++;
+                            }
+                        } else {
+                            $passFail[$compareKey]['pass']++;
+                        }
+
+                        $parserScores[$parserName][$testName] += $this->calculateScore($expected[$compareKey], $data['parsed'][$compareKey]);
+                        $possibleScores[$testName] += $this->calculateScore($expected[$compareKey]);
+                    }
+
+                    if (!empty($failures)) {
+                        $this->failures[$testName][$parserName][$data['useragent']] = $failures;
+                    }
+                }
+
+                $rows[] = [
+                    $parserName,
+                    $passFail['browser']['pass'] . '/' . array_sum($passFail['browser']) . ' ' . round($passFail['browser']['pass'] / array_sum($passFail['browser']) * 100, 2) . '%',
+                    $passFail['platform']['pass'] . '/' . array_sum($passFail['platform']) . ' ' . round($passFail['platform']['pass'] / array_sum($passFail['platform']) * 100, 2) . '%',
+                    $passFail['device']['pass'] . '/' . array_sum($passFail['device']) . ' ' . round($passFail['device']['pass'] / array_sum($passFail['device']) * 100, 2) . '%',
+                    round($testResult['parse_time'] + $testResult['init_time'], 3) . 's',
+                    $parserScores[$parserName][$testName] . '/' . $possibleScores[$testName] . ' ' . round($parserScores[$parserName][$testName] / $possibleScores[$testName] * 100, 2) . '%',
+                ];
+
+                if (!isset($totals[$parserName])) {
+                    $totals[$parserName] = [
+                        'browser'  => ['pass' => 0, 'fail' => 0],
+                        'platform' => ['pass' => 0, 'fail' => 0],
+                        'device'   => ['pass' => 0, 'fail' => 0],
+                        'time'     => 0,
+                        'score'    => ['earned' => 0, 'possible' => 0]
+                    ];
+                }
+
+                $totals[$parserName]['browser']['pass'] += $passFail['browser']['pass'];
+                $totals[$parserName]['browser']['fail'] += $passFail['browser']['fail'];
+                $totals[$parserName]['platform']['pass'] += $passFail['platform']['pass'];
+                $totals[$parserName]['platform']['fail'] += $passFail['platform']['fail'];
+                $totals[$parserName]['device']['pass'] += $passFail['device']['pass'];
+                $totals[$parserName]['device']['fail'] += $passFail['device']['fail'];
+                $totals[$parserName]['time'] += ($testResult['parse_time'] + $testResult['init_time']);
+                $totals[$parserName]['score']['earned'] += $parserScores[$parserName][$testName];
+                $totals[$parserName]['score']['possible'] += $possibleScores[$testName];
+            }
+        }
+
+        if (count($this->options['tests']) > 1) {
+            $rows[] = [new TableCell('<fg=yellow>Total for all Test suites</>', ['colspan' => 6])];
+            $rows[] = new TableSeparator();
+            foreach ($totals as $parser => $total) {
+                $rows[] = [
+                    $parser,
+                    $total['browser']['pass'] . '/' . array_sum($total['browser']) . ' ' . round($total['browser']['pass'] / array_sum($total['browser']) * 100, 2) . '%',
+                    $total['platform']['pass'] . '/' . array_sum($total['platform']) . ' ' . round($total['platform']['pass'] / array_sum($total['platform']) * 100, 2) . '%',
+                    $total['device']['pass'] . '/' . array_sum($total['device']) . ' ' . round($total['device']['pass'] / array_sum($total['device']) * 100, 2) . '%',
+                    round($total['time'], 3) . 's',
+                    $total['score']['earned'] . '/' . $total['score']['possible'] . ' ' . round($total['score']['earned'] / $total['score']['possible'] * 100, 2) . '%',
+                ];
+            }
+        }
+
+        $this->summaryTable->setRows($rows);
+        $this->showSummary();
+
+        $this->showMenu();
+    }
+
+    protected function showSummary()
+    {
+        $this->summaryTable->render();
+    }
+
+    protected function changePropertyDiffTestSuite()
+    {
+        $questionHelper = $this->getHelper('question');
+
+        if (count($this->options['tests']) > 1) {
+            $question = new ChoiceQuestion(
+                'Which Test Suite?',
+                array_keys($this->options['tests'])
+            );
+
+            $selectedTest = $questionHelper->ask($this->input, $this->output, $question);
+        } else {
+            $selectedTest = array_keys($this->options['tests'])[0];
+        }
+
+        return $selectedTest;
+    }
+
+    protected function changePropertyDiffSection()
+    {
+        $questionHelper = $this->getHelper('question');
+
+        $question = new ChoiceQuestion(
+            'Which Section?',
+            ['browser', 'platform', 'device']
+        );
+        $section = $questionHelper->ask($this->input, $this->output, $question);
+
+        return $section;
+    }
+
+    protected function changePropertyDiffProperty($section)
+    {
+        $questionHelper = $this->getHelper('question');
+
+        switch ($section) {
+            case 'browser':
+            case 'platform':
+                $subs = ['name'];
+                break;
+            case 'device':
+                $subs = ['name', 'brand', 'type'];
+                break;
+        }
+
+        if (count($subs) > 1) {
+            $question = new ChoiceQuestion(
+                'Which Property?',
+                $subs
+            );
+            $property = $questionHelper->ask($this->input, $this->output, $question);
+        } else {
+            $property = $subs[0];
+        }
+
+        return $property;
+    }
+
+    protected function showMenu()
+    {
+        $questionHelper = $this->getHelper('question');
+        $question       = new ChoiceQuestion(
+            'What would you like to view?',
+            ['Show Summary', 'View failure diff', 'View property comparison', 'Exit'],
+            3
+        );
+
+        $answer = $questionHelper->ask($this->input, $this->output, $question);
+
+        switch ($answer) {
+            case 'Show Summary':
+                $this->showSummary();
+                $this->showMenu();
+                break;
+            case 'View failure diff':
+                $answer = '';
+                do {
+                    if (!isset($selectedTest) || $answer == 'Change Test Suite') {
+                        if (count($this->options['tests']) > 1) {
+                            $question = new ChoiceQuestion(
+                                'Which test suite?',
+                                array_keys($this->options['tests'])
+                            );
+
+                            $selectedTest = $questionHelper->ask($this->input, $this->output, $question);
+                        } else {
+                            $selectedTest = array_keys($this->options['tests'])[0];
+                        }
+                    }
+
+                    if (!isset($selectedParser) || $answer == 'Change Parser') {
+                        if (count($this->options['parsers']) > 1) {
+                            $question = new ChoiceQuestion(
+                                'Which parser?',
+                                array_keys($this->options['parsers'])
+                            );
+
+                            $selectedParser = $questionHelper->ask($this->input, $this->output, $question);
+                        } else {
+                            $selectedParser = array_keys($this->options['parsers'])[0];
+                        }
+                    }
+
+                    if (!isset($justAgents) || $answer == 'Show Full Diff') {
+                        $justAgents = false;
+                    } elseif ($answer == 'Show Just UserAgents') {
+                        $justAgents = true;
+                    }
+
+                    $this->analyzeFailures($selectedTest, $selectedParser, $justAgents);
+
+                    $justAgentsQuestion = 'Show Just UserAgents';
+                    if ($justAgents === true) {
+                        $justAgentsQuestion = 'Show Full Diff';
+                    }
+
+                    $questions = ['Change Test Suite', 'Change Parser', $justAgentsQuestion, 'Back to Main Menu'];
+
+                    if (count($this->options['tests']) <= 1) {
+                        unset($questions[array_search('Change Test Suite', $questions)]);
+                    }
+
+                    if (count($this->options['parsers']) <= 1) {
+                        unset($questions[array_search('Change Parser', $questions)]);
+                    }
+
+                    $questions = array_values($questions);
+
+                    $question = new ChoiceQuestion(
+                        'What would you like to do?',
+                        $questions,
+                        count($questions) - 1
+                    );
+
+                    $answer = $questionHelper->ask($this->input, $this->output, $question);
+                } while ($answer != 'Back to Main Menu');
+
+                $this->showMenu();
+
+                break;
+            case 'View property comparison':
+                $answer = '';
+                do {
+                    if (!isset($selectedTest) || $answer == 'Change Section') {
+                        $selectedTest = $this->changePropertyDiffTestSuite();
+                    }
+
+                    if (!isset($section) || $answer == 'Change Section') {
+                        $section = $this->changePropertyDiffSection();
+                    }
+
+                    if (!isset($property) || $answer == 'Change Section' || $answer == 'Change Property') {
+                        $property = $this->changePropertyDiffProperty($section);
+                    }
+
+                    if (!isset($justFails) || $answer == 'Show All') {
+                        $justFails = false;
+                    } elseif ($answer == 'Just Show Failures') {
+                        $justFails = true;
+                    }
+
+                    $this->showComparison($selectedTest, $section, $property, $justFails);
+
+                    $justFailureQuestion = 'Just Show Failures';
+                    if ($justFails === true) {
+                        $justFailureQuestion = 'Show All';
+                    }
+
+                    $questions = [
+                        'Export User Agents',
+                        'Change Section',
+                        'Change Property',
+                        'Change Test Suite',
+                        $justFailureQuestion,
+                        'Back to Main Menu'
+                    ];
+
+                    if (count($this->options['tests']) <= 1) {
+                        unset($questions[array_search('Change Test Suite', $questions)]);
+                    }
+
+                    if ($section == 'browser' || $section == 'platform') {
+                        unset($questions[array_search('Change Property', $questions)]);
+                    }
+
+                    $questions = array_values($questions);
+
+                    $question = new ChoiceQuestion(
+                        'What would you like to do?',
+                        $questions,
+                        count($questions) - 1
+                    );
+
+                    $answer = $questionHelper->ask($this->input, $this->output, $question);
+
+                    if ($answer == 'Export User Agents') {
+                        $question     = new Question('Type the expected value to view the agents parsed:');
+                        $autoComplete = array_merge(['[no value]'], array_keys($this->comparison[$selectedTest][$section][$property]));
+                        sort($autoComplete);
+                        $question->setAutocompleterValues($autoComplete);
+
+                        $value = $questionHelper->ask($this->input, $this->output, $question);
+
+                        $this->showComparisonAgents($selectedTest, $section, $property, $value);
+
+                        $question = new Question('Press enter to continue', 'yes');
+                        $questionHelper->ask($this->input, $this->output, $question);
+                    }
+                } while ($answer != 'Back to Main Menu');
+
+                $this->showMenu();
+
+                break;
+            case 'Exit':
+                $this->output->writeln('Goodbye!');
+                break;
+        }
+    }
+
+    protected function showComparisonAgents($test, $section, $property, $value)
+    {
+        if ($value == '[no value]') {
+            $value = '';
+        }
+
+        if (isset($this->comparison[$test][$section][$property][$value])) {
+            $agents = array_flip($this->agents);
+
+            $this->output->writeln('<comment>Showing ' . count($this->comparison[$test][$section][$property][$value]['expected']['agents']) . ' user agents</comment>');
+
+            $this->output->writeln('');
+            foreach ($this->comparison[$test][$section][$property][$value]['expected']['agents'] as $agentId) {
+                $this->output->writeln($agents[$agentId]);
+            }
+            $this->output->writeln('');
+        } else {
+            $this->output->writeln('<error>There were no agents processed with that property value</error>');
+        }
+    }
+
+    protected function analyzeFailures($test, $parser, $justAgents = false)
+    {
+        if (!empty($this->failures[$test][$parser])) {
+            $table = new Table($this->output);
+            $table->setHeaders([
+                [new TableCell('UserAgent', ['colspan' => 3])],
+                ['Browser', 'Platform', 'Device']
+            ]);
+
+            $rows = [];
+            foreach ($this->failures[$test][$parser] as $agent => $failData) {
+                $rows[] = [new TableCell($agent, ['colspan' => 3])];
+                $rows[] = [
+                    isset($failData['browser']) ? $this->outputDiff($failData['browser']) : '',
+                    isset($failData['platform']) ? $this->outputDiff($failData['platform']) : '',
+                    isset($failData['device']) ? $this->outputDiff($failData['device']) : '',
+                ];
+                $rows[] = new TableSeparator();
+
+                if ($justAgents === true) {
+                    $this->output->writeln($agent);
+                }
+            }
+
+            array_pop($rows);
+
+            $table->setRows($rows);
+            if ($justAgents === false) {
+                $table->render();
+            }
+        } else {
+            $this->output->writeln(
+                '<error>There were no failures for the ' . $parser . ' parser for the ' . $test . ' test suite</error>'
+            );
+        }
+    }
+
+    protected function showComparison($test, $compareKey, $compareSubKey, $justFails = false)
+    {
+        if (!empty($this->comparison[$test][$compareKey][$compareSubKey])) {
+            ksort($this->comparison[$test][$compareKey][$compareSubKey]);
+            uasort($this->comparison[$test][$compareKey][$compareSubKey], function ($a, $b) {
+                if ($a['expected']['count'] == $b['expected']['count']) {
+                    return 0;
+                }
+
+                return ($a['expected']['count'] > $b['expected']['count']) ? -1 : 1;
+            });
+
+            $table = new Table($this->output);
+
+            $headers = [' Expected ' . ucfirst($compareKey) . ' ' . ucfirst($compareSubKey)];
+
+            foreach ($this->options['parsers'] as $parser => $data) {
+                $headers[] = $parser;
+            }
+
+            $table->setHeaders($headers);
+
+            $rows = [];
+
+            foreach ($this->comparison[$test][$compareKey][$compareSubKey] as $expected => $compareRow) {
+                if ($justFails === true && empty($compareRow['expected']['hasFailures'])) {
+                    continue;
+                }
+
+                $max = 0;
+                foreach ($compareRow as $child) {
+                    if (count($child) > $max) {
+                        $max = count($child);
+                    }
+                }
+
+                foreach (array_keys($this->options['parsers']) as $parser) {
+                    if (isset($compareRow[$parser])) {
+                        uasort($compareRow[$parser], function ($a, $b) {
+                            if ($a['count'] == $b['count']) {
+                                return 0;
+                            }
+
+                            return ($a['count'] > $b['count']) ? -1 : 1;
+                        });
+                    }
+                }
+
+                for ($i = 0; $i < $max; $i++) {
+                    $row     = [];
+                    $parsers = array_merge(['expected'], array_keys($this->options['parsers']));
+
+                    foreach ($parsers as $parser) {
+                        if ($parser == 'expected') {
+                            if ($i == 0) {
+                                $row[] = ($expected == '' ? '[no value]' : $expected) . ' <comment>(' . $compareRow['expected']['count'] . ')</comment>';
+                            } else {
+                                $row[] = " ";
+                            }
+                        } else {
+                            if (isset($compareRow[$parser]) && count($compareRow[$parser]) > 0) {
+                                $key      = current(array_keys($compareRow[$parser]));
+                                $quantity = array_shift($compareRow[$parser]);
+                                if ($expected == '[n/a]' || $key == $expected || $key == '[n/a]') {
+                                    $row[] = ($key == '' ? '[no value]' : $key) . ' <info>(' . $quantity['count'] . ')</info>';
+                                } else {
+                                    $row[] = ($key == '' ? '[no value]' : $key) . ' <fg=red>(' . $quantity['count'] . ')</>';
+                                }
+                            } else {
+                                $row[] = " ";
+                            }
+                        }
+                    }
+
+                    $rows[] = $row;
+                }
+
+                $rows[] = new TableSeparator();
+            }
+
+            array_pop($rows);
+
+            $table->setRows($rows);
+            $table->render();
+        }
+    }
+
+    protected function makeDiff($expected, $actual)
+    {
+        $result = [];
+
+        if (!empty($expected)) {
+            $diff = array_diff_assoc($expected, $actual);
+
+            foreach ($diff as $field => $value) {
+                // Disable if to show all, not just mis-matched
+                //if (!empty($actual[$field]) && !empty($value)) {
+                    // We can only compare the fields that aren't null in either expected or actual
+                    // to be "fair" to parsers that don't have all of the data (or have too much if the test
+                    // suite doesn't contain the properties that a parser may)
+                    if ($actual[$field] !== null && $expected[$field] !== null) {
+                        $result[$field] = ['expected' => $value, 'actual' => $actual[$field]];
+                    }
+                //}
+            }
+        }
+
+        return $result;
+    }
+
+    protected function calculateScore($expected, $actual = null)
+    {
+        $score = 0;
+
+        foreach ($expected as $field => $value) {
+            if ($value !== null) {
+                // this happens if our possible score calculation is called
+                if ($actual === null) {
+                    $score++;
+                } elseif ($value == $actual[$field]) {
+                    $score++;
+                }
+            }
+        }
+
+        return $score;
+    }
+
+    protected function outputDiff($diff)
+    {
+        $output = '';
+
+        if (!empty($diff)) {
+            foreach ($diff as $field => $data) {
+                $output .= $field . ': <fg=white;bg=green>' . $data['expected'] . '</> <fg=white;bg=red>' . $data['actual'] . '</> ';
+            }
+        }
+
+        return $output;
+    }
+}
