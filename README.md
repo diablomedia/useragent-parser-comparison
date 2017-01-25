@@ -12,12 +12,13 @@ The CLI is written in PHP (using the Symfony Console component), but the parsers
 
 Parser                  | Browser Results    | Platform Results   | Device Results     | Time Taken | Accuracy Score
 -----|-----|-----|-----|-----|-----
+browscap-js-1           | 36922/46375 79.62% | 43999/46375 94.88% | 23092/46375 49.79% | 1403.217s  | 118963/181899 65.4%
 browscap-php-2          | 36983/46375 79.75% | 44008/46375 94.9%  | 23092/46375 49.79% | 3211.344s  | 119146/181899 65.5%
 browscap-php-3          | 36923/46375 79.62% | 43998/46375 94.87% | 23092/46375 49.79% | 996.962s   | 118962/181899 65.4%
 crossjoin-1             | 36926/46375 79.62% | 43998/46375 94.87% | 23093/46375 49.8%  | 1037.01s   | 118966/181899 65.4%
 crossjoin-2             | 36844/46375 79.45% | 44006/46375 94.89% | 22921/46375 49.43% | 2549.295s  | 118478/181899 65.13%
 crossjoin-3             | 36844/46375 79.45% | 44006/46375 94.89% | 22921/46375 49.43% | 2139.953s  | 118478/181899 65.13%
-piwik-device-detector-3 | 38840/46375 83.75% | 42910/46375 92.53% | 32779/46375 70.68% | 441.808s   | 146516/181862 80.56%
+piwik-device-detector-3 | 38840/46375 83.75% | 42910/46375 92.53% | 32771/46375 70.67% | 438.676s   | 146516/181899 80.55%
 ua-parser-php-3         | 38974/46375 84.04% | 42279/46375 91.17% | 35776/46375 77.15% | 212.557s   | 121488/150929 80.49%
 whichbrowser-2          | 39789/46375 85.8%  | 44668/46375 96.32% | 29832/46375 64.33% | 202.637s   | 150334/181896 82.65%
 woothee-php-1           | 31620/46375 68.18% | 42251/46375 91.11% | 39695/46375 85.6%  | 6.266s     | 70444/109753 64.18%
@@ -26,15 +27,16 @@ woothee-php-1           | 31620/46375 68.18% | 42251/46375 91.11% | 39695/46375 
 
 Parser                  | Average Init Time | Average Parse Time | Average Memory Used
 -----|-----|-----|-----
-browscap-php-2          | 1.305s            | 26.227s            | 122.86 M
-browscap-php-3          | 0.041s            | 7.37s              | 4.97 M
-crossjoin-1             | 0.012s            | 7.19s              | 2.26 M
-crossjoin-2             | 0.025s            | 10.134s            | 2.5 M
-crossjoin-3             | 0.042s            | 20.411s            | 1.86 M
-piwik-device-detector-3 | 0.898s            | 4.354s             | 4.72 M
-ua-parser-php-3         | 0.036s            | 1.794s             | 2.57 M
-whichbrowser-2          | 0.06s             | 1.887s             | 20.3 M
-woothee-php-1           | 0.024s            | 0.061s             | 2.28 M
+browscap-js-1           | 0.032s            | 12.257s            | 115.47 M
+browscap-php-2          | 1.062s            | 20.741s            | 122.86 M
+browscap-php-3          | 0.072s            | 7.394s             | 4.97 M
+crossjoin-1             | 0.036s            | 5.627s             | 2.26 M
+crossjoin-2             | 0.025s            | 9.472s             | 2.5 M
+crossjoin-3             | 0.051s            | 8.962s             | 1.86 M
+piwik-device-detector-3 | 0.859s            | 3.973s             | 4.72 M
+ua-parser-php-3         | 0.038s            | 1.626s             | 2.57 M
+whichbrowser-2          | 0.058s            | 1.781s             | 20.3 M
+woothee-php-1           | 0.034s            | 0.059s             | 2.28 M
 
 ## How To Use
 
@@ -109,8 +111,9 @@ The parsers can be any useragent parser from any language (web API based parsers
 
 Currently this is the list of parsers included:
 
- * Browscap 2.x (https://github.com/browscap/browscap-php/tree/2.x)
- * Browscap 3.x (https://github.com/browscap/browscap-php)
+ * Browscap JS 1.x (https://github.com/mimmi20/browscap-js)
+ * Browscap PHP 2.x (https://github.com/browscap/browscap-php/tree/2.x)
+ * Browscap PHP 3.x (https://github.com/browscap/browscap-php)
  * Crossjoin Browscap 1.x (https://github.com/crossjoin/Browscap/tree/1.x)
  * Crossjoin Browscap 2.x (https://github.com/crossjoin/Browscap/tree/2.x)
  * Crossjoin Browscap 3.x (PHP7 only) (https://github.com/crossjoin/Browscap/tree/3.x)
