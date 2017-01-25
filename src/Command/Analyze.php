@@ -124,7 +124,7 @@ class Analyze extends Command
                 ];
 
                 $parserScores[$parserName][$testName] = 0;
-                $possibleScores[$testName]            = 0;
+                $possibleScores[$parserName][$testName] = 0;
 
                 foreach ($testResult['results'] as $data) {
                     $expected = $expectedResults[$data['useragent']];
@@ -183,7 +183,7 @@ class Analyze extends Command
                         }
 
                         $parserScores[$parserName][$testName] += $this->calculateScore($expected[$compareKey], $data['parsed'][$compareKey]);
-                        $possibleScores[$testName] += $this->calculateScore($expected[$compareKey]);
+                        $possibleScores[$parserName][$testName] += $this->calculateScore($expected[$compareKey], $data['parsed'][$compareKey], true);
                     }
 
                     if (!empty($failures)) {
@@ -197,7 +197,7 @@ class Analyze extends Command
                     $passFail['platform']['pass'] . '/' . array_sum($passFail['platform']) . ' ' . round($passFail['platform']['pass'] / array_sum($passFail['platform']) * 100, 2) . '%',
                     $passFail['device']['pass'] . '/' . array_sum($passFail['device']) . ' ' . round($passFail['device']['pass'] / array_sum($passFail['device']) * 100, 2) . '%',
                     round($testResult['parse_time'] + $testResult['init_time'], 3) . 's',
-                    $parserScores[$parserName][$testName] . '/' . $possibleScores[$testName] . ' ' . round($parserScores[$parserName][$testName] / $possibleScores[$testName] * 100, 2) . '%',
+                    $parserScores[$parserName][$testName] . '/' . $possibleScores[$parserName][$testName] . ' ' . round($parserScores[$parserName][$testName] / $possibleScores[$parserName][$testName] * 100, 2) . '%',
                 ];
 
                 if (!isset($totals[$parserName])) {
@@ -218,8 +218,10 @@ class Analyze extends Command
                 $totals[$parserName]['device']['fail'] += $passFail['device']['fail'];
                 $totals[$parserName]['time'] += ($testResult['parse_time'] + $testResult['init_time']);
                 $totals[$parserName]['score']['earned'] += $parserScores[$parserName][$testName];
-                $totals[$parserName]['score']['possible'] += $possibleScores[$testName];
+                $totals[$parserName]['score']['possible'] += $possibleScores[$parserName][$testName];
             }
+
+            $rows[] = new TableSeparator();
         }
 
         if (count($this->options['tests']) > 1) {
@@ -620,29 +622,26 @@ class Analyze extends Command
             $diff = array_diff_assoc($expected, $actual);
 
             foreach ($diff as $field => $value) {
-                // Disable if to show all, not just mis-matched
-                //if (!empty($actual[$field]) && !empty($value)) {
-                    // We can only compare the fields that aren't null in either expected or actual
-                    // to be "fair" to parsers that don't have all of the data (or have too much if the test
-                    // suite doesn't contain the properties that a parser may)
-                    if ($actual[$field] !== null && $expected[$field] !== null) {
-                        $result[$field] = ['expected' => $value, 'actual' => $actual[$field]];
-                    }
-                //}
+                // We can only compare the fields that aren't null in either expected or actual
+                // to be "fair" to parsers that don't have all of the data (or have too much if the test
+                // suite doesn't contain the properties that a parser may)
+                if ($actual[$field] !== null && $expected[$field] !== null) {
+                    $result[$field] = ['expected' => $value, 'actual' => $actual[$field]];
+                }
             }
         }
 
         return $result;
     }
 
-    protected function calculateScore($expected, $actual = null)
+    protected function calculateScore($expected, $actual, $possible = false)
     {
         $score = 0;
 
         foreach ($expected as $field => $value) {
             if ($value !== null) {
                 // this happens if our possible score calculation is called
-                if ($actual === null) {
+                if ($possible === true && $actual[$field] !== null) {
                     $score++;
                 } elseif ($value == $actual[$field]) {
                     $score++;
