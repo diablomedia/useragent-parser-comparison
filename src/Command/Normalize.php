@@ -41,79 +41,85 @@ class Normalize extends Command
 
         if (file_exists($this->runDir . '/' . $run . '/metadata.json')) {
             $this->options = json_decode(file_get_contents($this->runDir . '/' . $run . '/metadata.json'), true);
+        } else {
+            $this->options = ['tests' => [], 'parsers' => []];
         }
 
-        if (!file_exists($this->runDir . '/' . $run . '/expected/normalized')) {
-            mkdir($this->runDir . '/' . $run . '/expected/normalized');
-        }
-
-        // Process the test files (expected data)
-        foreach (new \FilesystemIterator($this->runDir . '/' . $run . '/expected') as $testFile) {
-            if ($testFile->isDir()) {
-                continue;
+        if (!empty($this->options['tests'])) {
+            if (!file_exists($this->runDir . '/' . $run . '/expected/normalized')) {
+                mkdir($this->runDir . '/' . $run . '/expected/normalized');
             }
 
-            $output->write('Processing output from the ' . $testFile->getFilename() . ' test suite... ');
-
-            $data       = json_decode(file_get_contents($testFile->getPathname()), true);
-            $normalized = [];
-
-            $dataSource = null;
-
-            $testName = str_replace('.json', '', $testFile->getFilename());
-            if (isset($this->options['tests'][$testName]['metadata']['data_source'])) {
-                $dataSource = $this->options['tests'][$testName]['metadata']['data_source'];
-            }
-
-            foreach ($data as $ua => $parsed) {
-                $normalized[$ua] = $this->normalize($parsed, $dataSource);
-            }
-
-            // Write normalized to file
-            file_put_contents($this->runDir . '/' . $run . '/expected/normalized/' . $testFile->getFilename(), json_encode($normalized));
-
-            $output->writeln('<info> done!</info>');
-        }
-
-        // Process the parser runs
-        foreach (new \FilesystemIterator($this->runDir . '/' . $run . '/results') as $resultDir) {
-            $parserName = $resultDir->getFilename();
-
-            $output->writeln('Processing results from the ' . $parserName . ' parser');
-
-            if (!file_exists($this->runDir . '/' . $run . '/results/' . $parserName . '/normalized')) {
-                mkdir($this->runDir . '/' . $run . '/results/' . $parserName . '/normalized');
-            }
-
-            foreach (new \FilesystemIterator($resultDir) as $resultFile) {
-                if ($resultFile->isDir()) {
+            // Process the test files (expected data)
+            foreach (new \FilesystemIterator($this->runDir . '/' . $run . '/expected') as $testFile) {
+                if ($testFile->isDir()) {
                     continue;
                 }
 
-                $testName = str_replace('.json', '', $resultFile->getFilename());
+                $output->write('Processing output from the ' . $testFile->getFilename() . ' test suite... ');
 
-                $output->write("\t" . 'Processing results from the ' . $testName . ' test suite... ');
-
-                $data       = json_decode(file_get_contents($resultFile->getPathname()), true);
+                $data       = json_decode(file_get_contents($testFile->getPathname()), true);
                 $normalized = [];
 
                 $dataSource = null;
 
-                if (isset($this->options['parsers'][$parserName]['metadata']['data_source'])) {
-                    $dataSource = $this->options['parsers'][$parserName]['metadata']['data_source'];
+                $testName = str_replace('.json', '', $testFile->getFilename());
+                if (isset($this->options['tests'][$testName]['metadata']['data_source'])) {
+                    $dataSource = $this->options['tests'][$testName]['metadata']['data_source'];
                 }
 
-                foreach ($data['results'] as $result) {
-                    $result['parsed'] = $this->normalize($result['parsed'], $dataSource);
-                    $normalized[]     = $result;
+                foreach ($data as $ua => $parsed) {
+                    $normalized[$ua] = $this->normalize($parsed, $dataSource);
                 }
-
-                $data['results'] = $normalized;
 
                 // Write normalized to file
-                file_put_contents($this->runDir . '/' . $run . '/results/' . $parserName . '/normalized/' . $resultFile->getFilename(), json_encode($data));
+                file_put_contents($this->runDir . '/' . $run . '/expected/normalized/' . $testFile->getFilename(), json_encode($normalized));
 
                 $output->writeln('<info> done!</info>');
+            }
+        }
+
+        if (!empty($this->options['parsers'])) {
+            // Process the parser runs
+            foreach (new \FilesystemIterator($this->runDir . '/' . $run . '/results') as $resultDir) {
+                $parserName = $resultDir->getFilename();
+
+                $output->writeln('Processing results from the ' . $parserName . ' parser');
+
+                if (!file_exists($this->runDir . '/' . $run . '/results/' . $parserName . '/normalized')) {
+                    mkdir($this->runDir . '/' . $run . '/results/' . $parserName . '/normalized');
+                }
+
+                foreach (new \FilesystemIterator($resultDir) as $resultFile) {
+                    if ($resultFile->isDir()) {
+                        continue;
+                    }
+
+                    $testName = str_replace('.json', '', $resultFile->getFilename());
+
+                    $output->write("\t" . 'Processing results from the ' . $testName . ' test suite... ');
+
+                    $data       = json_decode(file_get_contents($resultFile->getPathname()), true);
+                    $normalized = [];
+
+                    $dataSource = null;
+
+                    if (isset($this->options['parsers'][$parserName]['metadata']['data_source'])) {
+                        $dataSource = $this->options['parsers'][$parserName]['metadata']['data_source'];
+                    }
+
+                    foreach ($data['results'] as $result) {
+                        $result['parsed'] = $this->normalize($result['parsed'], $dataSource);
+                        $normalized[]     = $result;
+                    }
+
+                    $data['results'] = $normalized;
+
+                    // Write normalized to file
+                    file_put_contents($this->runDir . '/' . $run . '/results/' . $parserName . '/normalized/' . $resultFile->getFilename(), json_encode($data));
+
+                    $output->writeln('<info> done!</info>');
+                }
             }
         }
 

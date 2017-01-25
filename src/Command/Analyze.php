@@ -58,7 +58,14 @@ class Analyze extends Command
 
         $output->writeln('<info>Analyzing data from test run: ' . $run . '</info>');
 
-        $tests = $this->options['tests'];
+        if (!empty($this->options['tests'])) {
+            $tests = $this->options['tests'];
+        } else {
+            $tests = [
+                $this->options['file'] => [],
+            ];
+            $this->options['tests'] = $tests;
+        }
 
         $this->summaryTable = new Table($output);
         $this->summaryTable->setHeaders(['Parser', 'Browser Results', 'Platform Results', 'Device Results', 'Time Taken', 'Accuracy Score']);
@@ -68,10 +75,28 @@ class Analyze extends Command
         foreach ($tests as $testName => $testData) {
             $this->comparison[$testName] = [];
 
-            $rows[] = [new TableCell('<fg=yellow>Parser comparison for ' . $testName . ' test suite</>', ['colspan' => 6])];
-            $rows[] = new TableSeparator();
+            $expectedFilename = $this->runDir . '/' . $run . '/expected/normalized/' . $testName . '.json';
 
-            $expectedResults = json_decode(file_get_contents($this->runDir . '/' . $run . '/expected/normalized/' . $testName . '.json'), true);
+            if (file_exists($expectedFilename)) {
+                $expectedResults = json_decode(file_get_contents($expectedFilename), true);
+                $headerMessage   = '<fg=yellow>Parser comparison for ' . $testName . ' test suite</>';
+            } else {
+                // When we aren't comparing to a test suite, the first parser's results become the expected results
+                $expectedResults = [];
+                $testResult      = json_decode(
+                    file_get_contents($this->runDir . '/' . $run . '/results/' . array_keys($this->options['parsers'])[0] . '/normalized/' . $testName . '.json'),
+                    true
+                );
+
+                foreach ($testResult['results'] as $data) {
+                    $expectedResults[$data['useragent']] = $data['parsed'];
+                }
+
+                $headerMessage = '<fg=yellow>Parser comparison for ' . $testName . ' file, using ' . array_keys($this->options['parsers'])[0] . ' results as expected</>';
+            }
+
+            $rows[] = [new TableCell($headerMessage, ['colspan' => 6])];
+            $rows[] = new TableSeparator();
 
             foreach ($expectedResults as $agent => $result) {
                 if (!isset($this->agents[$agent])) {
@@ -115,7 +140,10 @@ class Analyze extends Command
             }
 
             foreach ($this->options['parsers'] as $parserName => $parserData) {
-                $testResult = json_decode(file_get_contents($this->runDir . '/' . $run . '/results/' . $parserName . '/normalized/' . $testName . '.json'), true);
+                $testResult = json_decode(
+                    file_get_contents($this->runDir . '/' . $run . '/results/' . $parserName . '/normalized/' . $testName . '.json'),
+                    true
+                );
 
                 $passFail = [
                     'browser'  => ['pass' => 0, 'fail' => 0],
@@ -123,7 +151,7 @@ class Analyze extends Command
                     'device'   => ['pass' => 0, 'fail' => 0],
                 ];
 
-                $parserScores[$parserName][$testName] = 0;
+                $parserScores[$parserName][$testName]   = 0;
                 $possibleScores[$parserName][$testName] = 0;
 
                 foreach ($testResult['results'] as $data) {
@@ -237,7 +265,11 @@ class Analyze extends Command
                     $total['score']['earned'] . '/' . $total['score']['possible'] . ' ' . round($total['score']['earned'] / $total['score']['possible'] * 100, 2) . '%',
                 ];
             }
+
+            $rows[] = new TableSeparator();
         }
+
+        array_pop($rows);
 
         $this->summaryTable->setRows($rows);
         $this->showSummary();

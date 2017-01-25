@@ -7,6 +7,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Input\InputArgument;
 
 class Compare extends Command
 {
@@ -14,27 +15,47 @@ class Compare extends Command
     {
         $this->setName('compare')
             ->setDescription('Runs tests, normalizes the results then analyzes the results')
+            ->addArgument('file', InputArgument::OPTIONAL, 'Path to a file to use as the source of useragents rather than test suites')
             ->setHelp('This command is a "meta" command that will execute the Test, Normalize and Analyze commands in order');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $command = $this->getApplication()->find('test');
+        $file       = $input->getArgument('file');
 
-        $name = date('YmdHis');
+        if ($file) {
+            $command    = $this->getApplication()->find('parse');
+            $name       = date('YmdHis');
+            $parseInput = new ArrayInput([
+                'command'     => 'parse',
+                'file'        => $file,
+                '--name'      => $name,
+                '--no-output' => true,
+            ]);
+            $returnCode = $command->run($parseInput, $output);
 
-        $arguments = [
-            'command' => 'test',
-            'name'    => $name,
-        ];
+            if ($returnCode > 0) {
+                $output->writeln('<error>There was an error executing the "parse" command, cannot continue.</error>');
 
-        $testInput  = new ArrayInput($arguments);
-        $returnCode = $command->run($testInput, $output);
+                return;
+            }
+        } else {
+            $command = $this->getApplication()->find('test');
+            $name    = date('YmdHis');
 
-        if ($returnCode > 0) {
-            $output->writeln('<error>There was an error executing the "test" command, cannot continue.</error>');
+            $arguments = [
+                'command' => 'test',
+                'name'    => $name,
+            ];
 
-            return;
+            $testInput  = new ArrayInput($arguments);
+            $returnCode = $command->run($testInput, $output);
+
+            if ($returnCode > 0) {
+                $output->writeln('<error>There was an error executing the "test" command, cannot continue.</error>');
+
+                return;
+            }
         }
 
         $command   = $this->getApplication()->find('normalize');
