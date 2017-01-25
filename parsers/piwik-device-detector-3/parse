@@ -43,9 +43,9 @@ foreach ($agents as $agentString) {
                 'version' => isset($osInfo['version']) ? $osInfo['version'] : '',
             ],
             'device' => [
-                'name'     => isset($dd->getModel()) ? $dd->getModel() : '',
-                'brand'    => isset($dd->getBrandName()) ? $dd->getBrandName() : '',
-                'type'     => isset($dd->getDeviceName()) ? $dd->getDeviceName() : '',
+                'name'     => $dd->getModel() !== null ? $dd->getModel() : '',
+                'brand'    => $dd->getBrandName() !== null ? $dd->getBrandName() : '',
+                'type'     => $dd->getDeviceName() !== null ? $dd->getDeviceName() : '',
                 'ismobile' => $dd->isMobile() ? 'true' : 'false',
             ],
         ],
