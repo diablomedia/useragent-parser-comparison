@@ -4,6 +4,15 @@
 ini_set('memory_limit', -1);
 ini_set('max_execution_time', -1);
 
+$benchmarkPos = array_search('--benchmark', $argv);
+$benchmark = false;
+
+if ($benchmarkPos !== false) {
+    $benchmark = true;
+    unset($argv[$benchmarkPos]);
+    $argv = array_values($argv);
+}
+
 $agentListFile = $argv[1];
 
 $results   = [];
@@ -26,26 +35,31 @@ while (!$file->eof()) {
         $r     = $parser->parse($agentString);
         $end   = microtime(true) - $start;
 
-        $results[] = [
-            'useragent' => $agentString,
-            'parsed'    => [
-                'browser' => [
-                    'name'    => $r->ua->family,
-                    'version' => $r->ua->toVersion(),
+        $browserVersion = $r->ua->toVersion();
+        $platformVersion = $r->ua->toVersion();
+
+        if (!$benchmark) {
+            $results[] = [
+                'useragent' => $agentString,
+                'parsed'    => [
+                    'browser' => [
+                        'name'    => $r->ua->family,
+                        'version' => $browserVersion,
+                    ],
+                    'platform' => [
+                        'name'    => $r->os->family,
+                        'version' => $platformVersion,
+                    ],
+                    'device' => [
+                        'name'     => $r->device->model === null ? '' : $r->device->model,
+                        'brand'    => $r->device->brand === null ? '' : $r->device->brand,
+                        'type'     => null,
+                        'ismobile' => null,
+                    ],
                 ],
-                'platform' => [
-                    'name'    => $r->os->family,
-                    'version' => $r->os->toVersion(),
-                ],
-                'device' => [
-                    'name'     => $r->device->model === null ? '' : $r->device->model,
-                    'brand'    => $r->device->brand === null ? '' : $r->device->brand,
-                    'type'     => null,
-                    'ismobile' => null,
-                ],
-            ],
-            'time' => $end,
-        ];
+                'time' => $end,
+            ];
+        }
 
         $parseTime += $end;
     }

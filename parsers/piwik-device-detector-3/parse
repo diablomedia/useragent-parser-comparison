@@ -4,6 +4,15 @@
 ini_set('memory_limit', -1);
 ini_set('max_execution_time', -1);
 
+$benchmarkPos = array_search('--benchmark', $argv);
+$benchmark = false;
+
+if ($benchmarkPos !== false) {
+    $benchmark = true;
+    unset($argv[$benchmarkPos]);
+    $argv = array_values($argv);
+}
+
 $agentListFile = $argv[1];
 
 $results   = [];
@@ -34,27 +43,33 @@ while (!$file->eof()) {
 
         $clientInfo = $dd->getClient();
         $osInfo     = $dd->getOs();
+        $model = $dd->getModel();
+        $brand = $dd->getBrandName();
+        $device = $dd->getDeviceName();
+        $isMobile = $dd->isMobile();
 
-        $results[] = [
-            'useragent' => $agentString,
-            'parsed'    => [
-                'browser' => [
-                    'name'    => isset($clientInfo['name']) ? $clientInfo['name'] : '',
-                    'version' => isset($clientInfo['version']) ? $clientInfo['version'] : '',
+        if (!$benchmark) {
+            $results[] = [
+                'useragent' => $agentString,
+                'parsed'    => [
+                    'browser' => [
+                        'name'    => isset($clientInfo['name']) ? $clientInfo['name'] : '',
+                        'version' => isset($clientInfo['version']) ? $clientInfo['version'] : '',
+                    ],
+                    'platform' => [
+                        'name'    => isset($osInfo['name']) ? $osInfo['name'] : '',
+                        'version' => isset($osInfo['version']) ? $osInfo['version'] : '',
+                    ],
+                    'device' => [
+                        'name'     => $model !== null ? $model : '',
+                        'brand'    => $brand !== null ? $brand : '',
+                        'type'     => $device !== null ? $device : '',
+                        'ismobile' => $isMobile ? 'true' : 'false',
+                    ],
                 ],
-                'platform' => [
-                    'name'    => isset($osInfo['name']) ? $osInfo['name'] : '',
-                    'version' => isset($osInfo['version']) ? $osInfo['version'] : '',
-                ],
-                'device' => [
-                    'name'     => $dd->getModel() !== null ? $dd->getModel() : '',
-                    'brand'    => $dd->getBrandName() !== null ? $dd->getBrandName() : '',
-                    'type'     => $dd->getDeviceName() !== null ? $dd->getDeviceName() : '',
-                    'ismobile' => $dd->isMobile() ? 'true' : 'false',
-                ],
-            ],
-            'time' => $end,
-        ];
+                'time' => $end,
+            ];
+        }
 
         $parseTime += $end;
     }

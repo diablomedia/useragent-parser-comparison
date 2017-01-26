@@ -31,8 +31,14 @@ class Parsers extends Helper
             $this->parsers[$parserDir->getFilename()] = [
                 'path'     => $parserDir->getPathName(),
                 'metadata' => $metadata,
-                'parse'    => function ($file) use ($parserDir) {
-                    $result = trim(shell_exec($parserDir->getPathName() . '/parse "' . $file . '"'));
+                'parse'    => function ($file, $benchmark = false) use ($parserDir) {
+                    $args = [
+                        escapeshellarg($file)
+                    ];
+                    if ($benchmark === true) {
+                        $args[] = '--benchmark';
+                    }
+                    $result = trim(shell_exec($parserDir->getPathName() . '/parse ' . implode(' ', $args)));
 
                     $result = json_decode($result, true);
 

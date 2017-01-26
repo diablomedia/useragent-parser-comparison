@@ -4,6 +4,15 @@
 ini_set('memory_limit', -1);
 ini_set('max_execution_time', -1);
 
+$benchmarkPos = array_search('--benchmark', $argv);
+$benchmark = false;
+
+if ($benchmarkPos !== false) {
+    $benchmark = true;
+    unset($argv[$benchmarkPos]);
+    $argv = array_values($argv);
+}
+
 $agentListFile = $argv[1];
 
 $results   = [];
@@ -29,26 +38,28 @@ while (!$file->eof()) {
         $r     = $browscap->getBrowser($agentString);
         $end   = microtime(true) - $start;
 
-        $results[] = [
-            'useragent' => $agentString,
-            'parsed'    => [
-                'browser' => [
-                    'name'    => $r->browser,
-                    'version' => $r->version,
+        if (!$benchmark) {
+            $results[] = [
+                'useragent' => $agentString,
+                'parsed'    => [
+                    'browser' => [
+                        'name'    => $r->browser,
+                        'version' => $r->version,
+                    ],
+                    'platform' => [
+                        'name'    => $r->platform,
+                        'version' => $r->platform_version,
+                    ],
+                    'device' => [
+                        'name'     => $r->device_name,
+                        'brand'    => $r->device_maker,
+                        'type'     => $r->device_type,
+                        'ismobile' => $r->ismobiledevice ? 'true' : 'false',
+                    ],
                 ],
-                'platform' => [
-                    'name'    => $r->platform,
-                    'version' => $r->platform_version,
-                ],
-                'device' => [
-                    'name'     => $r->device_name,
-                    'brand'    => $r->device_maker,
-                    'type'     => $r->device_type,
-                    'ismobile' => $r->ismobiledevice ? 'true' : 'false',
-                ],
-            ],
-            'time' => $end,
-        ];
+                'time' => $end,
+            ];
+        }
 
         $parseTime += $end;
     }

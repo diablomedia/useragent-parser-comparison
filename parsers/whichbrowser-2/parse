@@ -4,6 +4,15 @@
 ini_set('memory_limit', -1);
 ini_set('max_execution_time', -1);
 
+$benchmarkPos = array_search('--benchmark', $argv);
+$benchmark = false;
+
+if ($benchmarkPos !== false) {
+    $benchmark = true;
+    unset($argv[$benchmarkPos]);
+    $argv = array_values($argv);
+}
+
 $agentListFile = $argv[1];
 
 $results   = [];
@@ -25,26 +34,30 @@ while (!$file->eof()) {
         $r     = new WhichBrowser\Parser($agentString);
         $end   = microtime(true) - $start;
 
-        $results[] = [
-            'useragent' => $agentString,
-            'parsed'    => [
-                'browser' => [
-                    'name'    => $r->browser->name !== null ? $r->browser->name : '',
-                    'version' => $r->browser->version !== null ? $r->browser->version->value : '',
+        $isMobile = $r->isMobile();
+
+        if (!$benchmark) {
+            $results[] = [
+                'useragent' => $agentString,
+                'parsed'    => [
+                    'browser' => [
+                        'name'    => !empty($r->browser->name) ? $r->browser->name : '',
+                        'version' => !empty($r->browser->version) ? $r->browser->version->value : '',
+                    ],
+                    'platform' => [
+                        'name'    => !empty($r->os->name) ? $r->os->name : '',
+                        'version' => !empty($r->os->version->value) ? $r->os->version->value : '',
+                    ],
+                    'device' => [
+                        'name'     => !empty($r->device->model) ? $r->device->model : '',
+                        'brand'    => !empty($r->device->manufacturer) ? $r->device->manufacturer : '',
+                        'type'     => !empty($r->device->type) ? $r->device->type : '',
+                        'ismobile' => $isMobile ? 'true' : 'false',
+                    ],
                 ],
-                'platform' => [
-                    'name'    => $r->os->name !== null ? $r->os->name : '',
-                    'version' => $r->os->version !== null ? $r->os->version->value : '',
-                ],
-                'device' => [
-                    'name'     => $r->device->model !== null ? $r->device->model : '',
-                    'brand'    => $r->device->manufacturer !== null ? $r->device->manufacturer : '',
-                    'type'     => $r->device->type !== null ? $r->device->type : '',
-                    'ismobile' => $r->isMobile() ? 'true' : 'false',
-                ],
-            ],
-            'time' => $end,
-        ];
+                'time' => $end,
+            ];
+        }
 
         $parseTime += $end;
     }

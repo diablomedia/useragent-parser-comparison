@@ -12,16 +12,16 @@ The CLI is written in PHP (using the Symfony Console component), but the parsers
 
 Parser                  | Browser Results    | Platform Results   | Device Results     | Time Taken | Accuracy Score
 -----|-----|-----|-----|-----|-----
-browscap-js-1           | 36922/46375 79.62% | 43999/46375 94.88% | 23092/46375 49.79% | 1403.217s  | 118963/181899 65.4%
-browscap-php-2          | 36983/46375 79.75% | 44008/46375 94.9%  | 23092/46375 49.79% | 3211.344s  | 119146/181899 65.5%
-browscap-php-3          | 36923/46375 79.62% | 43998/46375 94.87% | 23092/46375 49.79% | 996.962s   | 118962/181899 65.4%
-crossjoin-1             | 36926/46375 79.62% | 43998/46375 94.87% | 23093/46375 49.8%  | 1037.01s   | 118966/181899 65.4%
-crossjoin-2             | 36844/46375 79.45% | 44006/46375 94.89% | 22921/46375 49.43% | 2549.295s  | 118478/181899 65.13%
-crossjoin-3             | 36844/46375 79.45% | 44006/46375 94.89% | 22921/46375 49.43% | 2139.953s  | 118478/181899 65.13%
-piwik-device-detector-3 | 38840/46375 83.75% | 42910/46375 92.53% | 32771/46375 70.67% | 438.676s   | 146516/181899 80.55%
-ua-parser-php-3         | 38974/46375 84.04% | 42279/46375 91.17% | 35776/46375 77.15% | 212.557s   | 121488/150929 80.49%
-whichbrowser-2          | 39789/46375 85.8%  | 44668/46375 96.32% | 29832/46375 64.33% | 202.637s   | 150334/181896 82.65%
-woothee-php-1           | 31620/46375 68.18% | 42251/46375 91.11% | 39695/46375 85.6%  | 6.266s     | 70444/109753 64.18%
+browscap-js-1           | 36921/46373 79.62% | 43997/46373 94.88% | 23090/46373 49.79% | 1322.472s  | 118957/181892 65.4%
+browscap-php-2          | 36982/46373 79.75% | 44006/46373 94.9%  | 23090/46373 49.79% | 3169.136s  | 119140/181892 65.5%
+browscap-php-3          | 36922/46373 79.62% | 43996/46373 94.87% | 23090/46373 49.79% | 1333.877s  | 118956/181892 65.4%
+crossjoin-1             | 36925/46373 79.63% | 43996/46373 94.87% | 23091/46373 49.79% | 852.296s   | 118960/181892 65.4%
+crossjoin-2             | 36843/46373 79.45% | 44004/46373 94.89% | 22919/46373 49.42% | 2535.817s  | 118472/181892 65.13%
+crossjoin-3             | 36843/46373 79.45% | 44004/46373 94.89% | 22919/46373 49.42% | 2315.641s  | 118472/181892 65.13%
+piwik-device-detector-3 | 38838/46373 83.75% | 42908/46373 92.53% | 32769/46373 70.66% | 554.5s     | 146509/181892 80.55%
+ua-parser-php-3         | 38972/46373 84.04% | 42277/46373 91.17% | 35774/46373 77.14% | 205.324s   | 121481/150922 80.49%
+whichbrowser-2          | 39787/46373 85.8%  | 44663/46373 96.31% | 29827/46373 64.32% | 202.334s   | 150324/181892 82.64%
+woothee-php-1           | 31618/46373 68.18% | 42249/46373 91.11% | 39693/46373 85.6%  | 7.985s     | 70437/109746 64.18%
 
 ## Latest Benchmark Results (files/ua-list-all.txt, 437 useragents)
 
@@ -86,8 +86,6 @@ To account for parsers (and test suites) that don't contain certain pieces of da
 
 The benchmark command doesn't do anything special other than run a parser against a list of useragents a specified number of times. The timing information is collected by the script that runs the parser.  This includes an "initialization time" cost and the actual "parse time" for each useragent parsed. Any other costs that the runner script imposes isn't included in these times (like opening and parsing the text file that contains the useragents).
 
-However, the memory usage does (currently) include the cost of building an array that is output (mainly for the comparisons). This should be able to be removed easily (at least for the benchmarking command). It's still useful as a relative comparison, but total memory used will grow as the size of the useragent list grows (for every parser). It is not known yet if other languages provide a similar and comparable metric.
-
 ## The Parsers
 
 The parsers can be any useragent parser from any language (web API based parsers are possible, though rate limits and network traffic should be considered for some of the larger test suites). All this application needs from a parser is an executable script named "parse" that accepts a filename as the first parameter (which contains the useragents to parse, one on each line of the file) and returns the parsed data in the following JSON format:
@@ -96,9 +94,22 @@ The parsers can be any useragent parser from any language (web API based parsers
 {
     "results": [
         {
-            "user_agent": "Mozilla 5.0",
+            "useragent": "Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405",
             "parsed": {
-                // The expected fields (not-normalized)
+                "browser": {
+                    "name": "Mobile Safari UIWebView",
+                    "version": "0.0"
+                },
+                "platform": {
+                    "name": "iOS",
+                    "version": "unknown"
+                },
+                "device": {
+                    "name": "iPad",
+                    "brand": "Apple Inc",
+                    "type": "Tablet",
+                    "ismobile": "true"
+                }
             },
             "time": 0.003
         }
@@ -128,8 +139,21 @@ Like the parsers, there is no language requirement for a test suite to be includ
 
 ```json
 {
-    "Mozilla 5.0": {
-        // The expected fields (not normalized, should match the parser output)
+    "Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405": {
+        "browser": {
+            "name": "Mobile Safari UIWebView",
+            "version": "0.0"
+        },
+        "platform": {
+            "name": "iOS",
+            "version": "unknown"
+        },
+        "device": {
+            "name": "iPad",
+            "brand": "Apple Inc",
+            "type": "Tablet",
+            "ismobile": "true"
+        }
     }
 }
 ```

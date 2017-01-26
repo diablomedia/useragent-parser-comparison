@@ -46,7 +46,7 @@ class Benchmark extends Command
             $progress->start();
 
             for ($i = 0; $i < $iterations; $i++) {
-                $result = $parser['parse']($file);
+                $result = $parser['parse']($file, true);
 
                 $initTime += $result['init_time'];
                 $parseTime += $result['parse_time'];
