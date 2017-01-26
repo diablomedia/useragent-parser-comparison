@@ -79,26 +79,28 @@ foreach ($iterator as $fixture) {
 }
 
 foreach ($uas as $ua => $data) {
-    $data = $data['result'];
+    if (!empty($ua)) {
+        $data = $data['result'];
 
-    $expected = [
-        'browser' => [
-            'name'    => $data['browser']['name'],
-            'version' => is_array($data['browser']['version']) ? $data['browser']['version']['value'] : $data['browser']['version'],
-        ],
-        'platform' => [
-            'name'    => $data['os']['name'],
-            'version' => is_array($data['os']['version']) ? $data['os']['version']['value'] : $data['os']['version'],
-        ],
-        'device' => [
-            'name'     => $data['device']['model'],
-            'brand'    => $data['device']['manufacturer'],
-            'type'     => $data['device']['type'],
-            'ismobile' => isMobile($data) ? 'true' : 'false',
-        ]
-    ];
+        $expected = [
+            'browser' => [
+                'name'    => $data['browser']['name'],
+                'version' => is_array($data['browser']['version']) ? $data['browser']['version']['value'] : $data['browser']['version'],
+            ],
+            'platform' => [
+                'name'    => $data['os']['name'],
+                'version' => is_array($data['os']['version']) ? $data['os']['version']['value'] : $data['os']['version'],
+            ],
+            'device' => [
+                'name'     => $data['device']['model'],
+                'brand'    => $data['device']['manufacturer'],
+                'type'     => $data['device']['type'],
+                'ismobile' => isMobile($data) ? 'true' : 'false',
+            ]
+        ];
 
-    $tests[$ua] = $expected;
+        $tests[$ua] = $expected;
+    }
 }
 
 print json_encode($tests);

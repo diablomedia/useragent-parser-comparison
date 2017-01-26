@@ -8,24 +8,26 @@ foreach (new FilesystemIterator(__DIR__ . '/vendor/browscap/browscap/tests/fixtu
 
     foreach ($provider as $testName => $data) {
         $ua       = $data['ua'];
-        $expected = [
-            'browser' => [
-                'name'    => $data['properties']['Browser'],
-                'version' => $data['properties']['Version'],
-            ],
-            'platform' => [
-                'name'    => $data['properties']['Platform'],
-                'version' => $data['properties']['Platform_Version'],
-            ],
-            'device' => [
-                'name'     => $data['properties']['Device_Name'],
-                'brand'    => $data['properties']['Device_Maker'],
-                'type'     => $data['properties']['Device_Type'],
-                'ismobile' => $data['properties']['isMobileDevice'] ? 'true' : 'false',
-            ]
-        ];
+        if (!empty($ua)) {
+            $expected = [
+                'browser' => [
+                    'name'    => $data['properties']['Browser'],
+                    'version' => $data['properties']['Version'],
+                ],
+                'platform' => [
+                    'name'    => $data['properties']['Platform'],
+                    'version' => $data['properties']['Platform_Version'],
+                ],
+                'device' => [
+                    'name'     => $data['properties']['Device_Name'],
+                    'brand'    => $data['properties']['Device_Maker'],
+                    'type'     => $data['properties']['Device_Type'],
+                    'ismobile' => $data['properties']['isMobileDevice'] ? 'true' : 'false',
+                ]
+            ];
 
-        $tests[$ua] = $expected;
+            $tests[$ua] = $expected;
+        }
     }
 }
 

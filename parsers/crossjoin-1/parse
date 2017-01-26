@@ -6,8 +6,6 @@ ini_set('max_execution_time', -1);
 
 $agentListFile = $argv[1];
 
-$agents = file($agentListFile, FILE_IGNORE_NEW_LINES);
-
 $results   = [];
 $parseTime = 0;
 
@@ -22,33 +20,40 @@ $browscap = new \Crossjoin\Browscap\Browscap();
 $browscap->getBrowser('Test String');
 $initTime = microtime(true) - $start;
 
-foreach ($agents as $agentString) {
-    $start = microtime(true);
-    $r     = $browscap->getBrowser($agentString)->getData();
-    $end   = microtime(true) - $start;
+$file = new SplFileObject($agentListFile);
+$file->setFlags(SplFileObject::DROP_NEW_LINE);
 
-    $results[] = [
-        'useragent' => $agentString,
-        'parsed'    => [
-            'browser' => [
-                'name'    => $r->browser,
-                'version' => $r->version,
-            ],
-            'platform' => [
-                'name'    => $r->platform,
-                'version' => $r->platform_version,
-            ],
-            'device' => [
-                'name'     => $r->device_name,
-                'brand'    => $r->device_maker,
-                'type'     => $r->device_type,
-                'ismobile' => $r->ismobiledevice,
-            ],
-        ],
-        'time' => $end,
-    ];
+while (!$file->eof()) {
+    $agentString = $file->fgets();
 
-    $parseTime += $end;
+    if (!empty($agentString)) {
+        $start = microtime(true);
+        $r     = $browscap->getBrowser($agentString)->getData();
+        $end   = microtime(true) - $start;
+
+        $results[] = [
+            'useragent' => $agentString,
+            'parsed'    => [
+                'browser' => [
+                    'name'    => $r->browser,
+                    'version' => $r->version,
+                ],
+                'platform' => [
+                    'name'    => $r->platform,
+                    'version' => $r->platform_version,
+                ],
+                'device' => [
+                    'name'     => $r->device_name,
+                    'brand'    => $r->device_maker,
+                    'type'     => $r->device_type,
+                    'ismobile' => $r->ismobiledevice,
+                ],
+            ],
+            'time' => $end,
+        ];
+
+        $parseTime += $end;
+    }
 }
 
 print json_encode([

@@ -67,6 +67,11 @@ class Parse extends Command
             $output->write("\t" . 'Testing against the ' . $parserName . ' parser... ');
             $result = $parser['parse']($file);
 
+            if (empty($result)) {
+                $output->writeln('<error>The ' . $parserName . ' parser did not return any data, there may have been an error</error>');
+                continue;
+            }
+
             if ($name) {
                 mkdir($this->runDir . '/' . $name . '/results/' . $parserName);
                 file_put_contents($this->runDir . '/' . $name . '/results/' . $parserName . '/' . basename($file) . '.json', json_encode($result));

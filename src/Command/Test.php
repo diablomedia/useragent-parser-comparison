@@ -106,6 +106,11 @@ class Test extends Command
 
             $testOutput = json_decode($testOutput, true);
 
+            if (json_last_error() !== JSON_ERROR_NONE || empty($testOutput)) {
+                $output->writeln('<error>There was an error with the output from the ' . $testName . ' test suite.</error>');
+                continue;
+            }
+
             // write our test's file that we'll pass to the parsers
             $filename = $testFilesDir . '/' . $testName . '.txt';
 

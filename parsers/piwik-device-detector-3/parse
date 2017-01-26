@@ -6,8 +6,6 @@ ini_set('max_execution_time', -1);
 
 $agentListFile = $argv[1];
 
-$agents = file($agentListFile, FILE_IGNORE_NEW_LINES);
-
 $results   = [];
 $parseTime = 0;
 
@@ -21,38 +19,45 @@ $dd->skipBotDetection();
 $dd->parse();
 $initTime = microtime(true) - $start;
 
-foreach ($agents as $agentString) {
-    $dd->setUserAgent($agentString);
+$file = new SplFileObject($agentListFile);
+$file->setFlags(SplFileObject::DROP_NEW_LINE);
 
-    $start = microtime(true);
-    $dd->parse();
-    $end = microtime(true) - $start;
+while (!$file->eof()) {
+    $agentString = $file->fgets();
 
-    $clientInfo = $dd->getClient();
-    $osInfo     = $dd->getOs();
+    if (!empty($agentString)) {
+        $dd->setUserAgent($agentString);
 
-    $results[] = [
-        'useragent' => $agentString,
-        'parsed'    => [
-            'browser' => [
-                'name'    => isset($clientInfo['name']) ? $clientInfo['name'] : '',
-                'version' => isset($clientInfo['version']) ? $clientInfo['version'] : '',
+        $start = microtime(true);
+        $dd->parse();
+        $end = microtime(true) - $start;
+
+        $clientInfo = $dd->getClient();
+        $osInfo     = $dd->getOs();
+
+        $results[] = [
+            'useragent' => $agentString,
+            'parsed'    => [
+                'browser' => [
+                    'name'    => isset($clientInfo['name']) ? $clientInfo['name'] : '',
+                    'version' => isset($clientInfo['version']) ? $clientInfo['version'] : '',
+                ],
+                'platform' => [
+                    'name'    => isset($osInfo['name']) ? $osInfo['name'] : '',
+                    'version' => isset($osInfo['version']) ? $osInfo['version'] : '',
+                ],
+                'device' => [
+                    'name'     => $dd->getModel() !== null ? $dd->getModel() : '',
+                    'brand'    => $dd->getBrandName() !== null ? $dd->getBrandName() : '',
+                    'type'     => $dd->getDeviceName() !== null ? $dd->getDeviceName() : '',
+                    'ismobile' => $dd->isMobile() ? 'true' : 'false',
+                ],
             ],
-            'platform' => [
-                'name'    => isset($osInfo['name']) ? $osInfo['name'] : '',
-                'version' => isset($osInfo['version']) ? $osInfo['version'] : '',
-            ],
-            'device' => [
-                'name'     => $dd->getModel() !== null ? $dd->getModel() : '',
-                'brand'    => $dd->getBrandName() !== null ? $dd->getBrandName() : '',
-                'type'     => $dd->getDeviceName() !== null ? $dd->getDeviceName() : '',
-                'ismobile' => $dd->isMobile() ? 'true' : 'false',
-            ],
-        ],
-        'time' => $end,
-    ];
+            'time' => $end,
+        ];
 
-    $parseTime += $end;
+        $parseTime += $end;
+    }
 }
 
 print json_encode([

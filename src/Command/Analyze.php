@@ -140,6 +140,11 @@ class Analyze extends Command
             }
 
             foreach ($this->options['parsers'] as $parserName => $parserData) {
+                if (!file_exists($this->runDir . '/' . $run . '/results/' . $parserName . '/normalized/' . $testName . '.json')) {
+                    $this->output->writeln('<error>No output found for the ' . $parserName . ' parser, skipping</error>');
+                    continue;
+                }
+
                 $testResult = json_decode(
                     file_get_contents($this->runDir . '/' . $run . '/results/' . $parserName . '/normalized/' . $testName . '.json'),
                     true

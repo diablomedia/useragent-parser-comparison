@@ -20,32 +20,34 @@ $file->setFlags(SplFileObject::DROP_NEW_LINE);
 while (!$file->eof()) {
     $agentString = $file->fgets();
 
-    $start = microtime(true);
-    $r     = new WhichBrowser\Parser($agentString);
-    $end   = microtime(true) - $start;
+    if (!empty($agentString)) {
+        $start = microtime(true);
+        $r     = new WhichBrowser\Parser($agentString);
+        $end   = microtime(true) - $start;
 
-    $results[] = [
-        'useragent' => $agentString,
-        'parsed'    => [
-            'browser' => [
-                'name'    => isset($r->browser->name) ? $r->browser->name : '',
-                'version' => isset($r->browser->version) ? $r->browser->version->value : '',
+        $results[] = [
+            'useragent' => $agentString,
+            'parsed'    => [
+                'browser' => [
+                    'name'    => $r->browser->name !== null ? $r->browser->name : '',
+                    'version' => $r->browser->version !== null ? $r->browser->version->value : '',
+                ],
+                'platform' => [
+                    'name'    => $r->os->name !== null ? $r->os->name : '',
+                    'version' => $r->os->version !== null ? $r->os->version->value : '',
+                ],
+                'device' => [
+                    'name'     => $r->device->model !== null ? $r->device->model : '',
+                    'brand'    => $r->device->manufacturer !== null ? $r->device->manufacturer : '',
+                    'type'     => $r->device->type !== null ? $r->device->type : '',
+                    'ismobile' => $r->isMobile() ? 'true' : 'false',
+                ],
             ],
-            'platform' => [
-                'name'    => isset($r->os->name) ? $r->os->name : '',
-                'version' => isset($r->os->version) ? $r->os->version->value : '',
-            ],
-            'device' => [
-                'name'     => isset($r->device->model) ? $r->device->model : '',
-                'brand'    => isset($r->device->manufacturer) ? $r->device->manufacturer : '',
-                'type'     => isset($r->device->type) ? $r->device->type : '',
-                'ismobile' => $r->isMobile() ? 'true' : 'false',
-            ],
-        ],
-        'time' => $end,
-    ];
+            'time' => $end,
+        ];
 
-    $parseTime += $end;
+        $parseTime += $end;
+    }
 }
 
 $file = null;

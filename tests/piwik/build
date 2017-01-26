@@ -75,25 +75,26 @@ foreach (new FilesystemIterator(__DIR__ . '/vendor/piwik/device-detector/Tests/f
         // If no client property, may be in bot file, which we're not parsing just yet
         if (isset($data['client'])) {
             $ua = $data['user_agent'];
+            if (!empty($ua)) {
+                $expected = [
+                    'browser' => [
+                        'name'    => $data['client']['name'],
+                        'version' => $data['client']['version'],
+                    ],
+                    'platform' => [
+                        'name'    => $data['os']['name'],
+                        'version' => $data['os']['version'],
+                    ],
+                    'device' => [
+                        'name'     => $data['device']['model'],
+                        'brand'    => DeviceParserAbstract::getFullName($data['device']['brand']),
+                        'type'     => $data['device']['type'],
+                        'ismobile' => isMobile($data) ? 'true' : 'false',
+                    ]
+                ];
 
-            $expected = [
-                'browser' => [
-                    'name'    => $data['client']['name'],
-                    'version' => $data['client']['version'],
-                ],
-                'platform' => [
-                    'name'    => $data['os']['name'],
-                    'version' => $data['os']['version'],
-                ],
-                'device' => [
-                    'name'     => $data['device']['model'],
-                    'brand'    => DeviceParserAbstract::getFullName($data['device']['brand']),
-                    'type'     => $data['device']['type'],
-                    'ismobile' => isMobile($data) ? 'true' : 'false',
-                ]
-            ];
-
-            $tests[$ua] = $expected;
+                $tests[$ua] = $expected;
+            }
         }
     }
 }

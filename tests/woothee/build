@@ -15,25 +15,26 @@ foreach (new FilesystemIterator(__DIR__ . '/vendor/woothee/woothee-testset/tests
 
     foreach ($provider as $data) {
         $ua = $data['target'];
+        if (!empty($ua)) {
+            $expected = [
+                'browser' => [
+                    'name'    => isset($data['name']) ? $data['name'] : null,
+                    'version' => isset($data['version']) ? $data['version'] : null,
+                ],
+                'platform' => [
+                    'name'    => isset($data['os']) ? $data['os'] : null,
+                    'version' => isset($data['os_version']) ? $data['os_version'] : null,
+                ],
+                'device' => [
+                    'name'     => null,
+                    'brand'    => null,
+                    'type'     => isset($data['category']) ? $data['category'] : null,
+                    'ismobile' => null,
+                ]
+            ];
 
-        $expected = [
-            'browser' => [
-                'name'    => isset($data['name']) ? $data['name'] : null,
-                'version' => isset($data['version']) ? $data['version'] : null,
-            ],
-            'platform' => [
-                'name'    => isset($data['os']) ? $data['os'] : null,
-                'version' => isset($data['os_version']) ? $data['os_version'] : null,
-            ],
-            'device' => [
-                'name'     => null,
-                'brand'    => null,
-                'type'     => isset($data['category']) ? $data['category'] : null,
-                'ismobile' => null,
-            ]
-        ];
-
-        $tests[$ua] = $expected;
+            $tests[$ua] = $expected;
+        }
     }
 }
 

@@ -34,7 +34,13 @@ class Parsers extends Helper
                 'parse'    => function ($file) use ($parserDir) {
                     $result = trim(shell_exec($parserDir->getPathName() . '/parse "' . $file . '"'));
 
-                    return json_decode($result, true);
+                    $result = json_decode($result, true);
+
+                    if (json_last_error() !== JSON_ERROR_NONE) {
+                        return null;
+                    }
+
+                    return $result;
                 }
             ];
         }

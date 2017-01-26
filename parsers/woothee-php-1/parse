@@ -1,9 +1,10 @@
 #!/usr/bin/env php
 <?php
 
-$agentListFile = $argv[1];
+ini_set('memory_limit', -1);
+ini_set('max_execution_time', -1);
 
-$agents = file($agentListFile, FILE_IGNORE_NEW_LINES);
+$agentListFile = $argv[1];
 
 $results   = [];
 $parseTime = 0;
@@ -14,33 +15,40 @@ $parser = new \Woothee\Classifier;
 $parser->parse('Test String');
 $initTime = microtime(true) - $start;
 
-foreach ($agents as $agentString) {
-    $start = microtime(true);
-    $r     = $parser->parse($agentString);
-    $end   = microtime(true) - $start;
+$file = new SplFileObject($agentListFile);
+$file->setFlags(SplFileObject::DROP_NEW_LINE);
 
-    $results[] = [
-        'useragent' => $agentString,
-        'parsed'    => [
-            'browser' => [
-                'name'    => $r['name'],
-                'version' => $r['version'],
-            ],
-            'platform' => [
-                'name'    => $r['os'],
-                'version' => $r['os_version'],
-            ],
-            'device' => [
-                'name'     => null,
-                'brand'    => null,
-                'type'     => $r['category'],
-                'ismobile' => null,
-            ],
-        ],
-        'time' => $end,
-    ];
+while (!$file->eof()) {
+    $agentString = $file->fgets();
 
-    $parseTime += $end;
+    if (!empty($agentString)) {
+        $start = microtime(true);
+        $r     = $parser->parse($agentString);
+        $end   = microtime(true) - $start;
+
+        $results[] = [
+            'useragent' => $agentString,
+            'parsed'    => [
+                'browser' => [
+                    'name'    => $r['name'],
+                    'version' => $r['version'],
+                ],
+                'platform' => [
+                    'name'    => $r['os'],
+                    'version' => $r['os_version'],
+                ],
+                'device' => [
+                    'name'     => null,
+                    'brand'    => null,
+                    'type'     => $r['category'],
+                    'ismobile' => null,
+                ],
+            ],
+            'time' => $end,
+        ];
+
+        $parseTime += $end;
+    }
 }
 
 print json_encode([
