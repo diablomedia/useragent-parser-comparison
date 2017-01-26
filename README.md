@@ -27,16 +27,16 @@ woothee-php-1           | 31618/46373 68.18% | 42249/46373 91.11% | 39693/46373 
 
 Parser                  | Average Init Time | Average Parse Time | Average Memory Used
 -----|-----|-----|-----
-browscap-js-1           | 0.032s            | 12.257s            | 115.47 M
-browscap-php-2          | 1.062s            | 20.741s            | 122.86 M
-browscap-php-3          | 0.072s            | 7.394s             | 4.97 M
-crossjoin-1             | 0.036s            | 5.627s             | 2.26 M
-crossjoin-2             | 0.025s            | 9.472s             | 2.5 M
-crossjoin-3             | 0.051s            | 8.962s             | 1.86 M
-piwik-device-detector-3 | 0.859s            | 3.973s             | 4.72 M
-ua-parser-php-3         | 0.038s            | 1.626s             | 2.57 M
-whichbrowser-2          | 0.058s            | 1.781s             | 20.3 M
-woothee-php-1           | 0.034s            | 0.059s             | 2.28 M
+browscap-js-1           | 0.034s            | 12.702s            | 101.39 M
+browscap-php-2          | 0.989s            | 19.099s            | 122.76 M
+browscap-php-3          | 0.065s            | 7.113s             | 3.61 M
+crossjoin-1             | 0.035s            | 5.695s             | 908.03 K
+crossjoin-2             | 0.055s            | 9.834s             | 1.15 M
+crossjoin-3             | 0.047s            | 8.897s             | 925.42 K
+piwik-device-detector-3 | 0.869s            | 3.863s             | 4.35 M
+ua-parser-php-3         | 0.045s            | 1.62s              | 1.51 M
+whichbrowser-2          | 0.055s            | 1.762s             | 20.26 M
+woothee-php-1           | 0.03s             | 0.057s             | 1.04 M
 
 ## How To Use
 
