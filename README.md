@@ -12,18 +12,18 @@ The CLI is written in PHP (using the Symfony Console component), but the parsers
 
 Parser                  | Browser Results    | Platform Results   | Device Results      | Accuracy Score
 -----|-----|-----|-----|-----|-----
-browscap-js-1           | 36921/46373 79.62% | 43997/46373 94.88% | 23090/46373 49.79%  | 118958/181892 65.4%  
-browscap-php-2          | 36982/46373 79.75% | 44006/46373 94.9%  | 23090/46373 49.79%  | 119141/181892 65.5%  
-browscap-php-3-full     | 36922/46373 79.62% | 43996/46373 94.87% | 23090/46373 49.79%  | 118957/181892 65.4%  
-browscap-php-3-lite     | 23265/46373 50.17% | 32661/46373 70.43% | 37605/46373 81.09%  | 59431/125811 47.24%  
-browscap-php-3-standard | 35709/46373 77%    | 33828/46373 72.95% | 41478/46373 89.44%  | 89939/125811 71.49%  
-crossjoin-1             | 36925/46373 79.63% | 43996/46373 94.87% | 23091/46373 49.79%  | 118961/181892 65.4%  
-crossjoin-2             | 36843/46373 79.45% | 44004/46373 94.89% | 22919/46373 49.42%  | 118473/181892 65.13% 
-crossjoin-3             | 36843/46373 79.45% | 44004/46373 94.89% | 22919/46373 49.42%  | 118473/181892 65.13% 
-piwik-device-detector-3 | 38838/46373 83.75% | 42908/46373 92.53% | 32769/46373 70.66%  | 146509/181892 80.55% 
-ua-parser-php-3         | 38972/46373 84.04% | 35622/46373 76.82% | 35774/46373 77.14%  | 114186/150922 75.66% 
-whichbrowser-2          | 39787/46373 85.8%  | 44663/46373 96.31% | 29827/46373 64.32%  | 150325/181892 82.65% 
-woothee-php-1           | 31619/46373 68.18% | 42249/46373 91.11% | 39693/46373 85.6%   | 70439/109746 64.18%  
+browscap-js-1           | 36921/46373 79.62% | 43997/46373 94.88% | 23090/46373 49.79%  | 118958/181892 65.4%
+browscap-php-2          | 36982/46373 79.75% | 44006/46373 94.9%  | 23090/46373 49.79%  | 119141/181892 65.5%
+browscap-php-3-full     | 36922/46373 79.62% | 43996/46373 94.87% | 23090/46373 49.79%  | 118957/181892 65.4%
+browscap-php-3-lite     | 23265/46373 50.17% | 32661/46373 70.43% | 37605/46373 81.09%  | 59431/125811 47.24%
+browscap-php-3-standard | 35709/46373 77%    | 33828/46373 72.95% | 41478/46373 89.44%  | 89939/125811 71.49%
+crossjoin-1             | 36925/46373 79.63% | 43996/46373 94.87% | 23091/46373 49.79%  | 118961/181892 65.4%
+crossjoin-2             | 36843/46373 79.45% | 44004/46373 94.89% | 22919/46373 49.42%  | 118473/181892 65.13%
+crossjoin-3             | 36843/46373 79.45% | 44004/46373 94.89% | 22919/46373 49.42%  | 118473/181892 65.13%
+piwik-device-detector-3 | 38838/46373 83.75% | 42908/46373 92.53% | 32769/46373 70.66%  | 146509/181892 80.55%
+ua-parser-php-3         | 38972/46373 84.04% | 35622/46373 76.82% | 35774/46373 77.14%  | 114186/150922 75.66%
+whichbrowser-2          | 39787/46373 85.8%  | 44663/46373 96.31% | 29827/46373 64.32%  | 150325/181892 82.65%
+woothee-php-1           | 31619/46373 68.18% | 42249/46373 91.11% | 39693/46373 85.6%   | 70439/109746 64.18%
 
 ## Latest Benchmark Results
 
@@ -37,16 +37,17 @@ Performed with the following command:
 
 Parser                  | Average Init Time | Average Parse Time | Average Memory Used
 -----|-----|-----|-----
-browscap-js-1           | 0.034s            | 12.702s            | 101.39 M
-browscap-php-2          | 0.989s            | 19.099s            | 122.76 M
-browscap-php-3          | 0.065s            | 7.113s             | 3.61 M
-crossjoin-1             | 0.035s            | 5.695s             | 908.03 K
-crossjoin-2             | 0.055s            | 9.834s             | 1.15 M
-crossjoin-3             | 0.047s            | 8.897s             | 925.42 K
-piwik-device-detector-3 | 0.869s            | 3.863s             | 4.35 M
-ua-parser-php-3         | 0.045s            | 1.62s              | 1.51 M
-whichbrowser-2          | 0.055s            | 1.762s             | 20.26 M
-woothee-php-1           | 0.03s             | 0.057s             | 1.04 M
+browscap-js-1           | 0.054s            | 13.971s            | 99.96 M
+browscap-php-2          | 1s                | 20.038s            | 122.76 M
+browscap-php-3-full     | 0.025s            | 6.69s              | 3.61 M
+browscap-php-3-lite     | 0.021s            | 1.819s             | 1.7 M
+browscap-php-3-standard | 0.028s            | 3.763s             | 2.39 M
+crossjoin-1             | 0.017s            | 5.766s             | 907.94 K
+crossjoin-2             | 0.038s            | 10.213s            | 1.15 M
+piwik-device-detector-3 | 0.886s            | 4.087s             | 4.35 M
+ua-parser-php-3         | 0.044s            | 1.742s             | 1.51 M
+whichbrowser-2          | 0.107s            | 2.728s             | 20.26 M
+woothee-php-1           | 0.025s            | 0.062s             | 1.04 M
 
 ### MacBook Pro
 
@@ -153,7 +154,7 @@ Currently this is the list of parsers included:
 
  * Browscap JS 1.x (https://github.com/mimmi20/browscap-js)
  * Browscap PHP 2.x (https://github.com/browscap/browscap-php/tree/2.x)
- * Browscap PHP 3.x (https://github.com/browscap/browscap-php)
+ * Browscap PHP 3.x (Full, Standard and Lite) (https://github.com/browscap/browscap-php)
  * Crossjoin Browscap 1.x (https://github.com/crossjoin/Browscap/tree/1.x)
  * Crossjoin Browscap 2.x (https://github.com/crossjoin/Browscap/tree/2.x)
  * Crossjoin Browscap 3.x (PHP7 only) (https://github.com/crossjoin/Browscap/tree/3.x)
@@ -192,7 +193,7 @@ Due to the nature of this format, it is a requirement that any given unique user
 These are the test suites that are currently included:
 
  * Browscap (https://github.com/browscap/browscap)
- * Piwik Device Detector (ttps://github.com/piwik/device-detector)
+ * Piwik Device Detector (https://github.com/piwik/device-detector)
  * UA Parser (https://github.com/ua-parser/uap-core)
  * WhichBrowser (https://github.com/WhichBrowser/Parser)
  * Woothee (https://github.com/woothee/woothee)
