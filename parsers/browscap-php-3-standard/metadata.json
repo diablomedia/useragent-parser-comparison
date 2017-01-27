@@ -1,0 +1,7 @@
+{
+    "name": "Browscap PHP 3.x Standard File",
+    "language": "PHP",
+    "local": true,
+    "api": false,
+    "data_source": "browscap"
+}

@@ -102,6 +102,8 @@ class Parse extends Command
 
             $table->setRows($rows);
 
+            $answer = '';
+
             if (!$csv && !$noOutput) {
                 $table->render();
 

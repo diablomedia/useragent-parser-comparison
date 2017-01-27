@@ -10,20 +10,30 @@ The CLI is written in PHP (using the Symfony Console component), but the parsers
 
 ## Latest "Accuracy" Results
 
-Parser                  | Browser Results    | Platform Results   | Device Results     | Time Taken | Accuracy Score
+Parser                  | Browser Results    | Platform Results   | Device Results      | Accuracy Score
 -----|-----|-----|-----|-----|-----
-browscap-js-1           | 36921/46373 79.62% | 43997/46373 94.88% | 23090/46373 49.79% | 1322.472s  | 118957/181892 65.4%
-browscap-php-2          | 36982/46373 79.75% | 44006/46373 94.9%  | 23090/46373 49.79% | 3169.136s  | 119140/181892 65.5%
-browscap-php-3          | 36922/46373 79.62% | 43996/46373 94.87% | 23090/46373 49.79% | 1333.877s  | 118956/181892 65.4%
-crossjoin-1             | 36925/46373 79.63% | 43996/46373 94.87% | 23091/46373 49.79% | 852.296s   | 118960/181892 65.4%
-crossjoin-2             | 36843/46373 79.45% | 44004/46373 94.89% | 22919/46373 49.42% | 2535.817s  | 118472/181892 65.13%
-crossjoin-3             | 36843/46373 79.45% | 44004/46373 94.89% | 22919/46373 49.42% | 2315.641s  | 118472/181892 65.13%
-piwik-device-detector-3 | 38838/46373 83.75% | 42908/46373 92.53% | 32769/46373 70.66% | 554.5s     | 146509/181892 80.55%
-ua-parser-php-3         | 38972/46373 84.04% | 42277/46373 91.17% | 35774/46373 77.14% | 205.324s   | 121481/150922 80.49%
-whichbrowser-2          | 39787/46373 85.8%  | 44663/46373 96.31% | 29827/46373 64.32% | 202.334s   | 150324/181892 82.64%
-woothee-php-1           | 31618/46373 68.18% | 42249/46373 91.11% | 39693/46373 85.6%  | 7.985s     | 70437/109746 64.18%
+browscap-js-1           | 36921/46373 79.62% | 43997/46373 94.88% | 23090/46373 49.79%  | 118958/181892 65.4%  
+browscap-php-2          | 36982/46373 79.75% | 44006/46373 94.9%  | 23090/46373 49.79%  | 119141/181892 65.5%  
+browscap-php-3-full     | 36922/46373 79.62% | 43996/46373 94.87% | 23090/46373 49.79%  | 118957/181892 65.4%  
+browscap-php-3-lite     | 23265/46373 50.17% | 32661/46373 70.43% | 37605/46373 81.09%  | 59431/125811 47.24%  
+browscap-php-3-standard | 35709/46373 77%    | 33828/46373 72.95% | 41478/46373 89.44%  | 89939/125811 71.49%  
+crossjoin-1             | 36925/46373 79.63% | 43996/46373 94.87% | 23091/46373 49.79%  | 118961/181892 65.4%  
+crossjoin-2             | 36843/46373 79.45% | 44004/46373 94.89% | 22919/46373 49.42%  | 118473/181892 65.13% 
+crossjoin-3             | 36843/46373 79.45% | 44004/46373 94.89% | 22919/46373 49.42%  | 118473/181892 65.13% 
+piwik-device-detector-3 | 38838/46373 83.75% | 42908/46373 92.53% | 32769/46373 70.66%  | 146509/181892 80.55% 
+ua-parser-php-3         | 38972/46373 84.04% | 35622/46373 76.82% | 35774/46373 77.14%  | 114186/150922 75.66% 
+whichbrowser-2          | 39787/46373 85.8%  | 44663/46373 96.31% | 29827/46373 64.32%  | 150325/181892 82.65% 
+woothee-php-1           | 31619/46373 68.18% | 42249/46373 91.11% | 39693/46373 85.6%   | 70439/109746 64.18%  
 
-## Latest Benchmark Results (files/ua-list-all.txt, 437 useragents)
+## Latest Benchmark Results
+
+Performed with the following command:
+
+`./bin/console benchmark ./files/ua-list-all.txt --iterations=10`
+
+### VMWare ESX Virtual Server
+
+2.33 GHz Intel Xeon E5410, 4 GB RAM, Magnetic Disk Drive (RAID), PHP 5.6
 
 Parser                  | Average Init Time | Average Parse Time | Average Memory Used
 -----|-----|-----|-----
@@ -37,6 +47,25 @@ piwik-device-detector-3 | 0.869s            | 3.863s             | 4.35 M
 ua-parser-php-3         | 0.045s            | 1.62s              | 1.51 M
 whichbrowser-2          | 0.055s            | 1.762s             | 20.26 M
 woothee-php-1           | 0.03s             | 0.057s             | 1.04 M
+
+### MacBook Pro
+
+2.9 GHz Intel Core i7, 16 GB RAM, SSD Drive, PHP 7.0
+
+Parser                  | Average Init Time | Average Parse Time | Average Memory Used
+-----|-----|-----|-----
+browscap-js-1           | 0.02s             | 6.016s             | 102.17 M
+browscap-php-2          | 0.417s            | 1.779s             | 130.83 M
+browscap-php-3-full     | 0.007s            | 1.783s             | 3.36 M
+browscap-php-3-lite     | 0.006s            | 0.287s             | 1.13 M
+browscap-php-3-standard | 0.006s            | 0.687s             | 1.99 M
+crossjoin-1             | 0.003s            | 1.378s             | 814.84 K
+crossjoin-2             | 0.008s            | 2.637s             | 944.59 K
+crossjoin-3             | 0.006s            | 2.268s             | 922.63 K
+piwik-device-detector-3 | 0.062s            | 0.317s             | 2.83 M
+ua-parser-php-3         | 0.02s             | 0.176s             | 1.44 M
+whichbrowser-2          | 0.018s            | 0.196s             | 15.2 M
+woothee-php-1           | 0.003s            | 0.004s             | 742.77 K
 
 ## How To Use
 

@@ -538,7 +538,7 @@ class Analyze extends Command
 
             $rows = [];
             foreach ($this->failures[$test][$parser] as $agent => $failData) {
-                $rows[] = [new TableCell($agent, ['colspan' => 3])];
+                $rows[] = [new TableCell((string) $agent, ['colspan' => 3])];
                 $rows[] = [
                     isset($failData['browser']) ? $this->outputDiff($failData['browser']) : '',
                     isset($failData['platform']) ? $this->outputDiff($failData['platform']) : '',

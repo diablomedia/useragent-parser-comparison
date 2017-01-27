@@ -3,6 +3,12 @@
 parent_path=$( cd "$(dirname "${BASH_SOURCE}")" ; pwd -P )
 cd "$parent_path"
 
-echo "browscap/browscap requires php 7.* to install with composer, if this fails, you may need to run composer manually, or clone the repo"
+echo "browscap/browscap requires php 7.* to install with composer, if this fails you can try cloning instead"
 
-php70 /usr/local/bin/composer update
+composer_command="composer"
+
+command -v "$composer_command" >/dev/null 2>&1 || {
+    composer_command="composer.phar"
+}
+
+$composer_command update

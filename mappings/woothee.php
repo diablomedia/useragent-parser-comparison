@@ -17,6 +17,7 @@ return [
             'googlebotmobile'     => 'googlebot',
             'naveryeti'           => 'yeti',
             'jigbrowser'          => 'jigbrowserweb',
+            'mobiletranscoder' => 'googlewirelesstranscoder',
         ],
         'version' => [
             'unknown' => '',
