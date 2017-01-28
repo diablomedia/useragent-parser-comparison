@@ -140,6 +140,6 @@ foreach (new FilesystemIterator(__DIR__ . '/node_modules/uap-core/test_resources
 }
 
 print json_encode([
-    'tests' => $tests,
+    'tests'   => $tests,
     'version' => file_get_contents(__DIR__ . '/version.txt'),
 ]);

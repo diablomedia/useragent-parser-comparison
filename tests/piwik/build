@@ -100,6 +100,6 @@ foreach (new FilesystemIterator(__DIR__ . '/vendor/piwik/device-detector/Tests/f
 }
 
 print json_encode([
-    'tests' => $tests,
+    'tests'   => $tests,
     'version' => \DeviceDetector\DeviceDetector::VERSION,
 ]);

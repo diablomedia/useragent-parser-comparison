@@ -114,6 +114,6 @@ foreach ($installed as $package) {
 }
 
 print json_encode([
-    'tests' => $tests,
+    'tests'   => $tests,
     'version' => $version,
 ]);
