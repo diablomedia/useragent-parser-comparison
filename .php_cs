@@ -15,6 +15,7 @@ $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__ . '/bin')
     ->in(__DIR__ . '/mappings')
     ->in(__DIR__ . '/tests')
+    ->in(__DIR__ . '/tests/curated/files/*')
     ->in(__DIR__ . '/parsers')
 ;
 
