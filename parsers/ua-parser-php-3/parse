@@ -20,6 +20,10 @@ $parseTime = 0;
 
 $start = microtime(true);
 require __DIR__ . '/vendor/autoload.php';
+
+// Get the updated file to pass to parser
+
+
 $parser = UAParser\Parser::create();
 $parser->parse('Test String');
 $initTime = microtime(true) - $start;
@@ -67,9 +71,24 @@ while (!$file->eof()) {
 
 $file = null;
 
+$memory = memory_get_peak_usage();
+
+// uap-php doesn't provide version information in code at all, looking to composer for the installed version
+$installed = json_decode(file_get_contents(__DIR__ . '/vendor/composer/installed.json'), true);
+
+foreach ($installed as $package) {
+    if ($package['name'] == 'ua-parser/uap-php') {
+        $version = $package['version'];
+        break;
+    }
+}
+
+$regexVersion = file_get_contents(__DIR__ . '/version.txt');
+
 print json_encode([
     'results'     => $results,
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,
-    'memory_used' => memory_get_peak_usage(),
+    'memory_used' => $memory,
+    'version'     => $version . '-' . $regexVersion,
 ]);

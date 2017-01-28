@@ -59,7 +59,7 @@ class Normalize extends Command
                 $output->write('Processing output from the ' . $testFile->getFilename() . ' test suite... ');
 
                 $data       = json_decode(file_get_contents($testFile->getPathname()), true);
-                $normalized = [];
+                $normalized = $data;
 
                 $dataSource = null;
 
@@ -68,8 +68,8 @@ class Normalize extends Command
                     $dataSource = $this->options['tests'][$testName]['metadata']['data_source'];
                 }
 
-                foreach ($data as $ua => $parsed) {
-                    $normalized[$ua] = $this->normalize($parsed, $dataSource);
+                foreach ($data['tests'] as $ua => $parsed) {
+                    $normalized['tests'][$ua] = $this->normalize($parsed, $dataSource);
                 }
 
                 // Write normalized to file

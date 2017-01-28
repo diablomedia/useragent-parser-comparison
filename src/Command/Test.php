@@ -90,11 +90,7 @@ class Test extends Command
         mkdir($resultsDir);
         mkdir($expectedDir);
 
-        // write some test data to file
-        file_put_contents(
-            $thisRunDir . '/metadata.json',
-            json_encode(['tests' => $this->selectedTests, 'parsers' => $parsers, 'date' => time()])
-        );
+        $usedTests = [];
 
         foreach ($this->selectedTests as $testName => $testData) {
             $output->write('Generating data for the ' . $testName . ' test suite... ');
@@ -111,10 +107,14 @@ class Test extends Command
                 continue;
             }
 
+            if (!empty($testOutput['version'])) {
+                $testData['metadata']['version'] = $testOutput['version'];
+            }
+
             // write our test's file that we'll pass to the parsers
             $filename = $testFilesDir . '/' . $testName . '.txt';
 
-            $agents = array_keys($testOutput);
+            $agents = array_keys($testOutput['tests']);
 
             array_walk($agents, function (&$item) {
                 $item = addcslashes($item, "\n");
@@ -133,8 +133,20 @@ class Test extends Command
 
                 file_put_contents($resultsDir . '/' . $parserName . '/' . $testName . '.json', json_encode($results));
                 $output->writeln('<info> done!</info>');
+
+                if (!empty($results['version'])) {
+                    $parsers[$parserName]['metadata']['version'] = $results['version'];
+                }
             }
+
+            $usedTests[$testName] = $testData;
         }
+
+        // write some test data to file
+        file_put_contents(
+            $thisRunDir . '/metadata.json',
+            json_encode(['tests' => $usedTests, 'parsers' => $parsers, 'date' => time()])
+        );
 
         $output->writeln('<comment>Parsing complete, data stored in ' . $thisRunDirName . ' directory</comment>');
     }
@@ -143,7 +155,7 @@ class Test extends Command
     {
         foreach (new \FilesystemIterator($this->testsDir) as $testDir) {
             if (file_exists($testDir->getPathName() . '/metadata.json')) {
-                $metadata = json_decode(file_get_contents($testDir->getPathName() . '/metadata.json'));
+                $metadata = json_decode(file_get_contents($testDir->getPathName() . '/metadata.json'), true);
             } else {
                 $metadata = [];
             }

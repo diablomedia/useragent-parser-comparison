@@ -117,7 +117,6 @@ return [
             'ipodtouch2g'              => 'ipod',
         ],
         'brand' => [
-            'apple'           => 'appleinc',
             'jolla'           => 'jollaltd',
             'xiaomi'          => 'xiaomitech',
             'amazon'          => 'amazoncominc',

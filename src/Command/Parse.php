@@ -54,11 +54,6 @@ class Parse extends Command
         if ($name) {
             mkdir($this->runDir . '/' . $name);
             mkdir($this->runDir . '/' . $name . '/results');
-
-            file_put_contents(
-                $this->runDir . '/' . $name . '/metadata.json',
-                json_encode(['parsers' => $parsers, 'date' => time(), 'file' => basename($file)])
-            );
         }
 
         $output->writeln('<comment>Preparing to parse ' . $file . '</comment>');
@@ -66,6 +61,10 @@ class Parse extends Command
         foreach ($parsers as $parserName => $parser) {
             $output->write("\t" . 'Testing against the ' . $parserName . ' parser... ');
             $result = $parser['parse']($file);
+
+            if (isset($result['version'])) {
+                $parsers[$parserName]['metadata']['version'] = $result['version'];
+            }
 
             if (empty($result)) {
                 $output->writeln('<error>The ' . $parserName . ' parser did not return any data, there may have been an error</error>');
@@ -146,6 +145,13 @@ class Parse extends Command
                 $question = new Question('Press enter to continue', 'yes');
                 $questionHelper->ask($input, $output, $question);
             }
+        }
+
+        if ($name) {
+            file_put_contents(
+                $this->runDir . '/' . $name . '/metadata.json',
+                json_encode(['parsers' => $parsers, 'date' => time(), 'file' => basename($file)])
+            );
         }
     }
 

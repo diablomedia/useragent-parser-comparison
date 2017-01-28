@@ -68,7 +68,7 @@ class Analyze extends Command
         }
 
         $this->summaryTable = new Table($output);
-        $this->summaryTable->setHeaders(['Parser', 'Browser Results', 'Platform Results', 'Device Results', 'Time Taken', 'Accuracy Score']);
+        $this->summaryTable->setHeaders(['Parser', 'Version', 'Browser Results', 'Platform Results', 'Device Results', 'Time Taken', 'Accuracy Score']);
         $rows   = [];
         $totals = [];
 
@@ -79,26 +79,30 @@ class Analyze extends Command
 
             if (file_exists($expectedFilename)) {
                 $expectedResults = json_decode(file_get_contents($expectedFilename), true);
-                $headerMessage   = '<fg=yellow>Parser comparison for ' . $testName . ' test suite</>';
+                $headerMessage   = '<fg=yellow>Parser comparison for ' . $testName . ' test suite' . (isset($testData['metadata']['version']) ? ' (' . $testData['metadata']['version'] . ')' : '') . '</>';
             } else {
                 // When we aren't comparing to a test suite, the first parser's results become the expected results
                 $expectedResults = [];
                 $testResult      = json_decode(
-                    file_get_contents($this->runDir . '/' . $run . '/results/' . array_keys($this->options['parsers'])[0] . '/normalized/' . $testName . '.json'),
+                    file_get_contents(
+                        $this->runDir . '/' . $run . '/results/' . array_keys(
+                            $this->options['parsers']
+                        )[0] . '/normalized/' . $testName . '.json'
+                    ),
                     true
                 );
 
                 foreach ($testResult['results'] as $data) {
-                    $expectedResults[$data['useragent']] = $data['parsed'];
+                    $expectedResults['tests'][$data['useragent']] = $data['parsed'];
                 }
 
                 $headerMessage = '<fg=yellow>Parser comparison for ' . $testName . ' file, using ' . array_keys($this->options['parsers'])[0] . ' results as expected</>';
             }
 
-            $rows[] = [new TableCell($headerMessage, ['colspan' => 6])];
+            $rows[] = [new TableCell($headerMessage, ['colspan' => 7])];
             $rows[] = new TableSeparator();
 
-            foreach ($expectedResults as $agent => $result) {
+            foreach ($expectedResults['tests'] as $agent => $result) {
                 if (!isset($this->agents[$agent])) {
                     $this->agents[$agent] = count($this->agents);
                 }
@@ -160,7 +164,7 @@ class Analyze extends Command
                 $possibleScores[$parserName][$testName] = 0;
 
                 foreach ($testResult['results'] as $data) {
-                    $expected = $expectedResults[$data['useragent']];
+                    $expected = $expectedResults['tests'][$data['useragent']];
                     $failures = [];
 
                     foreach (['browser', 'platform', 'device'] as $compareKey) {
@@ -226,6 +230,7 @@ class Analyze extends Command
 
                 $rows[] = [
                     $parserName,
+                    isset($parserData['metadata']['version']) ? $parserData['metadata']['version'] : 'n/a',
                     $passFail['browser']['pass'] . '/' . array_sum($passFail['browser']) . ' ' . round($passFail['browser']['pass'] / array_sum($passFail['browser']) * 100, 2) . '%',
                     $passFail['platform']['pass'] . '/' . array_sum($passFail['platform']) . ' ' . round($passFail['platform']['pass'] / array_sum($passFail['platform']) * 100, 2) . '%',
                     $passFail['device']['pass'] . '/' . array_sum($passFail['device']) . ' ' . round($passFail['device']['pass'] / array_sum($passFail['device']) * 100, 2) . '%',
@@ -263,6 +268,7 @@ class Analyze extends Command
             foreach ($totals as $parser => $total) {
                 $rows[] = [
                     $parser,
+                    isset($this->options['parsers'][$parser]['metadata']['version']) ? $this->options['parsers'][$parser]['metadata']['version'] : 'n/a',
                     $total['browser']['pass'] . '/' . array_sum($total['browser']) . ' ' . round($total['browser']['pass'] / array_sum($total['browser']) * 100, 2) . '%',
                     $total['platform']['pass'] . '/' . array_sum($total['platform']) . ' ' . round($total['platform']['pass'] / array_sum($total['platform']) * 100, 2) . '%',
                     $total['device']['pass'] . '/' . array_sum($total['device']) . ' ' . round($total['device']['pass'] / array_sum($total['device']) * 100, 2) . '%',

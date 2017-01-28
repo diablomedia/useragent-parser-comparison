@@ -129,7 +129,6 @@ return [
             'blackberryplaybook'                                                                                                => 'playbook',
         ],
         'brand' => [
-            'apple'      => 'appleinc',
             'amazon'     => 'amazoncominc',
             'xiaomi'     => 'xiaomitech',
             'microsoft'  => 'microsoftcorporation',

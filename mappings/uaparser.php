@@ -198,7 +198,6 @@ return [
             'ipod41'              => 'ipod',
         ],
         'brand' => [
-            'apple'      => 'appleinc',
             'amazon'     => 'amazoncominc',
             'spider'     => 'crawler',
             'microsoft'  => 'microsoftcorporation',

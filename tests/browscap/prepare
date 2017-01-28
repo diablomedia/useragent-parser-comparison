@@ -12,3 +12,5 @@ command -v "$composer_command" >/dev/null 2>&1 || {
 }
 
 $composer_command install
+
+php ./scripts/updateversion.php

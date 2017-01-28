@@ -1,0 +1,29 @@
+#!/usr/bin/env php
+<?php
+
+$tests = [];
+
+$directory = new \RecursiveDirectoryIterator(__DIR__ . '/files');
+$filter    = new \RecursiveCallbackFilterIterator($directory, function ($current, $key, $iterator) {
+    if ($current->getFilename()[0] === '.') {
+        return false;
+    }
+    if ($current->isDir()) {
+        return true;
+    } else {
+        return strpos($current->getFilename(), '.php') !== false;
+    }
+});
+$iterator = new \RecursiveIteratorIterator($filter);
+
+foreach ($iterator as $fixture) {
+    $provider = include $fixture->getPathname();
+
+    foreach ($provider as $ua => $properties) {
+        $tests[$ua] = $properties;
+    }
+}
+
+print json_encode([
+    'tests' => $tests
+]);

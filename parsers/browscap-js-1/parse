@@ -7,6 +7,9 @@ var browscap = new Browscap(__dirname + '/node_modules/browscap-json-cache-files
 browscap.getBrowser('Test String');
 var initTime = process.hrtime(initStart)[1] / 1000000000;
 
+var browscapPackage = require(require('path').dirname(require.resolve('browscap-js')) + '/package.json');
+var version = browscapPackage.version;
+
 var benchmark = false;
 var benchmarkPos = process.argv.indexOf('--benchmark');
 if (benchmarkPos >= 0) {
@@ -23,6 +26,7 @@ var output = {
     'parse_time': 0,
     'init_time': initTime,
     'memory_used': 0,
+    'version': version,
 };
 
 lineReader.on('line', function (line) {

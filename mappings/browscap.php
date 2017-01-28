@@ -64,6 +64,7 @@ return [
             'nttdocomo'         => 'docomo',
             'wetabgmbh'         => 'wetab',
             'blackberrylimited' => 'researchinmotionlimited',
+            'appleinc' => 'apple',
         ],
         'type' => [
             'unknown' => '',
