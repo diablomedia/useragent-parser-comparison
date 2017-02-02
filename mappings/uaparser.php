@@ -109,6 +109,11 @@ return [
             'mediapartnersgoogle'                 => 'googlemediapartners',
             'flamingosearchengine'                => 'flamingosearch',
             'genieo'                              => 'genieowebfilter',
+            'edgemobile' => 'edge',
+            'yahoomailmobile' => 'yahoomail',
+            'palmblazer' => 'blazer',
+            'curl' => 'libcurl',
+            'ncsamosaic' => 'mosaic',
         ]
     ],
     'platform' => [

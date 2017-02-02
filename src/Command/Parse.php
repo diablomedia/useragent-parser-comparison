@@ -49,7 +49,6 @@ class Parse extends Command
             [new TableCell('UserAgent', ['colspan' => '7']), 'Parse Time'],
             ['browser_name', 'browser_version', 'platform_name', 'platform_version', 'device_name', 'device_brand', 'device_type', 'is_mobile']
         ]);
-        $rows = [];
 
         if ($name) {
             mkdir($this->runDir . '/' . $name);
@@ -59,6 +58,7 @@ class Parse extends Command
         $output->writeln('<comment>Preparing to parse ' . $file . '</comment>');
 
         foreach ($parsers as $parserName => $parser) {
+            $rows = [];
             $output->write("\t" . 'Testing against the ' . $parserName . ' parser... ');
             $result = $parser['parse']($file);
 

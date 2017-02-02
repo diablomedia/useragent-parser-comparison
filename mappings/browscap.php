@@ -31,6 +31,13 @@ return [
             'iridiumbrowser'            => 'iridium',
             'newsblurfeedfetcher'       => 'newsblur',
             'mobileexplorer'            => 'microsoftmobileexplorer',
+            'usingfastenterprisecrawler' => 'fastenterprisecrawler',
+            'admantxplatformsemanticanalyzer' => 'admantx',
+            'addthiscomrobot' => 'addthiscom',
+            'aboundexbot' => 'aboundex',
+            'yahooslurpchina' => 'yahooslurp',
+            'mauiwapbrowser' => 'mauiwap',
+            'yahoomailmobile' => 'yahoomail',
         ],
         'version' => [
             'unknown' => '',

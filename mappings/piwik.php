@@ -40,7 +40,6 @@ return [
             'libcurl'               => 'curl',
             'amigavoyager'          => 'voyager',
             'dorado'                => 'doradowapbrowser',
-            'ibrowse'               => 'ibrowser',
             'beonex'                => 'beonexcommunicator',
             'operamobile'           => 'opera',
             'iemobile'              => 'ie',
@@ -50,6 +49,10 @@ return [
             'naverrobot'            => 'yeti',
             'openwavemobilebrowser' => 'openwave',
             'kodimediacenter'       => 'kodi',
+            'odysseywebbrowser' => 'odyssey',
+            'ncsamosaic' => 'mosaic',
+            'sinaweibo' => 'weibo',
+            'ncsamosaic' => 'mosaic',
         ],
     ],
     'platform' => [

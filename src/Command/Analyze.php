@@ -419,6 +419,7 @@ class Analyze extends Command
                         unset($questions[array_search('Change Parser', $questions)]);
                     }
 
+                    // Re-index
                     $questions = array_values($questions);
 
                     $question = new ChoiceQuestion(
@@ -436,7 +437,7 @@ class Analyze extends Command
             case 'View property comparison':
                 $answer = '';
                 do {
-                    if (!isset($selectedTest) || $answer == 'Change Section') {
+                    if (!isset($selectedTest) || $answer == 'Change Test Suite') {
                         $selectedTest = $this->changePropertyDiffTestSuite();
                     }
 

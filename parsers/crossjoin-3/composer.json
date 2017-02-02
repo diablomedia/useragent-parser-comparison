@@ -1,5 +1,5 @@
 {
     "require": {
-        "crossjoin/browscap": "3.0.4"
+        "crossjoin/browscap": "~3.0"
     }
 }

@@ -1,0 +1,5 @@
+{
+    "require": {
+        "zsxsoft/php-useragent": "^1.4"
+    }
+}

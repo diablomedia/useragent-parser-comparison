@@ -96,6 +96,8 @@ return [
             'windows6.4'         => 'win10',
             'windows4.0'         => 'win95',
             'windows4.9'         => 'winme',
+            'windows3.1'         => 'win31',
+            'windows10.1'        => 'win10',
             'windowsmobile'      => 'winmobile',
             'sailfish'           => 'sailfishos',
             'inferno'            => 'infernoos',
