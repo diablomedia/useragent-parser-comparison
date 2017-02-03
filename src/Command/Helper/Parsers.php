@@ -38,6 +38,9 @@ class Parsers extends Helper
                     if ($benchmark === true) {
                         $args[] = '--benchmark';
                     }
+
+                    $file = realpath(getcwd() . '/' . $file);
+
                     $result = trim(shell_exec($parserDir->getPathName() . '/parse ' . implode(' ', $args)));
 
                     $result = json_decode($result, true);

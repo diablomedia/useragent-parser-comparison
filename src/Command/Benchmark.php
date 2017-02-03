@@ -32,12 +32,13 @@ class Benchmark extends Command
         $parsers = $parserHelper->getParsers($input, $output);
 
         $table = new Table($output);
-        $table->setHeaders(['Parser', 'Average Init Time', 'Average Parse Time', 'Average Memory Used']);
+        $table->setHeaders(['Parser', 'Average Init Time', 'Average Parse Time', 'Average Extra Time', 'Average Memory Used']);
         $rows = [];
 
         foreach ($parsers as $parserName => $parser) {
             $initTime  = 0;
             $parseTime = 0;
+            $totalTime = 0;
             $memory    = 0;
 
             $output->writeln('Running against the ' . $parserName . ' parser... ');
@@ -46,10 +47,13 @@ class Benchmark extends Command
             $progress->start();
 
             for ($i = 0; $i < $iterations; $i++) {
+                $start  = microtime(true);
                 $result = $parser['parse']($file, true);
+                $end    = microtime(true) - $start;
 
                 $initTime += $result['init_time'];
                 $parseTime += $result['parse_time'];
+                $totalTime += $end;
                 $memory += $result['memory_used'];
 
                 $progress->advance();
@@ -62,6 +66,7 @@ class Benchmark extends Command
                 $parserName,
                 round($initTime / $iterations, 3) . 's',
                 round($parseTime / $iterations, 3) . 's',
+                round(($totalTime - $initTime - $parseTime) / $iterations, 3) . 's',
                 $this->formatBytes($memory / $iterations),
             ];
         }

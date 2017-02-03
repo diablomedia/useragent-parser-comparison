@@ -51,22 +51,25 @@ woothee-php-1           | 0.025s            | 0.062s             | 1.04 M
 
 ### MacBook Pro
 
-2.9 GHz Intel Core i7, 16 GB RAM, SSD Drive, PHP 7.0
+2.9 GHz Intel Core i7, 16 GB RAM, SSD Drive, PHP 7.0.15
 
-Parser                  | Average Init Time | Average Parse Time | Average Memory Used
------|-----|-----|-----
-browscap-js-1           | 0.02s             | 6.016s             | 102.17 M
-browscap-php-2          | 0.417s            | 1.779s             | 130.83 M
-browscap-php-3-full     | 0.007s            | 1.783s             | 3.36 M
-browscap-php-3-lite     | 0.006s            | 0.287s             | 1.13 M
-browscap-php-3-standard | 0.006s            | 0.687s             | 1.99 M
-crossjoin-1             | 0.003s            | 1.378s             | 814.84 K
-crossjoin-2             | 0.008s            | 2.637s             | 944.59 K
-crossjoin-3             | 0.006s            | 2.268s             | 922.63 K
-piwik-device-detector-3 | 0.062s            | 0.317s             | 2.83 M
-ua-parser-php-3         | 0.02s             | 0.176s             | 1.44 M
-whichbrowser-2          | 0.018s            | 0.196s             | 15.2 M
-woothee-php-1           | 0.003s            | 0.004s             | 742.77 K
+Parser                  | Average Init Time | Average Parse Time | Average Extra Time | Average Memory Used
+-----|-----|-----|-----|-----
+browscap-js-1           | 0.017s            | 5.921s             | 0.084s             | 91.27 M
+browscap-php-2          | 0.412s            | 2.05s              | 0.036s             | 130.89 M
+browscap-php-3-full     | 0.007s            | 1.587s             | 0.026s             | 3.38 M
+browscap-php-3-lite     | 0.007s            | 0.297s             | 0.021s             | 1.14 M
+browscap-php-3-standard | 0.007s            | 0.741s             | 0.025s             | 2 M
+crossjoin-1             | 0.003s            | 1.444s             | 0.028s             | 819.19 K
+crossjoin-2             | 0.007s            | 2.411s             | 0.021s             | 948.94 K
+crossjoin-3             | 0.008s            | 2.375s             | 0.021s             | 926.97 K
+php-get-browser         | 0.003s            | 5.246s             | 0.929s             | 391.72 K
+piwik-device-detector-3 | 0.064s            | 0.319s             | 0.023s             | 2.83 M
+ua-parser-php-3         | 0.022s            | 0.178s             | 0.022s             | 1.44 M
+whichbrowser-2          | 0.022s            | 0.198s             | 0.024s             | 15.2 M
+woothee-php-1           | 0.005s            | 0.004s             | 0.02s              | 742.8 K
+zsxsoft-php-1           | 0.004s            | 0.027s             | 0.021s             | 931.92 K
+
 
 ## How To Use
 
@@ -114,7 +117,7 @@ To account for parsers (and test suites) that don't contain certain pieces of da
 
 ### Benchmarking
 
-The benchmark command doesn't do anything special other than run a parser against a list of useragents a specified number of times. The timing information is collected by the script that runs the parser.  This includes an "initialization time" cost and the actual "parse time" for each useragent parsed. Any other costs that the runner script imposes isn't included in these times (like opening and parsing the text file that contains the useragents).
+The benchmark command doesn't do anything special other than run a parser against a list of useragents a specified number of times. The timing information is collected by the script that runs the parser and the benchmark script, just in case there is a lot of time spent in application startup that can't be measured by the parser script itself (an example of this is PHP's native `get_browser` function. When PHP is configured to load a browscap.ini file, it reads the entire file at PHP startup, which can't be measured from within a PHP script). We've broken out the times so it's easy to tell where time is spent for any given parser. This includes an "initialization time" cost and the actual "parse time" for each useragent parsed. Any other costs that the runner script imposes that aren't measured as part of the other two times are measured in the "extra time" column.
 
 ## The Parsers
 
@@ -158,10 +161,12 @@ Currently this is the list of parsers included:
  * Crossjoin Browscap 1.x (https://github.com/crossjoin/Browscap/tree/1.x)
  * Crossjoin Browscap 2.x (https://github.com/crossjoin/Browscap/tree/2.x)
  * Crossjoin Browscap 3.x (PHP7 only) (https://github.com/crossjoin/Browscap/tree/3.x)
+ * PHP's Native `get_browser` (https://secure.php.net/get_browser) - It is **strongly* recommended that this parser isn't used for large useragent lists unless you're on PHP **7.0.15/7.1.1 or later**. It is **much** too slow otherwise.
  * Piwik Device Detector 3.x (https://github.com/piwik/device-detector)
  * UA Parser PHP 3.x (https://github.com/ua-parser/uap-php)
  * WhichBrowser 2.x (https://github.com/WhichBrowser/Parser)
  * Woothee PHP 1.x (https://github.com/woothee/woothee-php)
+ * ZSXSoft PHP-UserAgent 1.x (https://github.com/zsxsoft/php-useragent)
 
 ## The Test Suites
 
@@ -197,3 +202,4 @@ These are the test suites that are currently included:
  * UA Parser (https://github.com/ua-parser/uap-core)
  * WhichBrowser (https://github.com/WhichBrowser/Parser)
  * Woothee (https://github.com/woothee/woothee)
+ * ZSXSoft (https://github.com/zsxsoft/php-useragent)

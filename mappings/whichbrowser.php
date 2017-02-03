@@ -67,6 +67,10 @@ return [
             'phantom'                => 'phantombrowser',
             'webtabbrowser'          => 'wetabbrowser',
             'doradowap'              => 'doradowapbrowser',
+            'sinaweibo'              => 'weibo',
+            'aweb'                   => 'amigaweb',
+            'w3camaya'               => 'amaya',
+            'ncsamosaic'             => 'mosaic',
         ]
     ],
     'platform' => [

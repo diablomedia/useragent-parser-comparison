@@ -19,8 +19,7 @@ $results   = [];
 $parseTime = 0;
 
 $start = microtime(true);
-require __DIR__ . '/vendor/autoload.php';
-UserAgentFactory::analyze('Test String');
+get_browser('Test String');
 $initTime = microtime(true) - $start;
 
 $file = new SplFileObject($agentListFile);
@@ -31,7 +30,7 @@ while (!$file->eof()) {
 
     if (!empty($agentString)) {
         $start = microtime(true);
-        $r     = UserAgentFactory::analyze($agentString);
+        $r     = get_browser($agentString);
         $end   = microtime(true) - $start;
 
         if (!$benchmark) {
@@ -39,18 +38,18 @@ while (!$file->eof()) {
                 'useragent' => $agentString,
                 'parsed'    => [
                     'browser' => [
-                        'name'    => !empty($r->browser['name']) ? $r->browser['name'] : '',
-                        'version' => !empty($r->browser['version']) ? $r->browser['version'] : '',
+                        'name'    => $r->browser,
+                        'version' => $r->version,
                     ],
                     'platform' => [
-                        'name'    => !empty($r->os['name']) ? $r->os['name'] : '',
-                        'version' => !empty($r->os['version']) ? $r->os['version'] : '',
+                        'name'    => $r->platform,
+                        'version' => $r->platform_version,
                     ],
                     'device' => [
-                        'name'     => !empty($r->device['model']) ? $r->device['model'] : '',
-                        'brand'    => !empty($r->device['brand']) ? $r->device['brand'] : '',
-                        'type'     => null,
-                        'ismobile' => null,
+                        'name'     => $r->device_name,
+                        'brand'    => $r->device_maker,
+                        'type'     => $r->device_type,
+                        'ismobile' => $r->ismobiledevice ? 'true' : 'false',
                     ],
                 ],
                 'time' => $end,
@@ -65,20 +64,10 @@ $file = null;
 
 $memory = memory_get_peak_usage();
 
-// zsxsoft doesn't provide version information in code at all, looking to composer for the installed version
-$installed = json_decode(file_get_contents(__DIR__ . '/vendor/composer/installed.json'), true);
-
-foreach ($installed as $package) {
-    if ($package['name'] == 'zsxsoft/php-useragent') {
-        $version = $package['version'];
-        break;
-    }
-}
-
 print json_encode([
     'results'     => $results,
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,
     'memory_used' => $memory,
-    'version'     => $version,
+    'version'     => PHP_VERSION . '-' . file_get_contents(__DIR__ . '/../data/version.txt'),
 ]);
