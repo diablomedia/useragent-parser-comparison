@@ -10,20 +10,24 @@ The CLI is written in PHP (using the Symfony Console component), but the parsers
 
 ## Latest "Accuracy" Results
 
-Parser                  | Browser Results    | Platform Results   | Device Results      | Accuracy Score
+Parser        | Version          | Browser Results    | Platform Results   | Device Results      | Accuracy Score
 -----|-----|-----|-----|-----|-----
-browscap-js-1           | 36921/46373 79.62% | 43997/46373 94.88% | 23090/46373 49.79%  | 118958/181892 65.4%
-browscap-php-2          | 36982/46373 79.75% | 44006/46373 94.9%  | 23090/46373 49.79%  | 119141/181892 65.5%
-browscap-php-3-full     | 36922/46373 79.62% | 43996/46373 94.87% | 23090/46373 49.79%  | 118957/181892 65.4%
-browscap-php-3-lite     | 23265/46373 50.17% | 32661/46373 70.43% | 37605/46373 81.09%  | 59431/125811 47.24%
-browscap-php-3-standard | 35709/46373 77%    | 33828/46373 72.95% | 41478/46373 89.44%  | 89939/125811 71.49%
-crossjoin-1             | 36925/46373 79.63% | 43996/46373 94.87% | 23091/46373 49.79%  | 118961/181892 65.4%
-crossjoin-2             | 36843/46373 79.45% | 44004/46373 94.89% | 22919/46373 49.42%  | 118473/181892 65.13%
-crossjoin-3             | 36843/46373 79.45% | 44004/46373 94.89% | 22919/46373 49.42%  | 118473/181892 65.13%
-piwik-device-detector-3 | 38838/46373 83.75% | 42908/46373 92.53% | 32769/46373 70.66%  | 146509/181892 80.55%
-ua-parser-php-3         | 38972/46373 84.04% | 35622/46373 76.82% | 35774/46373 77.14%  | 114186/150922 75.66%
-whichbrowser-2          | 39787/46373 85.8%  | 44663/46373 96.31% | 29827/46373 64.32%  | 150325/181892 82.65%
-woothee-php-1           | 31619/46373 68.18% | 42249/46373 91.11% | 39693/46373 85.6%   | 70439/109746 64.18%
+browscap-js-1           | 1.8.6020       | 37179/46982 79.13% | 44195/46982 94.07% | 23224/46982 49.43% | 120935/185584 65.16%
+browscap-php-2          | 2.1.1-6021     | 37250/46982 79.29% | 44218/46982 94.12% | 23224/46982 49.43% | 121144/185584 65.28%
+browscap-php-3-full     | 3.0.0-6021     | 37190/46982 79.16% | 44204/46982 94.09% | 23224/46982 49.43% | 120954/185584 65.17%
+browscap-php-3-lite     | 3.0.0-6021     | 23340/46982 49.68% | 32759/46982 69.73% | 38214/46982 81.34% | 61070/129171 47.28%
+browscap-php-3-standard | 3.0.0-6021     | 35965/46982 76.55% | 33952/46982 72.27% | 42079/46982 89.56% | 92077/129171 71.28%
+crossjoin-1             | 1.0.5-6021     | 37193/46982 79.16% | 44204/46982 94.09% | 23225/46982 49.43% | 120958/185584 65.18%
+crossjoin-2             | 2.0.0-6021     | 37108/46982 78.98% | 44217/46982 94.11% | 23055/46982 49.07% | 120474/185584 64.92%
+crossjoin-3             | 3.0.0-6021     | 37108/46982 78.98% | 44217/46982 94.11% | 23055/46982 49.07% | 120474/185584 64.92%
+php-get-browser         | 7.0.15-6021    | 37249/46982 79.28% | 44217/46982 94.11% | 23226/46982 49.44% | 121141/185584 65.28%
+piwik-device-detector-3 | 3.7.5          | 39179/46982 83.39% | 43358/46982 92.29% | 33262/46982 70.8%  | 149405/185584 80.51%
+ua-parser-php-3         | v3.4.6-18d5a22 | 39306/46982 83.66% | 35735/46982 76.06% | 36238/46982 77.13% | 116599/154576 75.43%
+whichbrowser-2          | v2.0.24        | 40120/46982 85.39% | 44942/46982 95.66% | 30277/46982 64.44% | 152981/185584 82.43%
+woothee-php-1           | 1.5.0          | 31778/46982 67.64% | 42491/46982 90.44% | 40298/46982 85.77% | 72550/113087 64.15%
+zsxsoft-php-1           | 1.4            | 36627/46982 77.96% | 41942/46982 89.27% | 24881/46982 52.96% | 98143/154576 63.49%
+
+[View Full Results](https://github.com/diablomedia/useragent-parser-comparison/wiki/fullresults)
 
 ## Latest Benchmark Results
 
@@ -161,7 +165,7 @@ Currently this is the list of parsers included:
  * Crossjoin Browscap 1.x (https://github.com/crossjoin/Browscap/tree/1.x)
  * Crossjoin Browscap 2.x (https://github.com/crossjoin/Browscap/tree/2.x)
  * Crossjoin Browscap 3.x (PHP7 only) (https://github.com/crossjoin/Browscap/tree/3.x)
- * PHP's Native `get_browser` (https://secure.php.net/get_browser) - It is **strongly* recommended that this parser isn't used for large useragent lists unless you're on PHP **7.0.15/7.1.1 or later**. It is **much** too slow otherwise.
+ * PHP's Native `get_browser` (https://secure.php.net/get_browser) - It is **strongly** recommended that this parser isn't used for large useragent lists unless you're on PHP **7.0.15/7.1.1 or later**. It is **much** too slow otherwise.
  * Piwik Device Detector 3.x (https://github.com/piwik/device-detector)
  * UA Parser PHP 3.x (https://github.com/ua-parser/uap-php)
  * WhichBrowser 2.x (https://github.com/WhichBrowser/Parser)
