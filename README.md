@@ -37,21 +37,23 @@ Performed with the following command:
 
 ### VMWare ESX Virtual Server
 
-2.33 GHz Intel Xeon E5410, 4 GB RAM, Magnetic Disk Drive (RAID), PHP 5.6
+2.33 GHz Intel Xeon E5410, 4 GB RAM, Magnetic Disk Drive (RAID), PHP 5.6.28
 
-Parser                  | Average Init Time | Average Parse Time | Average Memory Used
------|-----|-----|-----
-browscap-js-1           | 0.054s            | 13.971s            | 99.96 M
-browscap-php-2          | 1s                | 20.038s            | 122.76 M
-browscap-php-3-full     | 0.025s            | 6.69s              | 3.61 M
-browscap-php-3-lite     | 0.021s            | 1.819s             | 1.7 M
-browscap-php-3-standard | 0.028s            | 3.763s             | 2.39 M
-crossjoin-1             | 0.017s            | 5.766s             | 907.94 K
-crossjoin-2             | 0.038s            | 10.213s            | 1.15 M
-piwik-device-detector-3 | 0.886s            | 4.087s             | 4.35 M
-ua-parser-php-3         | 0.044s            | 1.742s             | 1.51 M
-whichbrowser-2          | 0.107s            | 2.728s             | 20.26 M
-woothee-php-1           | 0.025s            | 0.062s             | 1.04 M
+Parser                  | Average Init Time | Average Parse Time | Average Extra Time | Average Memory Used
+-----|-----|-----|-----|-----
+browscap-js-1           | 0.057s            | 14.395s            | 0.252s             | 105.02 M
+browscap-php-2          | 1.039s            | 21.098s            | 0.22s              | 122.83 M
+browscap-php-3-full     | 0.04s             | 8.236s             | 0.131s             | 3.63 M
+browscap-php-3-lite     | 0.033s            | 1.871s             | 0.116s             | 1.7 M
+browscap-php-3-standard | 0.033s            | 3.929s             | 0.12s              | 2.4 M
+crossjoin-1             | 0.014s            | 5.638s             | 0.127s             | 908.14 K
+crossjoin-2             | 0.023s            | 10.223s            | 0.125s             | 1.15 M
+php-get-browser         | 6.771s            | 1810.543s          | 10.164s            | 285.4 K
+piwik-device-detector-3 | 0.927s            | 4.304s             | 0.177s             | 4.35 M
+ua-parser-php-3         | 0.043s            | 1.683s             | 0.116s             | 1.52 M
+whichbrowser-2          | 0.09s             | 1.907s             | 0.144s             | 20.26 M
+woothee-php-1           | 0.034s            | 0.063s             | 0.129s             | 1.05 M
+zsxsoft-php-1           | 0.012s            | 0.403s             | 0.115s             | 1.14 M
 
 ### MacBook Pro
 
