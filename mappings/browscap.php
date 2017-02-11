@@ -40,6 +40,9 @@ return [
             'xerka'                            => 'xerkawebbot',
             'yahoomailmobile'                  => 'yahoomail',
             'yahooslurpchina'                  => 'yahooslurp',
+            'androiddownloadmanager'           => 'downloadmanager',
+            'bloglinesweb'                     => 'bloglines',
+            'googleimagesearch'                => 'googlebotimage',
         ],
         'version' => [
             'unknown' => '',

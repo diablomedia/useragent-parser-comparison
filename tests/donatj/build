@@ -1,0 +1,44 @@
+#!/usr/bin/env php
+<?php
+
+$tests = [];
+
+$provider = json_decode(file_get_contents(__DIR__ . '/vendor/donatj/phpuseragentparser/Tests/user_agents.json'), true);
+
+foreach ($provider as $ua => $data) {
+    if (!empty($ua)) {
+        $expected = [
+            'browser' => [
+                'name'    => $data['browser'],
+                'version' => $data['version'],
+            ],
+            'platform' => [
+                'name'    => $data['platform'],
+                'version' => null,
+            ],
+            'device' => [
+                'name'     => null,
+                'brand'    => null,
+                'type'     => null,
+                'ismobile' => null,
+            ]
+        ];
+
+        $tests[$ua] = $expected;
+    }
+}
+
+// Get version from composer
+$installed = json_decode(file_get_contents(__DIR__ . '/vendor/composer/installed.json'), true);
+
+foreach ($installed as $package) {
+    if ($package['name'] == 'donatj/phpuseragentparser') {
+        $version = $package['version'];
+        break;
+    }
+}
+
+print json_encode([
+    'tests'   => $tests,
+    'version' => $version,
+]);

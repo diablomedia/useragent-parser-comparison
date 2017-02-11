@@ -1,0 +1,92 @@
+#!/usr/bin/env php
+<?php
+
+ini_set('memory_limit', -1);
+ini_set('max_execution_time', -1);
+
+$benchmarkPos = array_search('--benchmark', $argv);
+$benchmark    = false;
+
+if ($benchmarkPos !== false) {
+    $benchmark = true;
+    unset($argv[$benchmarkPos]);
+    $argv = array_values($argv);
+}
+
+$agentListFile = $argv[1];
+
+$results   = [];
+$parseTime = 0;
+
+$start = microtime(true);
+require __DIR__ . '/vendor/autoload.php';
+use Sinergi\BrowserDetector\Browser;
+use Sinergi\BrowserDetector\Os;
+use Sinergi\BrowserDetector\Device;
+
+new Browser('Test String');
+new Os('Test String');
+new Device('Test String');
+$initTime = microtime(true) - $start;
+
+$file = new SplFileObject($agentListFile);
+$file->setFlags(SplFileObject::DROP_NEW_LINE);
+
+while (!$file->eof()) {
+    $agentString = $file->fgets();
+
+    if (!empty($agentString)) {
+        $start   = microtime(true);
+        $browser = new Browser($agentString);
+        $os      = new Os($agentString);
+        $device  = new Device($agentString);
+        $end     = microtime(true) - $start;
+
+        if (!$benchmark) {
+            $results[] = [
+                'useragent' => $agentString,
+                'parsed'    => [
+                    'browser' => [
+                        'name'    => $browser->getName(),
+                        'version' => $browser->getVersion(),
+                    ],
+                    'platform' => [
+                        'name'    => $os->getName(),
+                        'version' => $os->getVersion(),
+                    ],
+                    'device' => [
+                        'name'     => $device->getName(),
+                        'brand'    => null,
+                        'type'     => null,
+                        'ismobile' => $os->isMobile() ? 'true' : 'false',
+                    ],
+                ],
+                'time' => $end,
+            ];
+        }
+
+        $parseTime += $end;
+    }
+}
+
+$file = null;
+
+$memory = memory_get_peak_usage();
+
+// looking to composer for the installed version
+$installed = json_decode(file_get_contents(__DIR__ . '/vendor/composer/installed.json'), true);
+
+foreach ($installed as $package) {
+    if ($package['name'] == 'sinergi/browser-detector') {
+        $version = $package['version'];
+        break;
+    }
+}
+
+print json_encode([
+    'results'     => $results,
+    'parse_time'  => $parseTime,
+    'init_time'   => $initTime,
+    'memory_used' => $memory,
+    'version'     => $version,
+]);

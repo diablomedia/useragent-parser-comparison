@@ -1,0 +1,5 @@
+{
+    "require": {
+        "donatj/phpuseragentparser": "~0.6"
+    }
+}

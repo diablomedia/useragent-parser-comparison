@@ -1,0 +1,61 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "a9bdc0f4c286c46b51601a22d69b97fb",
+    "packages": [
+        {
+            "name": "zsxsoft/php-useragent",
+            "version": "1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zsxsoft/php-useragent.git",
+                "reference": "f8bf32db3064becdc6d3fac9be61260cd7e1f1bd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zsxsoft/php-useragent/zipball/f8bf32db3064becdc6d3fac9be61260cd7e1f1bd",
+                "reference": "f8bf32db3064becdc6d3fac9be61260cd7e1f1bd",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "require-dev": {
+                "phpunit/php-code-coverage": "*",
+                "phpunit/phpunit": "~4"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "useragent.class.php",
+                    "lib/useragent_detect_browser.php",
+                    "lib/useragent_detect_device.php",
+                    "lib/useragent_detect_os.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL"
+            ],
+            "authors": [
+                {
+                    "name": "zsx",
+                    "email": "zsx@zsxsoft.com"
+                }
+            ],
+            "description": "A User-agent analyze project.",
+            "time": "2017-01-04T12:06:02+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

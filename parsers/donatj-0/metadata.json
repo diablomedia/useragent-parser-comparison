@@ -1,0 +1,7 @@
+{
+    "name": "DonatJ PhpUserAgent 0.x",
+    "language": "PHP",
+    "local": true,
+    "api": false,
+    "data_source": "donatj"
+}

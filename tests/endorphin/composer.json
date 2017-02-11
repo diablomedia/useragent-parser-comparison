@@ -1,0 +1,5 @@
+{
+    "require": {
+        "endorphin-studio/browser-detector": "^3.0"
+    }
+}

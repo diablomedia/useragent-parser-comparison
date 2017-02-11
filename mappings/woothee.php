@@ -18,6 +18,8 @@ return [
             'salesforceradian6'   => 'radian6',
             'topsybutterfly'      => 'butterfly',
             'unknown'             => '',
+            'softbankmobile'      => 'softbank',
+            'windowsrssreader'    => 'windowsrssplatform',
         ],
         'version' => [
             'unknown' => '',

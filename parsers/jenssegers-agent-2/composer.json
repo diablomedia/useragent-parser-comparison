@@ -1,0 +1,5 @@
+{
+    "require": {
+        "jenssegers/agent": "^2.4"
+    }
+}

@@ -71,6 +71,7 @@ return [
             'wechat'                 => 'wechatapp',
             'windowsrssplatorm'      => 'windowsrssplatform',
             'wordpresscom'           => 'wordpress',
+            'qqbrowsermini'          => 'qqbrowser',
         ]
     ],
     'platform' => [
@@ -107,6 +108,7 @@ return [
             'windowsce'          => 'wince',
             'windowsmobile'      => 'winmobile',
             'windowsphone'       => 'winphone',
+            'rimtabletos'        => 'rimos',
         ]
     ],
     'device' => [

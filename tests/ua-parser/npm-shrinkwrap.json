@@ -1,0 +1,11 @@
+{
+  "name": "ua-parser",
+  "version": "1.0.0",
+  "dependencies": {
+    "uap-core": {
+      "version": "0.5.0",
+      "from": "ua-parser/uap-core",
+      "resolved": "git://github.com/ua-parser/uap-core.git#e03b8264f9128ef5d488ec0d3a46bc44166e7a82"
+    }
+  }
+}

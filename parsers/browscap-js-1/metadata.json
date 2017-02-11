@@ -1,6 +1,6 @@
 {
     "name": "Browscap JS 1.x",
-    "language": "Node",
+    "language": "JavaScript",
     "local": true,
     "api": false,
     "data_source": "browscap"

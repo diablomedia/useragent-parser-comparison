@@ -1,5 +1,4 @@
 /vendor
-/composer.lock
 /node_modules
 /cache/*
 !/cache/.gitkeep

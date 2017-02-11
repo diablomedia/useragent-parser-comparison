@@ -1,0 +1,71 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "251ec3bb65a2927fe81a3c7eab05cc29",
+    "packages": [
+        {
+            "name": "crossjoin/browscap",
+            "version": "v1.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/crossjoin/Browscap.git",
+                "reference": "e5fa0314c3190a58c8dc6a9ea0ff19eacdc1e6c0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/crossjoin/Browscap/zipball/e5fa0314c3190a58c8dc6a9ea0ff19eacdc1e6c0",
+                "reference": "e5fa0314c3190a58c8dc6a9ea0ff19eacdc1e6c0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "suggest": {
+                "php": ">=5.5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Crossjoin\\Browscap\\": "src/Crossjoin/Browscap/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christoph Ziegenberg",
+                    "email": "ziegenberg@crossjoin.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "The standalone PHP Browscap parser Crossjoin\\Browscap detects browser properties as well as device information based on the user agent string of the requesting browsers and search engines, using the data from the Browser Capabilities Project. It's several hundred times faster than the build-in PHP function get_browser(), and faster than other Browscap PHP libraries, with much lower memory consumption. Optionally Crossjoin\\Browscap automatically updates the Browscap data, so you're always up-to-date. It supports PHP 5.3 to PHP 7.0 (PHP 5.5+ recommended).",
+            "homepage": "https://github.com/crossjoin/Browscap",
+            "keywords": [
+                "Browscap",
+                "browser",
+                "capabilities",
+                "client",
+                "detection",
+                "device",
+                "get_browser",
+                "php",
+                "properties",
+                "user agent"
+            ],
+            "time": "2016-03-30T14:41:57+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

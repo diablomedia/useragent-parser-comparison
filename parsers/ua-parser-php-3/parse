@@ -20,10 +20,6 @@ $parseTime = 0;
 
 $start = microtime(true);
 require __DIR__ . '/vendor/autoload.php';
-
-// Get the updated file to pass to parser
-
-
 $parser = UAParser\Parser::create();
 $parser->parse('Test String');
 $initTime = microtime(true) - $start;

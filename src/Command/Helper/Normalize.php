@@ -26,26 +26,6 @@ class Normalize extends Helper
         if (!empty($source)) {
             if (file_exists($this->mapDir . '/' . $source . '.php')) {
                 $mappings = include $this->mapDir . '/' . $source . '.php';
-
-                $newMappings = [];
-                // change the keys in the mappings file to be word boundary regular expressions
-                // so that we can do an exact match on the search string, not parial
-                foreach ($mappings as $section => $properties) {
-                    $newMappings[$section] = [];
-
-                    foreach ($properties as $property => $replacements) {
-                        $keys = array_keys($mappings[$section][$property]);
-                        array_walk($keys, function (&$search) {
-                            $search = '/\b' . preg_quote($search) . '\b/u';
-                        });
-                        $values = array_values($mappings[$section][$property]);
-
-                        $newMappings[$section][$property] = array_combine($keys, $values);
-                    }
-                }
-
-                $mappings = $newMappings;
-                unset($newMappings);
             }
         }
 
@@ -69,11 +49,9 @@ class Normalize extends Helper
                     }
 
                     if (isset($mappings[$section][$key])) {
-                        $value = preg_replace(
-                            array_keys($mappings[$section][$key]),
-                            array_values($mappings[$section][$key]),
-                            $value
-                        );
+                        if (isset($mappings[$section][$key][$value])) {
+                            $value = $mappings[$section][$key][$value];
+                        }
                     }
                 }
 
@@ -86,6 +64,7 @@ class Normalize extends Helper
 
     protected function truncateVersion($version)
     {
+        $version      = str_replace('_', '.', $version);
         $versionParts = explode('.', $version);
         $versionParts = array_slice($versionParts, 0, 2);
 

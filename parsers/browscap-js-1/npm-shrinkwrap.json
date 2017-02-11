@@ -1,0 +1,41 @@
+{
+  "name": "browscap-js-1",
+  "version": "1.0.0",
+  "dependencies": {
+    "browscap-js": {
+      "version": "1.8.6020",
+      "from": "browscap-js@1.8.6020",
+      "resolved": "https://registry.npmjs.org/browscap-js/-/browscap-js-1.8.6020.tgz"
+    },
+    "browscap-js-cache": {
+      "version": "1.2.0",
+      "from": "browscap-js-cache@>=1.2.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/browscap-js-cache/-/browscap-js-cache-1.2.0.tgz"
+    },
+    "browscap-json-cache-files": {
+      "version": "1.1.6020",
+      "from": "browscap-json-cache-files@>=1.0.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/browscap-json-cache-files/-/browscap-json-cache-files-1.1.6020.tgz"
+    },
+    "charenc": {
+      "version": "0.0.2",
+      "from": "charenc@>=0.0.1 <0.1.0",
+      "resolved": "https://registry.npmjs.org/charenc/-/charenc-0.0.2.tgz"
+    },
+    "crypt": {
+      "version": "0.0.2",
+      "from": "crypt@>=0.0.1 <0.1.0",
+      "resolved": "https://registry.npmjs.org/crypt/-/crypt-0.0.2.tgz"
+    },
+    "is-buffer": {
+      "version": "1.1.4",
+      "from": "is-buffer@>=1.1.1 <1.2.0",
+      "resolved": "https://registry.npmjs.org/is-buffer/-/is-buffer-1.1.4.tgz"
+    },
+    "md5": {
+      "version": "2.2.1",
+      "from": "md5@>=2.0.0 <3.0.0",
+      "resolved": "https://registry.npmjs.org/md5/-/md5-2.2.1.tgz"
+    }
+  }
+}

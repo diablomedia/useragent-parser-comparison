@@ -115,6 +115,7 @@ return [
             'libcurl'                             => 'curl',
             'ncsamosaic'                          => 'mosaic',
             'maemobrowser'                        => 'microb',
+            'facebookbot'                         => 'facebookexternalhit',
         ]
     ],
     'platform' => [
@@ -146,6 +147,10 @@ return [
             'web0s'              => 'webos',
             'googletv'           => 'androidforgoogletv',
             'blackberrytabletos' => 'rimtabletos',
+            'atvosx'             => 'appletv',
+            'symbian3anna'       => 'symbianos',
+            'symbian3belle'      => 'symbianos',
+            'rimtabletos'        => 'rimos',
         ]
     ],
     'device' => [
