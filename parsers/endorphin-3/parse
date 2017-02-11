@@ -65,6 +65,7 @@ while (!$file->eof()) {
 }
 
 $file = null;
+$memory = memory_get_peak_usage();
 
 $installed = json_decode(file_get_contents(__DIR__ . '/vendor/composer/installed.json'), true);
 
@@ -79,6 +80,6 @@ print json_encode([
     'results'     => $results,
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,
-    'memory_used' => memory_get_peak_usage(),
+    'memory_used' => $memory,
     'version'     => $version,
 ]);

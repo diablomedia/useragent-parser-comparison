@@ -12,20 +12,24 @@ The CLI is written in PHP (using the Symfony Console component), but the parsers
 
 Parser        | Version          | Browser Results    | Platform Results   | Device Results      | Accuracy Score
 -----|-----|-----|-----|-----|-----
-browscap-js-1           | 1.8.6020       | 37179/46982 79.13% | 44195/46982 94.07% | 23224/46982 49.43% | 120935/185584 65.16%
-browscap-php-2          | 2.1.1-6021     | 37250/46982 79.29% | 44218/46982 94.12% | 23224/46982 49.43% | 121144/185584 65.28%
-browscap-php-3-full     | 3.0.0-6021     | 37190/46982 79.16% | 44204/46982 94.09% | 23224/46982 49.43% | 120954/185584 65.17%
-browscap-php-3-lite     | 3.0.0-6021     | 23340/46982 49.68% | 32759/46982 69.73% | 38214/46982 81.34% | 61070/129171 47.28%
-browscap-php-3-standard | 3.0.0-6021     | 35965/46982 76.55% | 33952/46982 72.27% | 42079/46982 89.56% | 92077/129171 71.28%
-crossjoin-1             | 1.0.5-6021     | 37193/46982 79.16% | 44204/46982 94.09% | 23225/46982 49.43% | 120958/185584 65.18%
-crossjoin-2             | 2.0.0-6021     | 37108/46982 78.98% | 44217/46982 94.11% | 23055/46982 49.07% | 120474/185584 64.92%
-crossjoin-3             | 3.0.0-6021     | 37108/46982 78.98% | 44217/46982 94.11% | 23055/46982 49.07% | 120474/185584 64.92%
-php-get-browser         | 7.0.15-6021    | 37249/46982 79.28% | 44217/46982 94.11% | 23226/46982 49.44% | 121141/185584 65.28%
-piwik-device-detector-3 | 3.7.5          | 39179/46982 83.39% | 43358/46982 92.29% | 33262/46982 70.8%  | 149405/185584 80.51%
-ua-parser-php-3         | v3.4.6-18d5a22 | 39306/46982 83.66% | 35735/46982 76.06% | 36238/46982 77.13% | 116599/154576 75.43%
-whichbrowser-2          | v2.0.24        | 40120/46982 85.39% | 44942/46982 95.66% | 30277/46982 64.44% | 152981/185584 82.43%
-woothee-php-1           | 1.5.0          | 31778/46982 67.64% | 42491/46982 90.44% | 40298/46982 85.77% | 72550/113087 64.15%
-zsxsoft-php-1           | 1.4            | 36627/46982 77.96% | 41942/46982 89.27% | 24881/46982 52.96% | 98143/154576 63.49%
+browscap-js-1           | 1.8.6020       | 37407/47277 79.12% | 44383/47277 93.88% | 23486/47277 49.68% | 121366/186265 65.16%
+browscap-php-2          | 2.1.1-6021     | 37477/47277 79.27% | 44406/47277 93.93% | 23486/47277 49.68% | 121571/186265 65.27%
+browscap-php-3-full     | 3.0.0-6021     | 37418/47277 79.15% | 44392/47277 93.9%  | 23486/47277 49.68% | 121385/186265 65.17%
+browscap-php-3-lite     | 3.0.0-6021     | 23470/47277 49.64% | 32893/47277 69.58% | 38499/47277 81.43% | 61283/129821 47.21%
+browscap-php-3-standard | 3.0.0-6021     | 36193/47277 76.56% | 34115/47277 72.16% | 42367/47277 89.61% | 92494/129821 71.25%
+crossjoin-1             | 1.0.5-6021     | 37421/47277 79.15% | 44392/47277 93.9%  | 23487/47277 49.68% | 121389/186265 65.17%
+crossjoin-2             | 2.0.0-6021     | 37334/47277 78.97% | 44405/47277 93.93% | 23317/47277 49.32% | 120899/186265 64.91%
+crossjoin-3             | 3.0.0-6021     | 37334/47277 78.97% | 44405/47277 93.93% | 23317/47277 49.32% | 120899/186265 64.91%
+donatj-0                | v0.6.0         | 34061/47277 72.05% | 41117/47277 86.97% | 47277/47277 100%   | 59252/86862 68.21%
+endorphin-3             | 3.0.1          | 29219/47277 61.8%  | 38893/47277 82.27% | 15157/47277 32.06% | 69974/158917 44.03%
+jenssegers-agent-2      | v2.4.1         | 29583/47277 62.57% | 42667/47277 90.25% | 16896/47277 35.74% | 88460/158917 55.66%
+php-get-browser         | 7.0.15-6021    | 37476/47277 79.27% | 44405/47277 93.93% | 23488/47277 49.68% | 121568/186265 65.27%
+piwik-device-detector-3 | 3.7.5          | 39400/47277 83.34% | 43553/47277 92.12% | 33549/47277 70.96% | 149858/186265 80.45%
+sinergi-6               | 6.1.2          | 31294/47277 66.19% | 41697/47277 88.2%  | 18544/47277 39.22% | 77155/143985 53.59%
+ua-parser-php-3         | v3.4.6-1b94534 | 39536/47277 83.63% | 35905/47277 75.95% | 36517/47277 77.24% | 117038/155241 75.39%
+whichbrowser-2          | v2.0.24        | 40349/47277 85.35% | 45142/47277 95.48% | 30562/47277 64.64% | **153454/186265 82.38%**
+woothee-php-1           | 1.5.0          | 31951/47277 67.58% | 42682/47277 90.28% | 40585/47277 85.85% | 72881/113729 64.08%
+zsxsoft-php-1           | 1.4            | 36842/47277 77.93% | 42124/47277 89.1%  | 25159/47277 53.22% | 98569/155241 63.49%
 
 [View Full Results](https://github.com/diablomedia/useragent-parser-comparison/wiki/fullresults)
 
@@ -61,21 +65,24 @@ zsxsoft-php-1           | 0.012s            | 0.403s             | 0.115s       
 
 Parser                  | Average Init Time | Average Parse Time | Average Extra Time | Average Memory Used
 -----|-----|-----|-----|-----
-browscap-js-1           | 0.017s            | 5.921s             | 0.084s             | 91.27 M
-browscap-php-2          | 0.412s            | 2.05s              | 0.036s             | 130.89 M
-browscap-php-3-full     | 0.007s            | 1.587s             | 0.026s             | 3.38 M
-browscap-php-3-lite     | 0.007s            | 0.297s             | 0.021s             | 1.14 M
-browscap-php-3-standard | 0.007s            | 0.741s             | 0.025s             | 2 M
-crossjoin-1             | 0.003s            | 1.444s             | 0.028s             | 819.19 K
-crossjoin-2             | 0.007s            | 2.411s             | 0.021s             | 948.94 K
-crossjoin-3             | 0.008s            | 2.375s             | 0.021s             | 926.97 K
-php-get-browser         | 0.003s            | 5.246s             | 0.929s             | 391.72 K
-piwik-device-detector-3 | 0.064s            | 0.319s             | 0.023s             | 2.83 M
-ua-parser-php-3         | 0.022s            | 0.178s             | 0.022s             | 1.44 M
-whichbrowser-2          | 0.022s            | 0.198s             | 0.024s             | 15.2 M
-woothee-php-1           | 0.005s            | 0.004s             | 0.02s              | 742.8 K
-zsxsoft-php-1           | 0.004s            | 0.027s             | 0.021s             | 931.92 K
-
+browscap-js-1           | 0.018s            | 5.758s             | 0.088s             | 116.91 M
+browscap-php-2          | 0.409s            | 2.052s             | 0.038s             | 130.89 M
+browscap-php-3-full     | 0.008s            | 1.684s             | 0.028s             | 3.38 M
+browscap-php-3-lite     | 0.008s            | 0.291s             | **0.02s**          | 1.14 M
+browscap-php-3-standard | 0.009s            | 0.726s             | 0.025s             | 2 M
+crossjoin-1             | 0.004s            | 1.386s             | 0.026s             | 819.19 K
+crossjoin-2             | 0.009s            | 2.355s             | **0.02s**          | 949.27 K
+crossjoin-3             | 0.01s             | 2.384s             | **0.02s**          | 927.3 K
+donatj-0                | **0.002s**        | **0.004s**         | 0.021s             | 498.26 K
+endorphin-3             | 0.005s            | 0.128s             | **0.02s**          | 521.36 K
+jenssegers-agent-2      | 0.011s            | 0.262s             | 0.022s             | 808.07 K
+php-get-browser         | 0.003s            | 5.263s             | 1.005s             | **391.72 K**
+piwik-device-detector-3 | 0.062s            | 0.316s             | 0.023s             | 2.83 M
+sinergi-6               | 0.001s            | 0.001s             | **0.02s**          | 491.57 K
+ua-parser-php-3         | 0.022s            | 0.184s             | 0.023s             | 1.44 M
+whichbrowser-2          | 0.02s             | 0.201s             | 0.025s             | 15.2 M
+woothee-php-1           | 0.005s            | **0.004s**         | 0.019s             | 742.8 K
+zsxsoft-php-1           | 0.005s            | 0.027s             | **0.02s**          | 931.92 K
 
 ## How To Use
 
@@ -167,8 +174,12 @@ Currently this is the list of parsers included:
  * Crossjoin Browscap 1.x (https://github.com/crossjoin/Browscap/tree/1.x)
  * Crossjoin Browscap 2.x (https://github.com/crossjoin/Browscap/tree/2.x)
  * Crossjoin Browscap 3.x (PHP7 only) (https://github.com/crossjoin/Browscap/tree/3.x)
+ * Donatj UserAgent Parser 0.x (https://github.com/donatj/PhpUserAgent)
+ * Endorphin Browser Detector 3.x (https://github.com/endorphin-studio/browser-detector)
+ * Jenssegers Agent 2.x (https://github.com/jenssegers/agent)
  * PHP's Native `get_browser` (https://secure.php.net/get_browser) - It is **strongly** recommended that this parser isn't used for large useragent lists unless you're on PHP **7.0.15/7.1.1 or later**. It is **much** too slow otherwise.
  * Piwik Device Detector 3.x (https://github.com/piwik/device-detector)
+ * Sinergi Browser Detector 6.x (https://github.com/sinergi/php-browser-detector)
  * UA Parser PHP 3.x (https://github.com/ua-parser/uap-php)
  * WhichBrowser 2.x (https://github.com/WhichBrowser/Parser)
  * Woothee PHP 1.x (https://github.com/woothee/woothee-php)
@@ -204,7 +215,10 @@ Due to the nature of this format, it is a requirement that any given unique user
 These are the test suites that are currently included:
 
  * Browscap (https://github.com/browscap/browscap)
+ * Donatj (https://github.com/donatj/PhpUserAgent)
+ * Endorphin (https://github.com/endorphin-studio/browser-detector)
  * Piwik Device Detector (https://github.com/piwik/device-detector)
+ * Sinergi (https://github.com/sinergi/php-browser-detector)
  * UA Parser (https://github.com/ua-parser/uap-core)
  * WhichBrowser (https://github.com/WhichBrowser/Parser)
  * Woothee (https://github.com/woothee/woothee)
