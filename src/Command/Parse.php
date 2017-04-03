@@ -26,6 +26,7 @@ class Parse extends Command
             ->addOption('normalize', null, InputOption::VALUE_NONE, 'Whether to normalize the output')
             ->addOption('name', null, InputOption::VALUE_OPTIONAL, 'Name of the run, for storing results')
             ->addOption('csv', null, InputOption::VALUE_NONE, 'Outputs CSV without showing CLI table')
+            ->addOption('csv-file', null, InputOption::VALUE_OPTIONAL, 'File name to output CSV data to')
             ->addOption('no-output', null, InputOption::VALUE_NONE, 'Disables output after parsing, useful when chaining commands')
             ->setHelp('Parses the useragent strings (one per line) from the passed in file and outputs the parsed properties.');
     }
@@ -37,6 +38,12 @@ class Parse extends Command
         $csv       = $input->getOption('csv');
         $name      = $input->getOption('name');
         $noOutput  = $input->getOption('no-output');
+        $csvFile   = $input->getOption('csv-file');
+
+        if ($csvFile) {
+            $noOutput = true;
+            $csv = true;
+        }
 
         $parserHelper    = $this->getHelper('parsers');
         $normalizeHelper = $this->getHelper('normalize');
@@ -112,7 +119,7 @@ class Parse extends Command
             }
 
             if ($csv || $answer == 'Dump as CSV') {
-                $output->writeln($this->putcsv([
+                $this->putcsv([
                     'useragent',
                     'browser_name',
                     'browser_version',
@@ -123,7 +130,7 @@ class Parse extends Command
                     'device_type',
                     'ismobile',
                     'time',
-                ]));
+                ], $output, $csvFile);
 
                 foreach ($result['results'] as $parsed) {
                     $out = [
@@ -139,11 +146,15 @@ class Parse extends Command
                         $parsed['time'],
                     ];
 
-                    $output->writeln($this->putcsv($out));
+                    $this->putcsv($out, $output, $csvFile);
                 }
 
-                $question = new Question('Press enter to continue', 'yes');
-                $questionHelper->ask($input, $output, $question);
+                if ($csvFile) {
+                    $output->writeln('Wrote CSV data to ' . $csvFile, 'success');
+                } else {
+                    $question = new Question('Press enter to continue', 'yes');
+                    $questionHelper->ask($input, $output, $question);
+                }
             }
         }
 
@@ -155,9 +166,17 @@ class Parse extends Command
         }
     }
 
-    protected function putcsv($input, $delimiter = ',', $enclosure = '"')
+    protected function putcsv($input, $output, $csvFile)
     {
-        $fp = fopen('php://temp', 'r+b');
+        $delimiter = ',';
+        $enclosure = '"';
+
+        if ($csvFile) {
+            $fp = fopen($csvFile, 'a+');
+        } else {
+            $fp = fopen('php://temp', 'r+b');
+        }
+
         fputcsv($fp, $input, $delimiter, $enclosure);
         rewind($fp);
         $data = rtrim(stream_get_contents($fp), "\n");

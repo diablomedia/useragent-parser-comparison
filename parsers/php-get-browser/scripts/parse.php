@@ -70,4 +70,4 @@ print json_encode([
     'init_time'   => $initTime,
     'memory_used' => $memory,
     'version'     => PHP_VERSION . '-' . file_get_contents(__DIR__ . '/../data/version.txt'),
-]);
+], JSON_UNESCAPED_SLASHES);

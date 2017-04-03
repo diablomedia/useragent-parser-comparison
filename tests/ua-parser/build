@@ -43,7 +43,6 @@ function processFixture($fixture, &$tests, $cache)
             $tests[$ua] = array_replace_recursive($tests[$ua], $data);
         }
     } else {
-        //$provider = Spyc::YAMLLoad($fixture->getPathname());
         $provider = Yaml::parse(file_get_contents($fixture->getPathname()));
 
         $records = [];

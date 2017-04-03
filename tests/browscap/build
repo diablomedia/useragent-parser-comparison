@@ -4,6 +4,10 @@
 $tests = [];
 
 foreach (new FilesystemIterator(__DIR__ . '/vendor/browscap/browscap/tests/fixtures/issues') as $fixture) {
+    if ($fixture->getFilename() === 'issue-000-invalids.php') {
+        continue;
+    }
+
     $provider = include $fixture->getPathName();
 
     foreach ($provider as $testName => $data) {
@@ -15,7 +19,7 @@ foreach (new FilesystemIterator(__DIR__ . '/vendor/browscap/browscap/tests/fixtu
                     'version' => $data['properties']['Version'],
                 ],
                 'platform' => [
-                    'name'    => $data['properties']['Platform'],
+                    'name'    => isset($data['properties']['Platform']) ? $data['properties']['Platform'] : 'unknown',
                     'version' => $data['properties']['Platform_Version'],
                 ],
                 'device' => [

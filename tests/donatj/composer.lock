@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "donatj/phpuseragentparser",
-            "version": "v0.6.0",
+            "version": "v0.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/donatj/PhpUserAgent.git",
-                "reference": "a4f515619c8d9697f34dd8da2eb353bb4c57c5dc"
+                "reference": "73c819d4c7de034f1bfb7c7a36259192d7d7472a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/donatj/PhpUserAgent/zipball/a4f515619c8d9697f34dd8da2eb353bb4c57c5dc",
-                "reference": "a4f515619c8d9697f34dd8da2eb353bb4c57c5dc",
+                "url": "https://api.github.com/repos/donatj/PhpUserAgent/zipball/73c819d4c7de034f1bfb7c7a36259192d7d7472a",
+                "reference": "73c819d4c7de034f1bfb7c7a36259192d7d7472a",
                 "shasum": ""
             },
             "require": {
@@ -55,7 +55,7 @@
                 "user agent",
                 "useragent"
             ],
-            "time": "2017-01-23T19:32:09+00:00"
+            "time": "2017-03-01T22:19:13+00:00"
         }
     ],
     "packages-dev": [],

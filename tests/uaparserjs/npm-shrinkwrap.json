@@ -1,0 +1,11 @@
+{
+  "name": "uaparserjs",
+  "version": "1.0.0",
+  "dependencies": {
+    "ua-parser-js": {
+      "version": "0.7.12",
+      "from": "ua-parser-js@latest",
+      "resolved": "https://registry.npmjs.org/ua-parser-js/-/ua-parser-js-0.7.12.tgz"
+    }
+  }
+}

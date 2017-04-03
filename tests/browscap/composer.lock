@@ -8,29 +8,30 @@
     "packages": [
         {
             "name": "browscap/browscap",
-            "version": "6021",
+            "version": "6022",
             "source": {
                 "type": "git",
                 "url": "https://github.com/browscap/browscap.git",
-                "reference": "a231c5d2af1c4888c46a43a95d3c58d6b762feba"
+                "reference": "9664a24c6c185ed16be30e259a2f7bb1ff20e774"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/browscap/browscap/zipball/a231c5d2af1c4888c46a43a95d3c58d6b762feba",
-                "reference": "a231c5d2af1c4888c46a43a95d3c58d6b762feba",
+                "url": "https://api.github.com/repos/browscap/browscap/zipball/9664a24c6c185ed16be30e259a2f7bb1ff20e774",
+                "reference": "9664a24c6c185ed16be30e259a2f7bb1ff20e774",
                 "shasum": ""
             },
             "require": {
-                "monolog/monolog": "^1.7",
-                "php": "^7.0 | ^7.1",
-                "symfony/console": "^2.0 || ^3.0"
+                "monolog/monolog": "^1.20",
+                "php": "^7.0",
+                "symfony/console": "^3.2"
             },
             "require-dev": {
                 "browscap/browscap-php": "dev-master",
                 "friendsofphp/php-cs-fixer": "^1.11",
                 "mikey179/vfsstream": "^1.6",
-                "phpunit/phpunit": "^5.3",
-                "squizlabs/php_codesniffer": "^2.5"
+                "phpunit/phpunit": "^5.7",
+                "seld/jsonlint": "^1.5",
+                "squizlabs/php_codesniffer": "^2.8"
             },
             "bin": [
                 "bin/browscap"
@@ -71,20 +72,20 @@
             "keywords": [
                 "Browscap"
             ],
-            "time": "2017-01-31T15:03:56+00:00"
+            "time": "2017-03-28T08:58:11+00:00"
         },
         {
             "name": "monolog/monolog",
-            "version": "1.22.0",
+            "version": "1.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "bad29cb8d18ab0315e6c477751418a82c850d558"
+                "reference": "1e044bc4b34e91743943479f1be7a1d5eb93add0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/bad29cb8d18ab0315e6c477751418a82c850d558",
-                "reference": "bad29cb8d18ab0315e6c477751418a82c850d558",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/1e044bc4b34e91743943479f1be7a1d5eb93add0",
+                "reference": "1e044bc4b34e91743943479f1be7a1d5eb93add0",
                 "shasum": ""
             },
             "require": {
@@ -149,7 +150,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2016-11-26T00:15:39+00:00"
+            "time": "2017-03-13T07:08:03+00:00"
         },
         {
             "name": "psr/log",
@@ -200,16 +201,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v3.2.3",
+            "version": "v3.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "7a8405a9fc175f87fed8a3c40856b0d866d61936"
+                "reference": "28fb243a2b5727774ca309ec2d92da240f1af0dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/7a8405a9fc175f87fed8a3c40856b0d866d61936",
-                "reference": "7a8405a9fc175f87fed8a3c40856b0d866d61936",
+                "url": "https://api.github.com/repos/symfony/console/zipball/28fb243a2b5727774ca309ec2d92da240f1af0dd",
+                "reference": "28fb243a2b5727774ca309ec2d92da240f1af0dd",
                 "shasum": ""
             },
             "require": {
@@ -259,20 +260,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2017-02-06T12:04:21+00:00"
+            "time": "2017-03-06T19:30:27+00:00"
         },
         {
             "name": "symfony/debug",
-            "version": "v3.2.3",
+            "version": "v3.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "b4d9818f127c60ce21ed62c395da7df868dc8477"
+                "reference": "b90c9f91ad8ac37d9f114e369042d3226b34dc1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/b4d9818f127c60ce21ed62c395da7df868dc8477",
-                "reference": "b4d9818f127c60ce21ed62c395da7df868dc8477",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/b90c9f91ad8ac37d9f114e369042d3226b34dc1a",
+                "reference": "b90c9f91ad8ac37d9f114e369042d3226b34dc1a",
                 "shasum": ""
             },
             "require": {
@@ -316,7 +317,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-28T02:37:08+00:00"
+            "time": "2017-02-18T17:28:00+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",

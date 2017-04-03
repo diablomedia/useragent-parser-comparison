@@ -1,14 +1,13 @@
 #!/usr/bin/env node
 
 var initStart = process.hrtime();
-var Browscap = require('browscap-js');
-var browscap = new Browscap(__dirname + '/node_modules/browscap-json-cache-files/sources/');
+var parser = require('ua-parser-js');
 // Trigger a parse to force cache loading
-browscap.getBrowser('Test String');
+parser('Test String');
 var initTime = process.hrtime(initStart)[1] / 1000000000;
 
-var browscapPackage = require(require('path').dirname(require.resolve('browscap-js')) + '/package.json');
-var version = browscapPackage.version;
+var package = require(require('path').dirname(require.resolve('ua-parser-js')) + '/../package.json');
+var version = package.version;
 
 var benchmark = false;
 var benchmarkPos = process.argv.indexOf('--benchmark');
@@ -32,7 +31,7 @@ var output = {
 lineReader.on('line', function (line) {
     if (line !== '') {
         var start = process.hrtime();
-        var browser = browscap.getBrowser(line);
+        var r = parser(line);
         var end = process.hrtime(start)[1] / 1000000000;
 
         if (!benchmark) {
@@ -40,18 +39,18 @@ lineReader.on('line', function (line) {
                 'useragent': line,
                 'parsed': {
                     'browser': {
-                        'name': browser.Browser,
-                        'version': browser.Version,
+                        'name': r.browser.name ? r.browser.name : '',
+                        'version': r.browser.version ? r.browser.version : '',
                     },
                     'platform': {
-                        'name': browser.Platform,
-                        'version': browser.Platform_Version,
+                        'name': r.os.name ? r.os.name : '',
+                        'version': r.os.version ? r.os.version : '',
                     },
                     'device': {
-                        'name': browser.Device_Name,
-                        'brand': browser.Device_Maker,
-                        'type': browser.Device_Type,
-                        'ismobile': browser.isMobileDevice ? 'true' : 'false',
+                        'name': r.device.model ? r.device.model : '',
+                        'brand': r.device.vendor ? r.device.vendor : '',
+                        'type': r.device.type ? r.device.type : '',
+                        'ismobile': (r.device.type === 'mobile' || r.device.type === 'tablet' || r.device.type === 'wearable') ? 'true' : 'false',
                     },
                 },
                 'time': end,

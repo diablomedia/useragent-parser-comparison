@@ -78,21 +78,21 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "6.2.2",
+            "version": "6.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "ebf29dee597f02f09f4d5bbecc68230ea9b08f60"
+                "reference": "8d6c6cc55186db87b7dc5009827429ba4e9dc006"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/ebf29dee597f02f09f4d5bbecc68230ea9b08f60",
-                "reference": "ebf29dee597f02f09f4d5bbecc68230ea9b08f60",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/8d6c6cc55186db87b7dc5009827429ba4e9dc006",
+                "reference": "8d6c6cc55186db87b7dc5009827429ba4e9dc006",
                 "shasum": ""
             },
             "require": {
                 "guzzlehttp/promises": "^1.0",
-                "guzzlehttp/psr7": "^1.3.1",
+                "guzzlehttp/psr7": "^1.4",
                 "php": ">=5.5"
             },
             "require-dev": {
@@ -136,7 +136,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2016-10-08T15:01:37+00:00"
+            "time": "2017-02-28T22:50:30+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -191,16 +191,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "1.3.1",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "5c6447c9df362e8f8093bda8f5d8873fe5c7f65b"
+                "reference": "f5b8a8512e2b58b0071a7280e39f14f72e05d87c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/5c6447c9df362e8f8093bda8f5d8873fe5c7f65b",
-                "reference": "5c6447c9df362e8f8093bda8f5d8873fe5c7f65b",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/f5b8a8512e2b58b0071a7280e39f14f72e05d87c",
+                "reference": "f5b8a8512e2b58b0071a7280e39f14f72e05d87c",
                 "shasum": ""
             },
             "require": {
@@ -236,16 +236,23 @@
                     "name": "Michael Dowling",
                     "email": "mtdowling@gmail.com",
                     "homepage": "https://github.com/mtdowling"
+                },
+                {
+                    "name": "Tobias Schultze",
+                    "homepage": "https://github.com/Tobion"
                 }
             ],
-            "description": "PSR-7 message implementation",
+            "description": "PSR-7 message implementation that also provides common utility methods",
             "keywords": [
                 "http",
                 "message",
+                "request",
+                "response",
                 "stream",
-                "uri"
+                "uri",
+                "url"
             ],
-            "time": "2016-06-24T23:00:38+00:00"
+            "time": "2017-03-20T17:10:46+00:00"
         },
         {
             "name": "mimmi20/wurfl-constants",
@@ -357,16 +364,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.22.0",
+            "version": "1.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "bad29cb8d18ab0315e6c477751418a82c850d558"
+                "reference": "1e044bc4b34e91743943479f1be7a1d5eb93add0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/bad29cb8d18ab0315e6c477751418a82c850d558",
-                "reference": "bad29cb8d18ab0315e6c477751418a82c850d558",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/1e044bc4b34e91743943479f1be7a1d5eb93add0",
+                "reference": "1e044bc4b34e91743943479f1be7a1d5eb93add0",
                 "shasum": ""
             },
             "require": {
@@ -431,7 +438,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2016-11-26T00:15:39+00:00"
+            "time": "2017-03-13T07:08:03+00:00"
         },
         {
             "name": "psr/http-message",
@@ -532,16 +539,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v3.2.3",
+            "version": "v3.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "7a8405a9fc175f87fed8a3c40856b0d866d61936"
+                "reference": "28fb243a2b5727774ca309ec2d92da240f1af0dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/7a8405a9fc175f87fed8a3c40856b0d866d61936",
-                "reference": "7a8405a9fc175f87fed8a3c40856b0d866d61936",
+                "url": "https://api.github.com/repos/symfony/console/zipball/28fb243a2b5727774ca309ec2d92da240f1af0dd",
+                "reference": "28fb243a2b5727774ca309ec2d92da240f1af0dd",
                 "shasum": ""
             },
             "require": {
@@ -591,20 +598,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2017-02-06T12:04:21+00:00"
+            "time": "2017-03-06T19:30:27+00:00"
         },
         {
             "name": "symfony/debug",
-            "version": "v3.2.3",
+            "version": "v3.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "b4d9818f127c60ce21ed62c395da7df868dc8477"
+                "reference": "b90c9f91ad8ac37d9f114e369042d3226b34dc1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/b4d9818f127c60ce21ed62c395da7df868dc8477",
-                "reference": "b4d9818f127c60ce21ed62c395da7df868dc8477",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/b90c9f91ad8ac37d9f114e369042d3226b34dc1a",
+                "reference": "b90c9f91ad8ac37d9f114e369042d3226b34dc1a",
                 "shasum": ""
             },
             "require": {
@@ -648,20 +655,20 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-28T02:37:08+00:00"
+            "time": "2017-02-18T17:28:00+00:00"
         },
         {
             "name": "symfony/filesystem",
-            "version": "v3.2.3",
+            "version": "v3.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "a0c6ef2dc78d33b58d91d3a49f49797a184d06f4"
+                "reference": "bc0f17bed914df2cceb989972c3b996043c4da4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/a0c6ef2dc78d33b58d91d3a49f49797a184d06f4",
-                "reference": "a0c6ef2dc78d33b58d91d3a49f49797a184d06f4",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/bc0f17bed914df2cceb989972c3b996043c4da4a",
+                "reference": "bc0f17bed914df2cceb989972c3b996043c4da4a",
                 "shasum": ""
             },
             "require": {
@@ -697,20 +704,20 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-08T20:47:33+00:00"
+            "time": "2017-03-06T19:30:27+00:00"
         },
         {
             "name": "symfony/finder",
-            "version": "v3.2.3",
+            "version": "v3.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "8c71141cae8e2957946b403cc71a67213c0380d6"
+                "reference": "92d7476d2df60cd851a3e13e078664b1deb8ce10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/8c71141cae8e2957946b403cc71a67213c0380d6",
-                "reference": "8c71141cae8e2957946b403cc71a67213c0380d6",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/92d7476d2df60cd851a3e13e078664b1deb8ce10",
+                "reference": "92d7476d2df60cd851a3e13e078664b1deb8ce10",
                 "shasum": ""
             },
             "require": {
@@ -746,7 +753,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-02T20:32:22+00:00"
+            "time": "2017-02-21T09:12:04+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
