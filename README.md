@@ -38,7 +38,7 @@ zsxsoft-php-1           | 1.4              | 42264/56323 75.04% | 48486/56323 86
 
 Performed with the following command:
 
-`./bin/console benchmark ./files/ua-list-all.txt --iterations=10`
+`./bin/console benchmark ./files/top-1000-201708.txt --iterations=10`
 
 ### VMWare ESX Virtual Server
 
@@ -62,28 +62,29 @@ zsxsoft-php-1           | 0.012s            | 0.403s             | 0.115s       
 
 ### MacBook Pro
 
-2.9 GHz Intel Core i7, 16 GB RAM, SSD Drive, PHP 7.0.15
+2.9 GHz Intel Core i7, 16 GB RAM, SSD Drive, PHP 7.1.7
 
 Parser                  | Average Init Time | Average Parse Time | Average Extra Time | Average Memory Used
 -----|-----|-----|-----|-----
-browscap-js-1           | 0.018s            | 5.758s             | 0.088s             | 116.91 M
-browscap-php-2          | 0.409s            | 2.052s             | 0.038s             | 130.89 M
-browscap-php-3-full     | 0.008s            | 1.684s             | 0.028s             | 3.38 M
-browscap-php-3-lite     | 0.008s            | 0.291s             | **0.02s**          | 1.14 M
-browscap-php-3-standard | 0.009s            | 0.726s             | 0.025s             | 2 M
-crossjoin-1             | 0.004s            | 1.386s             | 0.026s             | 819.19 K
-crossjoin-2             | 0.009s            | 2.355s             | **0.02s**          | 949.27 K
-crossjoin-3             | 0.01s             | 2.384s             | **0.02s**          | 927.3 K
-donatj-0                | **0.002s**        | **0.004s**         | 0.021s             | 498.26 K
-endorphin-3             | 0.005s            | 0.128s             | **0.02s**          | 521.36 K
-jenssegers-agent-2      | 0.011s            | 0.262s             | 0.022s             | 808.07 K
-php-get-browser         | 0.003s            | 5.263s             | 1.005s             | **391.72 K**
-piwik-device-detector-3 | 0.062s            | 0.316s             | 0.023s             | 2.83 M
-sinergi-6               | 0.001s            | 0.001s             | **0.02s**          | 491.57 K
-ua-parser-php-3         | 0.022s            | 0.184s             | 0.023s             | 1.44 M
-whichbrowser-2          | 0.02s             | 0.201s             | 0.025s             | 15.2 M
-woothee-php-1           | 0.005s            | **0.004s**         | 0.019s             | 742.8 K
-zsxsoft-php-1           | 0.005s            | 0.027s             | **0.02s**          | 931.92 K
+browscap-js-1               | 0.021s            | 25.487s            | 0.104s             | 132.1 M
+browscap-php-2              | 0.534s            | 7.106s             | 0.05s              | 139.85 M
+browscap-php-3-full         | 0.009s            | 8.269s             | 0.039s             | 4.16 M
+browscap-php-3-lite         | 0.009s            | 0.435s             | 0.027s             | 1.14 M
+browscap-php-3-standard     | 0.008s            | 3.08s              | 0.032s             | 2.39 M
+crossjoin-1                 | 0.004s            | 8.002s             | 0.037s             | 711.94 K
+crossjoin-2                 | 0.01s             | 18.05s             | 0.028s             | 950.23 K
+crossjoin-3                 | 0.01s             | 18.057s            | 0.028s             | 929.15 K
+donatj-0                    | **0.001s**        | 0.012s             | 0.025s             | 500.01 K
+endorphin-3                 | 0.005s            | 0.281s             | 0.026s             | 519.89 K
+jenssegers-agent-2          | 0.013s            | 0.713s             | 0.027s             | 879.87 K
+php-get-browser             | 0.003s            | 63.095s            | 1.081s             | **392.17 K**
+piwik-device-detector-3     | 0.067s            | 0.807s             | 0.032s             | 2.92 M
+sinergi-6                   | **0.001s**        | **0.001s**         | **0.024s**         | 492.27 K
+ua-parser-php-3             | 0.022s            | 0.406s             | 0.031s             | 1.51 M
+uaparser-js-0               | 0.011s            | 0.041s             | 0.072s             | 6.25 M
+whichbrowser-2              | 0.022s            | 0.37s              | 0.032s             | 16.01 M
+woothee-php-1               | 0.005s            | 0.007s             | **0.024s**         | 737.31 K
+zsxsoft-php-1               | 0.005s            | 0.068s             | 0.025s             | 932.43 K
 
 ## How To Use
 
