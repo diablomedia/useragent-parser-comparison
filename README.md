@@ -42,27 +42,33 @@ Performed with the following command:
 
 ### VMWare ESX Virtual Server
 
-2.33 GHz Intel Xeon E5410, 4 GB RAM, Magnetic Disk Drive (RAID), PHP 5.6.28
+2.33 GHz Intel Xeon E5410, 4 GB RAM, Magnetic Disk Drive (RAID), PHP 7.0.22 (2017-09-08)
 
 Parser                  | Average Init Time | Average Parse Time | Average Extra Time | Average Memory Used
 -----|-----|-----|-----|-----
-browscap-js-1           | 0.057s            | 14.395s            | 0.252s             | 105.02 M
-browscap-php-2          | 1.039s            | 21.098s            | 0.22s              | 122.83 M
-browscap-php-3-full     | 0.04s             | 8.236s             | 0.131s             | 3.63 M
-browscap-php-3-lite     | 0.033s            | 1.871s             | 0.116s             | 1.7 M
-browscap-php-3-standard | 0.033s            | 3.929s             | 0.12s              | 2.4 M
-crossjoin-1             | 0.014s            | 5.638s             | 0.127s             | 908.14 K
-crossjoin-2             | 0.023s            | 10.223s            | 0.125s             | 1.15 M
-php-get-browser         | 6.771s            | 1810.543s          | 10.164s            | 285.4 K
-piwik-device-detector-3 | 0.927s            | 4.304s             | 0.177s             | 4.35 M
-ua-parser-php-3         | 0.043s            | 1.683s             | 0.116s             | 1.52 M
-whichbrowser-2          | 0.09s             | 1.907s             | 0.144s             | 20.26 M
-woothee-php-1           | 0.034s            | 0.063s             | 0.129s             | 1.05 M
-zsxsoft-php-1           | 0.012s            | 0.403s             | 0.115s             | 1.14 M
+browscap-js-1           | 0.05s             | 53.209s            | 0.414s             | 129.37 M
+browscap-php-2          | 0.596s            | 67.483s            | 0.169s             | 139.9 M
+browscap-php-3-full     | 0.029s            | 40.228s            | 0.139s             | 4.31 M
+browscap-php-3-lite     | 0.021s            | 2.247s             | 0.132s             | 1.37 M
+browscap-php-3-standard | 0.023s            | 16.951s            | 0.136s             | 2.53 M
+crossjoin-1             | 0.012s            | 38.491s            | 0.141s             | 869.92 K
+crossjoin-2             | 0.019s            | 66.545s            | 0.134s             | 1.04 M
+crossjoin-3             | 0.017s            | 66.558s            | 0.135s             | 1.01 M
+php-get-browser         | 0.027s            | 88.945s            | 1.757s             | **391.2 K**
+piwik-device-detector-3 | 0.473s            | 10.277s            | 0.162s             | 3.02 M
+ua-parser-php-3         | 0.02s             | 3.562s             | 0.145s             | 1.47 M
+whichbrowser-2          | 0.033s            | 4.188s             | 0.141s             | 16.4 M
+woothee-php-1           | 0.02s             | 0.076s             | 0.122s             | 822.23 K
+zsxsoft-php-1           | 0.012s            | 1.356s             | 0.125s             | 982.43 K
+donatj-0                | **0.002s**        | 0.193s             | 0.122s             | 512.69 K
+endorphin-3             | 0.008s            | 1.161s             | 0.124s             | 551.91 K
+jenssegers-agent-2      | 0.013s            | 34.569s            | 0.129s             | 949.53 K
+sinergi-6               | **0.002s**        | **0.02s**          | **0.119s**         | 509.16 K
+uaparser-js-0           | 0.024s            | 0.09s              | 0.277s             | 6.18 M
 
 ### MacBook Pro
 
-2.9 GHz Intel Core i7, 16 GB RAM, SSD Drive, PHP 7.1.7
+2.9 GHz Intel Core i7, 16 GB RAM, SSD Drive, PHP 7.1.7 (2017-09-08)
 
 Parser                  | Average Init Time | Average Parse Time | Average Extra Time | Average Memory Used
 -----|-----|-----|-----|-----
