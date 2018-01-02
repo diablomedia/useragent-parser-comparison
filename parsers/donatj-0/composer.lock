@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "donatj/phpuseragentparser",
-            "version": "v0.7.0",
+            "version": "v0.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/donatj/PhpUserAgent.git",
-                "reference": "73c819d4c7de034f1bfb7c7a36259192d7d7472a"
+                "reference": "ea79de6a18e52285e62cd75cf1cebe276ecaf503"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/donatj/PhpUserAgent/zipball/73c819d4c7de034f1bfb7c7a36259192d7d7472a",
-                "reference": "73c819d4c7de034f1bfb7c7a36259192d7d7472a",
+                "url": "https://api.github.com/repos/donatj/PhpUserAgent/zipball/ea79de6a18e52285e62cd75cf1cebe276ecaf503",
+                "reference": "ea79de6a18e52285e62cd75cf1cebe276ecaf503",
                 "shasum": ""
             },
             "require": {
@@ -26,7 +26,7 @@
             "require-dev": {
                 "camspiers/json-pretty": "0.1.*",
                 "donatj/drop": "*",
-                "phpunit/phpunit": ">=4.8"
+                "phpunit/phpunit": "~4.8"
             },
             "type": "library",
             "autoload": {
@@ -55,7 +55,7 @@
                 "user agent",
                 "useragent"
             ],
-            "time": "2017-03-01T22:19:13+00:00"
+            "time": "2017-10-23T16:52:52+00:00"
         }
     ],
     "packages-dev": [],

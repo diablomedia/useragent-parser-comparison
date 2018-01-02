@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "dependencies": {
     "browscap-js": {
-      "version": "1.8.6020",
-      "from": "browscap-js@1.8.6020",
-      "resolved": "https://registry.npmjs.org/browscap-js/-/browscap-js-1.8.6020.tgz"
+      "version": "1.10.6023",
+      "from": "browscap-js@1.10.6023",
+      "resolved": "https://registry.npmjs.org/browscap-js/-/browscap-js-1.10.6023.tgz"
     },
     "browscap-js-cache": {
       "version": "1.2.0",
@@ -13,9 +13,9 @@
       "resolved": "https://registry.npmjs.org/browscap-js-cache/-/browscap-js-cache-1.2.0.tgz"
     },
     "browscap-json-cache-files": {
-      "version": "1.1.6020",
-      "from": "browscap-json-cache-files@>=1.0.0 <2.0.0",
-      "resolved": "https://registry.npmjs.org/browscap-json-cache-files/-/browscap-json-cache-files-1.1.6020.tgz"
+      "version": "1.1.6023",
+      "from": "browscap-json-cache-files@>=1.1.6023 <2.0.0",
+      "resolved": "https://registry.npmjs.org/browscap-json-cache-files/-/browscap-json-cache-files-1.1.6023.tgz"
     },
     "charenc": {
       "version": "0.0.2",
@@ -28,9 +28,9 @@
       "resolved": "https://registry.npmjs.org/crypt/-/crypt-0.0.2.tgz"
     },
     "is-buffer": {
-      "version": "1.1.4",
+      "version": "1.1.6",
       "from": "is-buffer@>=1.1.1 <1.2.0",
-      "resolved": "https://registry.npmjs.org/is-buffer/-/is-buffer-1.1.4.tgz"
+      "resolved": "https://registry.npmjs.org/is-buffer/-/is-buffer-1.1.6.tgz"
     },
     "md5": {
       "version": "2.2.1",

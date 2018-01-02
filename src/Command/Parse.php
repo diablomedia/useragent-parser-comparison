@@ -119,7 +119,9 @@ class Parse extends Command
             }
 
             if ($csv || $answer == 'Dump as CSV') {
-                $this->putcsv([
+                $csvOutput = '';
+
+                $csvOutput .= $this->putcsv([
                     'useragent',
                     'browser_name',
                     'browser_version',
@@ -130,7 +132,7 @@ class Parse extends Command
                     'device_type',
                     'ismobile',
                     'time',
-                ], $output, $csvFile);
+                ], $csvFile) . "\n";
 
                 foreach ($result['results'] as $parsed) {
                     $out = [
@@ -146,12 +148,13 @@ class Parse extends Command
                         $parsed['time'],
                     ];
 
-                    $this->putcsv($out, $output, $csvFile);
+                    $csvOutput .= $this->putcsv($out, $csvFile) . "\n";
                 }
 
                 if ($csvFile) {
                     $output->writeln('Wrote CSV data to ' . $csvFile, 'success');
                 } else {
+                    $output->writeln($csvOutput);
                     $question = new Question('Press enter to continue', 'yes');
                     $questionHelper->ask($input, $output, $question);
                 }
@@ -166,7 +169,7 @@ class Parse extends Command
         }
     }
 
-    protected function putcsv($input, $output, $csvFile)
+    protected function putcsv($input, $csvFile)
     {
         $delimiter = ',';
         $enclosure = '"';
@@ -181,6 +184,10 @@ class Parse extends Command
         rewind($fp);
         $data = rtrim(stream_get_contents($fp), "\n");
         fclose($fp);
+
+        if ($csvFile) {
+            return '';
+        }
 
         return $data;
     }

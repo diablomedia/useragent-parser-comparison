@@ -58,16 +58,16 @@
         },
         {
             "name": "piwik/device-detector",
-            "version": "3.7.7",
+            "version": "3.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/piwik/device-detector.git",
-                "reference": "f0e5d6bc159241fdfc2e02f7abd4ab5d519d2c30"
+                "reference": "caf2d15349caffd94a8cfe46edf4061fbc99f70b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/piwik/device-detector/zipball/f0e5d6bc159241fdfc2e02f7abd4ab5d519d2c30",
-                "reference": "f0e5d6bc159241fdfc2e02f7abd4ab5d519d2c30",
+                "url": "https://api.github.com/repos/piwik/device-detector/zipball/caf2d15349caffd94a8cfe46edf4061fbc99f70b",
+                "reference": "caf2d15349caffd94a8cfe46edf4061fbc99f70b",
                 "shasum": ""
             },
             "require": {
@@ -76,7 +76,10 @@
             },
             "require-dev": {
                 "fabpot/php-cs-fixer": "~1.7",
-                "phpunit/phpunit": "4.1.*"
+                "matthiasmullie/scrapbook": "@stable",
+                "phpunit/phpunit": "^4.8.36",
+                "psr/cache": "^1.0",
+                "psr/simple-cache": "^1.0"
             },
             "suggest": {
                 "doctrine/cache": "Can directly be used for caching purpose"
@@ -105,7 +108,7 @@
                 "parser",
                 "useragent"
             ],
-            "time": "2017-04-02T17:25:50+00:00"
+            "time": "2017-12-04T09:56:31+00:00"
         }
     ],
     "packages-dev": [],

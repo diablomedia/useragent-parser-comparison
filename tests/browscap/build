@@ -3,16 +3,37 @@
 
 $tests = [];
 
-foreach (new FilesystemIterator(__DIR__ . '/vendor/browscap/browscap/tests/fixtures/issues') as $fixture) {
+foreach (new FilesystemIterator(__DIR__ . '/vendor/browscap/browscap/tests/issues') as $fixture) {
     if ($fixture->getFilename() === 'issue-000-invalids.php') {
+        continue;
+    }
+    if ($fixture->getFilename() === 'issue-000-invalid-versions.php') {
         continue;
     }
 
     $provider = include $fixture->getPathName();
 
     foreach ($provider as $testName => $data) {
-        $ua       = $data['ua'];
+        if ($data['full'] === false) {
+            continue;
+        }
+
+        $ua = $data['ua'];
+
         if (!empty($ua)) {
+            $isMobile = 'false';
+
+            switch ($data['properties']['Device_Type']) {
+                case 'Mobile Phone':
+                case 'Tablet':
+                case 'Console':
+                case 'Digital Camera':
+                case 'Ebook Reader':
+                case 'Mobile Device':
+                    $isMobile = 'true';
+                    break;
+            }
+
             $expected = [
                 'browser' => [
                     'name'    => $data['properties']['Browser'],
@@ -26,7 +47,7 @@ foreach (new FilesystemIterator(__DIR__ . '/vendor/browscap/browscap/tests/fixtu
                     'name'     => $data['properties']['Device_Name'],
                     'brand'    => $data['properties']['Device_Maker'],
                     'type'     => $data['properties']['Device_Type'],
-                    'ismobile' => $data['properties']['isMobileDevice'] ? 'true' : 'false',
+                    'ismobile' => $isMobile,
                 ]
             ];
 
