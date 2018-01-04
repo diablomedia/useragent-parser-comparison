@@ -42,33 +42,33 @@ Performed with the following command:
 
 ### VMWare ESX Virtual Server
 
-2.33 GHz Intel Xeon E5410, 4 GB RAM, Magnetic Disk Drive (RAID), PHP 7.0.22 (2017-09-08)
+2.33 GHz Intel Xeon E5410, 4 GB RAM, Magnetic Disk Drive (RAID), PHP 7.0.22 (2018-01-02)
 
 Parser                  | Average Init Time | Average Parse Time | Average Extra Time | Average Memory Used
 -----|-----|-----|-----|-----
-browscap-js-1           | 0.05s             | 53.209s            | 0.414s             | 129.37 M
-browscap-php-2          | 0.596s            | 67.483s            | 0.169s             | 139.9 M
-browscap-php-3-full     | 0.029s            | 40.228s            | 0.139s             | 4.31 M
-browscap-php-3-lite     | 0.021s            | 2.247s             | 0.132s             | 1.37 M
-browscap-php-3-standard | 0.023s            | 16.951s            | 0.136s             | 2.53 M
-crossjoin-1             | 0.012s            | 38.491s            | 0.141s             | 869.92 K
-crossjoin-2             | 0.019s            | 66.545s            | 0.134s             | 1.04 M
-crossjoin-3             | 0.017s            | 66.558s            | 0.135s             | 1.01 M
-php-get-browser         | 0.027s            | 88.945s            | 1.757s             | **391.2 K**
-piwik-device-detector-3 | 0.473s            | 10.277s            | 0.162s             | 3.02 M
-ua-parser-php-3         | 0.02s             | 3.562s             | 0.145s             | 1.47 M
-whichbrowser-2          | 0.033s            | 4.188s             | 0.141s             | 16.4 M
-woothee-php-1           | 0.02s             | 0.076s             | 0.122s             | 822.23 K
-zsxsoft-php-1           | 0.012s            | 1.356s             | 0.125s             | 982.43 K
-donatj-0                | **0.002s**        | 0.193s             | 0.122s             | 512.69 K
-endorphin-3             | 0.008s            | 1.161s             | 0.124s             | 551.91 K
-jenssegers-agent-2      | 0.013s            | 34.569s            | 0.129s             | 949.53 K
-sinergi-6               | **0.002s**        | **0.02s**          | **0.119s**         | 509.16 K
-uaparser-js-0           | 0.024s            | 0.09s              | 0.277s             | 6.18 M
+browscap-js-1           | 0.066s            | 58.705s            | 0.406s             | 108.52 M
+browscap-php-2          | 1.03s             | 72.901s            | 0.225s             | 141.64 M
+browscap-php-3-full     | 0.043s            | 53.877s            | 0.166s             | 4.55 M
+browscap-php-3-lite     | 0.032s            | 2.07s              | 0.13s              | 1.37 M
+browscap-php-3-standard | 0.036s            | 20.131s            | 0.139s             | 2.68 M
+crossjoin-1             | 0.019s            | 48.111s            | 0.149s             | 869.92 K
+crossjoin-2             | 0.026s            | 108.172s           | 0.149s             | 1.04 M
+crossjoin-3             | 0.035s            | 107.96s            | 0.148s             | 1.01 M
+php-get-browser         | 0.029s            | 118.647s           | 1.93s              | **391.2 K**
+piwik-device-detector-3 | 0.518s            | 10.882s            | 0.164s             | 3.02 M
+ua-parser-php-3         | 0.027s            | 3.584s             | 0.149s             | 1.56 M
+whichbrowser-2          | 0.039s            | 4.478s             | 0.157s             | 16.53 M
+woothee-php-1           | 0.029s            | 0.079s             | 0.127s             | 822.23 K
+zsxsoft-php-1           | 0.012s            | 1.418s             | 0.132s             | 982.43 K
+donatj-0                | **0.003s**            | 0.205s             | 0.13s              | 513.16 K
+endorphin-3             | 0.017s            | 1.201s             | 0.131s             | 551.91 K
+jenssegers-agent-2      | 0.012s            | 43.464s            | 0.133s             | 797.51 K
+sinergi-6               | 0.007s            | **0.02s**              | **0.122s**             | 509.16 K
+uaparser-js-0           | 0.025s            | 0.097s             | 0.276s             | 5.83 M
 
 ### MacBook Pro
 
-2.9 GHz Intel Core i7, 16 GB RAM, SSD Drive, PHP 7.1.7 (2017-09-08)
+2.9 GHz Intel Core i7, 16 GB RAM, SSD Drive, PHP 7.1.8 (2018-01-02)
 
 Parser                  | Average Init Time | Average Parse Time | Average Extra Time | Average Memory Used
 -----|-----|-----|-----|-----
