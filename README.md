@@ -17,6 +17,7 @@ browscap-php-2          | 2.1.1-6027     | 49056/58835 83.38% | 55998/58835 95.1
 browscap-php-3-full     | 3.1.0-6027     | 49018/58835 83.31% | 55998/58835 95.18% | 34841/58835 59.22% | 211120/276476 76.36%
 browscap-php-3-lite     | 3.1.0-6027     | 26606/58835 45.22% | 33955/58835 57.71% | 46880/58835 79.68% | 100854/200984 50.18%
 browscap-php-3-standard | 3.1.0-6027     | 44695/58835 75.97% | 36239/58835 61.59% | 52353/58835 88.98% | 148861/200984 74.07%
+browscap-php-4-full     | 4.0.0-6027     | 49018/58835 83.31% | 55998/58835 95.18% | 34841/58835 59.22% | 211120/276476 76.36%
 crossjoin-1             | 1.0.5-6027     | 49023/58835 83.32% | 56000/58835 95.18% | 34841/58835 59.22% | 211122/276476 76.36%
 crossjoin-2             | v2.0.5-6027    | 48843/58835 83.02% | 55986/58835 95.16% | 34635/58835 58.87% | 210425/276476 76.11%
 crossjoin-3             | v3.0.5-6027    | 48843/58835 83.02% | 55986/58835 95.16% | 34635/58835 58.87% | 210425/276476 76.11%
@@ -38,7 +39,7 @@ zsxsoft-php-1           | 1.4            | 43471/58835 73.89% | 50249/58835 85.4
 
 Performed with the following command:
 
-`./bin/console benchmark ./files/top-1000-201708.txt --iterations=10`
+`./bin/console benchmark ./files/top-1000-201712.txt --iterations=10`
 
 ### VMWare ESX Virtual Server
 
@@ -77,6 +78,7 @@ browscap-php-2          | 0.557s            | 7.04s              | 0.046s       
 browscap-php-3-full     | 0.009s            | 10.341s            | 0.036s             | 4.41 M
 browscap-php-3-lite     | 0.009s            | 0.394s             | 0.024s             | 1.15 M
 browscap-php-3-standard | 0.01s             | 3.623s             | 0.031s             | 2.54 M
+browscap-php-4-full     | 0.008s            | 10.344s            | 0.035s             | 4.4 M
 crossjoin-1             | 0.005s            | 9.06s              | 0.035s             | 711.96 K
 crossjoin-2             | 0.01s             | 30.408s            | 0.027s             | 950.2 K
 crossjoin-3             | 0.01s             | 31.551s            | 0.029s             | 929.11 K
@@ -178,7 +180,8 @@ Currently this is the list of parsers included:
 
  * Browscap JS 1.x (https://github.com/mimmi20/browscap-js)
  * Browscap PHP 2.x (https://github.com/browscap/browscap-php/tree/2.x)
- * Browscap PHP 3.x (Full, Standard and Lite) (https://github.com/browscap/browscap-php)
+ * Browscap PHP 3.x (Full, Standard and Lite) (https://github.com/browscap/browscap-php/tree/3.1.0)
+ * Browscap PHP 4.x (Full) (https://github.com/browscap/browscap-php)
  * Crossjoin Browscap 1.x (https://github.com/crossjoin/Browscap/tree/1.x)
  * Crossjoin Browscap 2.x (https://github.com/crossjoin/Browscap/tree/2.x)
  * Crossjoin Browscap 3.x (PHP7 only) (https://github.com/crossjoin/Browscap/tree/3.x)
