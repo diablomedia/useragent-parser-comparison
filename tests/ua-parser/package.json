@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "uap-core": "ua-parser/uap-core"
+    "uap-core": "github:ua-parser/uap-core"
   }
 }

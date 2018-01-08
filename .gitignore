@@ -1,3 +1,4 @@
 /vendor
+.idea/
 /data/test-runs/*
 !/data/test-runs/.gitkeep

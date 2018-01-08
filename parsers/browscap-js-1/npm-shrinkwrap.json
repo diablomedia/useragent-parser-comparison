@@ -5,12 +5,12 @@
   "requires": true,
   "dependencies": {
     "browscap-js": {
-      "version": "1.10.6023",
-      "resolved": "https://registry.npmjs.org/browscap-js/-/browscap-js-1.10.6023.tgz",
-      "integrity": "sha1-tKmZ2v0lm3T4Tg40DjVSVTgyTY8=",
+      "version": "1.11.6027",
+      "resolved": "https://registry.npmjs.org/browscap-js/-/browscap-js-1.11.6027.tgz",
+      "integrity": "sha512-mlW6FAQnlLvXgGsxiMKJkpti+89hkdofbLCy7E2pjKWNQKdy0xi2W77F3RM4foND6IvHKvme7MMu6QeXJcfUyw==",
       "requires": {
         "browscap-js-cache": "1.2.0",
-        "browscap-json-cache-files": "1.1.6023",
+        "browscap-json-cache-files": "1.2.6027",
         "md5": "2.2.1"
       }
     },
@@ -20,9 +20,9 @@
       "integrity": "sha1-VN8MfBREDPQxUXOFSSIZ7lqtFfI="
     },
     "browscap-json-cache-files": {
-      "version": "1.1.6023",
-      "resolved": "https://registry.npmjs.org/browscap-json-cache-files/-/browscap-json-cache-files-1.1.6023.tgz",
-      "integrity": "sha1-97ix716j7kyQ3erQwdqUIz2OG0w="
+      "version": "1.2.6027",
+      "resolved": "https://registry.npmjs.org/browscap-json-cache-files/-/browscap-json-cache-files-1.2.6027.tgz",
+      "integrity": "sha512-2PQuJpv5P2RngXIPD+38CfYxivVJSDJf/pwXabQXoTAbC+PePFXbJD2O+5fJjdXDUYfjf/EC19omLqBZJAEigA=="
     },
     "charenc": {
       "version": "0.0.2",

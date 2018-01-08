@@ -1,7 +1,7 @@
 {
   "name": "ua-parser-js-0",
   "version": "1.0.0",
-  "description": "",
+  "description": "ua-parser-js",
   "main": "index.js",
   "dependencies": {
     "ua-parser-js": "^0.7.12"
