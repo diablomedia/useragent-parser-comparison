@@ -41,16 +41,9 @@ foreach ($provider->strings as $string) {
 }
 
 // Get version from composer
-$installed = json_decode(file_get_contents(__DIR__ . '/vendor/composer/installed.json'), true);
-
-foreach ($installed as $package) {
-    if ($package['name'] == 'sinergi/browser-detector') {
-        $version = $package['version'];
-        break;
-    }
-}
+$package = new \PackageInfo\Package('sinergi/browser-detector');
 
 print json_encode([
     'tests'   => $uas,
-    'version' => $version,
+    'version' => $package->getVersion(),
 ]);

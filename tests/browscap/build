@@ -57,16 +57,9 @@ foreach (new FilesystemIterator(__DIR__ . '/vendor/browscap/browscap/tests/issue
 }
 
 // Get version from composer
-$installed = json_decode(file_get_contents(__DIR__ . '/vendor/composer/installed.json'), true);
-
-foreach ($installed as $package) {
-    if ($package['name'] == 'browscap/browscap') {
-        $version = $package['version'];
-        break;
-    }
-}
+$package = new \PackageInfo\Package('browscap/browscap');
 
 print json_encode([
     'tests'   => $tests,
-    'version' => $version,
+    'version' => $package->getVersion(),
 ]);

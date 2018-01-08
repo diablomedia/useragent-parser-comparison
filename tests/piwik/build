@@ -99,7 +99,10 @@ foreach (new FilesystemIterator(__DIR__ . '/vendor/piwik/device-detector/Tests/f
     }
 }
 
+// Get version from composer
+$package = new \PackageInfo\Package('piwik/device-detector');
+
 print json_encode([
     'tests'   => $tests,
-    'version' => \DeviceDetector\DeviceDetector::VERSION,
+    'version' => $package->getVersion(),
 ]);

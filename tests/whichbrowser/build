@@ -103,17 +103,10 @@ foreach ($uas as $ua => $data) {
     }
 }
 
-// whichbrowser-2 doesn't provide version information in code at all, looking to composer for the installed version
-$installed = json_decode(file_get_contents(__DIR__ . '/vendor/composer/installed.json'), true);
-
-foreach ($installed as $package) {
-    if ($package['name'] == 'whichbrowser/parser') {
-        $version = $package['version'];
-        break;
-    }
-}
+// Get version from composer
+$package = new \PackageInfo\Package('whichbrowser/parser');
 
 print json_encode([
     'tests'   => $tests,
-    'version' => $version,
+    'version' => $package->getVersion(),
 ]);

@@ -29,16 +29,9 @@ foreach ($provider as $ua => $data) {
 }
 
 // Get version from composer
-$installed = json_decode(file_get_contents(__DIR__ . '/vendor/composer/installed.json'), true);
-
-foreach ($installed as $package) {
-    if ($package['name'] == 'donatj/phpuseragentparser') {
-        $version = $package['version'];
-        break;
-    }
-}
+$package = new \PackageInfo\Package('donatj/phpuseragentparser');
 
 print json_encode([
     'tests'   => $tests,
-    'version' => $version,
+    'version' => $package->getVersion(),
 ]);

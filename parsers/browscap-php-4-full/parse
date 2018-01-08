@@ -72,15 +72,8 @@ $file = null;
 
 $memory = memory_get_peak_usage();
 
-// browscap-php-4 doesn't provide version information in code at all, looking to composer for the installed version
-$installed = json_decode(file_get_contents(__DIR__ . '/vendor/composer/installed.json'), true);
-
-foreach ($installed as $package) {
-    if ($package['name'] == 'browscap/browscap-php') {
-        $version = $package['version'];
-        break;
-    }
-}
+// Get version from composer
+$package = new \PackageInfo\Package('browscap/browscap-php');
 
 $bcCache = new \BrowscapPHP\Cache\BrowscapCache($cache, $logger);
 
@@ -89,5 +82,5 @@ print json_encode([
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,
     'memory_used' => $memory,
-    'version'     => $version . '-' . $bcCache->getVersion(),
+    'version'     => $package->getVersion() . '-' . $bcCache->getVersion(),
 ], JSON_UNESCAPED_SLASHES);

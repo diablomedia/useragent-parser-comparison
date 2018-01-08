@@ -26,7 +26,7 @@ var output = {
     'parse_time': 0,
     'init_time': initTime,
     'memory_used': 0,
-    'version': version,
+    'version': version
 };
 
 lineReader.on('line', function (line) {
@@ -41,20 +41,20 @@ lineReader.on('line', function (line) {
                 'parsed': {
                     'browser': {
                         'name': browser.Browser,
-                        'version': browser.Version,
+                        'version': browser.Version
                     },
                     'platform': {
                         'name': browser.Platform,
-                        'version': browser.Platform_Version,
+                        'version': browser.Platform_Version
                     },
                     'device': {
                         'name': browser.Device_Name,
                         'brand': browser.Device_Maker,
                         'type': browser.Device_Type,
-                        'ismobile': browser.isMobileDevice ? 'true' : 'false',
-                    },
+                        'ismobile': browser.isMobileDevice ? 'true' : 'false'
+                    }
                 },
-                'time': end,
+                'time': end
             };
 
             output.results.push(result);

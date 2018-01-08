@@ -68,10 +68,13 @@ while (!$file->eof()) {
 
 $file = null;
 
+// Get version from composer
+$package = new \PackageInfo\Package('browscap/browscap-php');
+
 print json_encode([
     'results'     => $results,
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,
     'memory_used' => memory_get_peak_usage(),
-    'version'     => $browscap::VERSION . '-' . $browscap->getSourceVersion(),
+    'version'     => $package->getVersion() . '-' . $browscap->getSourceVersion(),
 ]);

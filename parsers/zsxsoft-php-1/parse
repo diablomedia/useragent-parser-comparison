@@ -65,20 +65,13 @@ $file = null;
 
 $memory = memory_get_peak_usage();
 
-// zsxsoft doesn't provide version information in code at all, looking to composer for the installed version
-$installed = json_decode(file_get_contents(__DIR__ . '/vendor/composer/installed.json'), true);
-
-foreach ($installed as $package) {
-    if ($package['name'] == 'zsxsoft/php-useragent') {
-        $version = $package['version'];
-        break;
-    }
-}
+// Get version from composer
+$package = new \PackageInfo\Package('zsxsoft/php-useragent');
 
 print json_encode([
     'results'     => $results,
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,
     'memory_used' => $memory,
-    'version'     => $version,
+    'version'     => $package->getVersion(),
 ]);

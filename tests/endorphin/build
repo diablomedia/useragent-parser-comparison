@@ -70,16 +70,9 @@ foreach (new FilesystemIterator(__DIR__ . '/vendor/endorphin-studio/browser-dete
 }
 
 // Get version from composer
-$installed = json_decode(file_get_contents(__DIR__ . '/vendor/composer/installed.json'), true);
-
-foreach ($installed as $package) {
-    if ($package['name'] == 'endorphin-studio/browser-detector') {
-        $version = $package['version'];
-        break;
-    }
-}
+$package = new \PackageInfo\Package('endorphin-studio/browser-detector');
 
 print json_encode([
     'tests'   => $uas,
-    'version' => $version,
+    'version' => $package->getVersion(),
 ]);
