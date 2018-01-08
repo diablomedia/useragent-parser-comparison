@@ -1,5 +1,6 @@
 {
     "require": {
-        "donatj/phpuseragentparser": "~0.6"
+        "donatj/phpuseragentparser": "~0.6",
+        "thadafinser/package-info": "^1.0"
     }
 }

@@ -1,5 +1,6 @@
 {
     "require": {
-        "browscap/browscap-php": "~3.0"
+        "browscap/browscap-php": "~3.0",
+        "thadafinser/package-info": "^1.0"
     }
 }

@@ -1,5 +1,6 @@
 {
     "require": {
-        "endorphin-studio/browser-detector": "^3.0"
+        "endorphin-studio/browser-detector": "^3.0",
+        "thadafinser/package-info": "^1.0"
     }
 }

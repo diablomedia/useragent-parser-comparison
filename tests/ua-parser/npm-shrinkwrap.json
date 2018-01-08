@@ -1,11 +1,11 @@
 {
   "name": "ua-parser",
   "version": "1.0.0",
+  "lockfileVersion": 1,
+  "requires": true,
   "dependencies": {
     "uap-core": {
-      "version": "0.5.0",
-      "from": "ua-parser/uap-core",
-      "resolved": "git://github.com/ua-parser/uap-core.git#1014ab1eb08ca0aa3f45ad5d5bfdc55e83cb941c"
+      "version": "git://github.com/ua-parser/uap-core.git#1014ab1eb08ca0aa3f45ad5d5bfdc55e83cb941c"
     }
   }
 }

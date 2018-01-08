@@ -1,5 +1,6 @@
 {
     "require": {
-        "whichbrowser/parser": "^2.0"
+        "whichbrowser/parser": "^2.0",
+        "thadafinser/package-info": "^1.0"
     }
 }

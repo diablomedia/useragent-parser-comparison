@@ -1,5 +1,6 @@
 {
     "require": {
-        "zsxsoft/php-useragent": "^1.4"
+        "zsxsoft/php-useragent": "^1.4",
+        "thadafinser/package-info": "^1.0"
     }
 }

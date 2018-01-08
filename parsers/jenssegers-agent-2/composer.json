@@ -1,5 +1,6 @@
 {
     "require": {
-        "jenssegers/agent": "^2.4"
+        "jenssegers/agent": "^2.4",
+        "thadafinser/package-info": "^1.0"
     }
 }

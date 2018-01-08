@@ -1,41 +1,53 @@
 {
   "name": "browscap-js-1",
   "version": "1.0.0",
+  "lockfileVersion": 1,
+  "requires": true,
   "dependencies": {
     "browscap-js": {
       "version": "1.10.6023",
-      "from": "browscap-js@1.10.6023",
-      "resolved": "https://registry.npmjs.org/browscap-js/-/browscap-js-1.10.6023.tgz"
+      "resolved": "https://registry.npmjs.org/browscap-js/-/browscap-js-1.10.6023.tgz",
+      "integrity": "sha1-tKmZ2v0lm3T4Tg40DjVSVTgyTY8=",
+      "requires": {
+        "browscap-js-cache": "1.2.0",
+        "browscap-json-cache-files": "1.1.6023",
+        "md5": "2.2.1"
+      }
     },
     "browscap-js-cache": {
       "version": "1.2.0",
-      "from": "browscap-js-cache@>=1.2.0 <2.0.0",
-      "resolved": "https://registry.npmjs.org/browscap-js-cache/-/browscap-js-cache-1.2.0.tgz"
+      "resolved": "https://registry.npmjs.org/browscap-js-cache/-/browscap-js-cache-1.2.0.tgz",
+      "integrity": "sha1-VN8MfBREDPQxUXOFSSIZ7lqtFfI="
     },
     "browscap-json-cache-files": {
       "version": "1.1.6023",
-      "from": "browscap-json-cache-files@>=1.1.6023 <2.0.0",
-      "resolved": "https://registry.npmjs.org/browscap-json-cache-files/-/browscap-json-cache-files-1.1.6023.tgz"
+      "resolved": "https://registry.npmjs.org/browscap-json-cache-files/-/browscap-json-cache-files-1.1.6023.tgz",
+      "integrity": "sha1-97ix716j7kyQ3erQwdqUIz2OG0w="
     },
     "charenc": {
       "version": "0.0.2",
-      "from": "charenc@>=0.0.1 <0.1.0",
-      "resolved": "https://registry.npmjs.org/charenc/-/charenc-0.0.2.tgz"
+      "resolved": "https://registry.npmjs.org/charenc/-/charenc-0.0.2.tgz",
+      "integrity": "sha1-wKHS86cJLgN3S/qD8UwPxXkKhmc="
     },
     "crypt": {
       "version": "0.0.2",
-      "from": "crypt@>=0.0.1 <0.1.0",
-      "resolved": "https://registry.npmjs.org/crypt/-/crypt-0.0.2.tgz"
+      "resolved": "https://registry.npmjs.org/crypt/-/crypt-0.0.2.tgz",
+      "integrity": "sha1-iNf/fsDfuG9xPch7u0LQRNPmxBs="
     },
     "is-buffer": {
       "version": "1.1.6",
-      "from": "is-buffer@>=1.1.1 <1.2.0",
-      "resolved": "https://registry.npmjs.org/is-buffer/-/is-buffer-1.1.6.tgz"
+      "resolved": "https://registry.npmjs.org/is-buffer/-/is-buffer-1.1.6.tgz",
+      "integrity": "sha512-NcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w=="
     },
     "md5": {
       "version": "2.2.1",
-      "from": "md5@>=2.0.0 <3.0.0",
-      "resolved": "https://registry.npmjs.org/md5/-/md5-2.2.1.tgz"
+      "resolved": "https://registry.npmjs.org/md5/-/md5-2.2.1.tgz",
+      "integrity": "sha1-U6s41f48iJG6RlMp6iP6wFQBJvk=",
+      "requires": {
+        "charenc": "0.0.2",
+        "crypt": "0.0.2",
+        "is-buffer": "1.1.6"
+      }
     }
   }
 }
