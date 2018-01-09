@@ -3,6 +3,8 @@
 
 $uas = [];
 
+require_once __DIR__ . '/vendor/autoload.php';
+
 foreach (new FilesystemIterator(__DIR__ . '/vendor/endorphin-studio/browser-detector/tests/data/ua') as $fixture) {
     $provider = simplexml_load_file($fixture->getPathname());
 

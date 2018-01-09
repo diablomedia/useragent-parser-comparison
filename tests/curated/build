@@ -3,6 +3,8 @@
 
 $tests = [];
 
+require_once __DIR__ . '/vendor/autoload.php';
+
 $finder = new \Symfony\Component\Finder\Finder();
 $finder->files();
 $finder->name('*.php');

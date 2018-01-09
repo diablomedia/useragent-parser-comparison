@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f6f9f5d0440e1d501d22e3657b30cd1b",
+    "content-hash": "27c2dc2fe2c602fd39af5edd78c2a6d0",
     "packages": [
         {
             "name": "crossjoin/browscap",
@@ -587,6 +587,8 @@
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "ext-sqlite3": "*"
+    },
     "platform-dev": []
 }

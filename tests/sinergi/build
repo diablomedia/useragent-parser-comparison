@@ -3,6 +3,8 @@
 
 $uas = [];
 
+require_once __DIR__ . '/vendor/autoload.php';
+
 $provider = simplexml_load_file(
     __DIR__ . '/vendor/sinergi/browser-detector/tests/BrowserDetector/Tests/_files/UserAgentStrings.xml'
 );

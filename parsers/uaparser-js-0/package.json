@@ -3,14 +3,13 @@
   "version": "1.0.0",
   "description": "ua-parser-js",
   "main": "index.js",
-  "dependencies": {
-    "ua-parser-js": "^0.7.12"
-  },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "ua-parser-js": "^0.7.12"
+  }
 }
