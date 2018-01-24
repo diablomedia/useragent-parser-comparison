@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 return [
     'browser' => [
@@ -11,7 +12,7 @@ return [
         ],
         'version' => [
             'unknown' => '',
-        ]
+        ],
     ],
     'platform' => [
         'name' => [
@@ -34,11 +35,11 @@ return [
         ],
         'version' => [
             'unknown' => '',
-        ]
+        ],
     ],
     'device' => [
         'name' => [
             'unknown' => '',
-        ]
-    ]
+        ],
+    ],
 ];

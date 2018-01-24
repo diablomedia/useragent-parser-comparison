@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 return [
     'browser' => [
@@ -32,7 +33,7 @@ return [
             'msfrontpage'         => 'frontpage',
             'iframely'            => 'iframelybot',
             'izsearch'            => 'izsearchbot',
-        ]
+        ],
     ],
     'platform' => [
         'name' => [
@@ -42,6 +43,6 @@ return [
             'blackberry'   => 'rimos',
             'windowsphone' => 'winphone',
             'playbook'     => 'rimtabletos',
-        ]
-    ]
+        ],
+    ],
 ];

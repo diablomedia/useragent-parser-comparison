@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 return [
     'browser' => [
@@ -50,7 +51,7 @@ return [
             'srwareiron'                          => 'iron',
             'unknown'                             => '',
             'wechat'                              => 'wechatapp',
-        ]
+        ],
     ],
     'platform' => [
         'name' => [
@@ -140,7 +141,7 @@ return [
             'windowsphone'                   => 'winphone',
             'windowsvista'                   => 'winvista',
             'windowsxp'                      => 'winxp',
-        ]
+        ],
     ],
     'device' => [
         'brand' => [
@@ -154,6 +155,6 @@ return [
             'palmpre'     => 'palm',
             'unknown'     => '',
             'xiaomi'      => 'xiaomitech',
-        ]
-    ]
+        ],
+    ],
 ];

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 return [
     'browser' => [
@@ -33,7 +34,6 @@ return [
             'mobilesafari'           => 'mobilesafariuiwebview',
             'mobilesilk'             => 'silk',
             'naverrobot'             => 'yeti',
-            'ncsamosaic'             => 'mosaic',
             'ncsamosaic'             => 'mosaic',
             'netfrontlife'           => 'netfrontlifebrowser',
             'nokiaossbrowser'        => 'nokiabrowser',
@@ -89,7 +89,7 @@ return [
             'windowsphone'       => 'winphone',
             'windowsvista'       => 'winvista',
             'windowsxp'          => 'winxp',
-        ]
+        ],
     ],
     'device' => [
         'name' => [
@@ -110,7 +110,6 @@ return [
             'iphone4'                  => 'iphone',
             'iphone4s'                 => 'iphone',
             'iphone5'                  => 'iphone',
-            'iphone5c'                 => 'iphone',
             'iphone5c'                 => 'iphone',
             'iphone5s'                 => 'iphone',
             'iphone6'                  => 'iphone',
@@ -146,5 +145,5 @@ return [
             'tv'                  => 'tvdevice',
             'portablemediaplayer' => 'media',
         ],
-    ]
+    ],
 ];

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 return [
     'browser' => [
@@ -6,7 +7,7 @@ return [
             'adsbotgooglebot' => 'adsbotgoogle',
             'facebookbot'     => 'facebookexternalhit',
             'obigobrowser'    => 'telecaobigo',
-        ]
+        ],
     ],
     'platform' => [
         'name' => [
@@ -38,12 +39,12 @@ return [
             'badaos'            => 'bada',
             'meegoos'           => 'meego',
             'windowswindows'    => 'windows',
-        ]
+        ],
     ],
     'device' => [
         'name' => [
             'generictablet' => 'generaltablet',
             'mitablet'      => 'mipad',
-        ]
-    ]
+        ],
+    ],
 ];
