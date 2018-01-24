@@ -2,3 +2,4 @@
 /vendor
 /data/test-runs/*
 !/data/test-runs/.gitkeep
+.php_cs.cache

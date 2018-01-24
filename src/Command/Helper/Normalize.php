@@ -37,7 +37,7 @@ class Normalize extends Helper
                     } elseif (true === $value) {
                         $value = '1';
                     } else {
-                        $value = preg_replace('|[^0-9a-z]|', '', mb_strtolower($value));
+                        $value = preg_replace('|[^0-9a-z]|', '', mb_strtolower((string) $value));
                     }
 
                     // Special Windows normalization for parsers that don't differntiate the version of windows
