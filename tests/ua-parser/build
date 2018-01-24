@@ -13,7 +13,7 @@ $tests = [];
 
 $cache = new Doctrine\Common\Cache\PhpFileCache(__DIR__ . '/cache');
 
-function processFixture($fixture, &$tests, $cache)
+function processFixture($fixture, &$tests, $cache): void
 {
     $key = sha1_file($fixture->getPathname());
     if ($cache->contains($key)) {
@@ -89,7 +89,7 @@ function processFixture($fixture, &$tests, $cache)
                     case 'additional_os_tests.yaml':
                         $platform = [
                             'name'    => $data['family'],
-                            'version' => $data['major'] . (!empty($data['minor']) ? '.' . $data['minor'] : '')
+                            'version' => $data['major'] . (!empty($data['minor']) ? '.' . $data['minor'] : ''),
                         ];
 
                         $records[$ua]['platform'] = $platform;
@@ -123,20 +123,31 @@ function processFixture($fixture, &$tests, $cache)
     }
 }
 
-foreach (new FilesystemIterator(__DIR__ . '/node_modules/uap-core/tests') as $fixture) {
-    if (substr($fixture->getFilename(), -4) == 'yaml') {
-        processFixture($fixture, $tests, $cache);
-    }
-}
-
+$finder = new \Symfony\Component\Finder\Finder();
+$finder->files();
+$finder->name('*.yaml');
+$finder->ignoreDotFiles(true);
+$finder->ignoreVCS(true);
+$finder->sortByName();
+$finder->ignoreUnreadableDirs();
+$finder->in(__DIR__ . '/node_modules/uap-core/tests');
 // Supplemental files in tests_resources dir
-foreach (new FilesystemIterator(__DIR__ . '/node_modules/uap-core/test_resources') as $fixture) {
-    if (substr($fixture->getFilename(), -4) == 'yaml' && $fixture->getFilename() != 'pgts_browser_list-orig.yaml') {
-        processFixture($fixture, $tests, $cache);
+$finder->in(__DIR__ . '/node_modules/uap-core/test_resources');
+
+foreach ($finder as $fixture) {
+    /** @var \Symfony\Component\Finder\SplFileInfo $fixture */
+    if (!$fixture->isFile() || 'yaml' !== $fixture->getExtension()) {
+        continue;
     }
+
+    if ('pgts_browser_list-orig.yaml' === $fixture->getFilename()) {
+        continue;
+    }
+
+    processFixture($fixture, $tests, $cache);
 }
 
-print json_encode([
+echo json_encode([
     'tests'   => $tests,
     'version' => file_get_contents(__DIR__ . '/version.txt'),
-]);
+], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

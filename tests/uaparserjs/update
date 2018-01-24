@@ -5,3 +5,11 @@ cd "$parent_path"
 
 npm update
 npm shrinkwrap
+
+composer_command="composer"
+
+command -v "$composer_command" >/dev/null 2>&1 || {
+    composer_command="composer.phar"
+}
+
+$composer_command update

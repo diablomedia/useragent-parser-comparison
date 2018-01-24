@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 return [
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:51.0) Gecko/20100101 Firefox/51.0' => [

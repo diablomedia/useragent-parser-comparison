@@ -7,7 +7,7 @@ ini_set('max_execution_time', -1);
 $benchmarkPos = array_search('--benchmark', $argv);
 $benchmark    = false;
 
-if ($benchmarkPos !== false) {
+if (false !== $benchmarkPos) {
     $benchmark = true;
     unset($argv[$benchmarkPos]);
     $argv = array_values($argv);
@@ -21,7 +21,6 @@ $parseTime = 0;
 $start = microtime(true);
 require_once __DIR__ . '/vendor/autoload.php';
 use DeviceDetector\DeviceDetector;
-use DeviceDetector\Parser\Device\DeviceParserAbstract;
 
 $dd = new DeviceDetector('Test String');
 $dd->skipBotDetection();
@@ -61,9 +60,9 @@ while (!$file->eof()) {
                         'version' => isset($osInfo['version']) ? $osInfo['version'] : '',
                     ],
                     'device' => [
-                        'name'     => $model !== null ? $model : '',
-                        'brand'    => $brand !== null ? $brand : '',
-                        'type'     => $device !== null ? $device : '',
+                        'name'     => null !== $model ? $model : '',
+                        'brand'    => null !== $brand ? $brand : '',
+                        'type'     => null !== $device ? $device : '',
                         'ismobile' => $isMobile ? 'true' : 'false',
                     ],
                 ],
@@ -80,10 +79,10 @@ $file = null;
 // Get version from composer
 $package = new \PackageInfo\Package('piwik/device-detector');
 
-print json_encode([
+echo json_encode([
     'results'     => $results,
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,
     'memory_used' => memory_get_peak_usage(),
     'version'     => $package->getVersion(),
-]);
+], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

@@ -1,17 +1,16 @@
 <?php
-
+declare(strict_types = 1);
 namespace UserAgentParserComparison\Command;
 
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class Compare extends Command
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('compare')
             ->setDescription('Runs tests, normalizes the results then analyzes the results')
@@ -19,9 +18,9 @@ class Compare extends Command
             ->setHelp('This command is a "meta" command that will execute the Test, Normalize and Analyze commands in order');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $file       = $input->getArgument('file');
+        $file = $input->getArgument('file');
 
         if ($file) {
             $command    = $this->getApplication()->find('parse');
@@ -34,7 +33,7 @@ class Compare extends Command
             ]);
             $returnCode = $command->run($parseInput, $output);
 
-            if ($returnCode > 0) {
+            if (0 < $returnCode) {
                 $output->writeln('<error>There was an error executing the "parse" command, cannot continue.</error>');
 
                 return;
@@ -51,7 +50,7 @@ class Compare extends Command
             $testInput  = new ArrayInput($arguments);
             $returnCode = $command->run($testInput, $output);
 
-            if ($returnCode > 0) {
+            if (0 < $returnCode) {
                 $output->writeln('<error>There was an error executing the "test" command, cannot continue.</error>');
 
                 return;
@@ -67,7 +66,7 @@ class Compare extends Command
         $normalizeInput = new ArrayInput($arguments);
         $returnCode     = $command->run($normalizeInput, $output);
 
-        if ($returnCode > 0) {
+        if (0 < $returnCode) {
             $output->writeln('<error>There was an error executing the "normalize" command, cannot continue.</error>');
 
             return;
@@ -82,7 +81,7 @@ class Compare extends Command
         $analyzeInput = new ArrayInput($arguments);
         $returnCode   = $command->run($analyzeInput, $output);
 
-        if ($returnCode > 0) {
+        if (0 < $returnCode) {
             $output->writeln('<error>There was an error executing the "analyze" command, cannot continue.</error>');
 
             return;

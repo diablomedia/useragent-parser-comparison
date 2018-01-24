@@ -3,8 +3,8 @@
 
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
-use DeviceDetector\Parser\Device\DeviceParserAbstract;
 use DeviceDetector\Parser\Client\Browser;
+use DeviceDetector\Parser\Device\DeviceParserAbstract;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -36,18 +36,18 @@ function isMobile($data)
     if (!empty($deviceType) && in_array($deviceType, [
             DeviceParserAbstract::DEVICE_TYPE_TV,
             DeviceParserAbstract::DEVICE_TYPE_SMART_DISPLAY,
-            DeviceParserAbstract::DEVICE_TYPE_CONSOLE
+            DeviceParserAbstract::DEVICE_TYPE_CONSOLE,
         ])
     ) {
         return false;
     }
 
     // Check for browsers available for mobile devices only
-    if ($data['client']['type'] == 'browser' && Browser::isMobileOnlyBrowser($data['client']['short_name'] ? $data['client']['short_name'] : 'UNK')) {
+    if ($data['client']['type'] === 'browser' && Browser::isMobileOnlyBrowser($data['client']['short_name'] ? $data['client']['short_name'] : 'UNK')) {
         return true;
     }
 
-    if (empty($os) || 'UNK' == $os) {
+    if (empty($os) || 'UNK' === $os) {
         return false;
     }
 
@@ -57,18 +57,32 @@ function isMobile($data)
 function isDesktop($data)
 {
     $osShort = $data['os']['short_name'];
-    if (empty($osShort) || 'UNK' == $osShort) {
+    if (empty($osShort) || 'UNK' === $osShort) {
         return false;
     }
     // Check for browsers available for mobile devices only
-    if ($data['client']['type'] == 'browser' && Browser::isMobileOnlyBrowser($data['client']['short_name'] ? $data['client']['short_name'] : 'UNK')) {
+    if ($data['client']['type'] === 'browser' && Browser::isMobileOnlyBrowser($data['client']['short_name'] ? $data['client']['short_name'] : 'UNK')) {
         return false;
     }
 
     return in_array($data['os_family'], ['AmigaOS', 'IBM', 'GNU/Linux', 'Mac', 'Unix', 'Windows', 'BeOS', 'Chrome OS']);
 }
 
-foreach (new FilesystemIterator(__DIR__ . '/vendor/piwik/device-detector/Tests/fixtures') as $fixture) {
+$finder = new \Symfony\Component\Finder\Finder();
+$finder->files();
+$finder->name('*.yml');
+$finder->ignoreDotFiles(true);
+$finder->ignoreVCS(true);
+$finder->sortByName();
+$finder->ignoreUnreadableDirs();
+$finder->in(__DIR__ . '/vendor/piwik/device-detector/Tests/fixtures');
+
+foreach ($finder as $fixture) {
+    /** @var \Symfony\Component\Finder\SplFileInfo $fixture */
+    if (!$fixture->isFile() || 'yml' !== $fixture->getExtension()) {
+        continue;
+    }
+
     $provider = Spyc::YAMLLoad($fixture->getPathname());
 
     foreach ($provider as $data) {
@@ -90,7 +104,7 @@ foreach (new FilesystemIterator(__DIR__ . '/vendor/piwik/device-detector/Tests/f
                         'brand'    => DeviceParserAbstract::getFullName($data['device']['brand']),
                         'type'     => $data['device']['type'],
                         'ismobile' => isMobile($data) ? 'true' : 'false',
-                    ]
+                    ],
                 ];
 
                 $tests[$ua] = $expected;
@@ -102,7 +116,7 @@ foreach (new FilesystemIterator(__DIR__ . '/vendor/piwik/device-detector/Tests/f
 // Get version from composer
 $package = new \PackageInfo\Package('piwik/device-detector');
 
-print json_encode([
+echo json_encode([
     'tests'   => $tests,
     'version' => $package->getVersion(),
-]);
+], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

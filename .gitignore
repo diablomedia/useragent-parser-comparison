@@ -1,4 +1,4 @@
-/vendor
 .idea/
+/vendor
 /data/test-runs/*
 !/data/test-runs/.gitkeep

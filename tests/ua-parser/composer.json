@@ -1,7 +1,8 @@
 {
     "require": {
-        "symfony/yaml": "^2.7||^3.0||^4.0",
         "doctrine/cache": "^1.6",
+        "symfony/finder": "^3.3||^4.0",
+        "symfony/yaml": "^2.7||^3.0||^4.0",
         "thadafinser/package-info": "^1.0"
     }
 }

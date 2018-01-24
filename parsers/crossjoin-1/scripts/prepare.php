@@ -1,6 +1,6 @@
 <?php
-
-ini_set('memory_limit', -1);
+declare(strict_types = 1);
+ini_set('memory_limit', '-1');
 
 require __DIR__ . '/../vendor/autoload.php';
 

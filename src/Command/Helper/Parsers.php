@@ -1,18 +1,20 @@
 <?php
-
+declare(strict_types = 1);
 namespace UserAgentParserComparison\Command\Helper;
 
 use Symfony\Component\Console\Helper\Helper;
+use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 
 class Parsers extends Helper
 {
-    protected $parsers         = [];
-    protected $selectedParsers = [];
-    protected $parsersDir      = __DIR__ . '/../../../parsers';
+    private $parsers = [];
+
+    private $selectedParsers = [];
+
+    private $parsersDir = __DIR__ . '/../../../parsers';
 
     public function getName()
     {
@@ -31,26 +33,30 @@ class Parsers extends Helper
             $this->parsers[$parserDir->getFilename()] = [
                 'path'     => $parserDir->getPathName(),
                 'metadata' => $metadata,
-                'parse'    => function ($file, $benchmark = false) use ($parserDir) {
+                'parse'    => static function ($file, $benchmark = false) use ($parserDir) {
                     $args = [
-                        escapeshellarg($file)
+                        escapeshellarg($file),
                     ];
-                    if ($benchmark === true) {
+                    if (true === $benchmark) {
                         $args[] = '--benchmark';
                     }
 
                     $file = realpath(getcwd() . '/' . $file);
 
-                    $result = trim(shell_exec($parserDir->getPathName() . '/parse ' . implode(' ', $args)));
+                    $result = shell_exec($parserDir->getPathName() . '/parse ' . implode(' ', $args));
 
-                    $result = json_decode($result, true);
+                    if (null !== $result) {
+                        $result = trim($result);
 
-                    if (json_last_error() !== JSON_ERROR_NONE) {
-                        return null;
+                        $result = json_decode($result, true);
+
+                        if (JSON_ERROR_NONE !== json_last_error()) {
+                            return null;
+                        }
                     }
 
                     return $result;
-                }
+                },
             ];
         }
 
@@ -74,13 +80,13 @@ class Parsers extends Helper
         $questions = array_keys($names);
         sort($questions);
 
-        if ($multiple === true) {
+        if (true === $multiple) {
             $questions[] = 'All Parsers';
         }
 
         $helper = $this->helperSet->get('question');
 
-        if ($multiple === true) {
+        if (true === $multiple) {
             $questionText = 'Choose which parsers to use, separate multiple with commas (press enter to use all)';
             $default      = count($questions) - 1;
         } else {
@@ -94,7 +100,7 @@ class Parsers extends Helper
             $default
         );
 
-        if ($multiple === true) {
+        if (true === $multiple) {
             $question->setMultiselect(true);
         }
 
@@ -103,8 +109,9 @@ class Parsers extends Helper
         $answers = (array) $answers;
 
         foreach ($answers as $name) {
-            if ($name == 'All Parsers') {
+            if ('All Parsers' === $name) {
                 $this->selectedParsers = $this->parsers;
+
                 break;
             }
 

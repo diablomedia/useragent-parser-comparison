@@ -7,7 +7,7 @@ ini_set('max_execution_time', -1);
 $benchmarkPos = array_search('--benchmark', $argv);
 $benchmark    = false;
 
-if ($benchmarkPos !== false) {
+if (false !== $benchmarkPos) {
     $benchmark = true;
     unset($argv[$benchmarkPos]);
     $argv = array_values($argv);
@@ -51,8 +51,8 @@ while (!$file->eof()) {
                         'version' => $r->platform_version,
                     ],
                     'device' => [
-                        'name'     => $r->device_name,
-                        'brand'    => $r->device_maker,
+                        'name'     => $r->device_code_name,
+                        'brand'    => $r->device_brand_name,
                         'type'     => $r->device_type,
                         'ismobile' => $r->ismobiledevice ? 'true' : 'false',
                     ],
@@ -72,10 +72,10 @@ $memory = memory_get_peak_usage();
 // Get version from composer
 $package = new \PackageInfo\Package('browscap/browscap-php');
 
-print json_encode([
+echo json_encode([
     'results'     => $results,
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,
     'memory_used' => $memory,
     'version'     => $package->getVersion() . '-' . $bc->getCache()->getVersion(),
-]);
+], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

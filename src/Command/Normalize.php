@@ -1,21 +1,19 @@
 <?php
-
+declare(strict_types = 1);
 namespace UserAgentParserComparison\Command;
 
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Helper\Table;
-use Symfony\Component\Console\Question\ChoiceQuestion;
-use Symfony\Component\Console\Input\InputArgument;
 
 class Normalize extends Command
 {
-    protected $runDir  = __DIR__ . '/../../data/test-runs';
-    protected $mapDir  = __DIR__ . '/../../mappings';
-    protected $options = [];
+    private $runDir = __DIR__ . '/../../data/test-runs';
 
-    protected function configure()
+    private $options = [];
+
+    protected function configure(): void
     {
         $this->setName('normalize')
             ->setDescription('Normalizes data from a test run for better analysis')
@@ -23,7 +21,7 @@ class Normalize extends Command
             ->setHelp('');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $run = $input->getArgument('run');
 
@@ -68,12 +66,19 @@ class Normalize extends Command
                     $dataSource = $this->options['tests'][$testName]['metadata']['data_source'];
                 }
 
+                if (!is_array($data['tests'])) {
+                    continue;
+                }
+
                 foreach ($data['tests'] as $ua => $parsed) {
                     $normalized['tests'][$ua] = $this->normalize($parsed, $dataSource);
                 }
 
                 // Write normalized to file
-                file_put_contents($this->runDir . '/' . $run . '/expected/normalized/' . $testFile->getFilename(), json_encode($normalized));
+                file_put_contents(
+                    $this->runDir . '/' . $run . '/expected/normalized/' . $testFile->getFilename(),
+                    json_encode($normalized, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+                );
 
                 $output->writeln('<info> done!</info>');
             }
@@ -90,7 +95,7 @@ class Normalize extends Command
                     mkdir($this->runDir . '/' . $run . '/results/' . $parserName . '/normalized');
                 }
 
-                foreach (new \FilesystemIterator($resultDir) as $resultFile) {
+                foreach (new \FilesystemIterator($resultDir->getPathname()) as $resultFile) {
                     if ($resultFile->isDir()) {
                         continue;
                     }
@@ -116,7 +121,10 @@ class Normalize extends Command
                     $data['results'] = $normalized;
 
                     // Write normalized to file
-                    file_put_contents($this->runDir . '/' . $run . '/results/' . $parserName . '/normalized/' . $resultFile->getFilename(), json_encode($data));
+                    file_put_contents(
+                        $this->runDir . '/' . $run . '/results/' . $parserName . '/normalized/' . $resultFile->getFilename(),
+                        json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+                    );
 
                     $output->writeln('<info> done!</info>');
                 }
@@ -128,7 +136,7 @@ class Normalize extends Command
         $output->writeln('<comment>Normalized files written to the test run\'s directory</comment>');
     }
 
-    protected function normalize($parsed, $source)
+    private function normalize($parsed, $source)
     {
         $normalizeHelper = $this->getHelper('normalize');
 

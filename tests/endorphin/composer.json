@@ -1,6 +1,7 @@
 {
     "require": {
         "endorphin-studio/browser-detector": "^3.0",
+        "symfony/finder": "^3.3||^4.0",
         "thadafinser/package-info": "^1.0"
     }
 }

@@ -7,7 +7,21 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 $tests = [];
 
-foreach (new FilesystemIterator(__DIR__ . '/vendor/woothee/woothee-testset/testsets') as $fixture) {
+$finder = new \Symfony\Component\Finder\Finder();
+$finder->files();
+$finder->name('*.yaml');
+$finder->ignoreDotFiles(true);
+$finder->ignoreVCS(true);
+$finder->sortByName();
+$finder->ignoreUnreadableDirs();
+$finder->in(__DIR__ . '/vendor/woothee/woothee-testset/testsets');
+
+foreach ($finder as $fixture) {
+    /** @var \Symfony\Component\Finder\SplFileInfo $fixture */
+    if (!$fixture->isFile() || 'yaml' !== $fixture->getExtension()) {
+        continue;
+    }
+
     $provider = Spyc::YAMLLoad($fixture->getPathname());
 
     foreach ($provider as $data) {
@@ -27,7 +41,7 @@ foreach (new FilesystemIterator(__DIR__ . '/vendor/woothee/woothee-testset/tests
                     'brand'    => null,
                     'type'     => isset($data['category']) ? $data['category'] : null,
                     'ismobile' => null,
-                ]
+                ],
             ];
 
             $tests[$ua] = $expected;
@@ -38,7 +52,7 @@ foreach (new FilesystemIterator(__DIR__ . '/vendor/woothee/woothee-testset/tests
 // Get version from composer
 $package = new \PackageInfo\Package('woothee/woothee-testset');
 
-print json_encode([
+echo json_encode([
     'tests'   => $tests,
     'version' => $package->getVersion(),
-]);
+], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

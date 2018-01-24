@@ -7,7 +7,7 @@ ini_set('max_execution_time', -1);
 $benchmarkPos = array_search('--benchmark', $argv);
 $benchmark    = false;
 
-if ($benchmarkPos !== false) {
+if (false !== $benchmarkPos) {
     $benchmark = true;
     unset($argv[$benchmarkPos]);
     $argv = array_values($argv);
@@ -68,10 +68,10 @@ $memory = memory_get_peak_usage();
 // Get version from composer
 $package = new \PackageInfo\Package('zsxsoft/php-useragent');
 
-print json_encode([
+echo json_encode([
     'results'     => $results,
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,
     'memory_used' => $memory,
     'version'     => $package->getVersion(),
-]);
+], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

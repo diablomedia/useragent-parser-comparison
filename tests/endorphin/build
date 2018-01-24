@@ -5,7 +5,21 @@ $uas = [];
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-foreach (new FilesystemIterator(__DIR__ . '/vendor/endorphin-studio/browser-detector/tests/data/ua') as $fixture) {
+$finder = new \Symfony\Component\Finder\Finder();
+$finder->files();
+$finder->name('*.xml');
+$finder->ignoreDotFiles(true);
+$finder->ignoreVCS(true);
+$finder->sortByName();
+$finder->ignoreUnreadableDirs();
+$finder->in(__DIR__ . '/vendor/endorphin-studio/browser-detector/tests/data/ua');
+
+foreach ($finder as $fixture) {
+    /** @var \Symfony\Component\Finder\SplFileInfo $fixture */
+    if (!$fixture->isFile() || 'xml' !== $fixture->getExtension()) {
+        continue;
+    }
+
     $provider = simplexml_load_file($fixture->getPathname());
 
     foreach ($provider->test as $test) {
@@ -23,7 +37,7 @@ foreach (new FilesystemIterator(__DIR__ . '/vendor/endorphin-studio/browser-dete
                 'type'     => null,
                 'brand'    => null,
                 'ismobile' => null,
-            ]
+            ],
         ];
 
         foreach ($test->CheckList as $list) {
@@ -31,24 +45,31 @@ foreach (new FilesystemIterator(__DIR__ . '/vendor/endorphin-studio/browser-dete
                 switch ($item->Property) {
                     case 'OS->getName()':
                         $expected['platform']['name'] = (string) $item->Value;
+
                         break;
                     case 'OS->getVersion()':
                         $expected['platform']['version'] = (string) $item->Value;
+
                         break;
                     case 'Browser->getName()':
                         $expected['browser']['name'] = (string) $item->Value;
+
                         break;
                     case 'Device->getName()':
                         $expected['device']['name'] = (string) $item->Value;
+
                         break;
                     case 'Device->getType()':
                         $expected['device']['type'] = (string) $item->Value;
+
                         break;
                     case 'isMobile':
-                        $expected['device']['ismobile'] = (boolean) $item->Value ? 'true' : 'false';
+                        $expected['device']['ismobile'] = (bool) $item->Value ? 'true' : 'false';
+
                         break;
                     case 'Robot->getName()':
                         $expected['browser']['name'] = (string) $item->Value;
+
                         break;
                 }
             }
@@ -74,7 +95,7 @@ foreach (new FilesystemIterator(__DIR__ . '/vendor/endorphin-studio/browser-dete
 // Get version from composer
 $package = new \PackageInfo\Package('endorphin-studio/browser-detector');
 
-print json_encode([
+echo json_encode([
     'tests'   => $uas,
     'version' => $package->getVersion(),
-]);
+], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

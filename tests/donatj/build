@@ -3,7 +3,24 @@
 
 $tests = [];
 
-$provider = json_decode(file_get_contents(__DIR__ . '/vendor/donatj/phpuseragentparser/Tests/user_agents.json'), true);
+require_once __DIR__ . '/vendor/autoload.php';
+
+$jsonParser = new \Seld\JsonLint\JsonParser();
+
+$content = file_get_contents(__DIR__ . '/vendor/donatj/phpuseragentparser/Tests/user_agents.json');
+
+if ('' === $content || PHP_EOL === $content) {
+    exit;
+}
+
+try {
+    $provider = $jsonParser->parse(
+        $content,
+        \Seld\JsonLint\JsonParser::DETECT_KEY_CONFLICTS | \Seld\JsonLint\JsonParser::PARSE_TO_ASSOC
+    );
+} catch (\Seld\JsonLint\ParsingException $e) {
+    exit;
+}
 
 foreach ($provider as $ua => $data) {
     if (!empty($ua)) {
@@ -21,7 +38,7 @@ foreach ($provider as $ua => $data) {
                 'brand'    => null,
                 'type'     => null,
                 'ismobile' => null,
-            ]
+            ],
         ];
 
         $tests[$ua] = $expected;
@@ -31,7 +48,7 @@ foreach ($provider as $ua => $data) {
 // Get version from composer
 $package = new \PackageInfo\Package('donatj/phpuseragentparser');
 
-print json_encode([
+echo json_encode([
     'tests'   => $tests,
     'version' => $package->getVersion(),
-]);
+], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

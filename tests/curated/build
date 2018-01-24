@@ -16,7 +16,7 @@ $finder->in(__DIR__ . '/files');
 
 foreach ($finder as $file) {
     /** @var \Symfony\Component\Finder\SplFileInfo $file */
-    if (!$file->isFile() || 'json' !== $file->getExtension()) {
+    if (!$file->isFile() || 'php' !== $file->getExtension()) {
         continue;
     }
 
@@ -27,6 +27,6 @@ foreach ($finder as $file) {
     }
 }
 
-print json_encode([
-    'tests' => $tests
-]);
+echo json_encode([
+    'tests' => $tests,
+], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
