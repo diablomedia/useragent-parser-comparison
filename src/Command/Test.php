@@ -39,8 +39,11 @@ class Test extends Command
 
         $output->writeln('These are all of the tests available, choose which you would like to run');
 
+        $questions = array_keys($this->tests);
+        sort($questions);
+
         $i = 1;
-        foreach ($this->tests as $name => $data) {
+        foreach ($questions as $name) {
             $rows[] = [$name];
             ++$i;
         }
@@ -50,8 +53,6 @@ class Test extends Command
         $table->setRows($rows);
         $table->render();
 
-        $questions = array_keys($this->tests);
-        ksort($questions);
         $questions[] = 'All Suites';
 
         $questionHelper = $this->getHelper('question');
@@ -77,8 +78,6 @@ class Test extends Command
         $output->writeln('Choose which parsers you would like to run this test suite against');
         $parserHelper = $this->getHelper('parsers');
         $parsers      = $parserHelper->getParsers($input, $output);
-
-        $parserScores = [];
 
         // Prepare our test directory to store the data from this run
         $thisRunDirName = $input->getArgument('name');

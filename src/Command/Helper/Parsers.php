@@ -63,6 +63,8 @@ class Parsers extends Helper
         $rows  = [];
         $names = [];
 
+        ksort($this->parsers);
+
         foreach ($this->parsers as $name => $data) {
             $rows[] = [
                 isset($data['metadata']['name']) ? $data['metadata']['name'] : $name,
