@@ -31,7 +31,7 @@ class Normalize extends Helper
             foreach ($properties as $key => $value) {
                 if (null !== $value) {
                     if ('version' === $key) {
-                        $value = $this->truncateVersion(mb_strtolower($value));
+                        $value = $this->truncateVersion(mb_strtolower((string) $value));
                     } elseif (false === $value) {
                         $value = '';
                     } elseif (true === $value) {
