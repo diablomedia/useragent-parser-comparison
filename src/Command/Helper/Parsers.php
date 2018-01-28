@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types = 1);
+
 namespace UserAgentParserComparison\Command\Helper;
 
 use Symfony\Component\Console\Helper\Helper;
@@ -67,11 +69,11 @@ class Parsers extends Helper
 
         foreach ($this->parsers as $name => $data) {
             $rows[] = [
-                isset($data['metadata']['name']) ? $data['metadata']['name'] : $name,
-                isset($data['metadata']['language']) ? $data['metadata']['language'] : '',
-                isset($data['metadata']['data_source']) ? $data['metadata']['data_source'] : '',
+                $data['metadata']['name'] ?? $name,
+                $data['metadata']['language'] ?? '',
+                $data['metadata']['data_source'] ?? '',
             ];
-            $names[isset($data['metadata']['name']) ? $data['metadata']['name'] : $name] = $name;
+            $names[$data['metadata']['name'] ?? $name] = $name;
         }
 
         $table = new Table($output);

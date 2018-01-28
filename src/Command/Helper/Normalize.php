@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types = 1);
+
 namespace UserAgentParserComparison\Command\Helper;
 
 use Symfony\Component\Console\Helper\Helper;

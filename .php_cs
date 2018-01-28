@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types = 1);
 $finder = PhpCsFixer\Finder::create()
     ->exclude('vendor')
@@ -39,18 +40,13 @@ return PhpCsFixer\Config::create()
         'visibility_required'   => ['elements' => ['property', 'method', 'const']],
 
         // @Symfony rules configured different from default
-        'binary_operator_spaces'             => ['default' => 'align_single_space_minimal'],
-        'blank_line_after_opening_tag'       => false,
-        'concat_space'                       => ['spacing' => 'one'],
-        'declare_equal_normalize'            => ['space' => 'single'],
-        'phpdoc_no_empty_return'             => false,
-        'phpdoc_summary'                     => false,
-        'single_blank_line_before_namespace' => false,
-        'space_after_semicolon'              => ['remove_in_empty_for_expressions' => true],
-        'yoda_style'                         => ['equal' => true, 'identical' => true, 'less_and_greater' => true],
-
-        // @PHP70Migration rules configured different from default
-        'ternary_to_null_coalescing' => false,
+        'binary_operator_spaces'  => ['default' => 'align_single_space_minimal'],
+        'concat_space'            => ['spacing' => 'one'],
+        'declare_equal_normalize' => ['space' => 'single'],
+        'phpdoc_no_empty_return'  => false,
+        'phpdoc_summary'          => false,
+        'space_after_semicolon'   => ['remove_in_empty_for_expressions' => true],
+        'yoda_style'              => ['equal' => true, 'identical' => true, 'less_and_greater' => true],
 
         // @PHP70Migration:risky rules configured different from default
         'pow_to_exponentiation' => false,
@@ -80,7 +76,6 @@ return PhpCsFixer\Config::create()
         'method_chaining_indentation'               => true,
         'method_separation'                         => true,
         'native_function_invocation'                => false,
-        'no_blank_lines_before_namespace'           => true,
         'no_multiline_whitespace_before_semicolons' => true,
         'no_null_property_initialization'           => true,
         'no_php4_constructor'                       => true,

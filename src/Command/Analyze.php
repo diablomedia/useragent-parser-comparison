@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types = 1);
+
 namespace UserAgentParserComparison\Command;
 
 use Symfony\Component\Console\Command\Command;
@@ -249,7 +251,7 @@ class Analyze extends Command
 
                 $rows[] = [
                     $parserName,
-                    isset($parserData['metadata']['version']) ? $parserData['metadata']['version'] : 'n/a',
+                    $parserData['metadata']['version'] ?? 'n/a',
                     $passFail['browser']['pass'] . '/' . array_sum($passFail['browser']) . ' ' . round($passFail['browser']['pass'] / array_sum($passFail['browser']) * 100, 2) . '%',
                     $passFail['platform']['pass'] . '/' . array_sum($passFail['platform']) . ' ' . round($passFail['platform']['pass'] / array_sum($passFail['platform']) * 100, 2) . '%',
                     $passFail['device']['pass'] . '/' . array_sum($passFail['device']) . ' ' . round($passFail['device']['pass'] / array_sum($passFail['device']) * 100, 2) . '%',

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types = 1);
 echo 'Preparing Browscap Files' . PHP_EOL;
 
