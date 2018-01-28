@@ -1,44 +1,37 @@
 # text files
-*                text=auto
-*.markdown       text eol=lf
-*.md             text eol=lf
-*.js             text eol=lf
-*.css            text eol=lf
-*.json           text eol=lf
-*.lock           text eol=lf
-*.html           text eol=lf
-*.php            text eol=lf
-*.yml            text eol=lf
-*.yaml           text eol=lf
-*.xml            text eol=lf
-*.dist           text eol=lf
-*.txt            text eol=lf
-*.ini            text eol=lf
-*.sh             text eol=lf
-*.tmp            text eol=lf
-LICENSE          text eol=lf
+*                 text=auto
+*.markdown        text eol=lf
+*.md              text eol=lf
+*.js              text eol=lf
+*.css             text eol=lf
+*.json            text eol=lf
+*.lock            text eol=lf
+*.html            text eol=lf
+*.php             text eol=lf
+*.yml             text eol=lf
+*.yaml            text eol=lf
+*.xml             text eol=lf
+*.dist            text eol=lf
+*.txt             text eol=lf
+*.ini             text eol=lf
+*.sh              text eol=lf
+*.tmp             text eol=lf
+LICENSE           text eol=lf
+tests/*/build     text eol=lf
+tests/*/update    text eol=lf
+tests/*/prepare   text eol=lf
+parsers/*/parse   text eol=lf
+parsers/*/prepare text eol=lf
+parsers/*/update  text eol=lf
 
 # binary files
 *.zip            -text binary
 
 # files/folders to ignore
 /.*              export-ignore
-.codeclimate.yml export-ignore text eol=lf
-.coveralls.yml   export-ignore text eol=lf
-.editorconfig    export-ignore text eol=lf
 .gitattributes   export-ignore text eol=lf
 .gitignore       export-ignore text eol=lf
 .php_cs          export-ignore text eol=lf
 .php_cs.cache    export-ignore text eol=lf
-.scrutinizer.yml export-ignore text eol=lf
-.styleci.yml     export-ignore text eol=lf
 .travis.yml      export-ignore text eol=lf
-.sensiolabs.yml  export-ignore text eol=lf
-appveyor.yml     export-ignore text eol=lf
-circle.yml       export-ignore text eol=lf
-codecov.yml      export-ignore text eol=lf
-phpcs.xml        export-ignore text eol=lf
 phpstan.neon     export-ignore text eol=lf
-phpunit.xml      export-ignore text eol=lf
-/tests           export-ignore
-/cache           export-ignore

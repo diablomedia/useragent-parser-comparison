@@ -29,11 +29,6 @@ jobs:
   include:
     - stage: check coding style
       php: 7.1
-      env: TEST=phpcs
-      script: vendor/bin/phpcs --colors
-
-    - stage: check coding style
-      php: 7.1
       env: TEST=php-cs-fixer
       script: vendor/bin/php-cs-fixer fix --dry-run -vv
 
