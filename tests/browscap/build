@@ -54,7 +54,7 @@ foreach ($finder as $fixture) {
                     'version' => $data['properties']['Version'],
                 ],
                 'platform' => [
-                    'name'    => isset($data['properties']['Platform']) ? $data['properties']['Platform'] : 'unknown',
+                    'name'    => $data['properties']['Platform'] ?? 'unknown',
                     'version' => $data['properties']['Platform_Version'],
                 ],
                 'device' => [

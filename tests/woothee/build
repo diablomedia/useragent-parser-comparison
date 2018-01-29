@@ -29,17 +29,17 @@ foreach ($finder as $fixture) {
         if (!empty($ua)) {
             $expected = [
                 'browser' => [
-                    'name'    => isset($data['name']) ? $data['name'] : null,
-                    'version' => isset($data['version']) ? $data['version'] : null,
+                    'name'    => $data['name'] ?? null,
+                    'version' => $data['version'] ?? null,
                 ],
                 'platform' => [
-                    'name'    => isset($data['os']) ? $data['os'] : null,
-                    'version' => isset($data['os_version']) ? $data['os_version'] : null,
+                    'name'    => $data['os'] ?? null,
+                    'version' => $data['os_version'] ?? null,
                 ],
                 'device' => [
                     'name'     => null,
                     'brand'    => null,
-                    'type'     => isset($data['category']) ? $data['category'] : null,
+                    'type'     => $data['category'] ?? null,
                     'ismobile' => null,
                 ],
             ];

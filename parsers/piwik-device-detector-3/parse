@@ -52,12 +52,12 @@ while (!$file->eof()) {
                 'useragent' => $agentString,
                 'parsed'    => [
                     'browser' => [
-                        'name'    => isset($clientInfo['name']) ? $clientInfo['name'] : '',
-                        'version' => isset($clientInfo['version']) ? $clientInfo['version'] : '',
+                        'name'    => $clientInfo['name'] ?? '',
+                        'version' => $clientInfo['version'] ?? '',
                     ],
                     'platform' => [
-                        'name'    => isset($osInfo['name']) ? $osInfo['name'] : '',
-                        'version' => isset($osInfo['version']) ? $osInfo['version'] : '',
+                        'name'    => $osInfo['name'] ?? '',
+                        'version' => $osInfo['version'] ?? '',
                     ],
                     'device' => [
                         'name'     => null !== $model ? $model : '',

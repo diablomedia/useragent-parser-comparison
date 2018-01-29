@@ -39,11 +39,11 @@ while (!$file->eof()) {
                 'useragent' => $agentString,
                 'parsed'    => [
                     'browser' => [
-                        'name'    => isset($r['browser']) ? $r['browser'] : '',
-                        'version' => isset($r['version']) ? $r['version'] : '',
+                        'name'    => $r['browser'] ?? '',
+                        'version' => $r['version'] ?? '',
                     ],
                     'platform' => [
-                        'name'    => isset($r['platform']) ? $r['platform'] : '',
+                        'name'    => $r['platform'] ?? '',
                         'version' => null,
                     ],
                     'device' => [
