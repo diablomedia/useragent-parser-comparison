@@ -1,24 +1,25 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace UserAgentParserComparison\Command;
 
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableCell;
 use Symfony\Component\Console\Helper\TableSeparator;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Helper\ProgressBar;
 
 class Parse extends Command
 {
-    protected $runDir = __DIR__ . '/../../data/test-runs';
+    private $runDir = __DIR__ . '/../../data/test-runs';
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('parse')
             ->setDescription('Parses useragents in a file using the selected parser(s)')
@@ -31,7 +32,7 @@ class Parse extends Command
             ->setHelp('Parses the useragent strings (one per line) from the passed in file and outputs the parsed properties.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $file      = $input->getArgument('file');
         $normalize = $input->getOption('normalize');
@@ -42,7 +43,7 @@ class Parse extends Command
 
         if ($csvFile) {
             $noOutput = true;
-            $csv = true;
+            $csv      = true;
         }
 
         $parserHelper    = $this->getHelper('parsers');
@@ -54,7 +55,7 @@ class Parse extends Command
         $table = new Table($output);
         $table->setHeaders([
             [new TableCell('UserAgent', ['colspan' => '7']), 'Parse Time'],
-            ['browser_name', 'browser_version', 'platform_name', 'platform_version', 'device_name', 'device_brand', 'device_type', 'is_mobile']
+            ['browser_name', 'browser_version', 'platform_name', 'platform_version', 'device_name', 'device_brand', 'device_type', 'is_mobile'],
         ]);
 
         if ($name) {
@@ -75,12 +76,16 @@ class Parse extends Command
 
             if (empty($result)) {
                 $output->writeln('<error>The ' . $parserName . ' parser did not return any data, there may have been an error</error>');
+
                 continue;
             }
 
             if ($name) {
                 mkdir($this->runDir . '/' . $name . '/results/' . $parserName);
-                file_put_contents($this->runDir . '/' . $name . '/results/' . $parserName . '/' . basename($file) . '.json', json_encode($result));
+                file_put_contents(
+                    $this->runDir . '/' . $name . '/results/' . $parserName . '/' . basename($file) . '.json',
+                    json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+                );
             }
 
             foreach ($result['results'] as $parsed) {
@@ -118,7 +123,7 @@ class Parse extends Command
                 $answer = $questionHelper->ask($input, $output, $question);
             }
 
-            if ($csv || $answer == 'Dump as CSV') {
+            if ($csv || 'Dump as CSV' === $answer) {
                 $csvOutput = '';
 
                 $csvOutput .= $this->putcsv([
@@ -152,7 +157,7 @@ class Parse extends Command
                 }
 
                 if ($csvFile) {
-                    $output->writeln('Wrote CSV data to ' . $csvFile, 'success');
+                    $output->writeln('Wrote CSV data to ' . $csvFile);
                 } else {
                     $output->writeln($csvOutput);
                     $question = new Question('Press enter to continue', 'yes');
@@ -164,12 +169,12 @@ class Parse extends Command
         if ($name) {
             file_put_contents(
                 $this->runDir . '/' . $name . '/metadata.json',
-                json_encode(['parsers' => $parsers, 'date' => time(), 'file' => basename($file)])
+                json_encode(['parsers' => $parsers, 'date' => time(), 'file' => basename($file)], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
             );
         }
     }
 
-    protected function putcsv($input, $csvFile)
+    private function putcsv($input, $csvFile)
     {
         $delimiter = ',';
         $enclosure = '"';

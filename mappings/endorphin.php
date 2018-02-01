@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 return [
     'browser' => [
         'name' => [
@@ -17,7 +19,7 @@ return [
             '80legscrawler'        => '80legs',
             'tinyrss'              => 'tinytinyrss',
             'netscapenavigator'    => 'netscape',
-        ]
+        ],
     ],
     'platform' => [
         'name' => [
@@ -37,12 +39,12 @@ return [
             'androidtv'    => 'androidforgoogletv',
             'windowsna'    => 'windows',
             'aliyunos'     => 'yunos',
-        ]
+        ],
     ],
     'device' => [
         'type' => [
             'mobile' => 'mobiledevice',
             'player' => 'media',
-        ]
-    ]
+        ],
+    ],
 ];

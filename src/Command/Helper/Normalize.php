@@ -1,16 +1,14 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace UserAgentParserComparison\Command\Helper;
 
 use Symfony\Component\Console\Helper\Helper;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Helper\Table;
-use Symfony\Component\Console\Question\ChoiceQuestion;
 
 class Normalize extends Helper
 {
-    protected $mapDir = __DIR__ . '/../../../mappings';
+    private $mapDir = __DIR__ . '/../../../mappings';
 
     public function getName()
     {
@@ -33,18 +31,22 @@ class Normalize extends Helper
             $normalized[$section] = [];
 
             foreach ($properties as $key => $value) {
-                if ($value !== null) {
-                    if ($key == 'version') {
-                        $value = $this->truncateVersion(strtolower($value));
+                if (null !== $value) {
+                    if ('version' === $key) {
+                        $value = $this->truncateVersion(mb_strtolower((string) $value));
+                    } elseif (false === $value) {
+                        $value = '';
+                    } elseif (true === $value) {
+                        $value = '1';
                     } else {
-                        $value = preg_replace('|[^0-9a-z]|', '', strtolower($value));
+                        $value = preg_replace('|[^0-9a-z]|', '', mb_strtolower((string) $value));
                     }
 
                     // Special Windows normalization for parsers that don't differntiate the version of windows
                     // in the name, but use the version.
-                    if ($section == 'platform' && $key == 'name' && $value == 'windows') {
+                    if ('platform' === $section && 'name' === $key && 'windows' === $value) {
                         if (!empty($parsed['platform']['version'])) {
-                            $value .= preg_replace('|[^0-9a-z.]|', '', strtolower($parsed['platform']['version']));
+                            $value .= preg_replace('|[^0-9a-z.]|', '', mb_strtolower($parsed['platform']['version']));
                         }
                     }
 
@@ -62,7 +64,7 @@ class Normalize extends Helper
         return $normalized;
     }
 
-    protected function truncateVersion($version)
+    private function truncateVersion($version)
     {
         $version      = str_replace('_', '.', $version);
         $versionParts = explode('.', $version);

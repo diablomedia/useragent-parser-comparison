@@ -7,7 +7,7 @@ ini_set('max_execution_time', -1);
 $benchmarkPos = array_search('--benchmark', $argv);
 $benchmark    = false;
 
-if ($benchmarkPos !== false) {
+if (false !== $benchmarkPos) {
     $benchmark = true;
     unset($argv[$benchmarkPos]);
     $argv = array_values($argv);
@@ -20,7 +20,7 @@ $parseTime = 0;
 
 $start = microtime(true);
 require __DIR__ . '/vendor/autoload.php';
-$parser = new \Woothee\Classifier;
+$parser = new \Woothee\Classifier();
 $parser->parse('Test String');
 $initTime = microtime(true) - $start;
 
@@ -64,10 +64,13 @@ while (!$file->eof()) {
 
 $file = null;
 
-print json_encode([
+// Get version from composer
+$package = new \PackageInfo\Package('woothee/woothee');
+
+echo json_encode([
     'results'     => $results,
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,
     'memory_used' => memory_get_peak_usage(),
-    'version'     => $parser::VERSION,
-]);
+    'version'     => $package->getVersion(),
+], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

@@ -1,24 +1,31 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace UserAgentParserComparison\Command;
 
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Question\ChoiceQuestion;
-use Symfony\Component\Console\Input\InputArgument;
 
 class Test extends Command
 {
-    protected $tests         = [];
-    protected $selectedTests = [];
-    protected $testsDir      = __DIR__ . '/../../tests';
-    protected $runDir        = __DIR__ . '/../../data/test-runs';
-    protected $results       = [];
-    protected $failures      = [];
+    private $tests = [];
 
-    protected function configure()
+    private $selectedTests = [];
+
+    private $testsDir = __DIR__ . '/../../tests';
+
+    private $runDir = __DIR__ . '/../../data/test-runs';
+
+    private $results = [];
+
+    private $failures = [];
+
+    protected function configure(): void
     {
         $this->setName('test')
             ->setDescription('Runs test against the parsers')
@@ -26,7 +33,7 @@ class Test extends Command
             ->setHelp('Runs various test suites against the parsers to help determine which is the most "correct".');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $this->collectTests();
 
@@ -34,10 +41,13 @@ class Test extends Command
 
         $output->writeln('These are all of the tests available, choose which you would like to run');
 
+        $questions = array_keys($this->tests);
+        sort($questions);
+
         $i = 1;
-        foreach ($this->tests as $name => $data) {
+        foreach ($questions as $name) {
             $rows[] = [$name];
-            $i++;
+            ++$i;
         }
 
         $table = new Table($output);
@@ -45,8 +55,6 @@ class Test extends Command
         $table->setRows($rows);
         $table->render();
 
-        $questions = array_keys($this->tests);
-        ksort($questions);
         $questions[] = 'All Suites';
 
         $questionHelper = $this->getHelper('question');
@@ -60,8 +68,9 @@ class Test extends Command
         $answers = $questionHelper->ask($input, $output, $question);
 
         foreach ($answers as $name) {
-            if ($name == 'All Suites') {
+            if ('All Suites' === $name) {
                 $this->selectedTests = $this->tests;
+
                 break;
             }
 
@@ -71,8 +80,6 @@ class Test extends Command
         $output->writeln('Choose which parsers you would like to run this test suite against');
         $parserHelper = $this->getHelper('parsers');
         $parsers      = $parserHelper->getParsers($input, $output);
-
-        $parserScores = [];
 
         // Prepare our test directory to store the data from this run
         $thisRunDirName = $input->getArgument('name');
@@ -96,14 +103,15 @@ class Test extends Command
             $output->write('Generating data for the ' . $testName . ' test suite... ');
             $this->results[$testName] = [];
 
-            $testOutput = trim(shell_exec($testData['path'] . '/build'));
+            $testOutput = trim((string) shell_exec($testData['path'] . '/build'));
 
             file_put_contents($expectedDir . '/' . $testName . '.json', $testOutput);
 
             $testOutput = json_decode($testOutput, true);
 
-            if (json_last_error() !== JSON_ERROR_NONE || empty($testOutput)) {
+            if (JSON_ERROR_NONE !== json_last_error() || empty($testOutput)) {
                 $output->writeln('<error>There was an error with the output from the ' . $testName . ' test suite.</error>');
+
                 continue;
             }
 
@@ -114,13 +122,17 @@ class Test extends Command
             // write our test's file that we'll pass to the parsers
             $filename = $testFilesDir . '/' . $testName . '.txt';
 
-            $agents = array_keys($testOutput['tests']);
+            if (is_array($testOutput['tests'])) {
+                $agents = array_keys($testOutput['tests']);
+            } else {
+                $agents = [];
+            }
 
-            array_walk($agents, function (&$item) {
-                $item = addcslashes($item, "\n");
+            array_walk($agents, static function (&$item): void {
+                $item = addcslashes((string) $item, PHP_EOL);
             });
 
-            file_put_contents($filename, implode("\n", $agents));
+            file_put_contents($filename, implode(PHP_EOL, $agents));
             $output->writeln('<info>  done!</info>');
 
             foreach ($parsers as $parserName => $parser) {
@@ -131,7 +143,10 @@ class Test extends Command
                     mkdir($resultsDir . '/' . $parserName);
                 }
 
-                file_put_contents($resultsDir . '/' . $parserName . '/' . $testName . '.json', json_encode($results));
+                file_put_contents(
+                    $resultsDir . '/' . $parserName . '/' . $testName . '.json',
+                    json_encode($results, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+                );
                 $output->writeln('<info> done!</info>');
 
                 if (!empty($results['version'])) {
@@ -145,13 +160,13 @@ class Test extends Command
         // write some test data to file
         file_put_contents(
             $thisRunDir . '/metadata.json',
-            json_encode(['tests' => $usedTests, 'parsers' => $parsers, 'date' => time()])
+            json_encode(['tests' => $usedTests, 'parsers' => $parsers, 'date' => time()], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
         );
 
         $output->writeln('<comment>Parsing complete, data stored in ' . $thisRunDirName . ' directory</comment>');
     }
 
-    protected function collectTests()
+    private function collectTests(): void
     {
         foreach (new \FilesystemIterator($this->testsDir) as $testDir) {
             if (file_exists($testDir->getPathName() . '/metadata.json')) {

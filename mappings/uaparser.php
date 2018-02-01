@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 return [
     'browser' => [
         'name' => [
@@ -116,7 +118,7 @@ return [
             'ncsamosaic'                          => 'mosaic',
             'maemobrowser'                        => 'microb',
             'facebookbot'                         => 'facebookexternalhit',
-        ]
+        ],
     ],
     'platform' => [
         'name' => [
@@ -151,7 +153,7 @@ return [
             'symbian3anna'       => 'symbianos',
             'symbian3belle'      => 'symbianos',
             'rimtabletos'        => 'rimos',
-        ]
+        ],
     ],
     'device' => [
         'name' => [

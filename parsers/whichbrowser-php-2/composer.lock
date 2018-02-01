@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f4f00748f502a78e36c02028b3b35678",
+    "content-hash": "6ad0ea299c670b6ee5e22d69472a663f",
     "packages": [
         {
             "name": "psr/cache",
@@ -53,17 +53,61 @@
             "time": "2016-08-06T20:24:11+00:00"
         },
         {
-            "name": "whichbrowser/parser",
-            "version": "v2.0.30",
+            "name": "thadafinser/package-info",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/WhichBrowser/Parser-PHP.git",
-                "reference": "17be43164e1549c05a364d4c1665e890a6163617"
+                "url": "https://github.com/ThaDafinser/PackageInfo.git",
+                "reference": "3cc580385cf694ba83eda3bbf7ea716a2253ea5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WhichBrowser/Parser-PHP/zipball/17be43164e1549c05a364d4c1665e890a6163617",
-                "reference": "17be43164e1549c05a364d4c1665e890a6163617",
+                "url": "https://api.github.com/repos/ThaDafinser/PackageInfo/zipball/3cc580385cf694ba83eda3bbf7ea716a2253ea5a",
+                "reference": "3cc580385cf694ba83eda3bbf7ea716a2253ea5a",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0",
+                "php": "~5.6|~7.0"
+            },
+            "require-dev": {
+                "composer/composer": "^1.2.0",
+                "phpunit/phpunit": "^5.4.7"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "PackageInfo\\Installer"
+            },
+            "autoload": {
+                "psr-4": {
+                    "PackageInfo\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "ThaDafinser",
+                    "email": "martin.keckeis1@gmail.com"
+                }
+            ],
+            "description": "Composer plugin that provides efficient querying for installed package versions (no runtime IO)",
+            "time": "2016-08-09T11:14:48+00:00"
+        },
+        {
+            "name": "whichbrowser/parser",
+            "version": "v2.0.32",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WhichBrowser/Parser-PHP.git",
+                "reference": "933a695fe0b3d6cf3e957af9b73dd14ade6ed354"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/WhichBrowser/Parser-PHP/zipball/933a695fe0b3d6cf3e957af9b73dd14ade6ed354",
+                "reference": "933a695fe0b3d6cf3e957af9b73dd14ade6ed354",
                 "shasum": ""
             },
             "require": {
@@ -109,7 +153,7 @@
                 "ua",
                 "useragent"
             ],
-            "time": "2017-12-07T16:27:08+00:00"
+            "time": "2018-01-24T20:27:42+00:00"
         }
     ],
     "packages-dev": [],

@@ -1,7 +1,7 @@
 {
   "name": "ua-parser",
   "version": "1.0.0",
-  "description": "",
+  "description": "ua-parser",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "uap-core": "ua-parser/uap-core"
+    "uap-core": "github:ua-parser/uap-core"
   }
 }

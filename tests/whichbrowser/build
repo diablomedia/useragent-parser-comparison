@@ -21,8 +21,8 @@ function isMobile($data)
         return true;
     }
 
-    if ($data['device']['type'] == 'gaming') {
-        if (isset($data['device']['subtype']) && $data['device']['subtype'] == 'portable') {
+    if ($data['device']['type'] === 'gaming') {
+        if (isset($data['device']['subtype']) && $data['device']['subtype'] === 'portable') {
             return true;
         }
     }
@@ -30,22 +30,23 @@ function isMobile($data)
     return false;
 }
 
-$directory = new \RecursiveDirectoryIterator(__DIR__ . '/vendor/whichbrowser/parser/tests/data');
-$filter    = new \RecursiveCallbackFilterIterator($directory, function ($current, $key, $iterator) {
-    if ($current->getFilename()[0] === '.') {
-        return false;
-    }
-    if ($current->isDir()) {
-        return true;
-    } else {
-        return strpos($current->getFilename(), '.yaml') !== false;
-    }
-});
-$iterator = new \RecursiveIteratorIterator($filter);
-
 $uas = [];
 
-foreach ($iterator as $fixture) {
+$finder = new \Symfony\Component\Finder\Finder();
+$finder->files();
+$finder->name('*.yaml');
+$finder->ignoreDotFiles(true);
+$finder->ignoreVCS(true);
+$finder->sortByName();
+$finder->ignoreUnreadableDirs();
+$finder->in(__DIR__ . '/vendor/whichbrowser/parser/tests/data');
+
+foreach ($finder as $fixture) {
+    /** @var \Symfony\Component\Finder\SplFileInfo $fixture */
+    if (!$fixture->isFile() || 'yaml' !== $fixture->getExtension()) {
+        continue;
+    }
+
     $provider = Yaml::parse(file_get_contents($fixture->getPathname()));
 
     foreach ($provider as $data) {
@@ -57,15 +58,14 @@ foreach ($iterator as $fixture) {
         }
 
         if (is_array($data['headers']) && !empty($data['headers']['User-Agent'])) {
-            if (count($data['headers']) > 1) {
+            if (1 < count($data['headers'])) {
                 // Ignoring the ones that have the additional headers since we can't guarantee the expected value
                 // for those cases (assuming that whichbrowser changes some data based on those headers).
                 continue;
-            } else {
-                $ua = $data['headers']['User-Agent'];
             }
+            $ua = $data['headers']['User-Agent'];
         } else {
-            if (strpos($data['headers'], 'User-Agent: ') !== 0) {
+            if (0 !== mb_strpos($data['headers'], 'User-Agent: ')) {
                 // There are a few tests that don't have a "User-Agent:" header
                 // discarding those since other parsers don't parse different headers in this comparison
                 continue;
@@ -96,24 +96,17 @@ foreach ($uas as $ua => $data) {
                 'brand'    => $data['device']['manufacturer'],
                 'type'     => $data['device']['type'],
                 'ismobile' => isMobile($data) ? 'true' : 'false',
-            ]
+            ],
         ];
 
         $tests[$ua] = $expected;
     }
 }
 
-// whichbrowser-2 doesn't provide version information in code at all, looking to composer for the installed version
-$installed = json_decode(file_get_contents(__DIR__ . '/vendor/composer/installed.json'), true);
+// Get version from composer
+$package = new \PackageInfo\Package('whichbrowser/parser');
 
-foreach ($installed as $package) {
-    if ($package['name'] == 'whichbrowser/parser') {
-        $version = $package['version'];
-        break;
-    }
-}
-
-print json_encode([
+echo json_encode([
     'tests'   => $tests,
-    'version' => $version,
-]);
+    'version' => $package->getVersion(),
+], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

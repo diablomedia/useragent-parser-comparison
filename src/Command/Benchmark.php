@@ -1,19 +1,20 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace UserAgentParserComparison\Command;
 
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Helper\Table;
-use Symfony\Component\Console\Question\ChoiceQuestion;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class Benchmark extends Command
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('benchmark')
             ->setDescription('Benchmarks selected parsers against a passed in file')
@@ -22,7 +23,7 @@ class Benchmark extends Command
             ->setHelp('Runs the selected parsers against a list of useragents (provided in the passed in "file" argument). By default performs just one iteration per parser but this can be configured with the "--iterations" option.  Reports the time taken and memory use of each parser.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $file       = $input->getArgument('file');
         $iterations = $input->getOption('iterations');
@@ -46,15 +47,15 @@ class Benchmark extends Command
             $progress = new ProgressBar($output, $iterations);
             $progress->start();
 
-            for ($i = 0; $i < $iterations; $i++) {
+            for ($i = 0; $i < $iterations; ++$i) {
                 $start  = microtime(true);
                 $result = $parser['parse']($file, true);
                 $end    = microtime(true) - $start;
 
-                $initTime += $result['init_time'];
+                $initTime  += $result['init_time'];
                 $parseTime += $result['parse_time'];
                 $totalTime += $end;
-                $memory += $result['memory_used'];
+                $memory    += $result['memory_used'];
 
                 $progress->advance();
             }
@@ -75,11 +76,11 @@ class Benchmark extends Command
         $table->render();
     }
 
-    protected function formatBytes($bytes, $precision = 2)
+    private function formatBytes($bytes, $precision = 2)
     {
         $base     = log($bytes, 1024);
         $suffixes = ['', 'K', 'M', 'G', 'T'];
 
-        return round(pow(1024, $base - floor($base)), $precision) . ' ' . $suffixes[floor($base)];
+        return round(pow(1024, $base - floor($base)), $precision) . ' ' . $suffixes[(int) floor($base)];
     }
 }

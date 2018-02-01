@@ -3,6 +3,8 @@
 
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
+require_once __DIR__ . '/vendor/autoload.php';
+
 // Would like to have name/brand for mobile devices, but their test suite doesn't break that out very well
 // for the expected values.  Using the device parser class to extract possible device brand names that we
 // can use to extract brand/name from the device "title" later. Would be nice to use tokens here rather than
@@ -14,7 +16,7 @@ while (!$file->eof()) {
     $line = trim($file->fgets());
     preg_match('/^\$brand = ("|\')(.*)("|\');$/', $line, $matches);
 
-    if (count($matches) > 0) {
+    if (0 < count($matches)) {
         $brand = $matches[2];
         if (!empty($brand)) {
             $brands[] = $brand;
@@ -23,8 +25,8 @@ while (!$file->eof()) {
 }
 $brands = array_unique($brands);
 
-usort($brands, function ($a, $b) {
-    return strlen($b) - strlen($a);
+usort($brands, static function ($a, $b) {
+    return mb_strlen($b) - mb_strlen($a);
 });
 
 $provider = include __DIR__ . '/vendor/zsxsoft/php-useragent/tests/UserAgentList.php';
@@ -38,13 +40,12 @@ foreach ($provider as $data) {
         $model = '';
 
         foreach ($brands as $brand) {
-            if (strpos($data[1][8], $brand) !== false) {
+            if (false !== mb_strpos($data[1][8], $brand)) {
                 $model = trim(str_replace($brand, '', $data[1][8]));
 
                 break;
-            } else {
-                $brand = '';
             }
+            $brand = '';
         }
 
         $expected = [
@@ -61,24 +62,17 @@ foreach ($provider as $data) {
                 'brand'    => $brand,
                 'type'     => null,
                 'ismobile' => null,
-            ]
+            ],
         ];
 
         $tests[$ua] = $expected;
     }
 }
 
-// zsxsoft doesn't provide version information in code at all, looking to composer for the installed version
-$installed = json_decode(file_get_contents(__DIR__ . '/vendor/composer/installed.json'), true);
+// Get version from composer
+$package = new \PackageInfo\Package('zsxsoft/php-useragent');
 
-foreach ($installed as $package) {
-    if ($package['name'] == 'zsxsoft/php-useragent') {
-        $version = $package['version'];
-        break;
-    }
-}
-
-print json_encode([
+echo json_encode([
     'tests'   => $tests,
-    'version' => $version,
-]);
+    'version' => $package->getVersion(),
+], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

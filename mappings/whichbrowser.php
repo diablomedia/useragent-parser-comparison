@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 return [
     'browser' => [
         'name' => [
@@ -72,7 +74,7 @@ return [
             'windowsrssplatorm'      => 'windowsrssplatform',
             'wordpresscom'           => 'wordpress',
             'qqbrowsermini'          => 'qqbrowser',
-        ]
+        ],
     ],
     'platform' => [
         'name' => [
@@ -91,7 +93,6 @@ return [
             'windows10.0'        => 'win10',
             'windows10.1'        => 'win10',
             'windows3.1'         => 'win31',
-            'windows4.0'         => 'win95',
             'windows4.0'         => 'winnt',
             'windows4.1'         => 'win98',
             'windows4.9'         => 'winme',
@@ -109,7 +110,7 @@ return [
             'windowsmobile'      => 'winmobile',
             'windowsphone'       => 'winphone',
             'rimtabletos'        => 'rimos',
-        ]
+        ],
     ],
     'device' => [
         'name' => [
@@ -162,6 +163,6 @@ return [
             'car'        => 'carentertainmentsystem',
             'mobile'     => 'mobilephone',
             'television' => 'tvdevice',
-        ]
-    ]
+        ],
+    ],
 ];

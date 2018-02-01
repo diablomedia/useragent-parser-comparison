@@ -1,0 +1,37 @@
+# text files
+*                 text=auto
+*.markdown        text eol=lf
+*.md              text eol=lf
+*.js              text eol=lf
+*.css             text eol=lf
+*.json            text eol=lf
+*.lock            text eol=lf
+*.html            text eol=lf
+*.php             text eol=lf
+*.yml             text eol=lf
+*.yaml            text eol=lf
+*.xml             text eol=lf
+*.dist            text eol=lf
+*.txt             text eol=lf
+*.ini             text eol=lf
+*.sh              text eol=lf
+*.tmp             text eol=lf
+LICENSE           text eol=lf
+tests/*/build     text eol=lf
+tests/*/update    text eol=lf
+tests/*/prepare   text eol=lf
+parsers/*/parse   text eol=lf
+parsers/*/prepare text eol=lf
+parsers/*/update  text eol=lf
+
+# binary files
+*.zip            -text binary
+
+# files/folders to ignore
+/.*              export-ignore
+.gitattributes   export-ignore text eol=lf
+.gitignore       export-ignore text eol=lf
+.php_cs          export-ignore text eol=lf
+.php_cs.cache    export-ignore text eol=lf
+.travis.yml      export-ignore text eol=lf
+phpstan.neon     export-ignore text eol=lf
