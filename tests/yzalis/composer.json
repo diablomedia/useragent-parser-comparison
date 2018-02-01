@@ -1,0 +1,8 @@
+{
+    "require": {
+        "yzalis/ua-parser": "^0.3",
+        "mustangostang/spyc": "^0.6.1",
+        "symfony/finder": "^3.3||^4.0",
+        "thadafinser/package-info": "^1.0"
+    }
+}

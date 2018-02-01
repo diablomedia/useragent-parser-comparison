@@ -623,6 +623,8 @@ return [
             'x86.64 5116'          => null,
             'n905imyu.w'           => null,
             '9.0'                  => '9',
+            '..'                   => null,
+            '.'                    => null,
         ],
     ],
     'device' => [

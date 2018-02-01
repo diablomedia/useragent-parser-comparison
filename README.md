@@ -221,6 +221,7 @@ Currently this is the list of parsers included:
  * WhichBrowser 2.x (https://github.com/WhichBrowser/Parser)
  * Wolfcast BrowserDetection 2.x (https://github.com/Wolfcast/BrowserDetection)
  * Woothee PHP 1.x (https://github.com/woothee/woothee-php)
+ * Yzalis UA-Parser 0.x (https://github.com/yzalis/UAParser)
  * ZSXSoft PHP-UserAgent 1.x (https://github.com/zsxsoft/php-useragent)
 
 ## The Test Suites

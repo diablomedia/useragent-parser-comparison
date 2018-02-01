@@ -22,7 +22,7 @@
         "psalm": "psalm --show-info=false",
         "php-cs-fixer-check": "php-cs-fixer fix --dry-run -vv",
         "php-cs-fixer-fix": "php-cs-fixer fix -vv",
-        "prettier-check": "yarn run prettier --check \"**/*.js\"",
+        "prettier-check": "yarn run prettier -l \"**/*.js\"",
         "prettier-fix": "yarn run prettier --write \"**/*.js\""
     }
 }
