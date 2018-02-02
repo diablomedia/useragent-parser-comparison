@@ -197,6 +197,7 @@ Currently this is the list of parsers included:
  * UA Parser PHP 3.x (https://github.com/ua-parser/uap-php)
  * UAParser.js (https://github.com/faisalman/ua-parser-js)
  * WhichBrowser 2.x (https://github.com/WhichBrowser/Parser)
+ * Woothee JS 1.x (https://github.com/woothee/woothee-js)
  * Woothee PHP 1.x (https://github.com/woothee/woothee-php)
  * ZSXSoft PHP-UserAgent 1.x (https://github.com/zsxsoft/php-useragent)
 
