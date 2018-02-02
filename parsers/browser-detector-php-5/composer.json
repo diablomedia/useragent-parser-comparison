@@ -1,0 +1,8 @@
+{
+    "require": {
+        "mimmi20/browser-detector": "^5.0",
+        "thadafinser/package-info": "^1.0",
+        "roave/doctrine-simplecache": "^1.1",
+        "monolog/monolog": "^1.23"
+    }
+}
