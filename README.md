@@ -180,7 +180,8 @@ The parsers can be any useragent parser from any language (web API based parsers
 
 Currently this is the list of parsers included:
 
- * Browscap JS 1.x (https://github.com/mimmi20/browscap-js)
+ * Browscap JS 1.x (https://github.com/mimmi20/browscap-js/tree/v1)
+ * Browscap JS 2.x (https://github.com/mimmi20/browscap-js)
  * Browscap PHP 2.x (https://github.com/browscap/browscap-php/tree/2.x)
  * Browscap PHP 3.x (Full, Standard and Lite) (https://github.com/browscap/browscap-php/tree/3.1.0)
  * Browscap PHP 4.x (Full) (https://github.com/browscap/browscap-php)
