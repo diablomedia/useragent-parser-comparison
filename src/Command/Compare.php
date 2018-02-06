@@ -20,7 +20,7 @@ class Compare extends Command
             ->setHelp('This command is a "meta" command that will execute the Test, Normalize and Analyze commands in order');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
         $file = $input->getArgument('file');
 
@@ -38,7 +38,7 @@ class Compare extends Command
             if ($returnCode > 0) {
                 $output->writeln('<error>There was an error executing the "parse" command, cannot continue.</error>');
 
-                return;
+                return $returnCode;
             }
         } else {
             $command = $this->getApplication()->find('test');
@@ -55,7 +55,7 @@ class Compare extends Command
             if ($returnCode > 0) {
                 $output->writeln('<error>There was an error executing the "test" command, cannot continue.</error>');
 
-                return;
+                return $returnCode;
             }
         }
 
@@ -71,7 +71,7 @@ class Compare extends Command
         if ($returnCode > 0) {
             $output->writeln('<error>There was an error executing the "normalize" command, cannot continue.</error>');
 
-            return;
+            return $returnCode;
         }
 
         $command   = $this->getApplication()->find('analyze');
@@ -86,7 +86,9 @@ class Compare extends Command
         if ($returnCode > 0) {
             $output->writeln('<error>There was an error executing the "analyze" command, cannot continue.</error>');
 
-            return;
+            return $returnCode;
         }
+
+        return 0;
     }
 }

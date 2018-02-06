@@ -1,0 +1,26 @@
+#!/usr/bin/env php
+<?php
+
+ini_set('memory_limit', -1);
+ini_set('max_execution_time', -1);
+
+require __DIR__ . '/vendor/autoload.php';
+$cacheDir = __DIR__ . '/data';
+\Crossjoin\Browscap\Cache\File::setCacheDirectory($cacheDir);
+\Crossjoin\Browscap\Browscap::setDatasetType(\Crossjoin\Browscap\Browscap::DATASET_TYPE_LARGE);
+$updater = new \Crossjoin\Browscap\Updater\None();
+\Crossjoin\Browscap\Browscap::setUpdater($updater);
+$browscap = new \Crossjoin\Browscap\Browscap();
+
+$start = microtime(true);
+$browscap->getBrowser('Test String');
+$initTime = microtime(true) - $start;
+
+// Get version from composer
+$package = new \PackageInfo\Package('crossjoin/browscap');
+
+echo json_encode([
+    'init_time'   => $initTime,
+    'memory_used' => memory_get_peak_usage(),
+    'version'     => $package->getVersion() . '-' . \Crossjoin\Browscap\Browscap::getParser()->getVersion(),
+], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

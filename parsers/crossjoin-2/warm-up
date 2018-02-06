@@ -1,0 +1,26 @@
+#!/usr/bin/env php
+<?php
+
+ini_set('memory_limit', -1);
+ini_set('max_execution_time', -1);
+
+require_once __DIR__ . '/vendor/autoload.php';
+$browscap = new \Crossjoin\Browscap\Browscap();
+
+$parser = new \Crossjoin\Browscap\Parser\Sqlite\Parser(__DIR__ . '/data');
+$browscap->setParser($parser);
+
+$start = microtime(true);
+$browscap->getBrowser('Test String');
+$initTime = microtime(true) - $start;
+
+$memory = memory_get_peak_usage();
+
+// Get version from composer
+$package = new \PackageInfo\Package('crossjoin/browscap');
+
+echo json_encode([
+    'init_time'   => $initTime,
+    'memory_used' => $memory,
+    'version'     => $package->getVersion() . '-' . $browscap->getParser()->getReader()->getVersion(),
+], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

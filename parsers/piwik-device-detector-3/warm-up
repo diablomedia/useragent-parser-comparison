@@ -1,0 +1,23 @@
+#!/usr/bin/env php
+<?php
+
+ini_set('memory_limit', -1);
+ini_set('max_execution_time', -1);
+
+require_once __DIR__ . '/vendor/autoload.php';
+use DeviceDetector\DeviceDetector;
+
+$start = microtime(true);
+$dd = new DeviceDetector('Test String');
+$dd->skipBotDetection();
+$dd->parse();
+$initTime = microtime(true) - $start;
+
+// Get version from composer
+$package = new \PackageInfo\Package('piwik/device-detector');
+
+echo json_encode([
+    'init_time'   => $initTime,
+    'memory_used' => memory_get_peak_usage(),
+    'version'     => $package->getVersion(),
+], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

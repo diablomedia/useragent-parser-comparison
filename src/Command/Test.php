@@ -23,8 +23,6 @@ class Test extends Command
 
     private $results = [];
 
-    private $failures = [];
-
     protected function configure(): void
     {
         $this->setName('test')
@@ -33,7 +31,7 @@ class Test extends Command
             ->setHelp('Runs various test suites against the parsers to help determine which is the most "correct".');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
         $this->collectTests();
 
@@ -170,6 +168,8 @@ class Test extends Command
         );
 
         $output->writeln('<comment>Parsing complete, data stored in ' . $thisRunDirName . ' directory</comment>');
+
+        return 0;
     }
 
     private function collectTests(): void

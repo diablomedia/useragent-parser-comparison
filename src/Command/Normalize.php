@@ -23,7 +23,7 @@ class Normalize extends Command
             ->setHelp('');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
         $run = $input->getArgument('run');
 
@@ -34,7 +34,7 @@ class Normalize extends Command
         if (!file_exists($this->runDir . '/' . $run)) {
             $output->writeln('<error>No run directory found with that id</error>');
 
-            return;
+            return 1;
         }
 
         $output->writeln('<comment>Normalizing data from test run: ' . $run . '</comment>');
@@ -136,6 +136,8 @@ class Normalize extends Command
         unset($normalized);
 
         $output->writeln('<comment>Normalized files written to the test run\'s directory</comment>');
+
+        return 0;
     }
 
     private function normalize($parsed, $source)

@@ -43,8 +43,6 @@ class Parsers extends Helper
                         $args[] = '--benchmark';
                     }
 
-                    $file = realpath(getcwd() . '/' . $file);
-
                     $result = shell_exec($parserDir->getPathName() . '/parse.sh ' . implode(' ', $args));
 
                     if ($result !== null) {
@@ -53,6 +51,43 @@ class Parsers extends Helper
                         $result = json_decode($result, true);
 
                         if (json_last_error() !== JSON_ERROR_NONE) {
+                            return null;
+                        }
+                    }
+
+                    return $result;
+                },
+                'warm-up' => static function () use ($parserDir) {
+                    $result = shell_exec($parserDir->getPathName() . '/warm-up.sh');
+
+                    if (null !== $result) {
+                        $result = trim($result);
+
+                        $result = json_decode($result, true);
+
+                        if (JSON_ERROR_NONE !== json_last_error()) {
+                            return null;
+                        }
+                    }
+
+                    return $result;
+                },
+                'parse-ua'    => static function ($useragent, $benchmark = false) use ($parserDir) {
+                    $args = [
+                        '--ua=' . escapeshellarg($useragent),
+                    ];
+                    if (true === $benchmark) {
+                        $args[] = '--benchmark';
+                    }
+
+                    $result = shell_exec($parserDir->getPathName() . '/parse-ua.sh ' . implode(' ', $args));
+
+                    if (null !== $result) {
+                        $result = trim($result);
+
+                        $result = json_decode($result, true);
+
+                        if (JSON_ERROR_NONE !== json_last_error()) {
                             return null;
                         }
                     }

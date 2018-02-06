@@ -43,7 +43,7 @@ class Analyze extends Command
             ->setHelp('');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
         $this->input  = $input;
         $this->output = $output;
@@ -57,7 +57,7 @@ class Analyze extends Command
         if (!file_exists($this->runDir . '/' . $run)) {
             $output->writeln('<error>No run directory found with that id (' . $run . ')</error>');
 
-            return;
+            return 1;
         }
 
         if (file_exists($this->runDir . '/' . $run . '/metadata.json')) {
@@ -65,7 +65,7 @@ class Analyze extends Command
         } else {
             $output->writeln('<error>No options file found for this test run</error>');
 
-            return;
+            return 1;
         }
 
         $output->writeln('<info>Analyzing data from test run: ' . $run . '</info>');
@@ -80,7 +80,7 @@ class Analyze extends Command
         } else {
             $output->writeln('<error>Error in options file for this test run</error>');
 
-            return;
+            return 1;
         }
 
         $this->summaryTable = new Table($output);
@@ -308,6 +308,8 @@ class Analyze extends Command
         $this->showSummary();
 
         $this->showMenu();
+
+        return 0;
     }
 
     private function showSummary(): void

@@ -32,7 +32,7 @@ class Parse extends Command
             ->setHelp('Parses the useragent strings (one per line) from the passed in file and outputs the parsed properties.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
         $file      = $input->getArgument('file');
         $normalize = $input->getOption('normalize');
@@ -175,6 +175,8 @@ class Parse extends Command
                 json_encode(['parsers' => $parsers, 'date' => time(), 'file' => basename($file)], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
             );
         }
+
+        return 0;
     }
 
     private function putcsv($input, $csvFile)

@@ -1,0 +1,25 @@
+#!/usr/bin/env php
+<?php
+
+ini_set('memory_limit', -1);
+ini_set('max_execution_time', -1);
+
+require __DIR__ . '/vendor/autoload.php';
+$parser = UAParser\Parser::create();
+
+$start = microtime(true);
+$parser->parse('Test String');
+$initTime = microtime(true) - $start;
+
+$memory = memory_get_peak_usage();
+
+// Get version from composer
+$package = new \PackageInfo\Package('ua-parser/uap-php');
+
+$regexVersion = file_get_contents(__DIR__ . '/version.txt');
+
+echo json_encode([
+    'init_time'   => $initTime,
+    'memory_used' => $memory,
+    'version'     => $package->getVersion() . '-' . $regexVersion,
+], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
