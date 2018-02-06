@@ -20,6 +20,7 @@ class Compare extends Command
             ->setDescription('Runs tests, normalizes the results then analyzes the results')
             ->addOption('run', 'r', InputOption::VALUE_OPTIONAL, 'The name of the test run, if omitted will be generated from date')
             ->addArgument('file', InputArgument::OPTIONAL, 'Path to a file to use as the source of useragents rather than test suites')
+            ->addOption('single-ua', null, InputOption::VALUE_NONE, 'parses one useragent after another')
             ->setHelp('This command is a "meta" command that will execute the Test, Normalize and Analyze commands in order');
     }
 
@@ -52,6 +53,10 @@ class Compare extends Command
                 '--no-output' => true,
             ];
 
+            if ($input->getOption('single-ua')) {
+                $arguments['--single-ua'] = true;
+            }
+
             $parseInput = new ArrayInput($arguments);
             $returnCode = $command->run($parseInput, $output);
 
@@ -66,6 +71,10 @@ class Compare extends Command
                 'command' => 'test',
                 'run'     => $name,
             ];
+
+            if ($input->getOption('single-ua')) {
+                $arguments['--single-ua'] = true;
+            }
 
             $testInput  = new ArrayInput($arguments);
             $returnCode = $command->run($testInput, $output);

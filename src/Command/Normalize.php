@@ -67,9 +67,13 @@ class Normalize extends Command
                     $this->options = json_decode($contents, true);
                 } catch (Exception $e) {
                     $output->writeln('<error>An error occured while parsing metadata for run ' . $run . '</error>');
+
+                    return 2;
                 }
             } catch (Exception $e) {
                 $output->writeln('<error>Could not read metadata file for run ' . $run . '</error>');
+
+                return 2;
             }
         }
 

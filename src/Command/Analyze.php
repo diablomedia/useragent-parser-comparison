@@ -107,6 +107,8 @@ class Analyze extends Command
                 $this->options = json_decode($contents, true);
             } catch (Exception $e) {
                 $output->writeln('<error>An error occured while parsing metadata for run ' . $run . '</error>');
+
+                return 2;
             }
         } else {
             $output->writeln('<error>No options file found for this test run</error>');
@@ -124,6 +126,7 @@ class Analyze extends Command
             ];
             $this->options['tests'] = $tests;
         } else {
+            var_dump($this->options);
             $output->writeln('<error>Error in options file for this test run</error>');
 
             return 3;
@@ -885,7 +888,8 @@ class Analyze extends Command
         $output = '';
 
         foreach ($diff as $field => $data) {
-            $output .= $field . ': <fg=white;bg=green>' . $data['expected'] . '</> <fg=white;bg=red>' . $data['actual'] . '</> ';
+            $output .= $field . ' (expected) : <fg=white;bg=green>' . $data['expected'] . '</> ';
+            $output .= $field . ' (actual)   : <fg=white;bg=red>' . $data['actual'] . '</> ';
         }
 
         return $output;

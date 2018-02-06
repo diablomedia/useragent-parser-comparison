@@ -80,6 +80,23 @@ class Parsers extends Helper
 
                     return $result;
                 },
+                'parse-ua' => static function (string $useragent) use ($parserDir, $output) {
+                    $result = shell_exec($parserDir->getPathname() . '/parse-ua.sh --ua ' . escapeshellarg($useragent));
+
+                    if ($result !== null) {
+                        $result = trim($result);
+
+                        try {
+                            $result = json_decode($result, true);
+                        } catch (Exception $e) {
+                            $output->writeln('<error>' . $result . $e . '</error>');
+
+                            return null;
+                        }
+                    }
+
+                    return $result;
+                },
             ];
 
             $rows[] = [
