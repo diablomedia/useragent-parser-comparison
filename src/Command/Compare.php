@@ -30,7 +30,7 @@ class Compare extends Command
             $parseInput = new ArrayInput([
                 'command'     => 'parse',
                 'file'        => $file,
-                '--name'      => $name,
+                'run'         => $name,
                 '--no-output' => true,
             ]);
             $returnCode = $command->run($parseInput, $output);
@@ -46,7 +46,7 @@ class Compare extends Command
 
             $arguments = [
                 'command' => 'test',
-                'name'    => $name,
+                'run'     => $name,
             ];
 
             $testInput  = new ArrayInput($arguments);

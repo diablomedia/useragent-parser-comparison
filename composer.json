@@ -1,7 +1,8 @@
 {
     "require": {
         "php": "^7.1",
-        "symfony/console": "^4.1"
+        "symfony/console": "^4.1",
+      "seld/jsonlint": "^1.7"
     },
     "autoload": {
         "psr-4": {

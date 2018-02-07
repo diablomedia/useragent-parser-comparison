@@ -24,11 +24,11 @@ class Parse extends Command
         $this->setName('parse')
             ->setDescription('Parses useragents in a file using the selected parser(s)')
             ->addArgument('file', InputArgument::REQUIRED, 'Path to the file to parse')
+            ->addArgument('run', InputArgument::OPTIONAL, 'Name of the run, for storing results')
             ->addOption('normalize', null, InputOption::VALUE_NONE, 'Whether to normalize the output')
-            ->addOption('name', null, InputOption::VALUE_OPTIONAL, 'Name of the run, for storing results')
             ->addOption('csv', null, InputOption::VALUE_NONE, 'Outputs CSV without showing CLI table')
-            ->addOption('csv-file', null, InputOption::VALUE_OPTIONAL, 'File name to output CSV data to')
             ->addOption('no-output', null, InputOption::VALUE_NONE, 'Disables output after parsing, useful when chaining commands')
+            ->addOption('csv-file', null, InputOption::VALUE_OPTIONAL, 'File name to output CSV data to, implies the options "csv" and "no-output"')
             ->setHelp('Parses the useragent strings (one per line) from the passed in file and outputs the parsed properties.');
     }
 
@@ -37,7 +37,7 @@ class Parse extends Command
         $file      = $input->getArgument('file');
         $normalize = $input->getOption('normalize');
         $csv       = $input->getOption('csv');
-        $name      = $input->getOption('name');
+        $name      = $input->getArgument('run');
         $noOutput  = $input->getOption('no-output');
         $csvFile   = $input->getOption('csv-file');
 

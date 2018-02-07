@@ -15,7 +15,7 @@ class Normalize extends Helper
         return 'normalize';
     }
 
-    public function normalize($parsed, $source)
+    public function normalize(array $parsed, string $source): array
     {
         $normalized = [];
 
@@ -64,7 +64,7 @@ class Normalize extends Helper
         return $normalized;
     }
 
-    private function truncateVersion($version)
+    private function truncateVersion(string $version): string
     {
         $version      = str_replace('_', '.', $version);
         $versionParts = explode('.', $version);

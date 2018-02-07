@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace UserAgentParserComparison\Command;
 
+use Seld\JsonLint\JsonParser;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableCell;
@@ -45,6 +46,8 @@ class Analyze extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
+        $jsonParser = new JsonParser();
+
         $this->input  = $input;
         $this->output = $output;
 
@@ -61,7 +64,10 @@ class Analyze extends Command
         }
 
         if (file_exists($this->runDir . '/' . $run . '/metadata.json')) {
-            $this->options = json_decode(file_get_contents($this->runDir . '/' . $run . '/metadata.json'), true);
+            $this->options = $jsonParser->parse(
+                file_get_contents($this->runDir . '/' . $run . '/metadata.json'),
+                JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
+            );
         } else {
             $output->writeln('<error>No options file found for this test run</error>');
 
@@ -94,18 +100,19 @@ class Analyze extends Command
             $expectedFilename = $this->runDir . '/' . $run . '/expected/normalized/' . $testName . '.json';
 
             if (file_exists($expectedFilename)) {
-                $expectedResults = json_decode(file_get_contents($expectedFilename), true);
+                $expectedResults = $jsonParser->parse(
+                    file_get_contents($expectedFilename),
+                    JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
+                );
                 $headerMessage   = '<fg=yellow>Parser comparison for ' . $testName . ' test suite' . (isset($testData['metadata']['version']) ? ' (' . $testData['metadata']['version'] . ')' : '') . '</>';
             } else {
                 // When we aren't comparing to a test suite, the first parser's results become the expected results
                 $expectedResults = [];
-                $testResult      = json_decode(
+                $testResult      = $jsonParser->parse(
                     file_get_contents(
-                        $this->runDir . '/' . $run . '/results/' . array_keys(
-                            $this->options['parsers']
-                        )[0] . '/normalized/' . $testName . '.json'
+                        $this->runDir . '/' . $run . '/results/' . array_keys($this->options['parsers'])[0] . '/normalized/' . $testName . '.json'
                     ),
-                    true
+                    JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
                 );
 
                 foreach ($testResult['results'] as $data) {
@@ -170,9 +177,9 @@ class Analyze extends Command
                     continue;
                 }
 
-                $testResult = json_decode(
+                $testResult = $jsonParser->parse(
                     file_get_contents($this->runDir . '/' . $run . '/results/' . $parserName . '/normalized/' . $testName . '.json'),
-                    true
+                    JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
                 );
 
                 $passFail = [

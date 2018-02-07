@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace UserAgentParserComparison\Command;
 
+use Seld\JsonLint\JsonParser;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
@@ -23,11 +24,20 @@ class Test extends Command
 
     private $results = [];
 
+    private $jsonParser;
+
+    public function __construct()
+    {
+        $this->jsonParser = new JsonParser();
+
+        parent::__construct();
+    }
+
     protected function configure(): void
     {
         $this->setName('test')
             ->setDescription('Runs test against the parsers')
-            ->addArgument('name', InputArgument::OPTIONAL, 'The name of the test run, if omitted will be generated from date')
+            ->addArgument('run', InputArgument::OPTIONAL, 'The name of the test run, if omitted will be generated from date')
             ->setHelp('Runs various test suites against the parsers to help determine which is the most "correct".');
     }
 
@@ -80,7 +90,7 @@ class Test extends Command
         $parsers      = $parserHelper->getParsers($input, $output);
 
         // Prepare our test directory to store the data from this run
-        $thisRunDirName = $input->getArgument('name');
+        $thisRunDirName = $input->getArgument('run');
 
         if (empty($thisRunDirName)) {
             $thisRunDirName = date('YmdHis');
@@ -105,7 +115,10 @@ class Test extends Command
 
             file_put_contents($expectedDir . '/' . $testName . '.json', $testOutput);
 
-            $testOutput = json_decode($testOutput, true);
+            $testOutput = $this->jsonParser->parse(
+                $testOutput,
+                JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
+            );
 
             if (json_last_error() !== JSON_ERROR_NONE || empty($testOutput)) {
                 $output->writeln('<error>There was an error with the output from the ' . $testName . ' test suite.</error>');
@@ -174,9 +187,18 @@ class Test extends Command
 
     private function collectTests(): void
     {
-        foreach (new \FilesystemIterator($this->testsDir) as $testDir) {
+        foreach (scandir($this->testsDir) as $dir) {
+            if (in_array($dir, ['.', '..'])) {
+                continue;
+            }
+
+            $testDir = new \SplFileInfo($this->testsDir . '/' . $dir);
+            
             if (file_exists($testDir->getPathName() . '/metadata.json')) {
-                $metadata = json_decode(file_get_contents($testDir->getPathName() . '/metadata.json'), true);
+                $metadata = $this->jsonParser->parse(
+                    file_get_contents($testDir->getPathName() . '/metadata.json'),
+                    JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
+                );
             } else {
                 $metadata = [];
             }
