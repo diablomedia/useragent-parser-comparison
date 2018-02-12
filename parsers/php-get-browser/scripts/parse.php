@@ -49,7 +49,7 @@ while (!$file->eof()) {
                         'name'     => $r->device_name,
                         'brand'    => $r->device_maker,
                         'type'     => $r->device_type,
-                        'ismobile' => $r->ismobiledevice ? 'true' : 'false',
+                        'ismobile' => $r->ismobiledevice ? true : false,
                     ],
                 ],
                 'time' => $end,

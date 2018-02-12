@@ -45,7 +45,7 @@ class Parsers extends Helper
 
                     $file = realpath(getcwd() . '/' . $file);
 
-                    $result = shell_exec($parserDir->getPathName() . '/parse ' . implode(' ', $args));
+                    $result = shell_exec($parserDir->getPathName() . '/parse.sh ' . implode(' ', $args));
 
                     if (null !== $result) {
                         $result = trim($result);
