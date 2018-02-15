@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types = 1);
 ini_set('memory_limit', -1);
 ini_set('max_execution_time', -1);
 
@@ -45,7 +46,7 @@ while (!$file->eof()) {
     if ($benchmark) {
         continue;
     }
-    
+
     $results[] = [
         'useragent' => $agentString,
         'parsed'    => [

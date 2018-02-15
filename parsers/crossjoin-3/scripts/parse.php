@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types = 1);
 if (PHP_MAJOR_VERSION < 7) {
     exit(1);
 }

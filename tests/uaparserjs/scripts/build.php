@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types = 1);
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 ini_set('memory_limit', -1);
 ini_set('max_execution_time', -1);

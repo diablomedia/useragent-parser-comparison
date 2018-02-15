@@ -145,7 +145,7 @@ class Test extends Command
                     continue;
                 }
 
-                if (!empty($results['version'])) {
+                if (!empty($result['version'])) {
                     $parsers[$parserName]['metadata']['version'] = $result['version'];
                 }
 
@@ -155,7 +155,7 @@ class Test extends Command
 
                 file_put_contents(
                     $resultsDir . '/' . $parserName . '/' . $testName . '.json',
-                    json_encode($results, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+                    json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
                 );
                 $output->writeln('<info> done!</info>');
             }

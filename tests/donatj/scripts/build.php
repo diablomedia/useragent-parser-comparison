@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types = 1);
 $tests = [];
 
 require_once __DIR__ . '/../vendor/autoload.php';
