@@ -9,7 +9,7 @@ for f in *; do
     if [ -d ${f} ]; then
         echo "Running update script for the $f parser"
         cd $f
-        ./update
+        ./update.sh
         cd ..
     fi
 done
@@ -22,7 +22,7 @@ for f in *; do
     if [ -d ${f} ]; then
         echo "Running update script for the $f test suite"
         cd $f
-        ./update
+        ./update.sh
         cd ..
     fi
 done

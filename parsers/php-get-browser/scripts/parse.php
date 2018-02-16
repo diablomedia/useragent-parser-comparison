@@ -1,8 +1,8 @@
-#!/usr/bin/env php
 <?php
 
-ini_set('memory_limit', -1);
-ini_set('max_execution_time', -1);
+declare(strict_types = 1);
+ini_set('memory_limit', '-1');
+ini_set('max_execution_time', '-1');
 
 $benchmarkPos = array_search('--benchmark', $argv);
 $benchmark    = false;
@@ -49,7 +49,7 @@ while (!$file->eof()) {
                         'name'     => $r->device_name,
                         'brand'    => $r->device_maker,
                         'type'     => $r->device_type,
-                        'ismobile' => $r->ismobiledevice ? 'true' : 'false',
+                        'ismobile' => $r->ismobiledevice ? true : false,
                     ],
                 ],
                 'time' => $end,

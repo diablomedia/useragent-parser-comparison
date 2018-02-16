@@ -50,8 +50,6 @@ class Parse extends Command
         $normalizeHelper = $this->getHelper('normalize');
         $questionHelper  = $this->getHelper('question');
 
-        $parsers = $parserHelper->getParsers($input, $output);
-
         $table = new Table($output);
         $table->setHeaders([
             [new TableCell('UserAgent', ['colspan' => '7']), 'Parse Time'],
@@ -65,14 +63,11 @@ class Parse extends Command
 
         $output->writeln('<comment>Preparing to parse ' . $file . '</comment>');
 
+        $parsers = $parserHelper->getParsers($input, $output);
+
         foreach ($parsers as $parserName => $parser) {
-            $rows = [];
             $output->write("\t" . 'Testing against the ' . $parserName . ' parser... ');
             $result = $parser['parse']($file);
-
-            if (isset($result['version'])) {
-                $parsers[$parserName]['metadata']['version'] = $result['version'];
-            }
 
             if (empty($result)) {
                 $output->writeln('<error>The ' . $parserName . ' parser did not return any data, there may have been an error</error>');
@@ -80,14 +75,22 @@ class Parse extends Command
                 continue;
             }
 
+            if (isset($result['version'])) {
+                $parsers[$parserName]['metadata']['version'] = $result['version'];
+            }
+
             if ($name) {
-                mkdir($this->runDir . '/' . $name . '/results/' . $parserName);
+                if (!file_exists($this->runDir . '/' . $name . '/results/' . $parserName)) {
+                    mkdir($this->runDir . '/' . $name . '/results/' . $parserName);
+                }
+
                 file_put_contents(
                     $this->runDir . '/' . $name . '/results/' . $parserName . '/' . basename($file) . '.json',
                     json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
                 );
             }
 
+            $rows = [];
             foreach ($result['results'] as $parsed) {
                 if ($normalize) {
                     $parsed['parsed'] = $normalizeHelper->normalize($parsed['parsed'], $parser['metadata']['data_source']);
