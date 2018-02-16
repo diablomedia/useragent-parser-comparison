@@ -5,8 +5,8 @@ if (PHP_MAJOR_VERSION < 7) {
     exit(1);
 }
 
-ini_set('memory_limit', -1);
-ini_set('max_execution_time', -1);
+ini_set('memory_limit', '-1');
+ini_set('max_execution_time', '-1');
 
 $benchmarkPos = array_search('--benchmark', $argv);
 $benchmark    = false;

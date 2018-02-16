@@ -1,8 +1,8 @@
 <?php
 
 declare(strict_types = 1);
-ini_set('memory_limit', -1);
-ini_set('max_execution_time', -1);
+ini_set('memory_limit', '-1');
+ini_set('max_execution_time', '-1');
 
 $benchmarkPos = array_search('--benchmark', $argv);
 $benchmark    = false;
@@ -73,7 +73,7 @@ $memory = memory_get_peak_usage();
 // Get version from composer
 $package = new \PackageInfo\Package('ua-parser/uap-php');
 
-$regexVersion = file_get_contents(__DIR__ . '/version.txt');
+$regexVersion = file_get_contents(__DIR__ . '/../version.txt');
 
 echo json_encode([
     'results'     => $results,

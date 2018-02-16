@@ -1,8 +1,8 @@
 <?php
 
 declare(strict_types = 1);
-ini_set('memory_limit', -1);
-ini_set('max_execution_time', -1);
+ini_set('memory_limit', '-1');
+ini_set('max_execution_time', '-1');
 
 $benchmarkPos = array_search('--benchmark', $argv);
 $benchmark    = false;
@@ -33,7 +33,7 @@ $file->setFlags(SplFileObject::DROP_NEW_LINE);
 while (!$file->eof()) {
     $agentString = $file->fgets();
 
-    if (!empty($agentString)) {
+    if (empty($agentString)) {
         continue;
     }
 

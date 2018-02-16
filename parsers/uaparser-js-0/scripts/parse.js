@@ -27,8 +27,8 @@ var output = {
 };
 
 lineReader.on('line', function (line) {
-    if (line !== '') {
-        continue;
+    if (line === '') {
+        return;
     }
 
     var start = process.hrtime();
@@ -38,7 +38,7 @@ lineReader.on('line', function (line) {
     output.parse_time += end;
 
     if (benchmark) {
-        continue;
+        return;
     }
 
     var result = {
