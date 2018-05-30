@@ -11,7 +11,7 @@ $provider = simplexml_load_file(
 
 foreach ($provider->strings as $string) {
     foreach ($string as $field) {
-        $ua = explode("\n", $field->field[6]);
+        $ua = explode("\n", (string) $field->field[6]);
         $ua = array_map('trim', $ua);
         $ua = trim(implode(' ', $ua));
 

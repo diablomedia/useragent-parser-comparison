@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9e9eb555d8c30a783d49b246187d57b1",
+    "content-hash": "e6980cdf10864e978d9df41e5d27d89a",
     "packages": [
         {
             "name": "mustangostang/spyc",
@@ -58,16 +58,16 @@
         },
         {
             "name": "piwik/device-detector",
-            "version": "3.9.1",
+            "version": "3.10.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/piwik/device-detector.git",
-                "reference": "caf2d15349caffd94a8cfe46edf4061fbc99f70b"
+                "url": "https://github.com/matomo-org/device-detector.git",
+                "reference": "67e96595cd7649b7967533053fcbfbe02d5c55a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/piwik/device-detector/zipball/caf2d15349caffd94a8cfe46edf4061fbc99f70b",
-                "reference": "caf2d15349caffd94a8cfe46edf4061fbc99f70b",
+                "url": "https://api.github.com/repos/matomo-org/device-detector/zipball/67e96595cd7649b7967533053fcbfbe02d5c55a3",
+                "reference": "67e96595cd7649b7967533053fcbfbe02d5c55a3",
                 "shasum": ""
             },
             "require": {
@@ -92,36 +92,36 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "LGPL-3.0+"
+                "LGPL-3.0-or-later"
             ],
             "authors": [
                 {
-                    "name": "The Piwik Team",
-                    "email": "hello@piwik.org",
-                    "homepage": "http://piwik.org/the-piwik-team/"
+                    "name": "The Matomo Team",
+                    "email": "hello@matomo.org",
+                    "homepage": "https://matomo.org/team/"
                 }
             ],
             "description": "The Universal Device Detection library, that parses User Agents and detects devices (desktop, tablet, mobile, tv, cars, console, etc.), clients (browsers, media players, mobile apps, feed readers, libraries, etc), operating systems, devices, brands and models.",
-            "homepage": "http://piwik.org",
+            "homepage": "https://matomo.org",
             "keywords": [
                 "devicedetection",
                 "parser",
                 "useragent"
             ],
-            "time": "2017-12-04T09:56:31+00:00"
+            "time": "2018-05-07T19:33:29+00:00"
         },
         {
             "name": "symfony/finder",
-            "version": "v4.0.4",
+            "version": "v4.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "8b08180f2b7ccb41062366b9ad91fbc4f1af8601"
+                "reference": "8c633f5a815903a1fe6e3fc135f207267a8a79af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/8b08180f2b7ccb41062366b9ad91fbc4f1af8601",
-                "reference": "8b08180f2b7ccb41062366b9ad91fbc4f1af8601",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/8c633f5a815903a1fe6e3fc135f207267a8a79af",
+                "reference": "8c633f5a815903a1fe6e3fc135f207267a8a79af",
                 "shasum": ""
             },
             "require": {
@@ -157,7 +157,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2018-01-03T07:38:00+00:00"
+            "time": "2018-05-16T09:05:32+00:00"
         },
         {
             "name": "thadafinser/package-info",
