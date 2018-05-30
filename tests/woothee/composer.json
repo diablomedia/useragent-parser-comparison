@@ -2,7 +2,7 @@
     "require": {
         "woothee/woothee-testset": "^1.4",
         "mustangostang/spyc": "^0.6.1",
-        "symfony/finder": "^3.3||^4.0",
+        "symfony/finder": "^4.0",
         "thadafinser/package-info": "^1.0"
     }
 }

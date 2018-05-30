@@ -2,8 +2,8 @@
 
 declare(strict_types = 1);
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
-ini_set('memory_limit', -1);
-ini_set('max_execution_time', -1);
+ini_set('memory_limit', '-1');
+ini_set('max_execution_time', '-1');
 
 use Symfony\Component\Yaml\Yaml;
 
@@ -130,9 +130,9 @@ $finder->ignoreDotFiles(true);
 $finder->ignoreVCS(true);
 $finder->sortByName();
 $finder->ignoreUnreadableDirs();
-$finder->in(__DIR__ . '/node_modules/uap-core/tests');
+$finder->in(__DIR__ . '/../node_modules/uap-core/tests');
 // Supplemental files in tests_resources dir
-$finder->in(__DIR__ . '/node_modules/uap-core/test_resources');
+$finder->in(__DIR__ . '/../node_modules/uap-core/test_resources');
 
 foreach ($finder as $fixture) {
     /** @var \Symfony\Component\Finder\SplFileInfo $fixture */
@@ -149,5 +149,5 @@ foreach ($finder as $fixture) {
 
 echo json_encode([
     'tests'   => $tests,
-    'version' => file_get_contents(__DIR__ . '/version.txt'),
+    'version' => file_get_contents(__DIR__ . '/../version.txt'),
 ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

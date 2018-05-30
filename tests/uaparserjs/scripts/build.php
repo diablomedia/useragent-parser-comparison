@@ -2,8 +2,8 @@
 
 declare(strict_types = 1);
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
-ini_set('memory_limit', -1);
-ini_set('max_execution_time', -1);
+ini_set('memory_limit', '-1');
+ini_set('max_execution_time', '-1');
 
 $uas = [];
 
@@ -94,7 +94,7 @@ foreach ($finder as $fixture) {
 }
 
 // Get version from installed module's package.json
-$package = json_decode(file_get_contents(__DIR__ . '/node_modules/ua-parser-js/package.json'));
+$package = json_decode(file_get_contents(__DIR__ . '/../node_modules/ua-parser-js/package.json'));
 $version = $package->version;
 
 echo json_encode([

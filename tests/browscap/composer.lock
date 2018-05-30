@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7c59f210e119b2ea44246b06323e3831",
+    "content-hash": "9534413350deb7156c6e2895141e4bb8",
     "packages": [
         {
             "name": "beberlei/assert",
-            "version": "v2.9.2",
+            "version": "v2.9.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/beberlei/assert.git",
-                "reference": "2d555f72f3f4ff9e72a7bc17cb8a53c86737c8a0"
+                "reference": "c07fe163d6a3b3e4b1275981ec004397954afa89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beberlei/assert/zipball/2d555f72f3f4ff9e72a7bc17cb8a53c86737c8a0",
-                "reference": "2d555f72f3f4ff9e72a7bc17cb8a53c86737c8a0",
+                "url": "https://api.github.com/repos/beberlei/assert/zipball/c07fe163d6a3b3e4b1275981ec004397954afa89",
+                "reference": "c07fe163d6a3b3e4b1275981ec004397954afa89",
                 "shasum": ""
             },
             "require": {
@@ -59,35 +59,42 @@
                 "assertion",
                 "validation"
             ],
-            "time": "2018-01-25T13:33:16+00:00"
+            "time": "2018-04-16T11:18:27+00:00"
         },
         {
             "name": "browscap/browscap",
-            "version": "6027",
+            "version": "6.0.29",
             "source": {
                 "type": "git",
                 "url": "https://github.com/browscap/browscap.git",
-                "reference": "c28498bb2e43bb62f24fa4a94c09279147278dba"
+                "reference": "ca3ab12142d1017507cd975feffcd348f02ba180"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/browscap/browscap/zipball/c28498bb2e43bb62f24fa4a94c09279147278dba",
-                "reference": "c28498bb2e43bb62f24fa4a94c09279147278dba",
+                "url": "https://api.github.com/repos/browscap/browscap/zipball/ca3ab12142d1017507cd975feffcd348f02ba180",
+                "reference": "ca3ab12142d1017507cd975feffcd348f02ba180",
                 "shasum": ""
             },
             "require": {
-                "beberlei/assert": "^2.7",
+                "beberlei/assert": "^2.8",
+                "localheinz/json-normalizer": "^0.5.2",
+                "mimmi20/ua-browser-type": "^6.0.1",
+                "mimmi20/ua-device-type": "^6.0.0",
                 "monolog/monolog": "^1.23",
                 "php": "^7.1",
-                "seld/jsonlint": "^1.5",
-                "symfony/console": "^3.3"
+                "seld/jsonlint": "^1.6",
+                "symfony/console": "^3.3||^4.0"
             },
             "require-dev": {
                 "browscap/browscap-php": "^3.1.0",
-                "friendsofphp/php-cs-fixer": "2.7.1",
+                "friendsofphp/php-cs-fixer": "^2.10",
+                "localheinz/composer-normalize": "^0.6.0",
                 "mikey179/vfsstream": "^1.6",
-                "phpstan/phpstan": "^0.8.4",
-                "phpunit/phpunit": "^6.3"
+                "phpstan/phpstan": "^0.9",
+                "phpunit/phpunit": "^6.5 || ^7.0"
+            },
+            "suggest": {
+                "ext-zip": "to create a zip file containing all other generated files"
             },
             "bin": [
                 "bin/browscap"
@@ -128,7 +135,333 @@
             "keywords": [
                 "Browscap"
             ],
-            "time": "2017-12-29T22:54:22+00:00"
+            "time": "2018-05-13T04:31:56+00:00"
+        },
+        {
+            "name": "justinrainbow/json-schema",
+            "version": "5.2.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/justinrainbow/json-schema.git",
+                "reference": "8560d4314577199ba51bf2032f02cd1315587c23"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/justinrainbow/json-schema/zipball/8560d4314577199ba51bf2032f02cd1315587c23",
+                "reference": "8560d4314577199ba51bf2032f02cd1315587c23",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.1",
+                "json-schema/json-schema-test-suite": "1.2.0",
+                "phpunit/phpunit": "^4.8.35"
+            },
+            "bin": [
+                "bin/validate-json"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "JsonSchema\\": "src/JsonSchema/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bruno Prieto Reis",
+                    "email": "bruno.p.reis@gmail.com"
+                },
+                {
+                    "name": "Justin Rainbow",
+                    "email": "justin.rainbow@gmail.com"
+                },
+                {
+                    "name": "Igor Wiedler",
+                    "email": "igor@wiedler.ch"
+                },
+                {
+                    "name": "Robert Schönthal",
+                    "email": "seroscho@googlemail.com"
+                }
+            ],
+            "description": "A library to validate a json schema.",
+            "homepage": "https://github.com/justinrainbow/json-schema",
+            "keywords": [
+                "json",
+                "schema"
+            ],
+            "time": "2018-02-14T22:26:30+00:00"
+        },
+        {
+            "name": "localheinz/json-normalizer",
+            "version": "0.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/localheinz/json-normalizer.git",
+                "reference": "0bcf04557255c318325fc959a8f36bd51356b6f0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/localheinz/json-normalizer/zipball/0bcf04557255c318325fc959a8f36bd51356b6f0",
+                "reference": "0bcf04557255c318325fc959a8f36bd51356b6f0",
+                "shasum": ""
+            },
+            "require": {
+                "justinrainbow/json-schema": "^4.0.0 || ^5.0.0",
+                "localheinz/json-printer": "^1.0.0",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "infection/infection": "~0.7.1",
+                "localheinz/php-cs-fixer-config": "~1.11.0",
+                "localheinz/test-util": "0.6.1",
+                "phpbench/phpbench": "~0.14.0",
+                "phpspec/prophecy": "^1.7.1",
+                "phpunit/phpunit": "^7.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Localheinz\\Json\\Normalizer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Möller",
+                    "email": "am@localheinz.com"
+                }
+            ],
+            "description": "Provides normalizers for normalizing JSON documents.",
+            "homepage": "https://github.com/localheinz/json-normalizer",
+            "keywords": [
+                "json",
+                "normalizer"
+            ],
+            "time": "2018-02-15T14:13:23+00:00"
+        },
+        {
+            "name": "localheinz/json-printer",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/localheinz/json-printer.git",
+                "reference": "49459a160c551b5504d1edcbb10692039071d08a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/localheinz/json-printer/zipball/49459a160c551b5504d1edcbb10692039071d08a",
+                "reference": "49459a160c551b5504d1edcbb10692039071d08a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0"
+            },
+            "require-dev": {
+                "infection/infection": "~0.7.0",
+                "localheinz/php-cs-fixer-config": "~1.9.0",
+                "localheinz/test-util": "0.6.1",
+                "phpbench/phpbench": "~0.14.0",
+                "phpunit/phpunit": "^6.5.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Localheinz\\Json\\Printer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Möller",
+                    "email": "am@localheinz.com"
+                }
+            ],
+            "description": "Provides a JSON printer, allowing for flexible indentation.",
+            "homepage": "https://github.com/localheinz/json-printer",
+            "keywords": [
+                "formatter",
+                "json",
+                "printer"
+            ],
+            "time": "2018-01-27T21:05:05+00:00"
+        },
+        {
+            "name": "mimmi20/browser-detector-loader-interface",
+            "version": "2.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mimmi20/browser-detector-loader-interface.git",
+                "reference": "bdf183b0ec1e6e0d58e34fb22eb13f9e427e85d2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mimmi20/browser-detector-loader-interface/zipball/bdf183b0ec1e6e0d58e34fb22eb13f9e427e85d2",
+                "reference": "bdf183b0ec1e6e0d58e34fb22eb13f9e427e85d2",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.9",
+                "phpstan/phpstan": "^0.9",
+                "squizlabs/php_codesniffer": "^3.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BrowserDetector\\Loader\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Thomas Müller",
+                    "homepage": "https://github.com/mimmi20",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/mimmi20/browser-detector-loader-interface/graphs/contributors"
+                }
+            ],
+            "description": "the source interface for the browscap helper",
+            "time": "2018-01-03T21:05:56+00:00"
+        },
+        {
+            "name": "mimmi20/ua-browser-type",
+            "version": "6.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mimmi20/ua-browser-type.git",
+                "reference": "cdea91cc0dc66d686d3dd80cfbd310ac2812d1f5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mimmi20/ua-browser-type/zipball/cdea91cc0dc66d686d3dd80cfbd310ac2812d1f5",
+                "reference": "cdea91cc0dc66d686d3dd80cfbd310ac2812d1f5",
+                "shasum": ""
+            },
+            "require": {
+                "mimmi20/browser-detector-loader-interface": "~2.0.5",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.10 || ^3.0",
+                "localheinz/composer-normalize": "^0.6.0",
+                "phpstan/phpstan": "^0.9",
+                "phpunit/phpunit": "^6.5 || ^7.0",
+                "squizlabs/php_codesniffer": "^3.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "UaBrowserType\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Thomas Müller",
+                    "homepage": "https://github.com/mimmi20",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/mimmi20/ua-browser-type/graphs/contributors"
+                }
+            ],
+            "description": "a class collection for different browser types",
+            "homepage": "https://github.com/mimmi20/ua-browser-type",
+            "keywords": [
+                "browser",
+                "http",
+                "parser",
+                "user agent",
+                "user-agent"
+            ],
+            "time": "2018-03-09T08:09:16+00:00"
+        },
+        {
+            "name": "mimmi20/ua-device-type",
+            "version": "6.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mimmi20/ua-device-type.git",
+                "reference": "c978e7e3bb169a3cbd635c7f70e59150f0c60f82"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mimmi20/ua-device-type/zipball/c978e7e3bb169a3cbd635c7f70e59150f0c60f82",
+                "reference": "c978e7e3bb169a3cbd635c7f70e59150f0c60f82",
+                "shasum": ""
+            },
+            "require": {
+                "mimmi20/browser-detector-loader-interface": "~2.0.5",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.10 || ^3.0",
+                "localheinz/composer-normalize": "^0.6.0",
+                "phpstan/phpstan": "^0.9",
+                "phpunit/phpunit": "^6.5 || ^7.0",
+                "squizlabs/php_codesniffer": "^3.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "UaDeviceType\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Thomas Müller",
+                    "homepage": "https://github.com/mimmi20",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/mimmi20/ua-device-type/graphs/contributors"
+                }
+            ],
+            "description": "a class collection for different device types",
+            "homepage": "https://github.com/mimmi20/ua-device-type",
+            "keywords": [
+                "browser",
+                "http",
+                "parser",
+                "user agent",
+                "user-agent"
+            ],
+            "time": "2018-03-08T18:50:12+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -306,21 +639,20 @@
         },
         {
             "name": "symfony/console",
-            "version": "v3.4.4",
+            "version": "v4.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "26b6f419edda16c19775211987651cb27baea7f1"
+                "reference": "058f120b8e06ebcd7b211de5ffae07b2db00fbdd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/26b6f419edda16c19775211987651cb27baea7f1",
-                "reference": "26b6f419edda16c19775211987651cb27baea7f1",
+                "url": "https://api.github.com/repos/symfony/console/zipball/058f120b8e06ebcd7b211de5ffae07b2db00fbdd",
+                "reference": "058f120b8e06ebcd7b211de5ffae07b2db00fbdd",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.5.9|>=7.0.8",
-                "symfony/debug": "~2.8|~3.0|~4.0",
+                "php": "^7.1.3",
                 "symfony/polyfill-mbstring": "~1.0"
             },
             "conflict": {
@@ -329,14 +661,14 @@
             },
             "require-dev": {
                 "psr/log": "~1.0",
-                "symfony/config": "~3.3|~4.0",
+                "symfony/config": "~3.4|~4.0",
                 "symfony/dependency-injection": "~3.4|~4.0",
-                "symfony/event-dispatcher": "~2.8|~3.0|~4.0",
+                "symfony/event-dispatcher": "~3.4|~4.0",
                 "symfony/lock": "~3.4|~4.0",
-                "symfony/process": "~3.3|~4.0"
+                "symfony/process": "~3.4|~4.0"
             },
             "suggest": {
-                "psr/log": "For using the console logger",
+                "psr/log-implementation": "For using the console logger",
                 "symfony/event-dispatcher": "",
                 "symfony/lock": "",
                 "symfony/process": ""
@@ -344,7 +676,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.4-dev"
+                    "dev-master": "4.0-dev"
                 }
             },
             "autoload": {
@@ -371,76 +703,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2018-01-29T09:03:43+00:00"
-        },
-        {
-            "name": "symfony/debug",
-            "version": "v4.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/debug.git",
-                "reference": "c77bb31d0f6310a2ac11e657475d396a92e5dc54"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/c77bb31d0f6310a2ac11e657475d396a92e5dc54",
-                "reference": "c77bb31d0f6310a2ac11e657475d396a92e5dc54",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1.3",
-                "psr/log": "~1.0"
-            },
-            "conflict": {
-                "symfony/http-kernel": "<3.4"
-            },
-            "require-dev": {
-                "symfony/http-kernel": "~3.4|~4.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Debug\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony Debug Component",
-            "homepage": "https://symfony.com",
-            "time": "2018-01-18T22:19:33+00:00"
+            "time": "2018-05-16T09:05:32+00:00"
         },
         {
             "name": "symfony/finder",
-            "version": "v4.0.4",
+            "version": "v4.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "8b08180f2b7ccb41062366b9ad91fbc4f1af8601"
+                "reference": "8c633f5a815903a1fe6e3fc135f207267a8a79af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/8b08180f2b7ccb41062366b9ad91fbc4f1af8601",
-                "reference": "8b08180f2b7ccb41062366b9ad91fbc4f1af8601",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/8c633f5a815903a1fe6e3fc135f207267a8a79af",
+                "reference": "8c633f5a815903a1fe6e3fc135f207267a8a79af",
                 "shasum": ""
             },
             "require": {
@@ -476,20 +752,20 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2018-01-03T07:38:00+00:00"
+            "time": "2018-05-16T09:05:32+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.7.0",
+            "version": "v1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "78be803ce01e55d3491c1397cf1c64beb9c1b63b"
+                "reference": "3296adf6a6454a050679cde90f95350ad604b171"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/78be803ce01e55d3491c1397cf1c64beb9c1b63b",
-                "reference": "78be803ce01e55d3491c1397cf1c64beb9c1b63b",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/3296adf6a6454a050679cde90f95350ad604b171",
+                "reference": "3296adf6a6454a050679cde90f95350ad604b171",
                 "shasum": ""
             },
             "require": {
@@ -501,7 +777,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.7-dev"
+                    "dev-master": "1.8-dev"
                 }
             },
             "autoload": {
@@ -535,7 +811,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2018-01-30T19:27:44+00:00"
+            "time": "2018-04-26T10:06:28+00:00"
         },
         {
             "name": "thadafinser/package-info",

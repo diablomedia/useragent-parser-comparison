@@ -5,27 +5,25 @@
   "requires": true,
   "dependencies": {
     "browscap-js": {
-      "version": "2.2.6027",
-      "resolved": "https://registry.npmjs.org/browscap-js/-/browscap-js-2.2.6027.tgz",
-      "integrity": "sha512-vfLfKBJYK1vq6ZVvf0fbIh6ssA3Mo2iOUFKiH4tq9DZCVpPucO7eo3pdNhNN875sE/Rr57/0PV/KbwYvkN61UA==",
+      "version": "2.2.6000028",
+      "resolved": "https://registry.npmjs.org/browscap-js/-/browscap-js-2.2.6000028.tgz",
+      "integrity": "sha512-GZdPvc7PYyZV3VYx1KJWq6wAdAcx7JEOYSoeALSWEmOBW30aKIuqpNK5GKJD246jZ0/tW8Vu1d1ZoxQALRF4Sw==",
       "requires": {
         "browscap-js-cache": "1.2.0",
-        "browscap-json-cache-files": "1.2.6027",
+        "browscap-json-cache-files": "1.2.6000028",
         "md5": "2.2.1",
-        "synchronous-promise": "1.0.18"
-      },
-      "dependencies": {
-        "browscap-json-cache-files": {
-          "version": "1.2.6027",
-          "resolved": "https://registry.npmjs.org/browscap-json-cache-files/-/browscap-json-cache-files-1.2.6027.tgz",
-          "integrity": "sha512-2PQuJpv5P2RngXIPD+38CfYxivVJSDJf/pwXabQXoTAbC+PePFXbJD2O+5fJjdXDUYfjf/EC19omLqBZJAEigA=="
-        }
+        "synchronous-promise": "2.0.5"
       }
     },
     "browscap-js-cache": {
       "version": "1.2.0",
       "resolved": "https://registry.npmjs.org/browscap-js-cache/-/browscap-js-cache-1.2.0.tgz",
       "integrity": "sha1-VN8MfBREDPQxUXOFSSIZ7lqtFfI="
+    },
+    "browscap-json-cache-files": {
+      "version": "1.2.6000028",
+      "resolved": "https://registry.npmjs.org/browscap-json-cache-files/-/browscap-json-cache-files-1.2.6000028.tgz",
+      "integrity": "sha512-+tY6PZQPhNagrBahHgap8C2k/5lehFDlxDfdpuTaYwCkHdOJoIRAz74INEsxzlxa34l0dcDoAkqVl7Vhjouoig=="
     },
     "charenc": {
       "version": "0.0.2",
@@ -53,9 +51,9 @@
       }
     },
     "synchronous-promise": {
-      "version": "1.0.18",
-      "resolved": "https://registry.npmjs.org/synchronous-promise/-/synchronous-promise-1.0.18.tgz",
-      "integrity": "sha512-UqMAK6BBBXu8qaDI5omlyV9iDpM9nQfgthaBOK0nlfXnMgiuOBv+meWG73CGeCCFRhOOOa2e4rvqYzfynzy5zg=="
+      "version": "2.0.5",
+      "resolved": "https://registry.npmjs.org/synchronous-promise/-/synchronous-promise-2.0.5.tgz",
+      "integrity": "sha512-+X+ZOwu5X3CCVoZ0DozKZGpprZS/bRWlstpSRcRrQitababOtD2Be2c012qP0nZ212XOd4OlSXnaS7n+bmRsiA=="
     }
   }
 }
