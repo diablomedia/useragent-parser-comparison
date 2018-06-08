@@ -1,0 +1,13 @@
+{
+  "name": "whichbrowser-js-0",
+  "version": "1.0.0",
+  "lockfileVersion": 1,
+  "requires": true,
+  "dependencies": {
+    "which-browser": {
+      "version": "0.2.7",
+      "resolved": "https://registry.npmjs.org/which-browser/-/which-browser-0.2.7.tgz",
+      "integrity": "sha512-mXvAGU17/MQ9bvtgkA0/VUNB0UIMplkoxvI8NvTcY7ObKShqQWQZa4KzjW0nYRBNfsaTd1T6e/erboHY8pSObQ=="
+    }
+  }
+}

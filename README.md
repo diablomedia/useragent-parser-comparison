@@ -196,6 +196,7 @@ Currently this is the list of parsers included:
  * Sinergi Browser Detector 6.x (https://github.com/sinergi/php-browser-detector)
  * UA Parser PHP 3.x (https://github.com/ua-parser/uap-php)
  * UAParser.js (https://github.com/faisalman/ua-parser-js)
+ * WhichBrowser JS 0.x (https://github.com/WhichBrowser/Parser-JavaScript)
  * WhichBrowser 2.x (https://github.com/WhichBrowser/Parser)
  * Woothee JS 1.x (https://github.com/woothee/woothee-js)
  * Woothee PHP 1.x (https://github.com/woothee/woothee-php)
