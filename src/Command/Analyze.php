@@ -348,7 +348,7 @@ class Analyze extends Command
     private function changePropertyDiffProperty($section)
     {
         $questionHelper = $this->getHelper('question');
-        $subs = [];
+        $subs           = [];
 
         switch ($section) {
             case 'browser':
