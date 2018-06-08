@@ -97,7 +97,7 @@ foreach ($uas as $ua => $data) {
                 'name'     => $data['device']['model'],
                 'brand'    => $data['device']['manufacturer'],
                 'type'     => $data['device']['type'],
-                'ismobile' => isMobile($data) ? 'true' : 'false',
+                'ismobile' => isMobile($data),
             ],
         ];
 

@@ -13,7 +13,7 @@ $tests = [];
 // These functions are adapted from DeviceDetector's source
 // Didn't want to use the actual classes here due to performance and consideration of what we're actually testing
 // (i.e. how can the parser ever fail on this field if the parser is generating it)
-function isMobile($data)
+function isMobile($data): bool
 {
     $device     = $data['device']['type'];
     $os         = $data['os']['short_name'];
@@ -54,7 +54,7 @@ function isMobile($data)
     return !isDesktop($data);
 }
 
-function isDesktop($data)
+function isDesktop($data): bool
 {
     $osShort = $data['os']['short_name'];
     if (empty($osShort) || 'UNK' === $osShort) {

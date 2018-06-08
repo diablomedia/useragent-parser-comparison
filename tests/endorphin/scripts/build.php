@@ -64,7 +64,7 @@ foreach ($finder as $fixture) {
 
                         break;
                     case 'isMobile':
-                        $expected['device']['ismobile'] = (bool) $item->Value ? 'true' : 'false';
+                        $expected['device']['ismobile'] = (bool) $item->Value ? true : false;
 
                         break;
                     case 'Robot->getName()':

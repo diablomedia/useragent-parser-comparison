@@ -65,7 +65,7 @@ lineReader.on('line', function (line) {
                 'name': r.device.model ? r.device.model : null,
                 'brand': r.device.manufacturer ? r.device.manufacturer : null,
                 'type': r.device.type ? r.device.type : null,
-                'ismobile': mobileDeviceTypes.indexOf(r.device.type) !== -1 || (r.device.subtype && r.device.subtype === 'portable') ? 'true' : 'false'
+                'ismobile': mobileDeviceTypes.indexOf(r.device.type) !== -1 || (r.device.subtype && r.device.subtype === 'portable') ? true : false
             }
         },
         'time': end

@@ -58,7 +58,7 @@ while (!$file->eof()) {
                 'name'     => !empty($r->device->model) ? $r->device->model : '',
                 'brand'    => !empty($r->device->manufacturer) ? $r->device->manufacturer : '',
                 'type'     => !empty($r->device->type) ? $r->device->type : '',
-                'ismobile' => $r->isMobile() ? 'true' : 'false',
+                'ismobile' => $r->isMobile() ? true : false,
             ],
         ],
         'time' => $end,
