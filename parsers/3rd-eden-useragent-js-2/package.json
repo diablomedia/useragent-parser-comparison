@@ -1,0 +1,17 @@
+{
+  "name": "3rd-eden-useragent-js-2",
+  "version": "1.0.0",
+  "description": "3rd-eden-useragent-js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "useragent": "^2.3",
+    "yamlparser": "*",
+    "request": "*"
+  }
+}
