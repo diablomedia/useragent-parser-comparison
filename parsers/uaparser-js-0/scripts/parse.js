@@ -67,5 +67,5 @@ lineReader.on('line', function (line) {
 
 lineReader.on('close', function () {
     output.memory_used = process.memoryUsage().heapUsed;
-    console.log(JSON.stringify(output));
+    console.log(JSON.stringify(output, null, 2));
 });

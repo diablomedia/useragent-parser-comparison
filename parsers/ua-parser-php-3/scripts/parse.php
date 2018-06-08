@@ -49,7 +49,7 @@ while (!$file->eof()) {
         'parsed'    => [
             'browser' => [
                 'name'    => $r->ua->family,
-                'version' => $r->ua->toVersion(),
+                'version' => '0' === $r->ua->toVersion() ? '' : $r->ua->toVersion(),
             ],
             'platform' => [
                 'name'    => $r->os->family,

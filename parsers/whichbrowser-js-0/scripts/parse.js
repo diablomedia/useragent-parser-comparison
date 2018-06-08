@@ -41,22 +41,31 @@ lineReader.on('line', function (line) {
         return;
     }
 
+    var mobileDeviceTypes = [
+        'mobile',
+        'tablet',
+        'watch',
+        'media',
+        'ereader',
+        'camera'
+    ];
+
     var result = {
         'useragent': line,
         'parsed': {
             'browser': {
-                'name': r.browser.name ? r.browser.name : '',
-                'version': r.browser.version ? r.browser.version.value : ''
+                'name': r.browser.name ? r.browser.name : null,
+                'version': r.browser.version ? r.browser.version.value : null
             },
             'platform': {
-                'name': r.os.name ? r.os.name : '',
-                'version': r.os.version ? r.os.version.value : ''
+                'name': r.os.name ? r.os.name : null,
+                'version': r.os.version && r.os.version.value ? r.os.version.value : null
             },
             'device': {
-                'name': r.device.model ? r.device.model : '',
-                'brand': r.device.vendor ? r.device.vendor : '',
-                'type': r.device.type ? r.device.type : '',
-                'ismobile': (r.device.type === 'mobile' || r.device.type === 'tablet' || r.device.type === 'wearable') ? 'true' : 'false'
+                'name': r.device.model ? r.device.model : null,
+                'brand': r.device.manufacturer ? r.device.manufacturer : null,
+                'type': r.device.type ? r.device.type : null,
+                'ismobile': mobileDeviceTypes.indexOf(r.device.type) !== -1 || (r.device.subtype && r.device.subtype === 'portable') ? 'true' : 'false'
             }
         },
         'time': end
@@ -67,5 +76,5 @@ lineReader.on('line', function (line) {
 
 lineReader.on('close', function () {
     output.memory_used = process.memoryUsage().heapUsed;
-    console.log(JSON.stringify(output));
+    console.log(JSON.stringify(output, null, 2));
 });

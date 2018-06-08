@@ -142,7 +142,7 @@ class Analyze extends Command
                             $this->comparison[$testName][$compareKey][$compareSubKey] = [];
                         }
 
-                        if (isset($result[$compareKey][$compareSubKey]) && $result[$compareKey][$compareSubKey] !== null) {
+                        if (isset($result[$compareKey][$compareSubKey]) && null !== $result[$compareKey][$compareSubKey]) {
                             $expectedValue = $result[$compareKey][$compareSubKey];
                         } else {
                             $expectedValue = '[n/a]';
@@ -195,13 +195,13 @@ class Analyze extends Command
                         }
 
                         foreach ($subs as $compareSubKey) {
-                            if (isset($expected[$compareKey][$compareSubKey]) && $expected[$compareKey][$compareSubKey] !== null) {
+                            if (isset($expected[$compareKey][$compareSubKey]) && null !== $expected[$compareKey][$compareSubKey]) {
                                 $expectedValue = $expected[$compareKey][$compareSubKey];
                             } else {
                                 $expectedValue = '[n/a]';
                             }
 
-                            if (isset($data['parsed'][$compareKey][$compareSubKey]) && $data['parsed'][$compareKey][$compareSubKey] !== null) {
+                            if (isset($data['parsed'][$compareKey][$compareSubKey]) && null !== $data['parsed'][$compareKey][$compareSubKey]) {
                                 $actualValue = $data['parsed'][$compareKey][$compareSubKey];
                             } else {
                                 $actualValue = '[n/a]';
@@ -348,6 +348,7 @@ class Analyze extends Command
     private function changePropertyDiffProperty($section)
     {
         $questionHelper = $this->getHelper('question');
+        $subs = [];
 
         switch ($section) {
             case 'browser':
@@ -694,7 +695,7 @@ class Analyze extends Command
                 // We can only compare the fields that aren't null in either expected or actual
                 // to be "fair" to parsers that don't have all of the data (or have too much if the test
                 // suite doesn't contain the properties that a parser may)
-                if (null !== $actual[$field] && null !== $expected[$field]) {
+                if (isset($actual[$field], $expected[$field])) {
                     $result[$field] = ['expected' => $value, 'actual' => $actual[$field]];
                 }
             }

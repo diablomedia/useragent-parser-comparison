@@ -71,19 +71,19 @@ foreach ($finder as $fixture) {
 
         switch ($providerName) {
             case 'browser-test.json':
-                $uas[$ua]['browser']['name']    = $data['expect']['name']    === 'undefined' ? '' : $data['expect']['name'];
-                $uas[$ua]['browser']['version'] = $data['expect']['version'] === 'undefined' ? '' : $data['expect']['version'];
+                $uas[$ua]['browser']['name']    = 'undefined' === $data['expect']['name'] ? '' : $data['expect']['name'];
+                $uas[$ua]['browser']['version'] = 'undefined' === $data['expect']['version'] ? '' : $data['expect']['version'];
 
                 break;
             case 'device-test.json':
-                $uas[$ua]['device']['name']  = $data['expect']['model']  === 'undefined' ? '' : $data['expect']['model'];
-                $uas[$ua]['device']['brand'] = $data['expect']['vendor'] === 'undefined' ? '' : $data['expect']['vendor'];
-                $uas[$ua]['device']['type']  = $data['expect']['type']   === 'undefined' ? '' : $data['expect']['type'];
+                $uas[$ua]['device']['name']  = 'undefined' === $data['expect']['model'] ? '' : $data['expect']['model'];
+                $uas[$ua]['device']['brand'] = 'undefined' === $data['expect']['vendor'] ? '' : $data['expect']['vendor'];
+                $uas[$ua]['device']['type']  = 'undefined' === $data['expect']['type'] ? '' : $data['expect']['type'];
 
                 break;
             case 'os-test.json':
-                $uas[$ua]['platform']['name']    = $data['expect']['name']    === 'undefined' ? '' : $data['expect']['name'];
-                $uas[$ua]['platform']['version'] = $data['expect']['version'] === 'undefined' ? '' : $data['expect']['version'];
+                $uas[$ua]['platform']['name']    = 'undefined' === $data['expect']['name'] ? '' : $data['expect']['name'];
+                $uas[$ua]['platform']['version'] = 'undefined' === $data['expect']['version'] ? '' : $data['expect']['version'];
 
                 break;
             // Skipping cpu-test.json because we don't look at CPU data, which is all that file tests against

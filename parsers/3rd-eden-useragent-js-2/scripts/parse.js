@@ -45,23 +45,32 @@ lineReader.on('line', function (line) {
         return;
     }
 
+    var outputDevice = {
+        'name': null,
+        'brand': null,
+        'type': null,
+        'ismobile': null
+    };
+
+    if (device.major !== '0') {
+        outputDevice.name = device.major;
+        outputDevice.brand = device.family;
+    } else if (device.family !== 'Other') {
+        outputDevice.name = device.family;
+    }
+
     var result = {
         'useragent': line,
         'parsed': {
             'browser': {
                 'name': r.family,
-                'version': r.toVersion()
+                'version': r.toVersion() == '0.0.0' ? '' : r.toVersion()
             },
             'platform': {
                 'name': os.family,
                 'version': r.os.toVersion()
             },
-            'device': {
-                'name': device.family,
-                'brand': null,
-                'type': null,
-                'ismobile': null
-            }
+            'device': outputDevice
         },
         'time': end
     };
@@ -71,5 +80,5 @@ lineReader.on('line', function (line) {
 
 lineReader.on('close', function () {
     output.memory_used = process.memoryUsage().heapUsed;
-    console.log(JSON.stringify(output));
+    console.log(JSON.stringify(output, null, 2));
 });

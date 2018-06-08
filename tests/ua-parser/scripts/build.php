@@ -99,9 +99,13 @@ function processFixture($fixture, &$tests, $cache): void
                     case 'firefox_user_agent_strings.yaml':
                     case 'opera_mini_user_agent_strings.yaml':
                     case 'pgts_browser_list.yaml':
+                        $browserVersion = (isset($data['major']) && '' !== $data['major']) ? $data['major'] . (null !== $data['minor'] ? '.' . $data['minor'] : '') : '';
+                        if ('0' === $browserVersion) {
+                            $browserVersion = '';
+                        }
                         $browser = [
                             'name'    => $data['family'],
-                            'version' => $data['major'] . (!empty($data['minor']) ? '.' . $data['minor'] : ''),
+                            'version' => $browserVersion,
                         ];
 
                         $records[$ua]['browser'] = $browser;

@@ -21,8 +21,8 @@ function isMobile($data)
         return true;
     }
 
-    if ($data['device']['type'] === 'gaming') {
-        if (isset($data['device']['subtype']) && $data['device']['subtype'] === 'portable') {
+    if ('gaming' === $data['device']['type']) {
+        if (isset($data['device']['subtype']) && 'portable' === $data['device']['subtype']) {
             return true;
         }
     }
@@ -82,10 +82,12 @@ foreach ($uas as $ua => $data) {
     if (!empty($ua)) {
         $data = $data['result'];
 
+        $browserVersion = is_array($data['browser']['version']) ? $data['browser']['version']['value'] : $data['browser']['version'];
+
         $expected = [
             'browser' => [
                 'name'    => $data['browser']['name'],
-                'version' => is_array($data['browser']['version']) ? $data['browser']['version']['value'] : $data['browser']['version'],
+                'version' => $browserVersion,
             ],
             'platform' => [
                 'name'    => $data['os']['name'],

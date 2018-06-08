@@ -43,7 +43,7 @@ function isMobile($data)
     }
 
     // Check for browsers available for mobile devices only
-    if ($data['client']['type'] === 'browser' && Browser::isMobileOnlyBrowser($data['client']['short_name'] ? $data['client']['short_name'] : 'UNK')) {
+    if ('browser' === $data['client']['type'] && Browser::isMobileOnlyBrowser($data['client']['short_name'] ? $data['client']['short_name'] : 'UNK')) {
         return true;
     }
 
@@ -61,7 +61,7 @@ function isDesktop($data)
         return false;
     }
     // Check for browsers available for mobile devices only
-    if ($data['client']['type'] === 'browser' && Browser::isMobileOnlyBrowser($data['client']['short_name'] ? $data['client']['short_name'] : 'UNK')) {
+    if ('browser' === $data['client']['type'] && Browser::isMobileOnlyBrowser($data['client']['short_name'] ? $data['client']['short_name'] : 'UNK')) {
         return false;
     }
 

@@ -180,6 +180,7 @@ The parsers can be any useragent parser from any language (web API based parsers
 
 Currently this is the list of parsers included:
 
+ * 3rd-Eden Useragent 2.x (https://github.com/3rd-Eden/useragent)
  * Browscap JS 1.x (https://github.com/mimmi20/browscap-js/tree/v1)
  * Browscap JS 2.x (https://github.com/mimmi20/browscap-js)
  * Browscap PHP 2.x (https://github.com/browscap/browscap-php/tree/2.x)
