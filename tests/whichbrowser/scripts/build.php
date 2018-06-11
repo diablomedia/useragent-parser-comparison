@@ -43,7 +43,7 @@ $finder->in(__DIR__ . '/../vendor/whichbrowser/parser/tests/data');
 
 foreach ($finder as $fixture) {
     /** @var \Symfony\Component\Finder\SplFileInfo $fixture */
-    if (!$fixture->isFile() || 'yaml' !== $fixture->getExtension()) {
+    if (!$fixture->isFile() || $fixture->getExtension() !== 'yaml') {
         continue;
     }
 
@@ -58,14 +58,14 @@ foreach ($finder as $fixture) {
         }
 
         if (is_array($data['headers']) && !empty($data['headers']['User-Agent'])) {
-            if (1 < count($data['headers'])) {
+            if (count($data['headers']) > 1) {
                 // Ignoring the ones that have the additional headers since we can't guarantee the expected value
                 // for those cases (assuming that whichbrowser changes some data based on those headers).
                 continue;
             }
             $ua = $data['headers']['User-Agent'];
         } else {
-            if (0 !== mb_strpos($data['headers'], 'User-Agent: ')) {
+            if (mb_strpos($data['headers'], 'User-Agent: ') !== 0) {
                 // There are a few tests that don't have a "User-Agent:" header
                 // discarding those since other parsers don't parse different headers in this comparison
                 continue;
@@ -82,10 +82,12 @@ foreach ($uas as $ua => $data) {
     if (!empty($ua)) {
         $data = $data['result'];
 
+        $browserVersion = is_array($data['browser']['version']) ? $data['browser']['version']['value'] : $data['browser']['version'];
+
         $expected = [
             'browser' => [
                 'name'    => $data['browser']['name'],
-                'version' => is_array($data['browser']['version']) ? $data['browser']['version']['value'] : $data['browser']['version'],
+                'version' => $browserVersion,
             ],
             'platform' => [
                 'name'    => $data['os']['name'],
@@ -95,7 +97,7 @@ foreach ($uas as $ua => $data) {
                 'name'     => $data['device']['model'],
                 'brand'    => $data['device']['manufacturer'],
                 'type'     => $data['device']['type'],
-                'ismobile' => isMobile($data) ? 'true' : 'false',
+                'ismobile' => isMobile($data),
             ],
         ];
 

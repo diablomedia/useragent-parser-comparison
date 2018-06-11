@@ -16,7 +16,7 @@ $finder->in(__DIR__ . '/../files');
 
 foreach ($finder as $file) {
     /** @var \Symfony\Component\Finder\SplFileInfo $file */
-    if (!$file->isFile() || 'php' !== $file->getExtension()) {
+    if (!$file->isFile() || $file->getExtension() !== 'php') {
         continue;
     }
 

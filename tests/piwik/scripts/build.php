@@ -13,7 +13,7 @@ $tests = [];
 // These functions are adapted from DeviceDetector's source
 // Didn't want to use the actual classes here due to performance and consideration of what we're actually testing
 // (i.e. how can the parser ever fail on this field if the parser is generating it)
-function isMobile($data)
+function isMobile($data): bool
 {
     $device     = $data['device']['type'];
     $os         = $data['os']['short_name'];
@@ -47,17 +47,17 @@ function isMobile($data)
         return true;
     }
 
-    if (empty($os) || 'UNK' === $os) {
+    if (empty($os) || $os === 'UNK') {
         return false;
     }
 
     return !isDesktop($data);
 }
 
-function isDesktop($data)
+function isDesktop($data): bool
 {
     $osShort = $data['os']['short_name'];
-    if (empty($osShort) || 'UNK' === $osShort) {
+    if (empty($osShort) || $osShort === 'UNK') {
         return false;
     }
     // Check for browsers available for mobile devices only
@@ -79,7 +79,7 @@ $finder->in(__DIR__ . '/../vendor/piwik/device-detector/Tests/fixtures');
 
 foreach ($finder as $fixture) {
     /** @var \Symfony\Component\Finder\SplFileInfo $fixture */
-    if (!$fixture->isFile() || 'yml' !== $fixture->getExtension()) {
+    if (!$fixture->isFile() || $fixture->getExtension() !== 'yml') {
         continue;
     }
 

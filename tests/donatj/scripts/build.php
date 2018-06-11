@@ -9,7 +9,7 @@ $jsonParser = new \Seld\JsonLint\JsonParser();
 
 $content = file_get_contents(__DIR__ . '/../vendor/donatj/phpuseragentparser/Tests/user_agents.json');
 
-if ('' === $content || PHP_EOL === $content) {
+if ($content === '' || $content === PHP_EOL) {
     exit;
 }
 

@@ -46,7 +46,7 @@ return PhpCsFixer\Config::create()
         'phpdoc_no_empty_return'  => false,
         'phpdoc_summary'          => false,
         'space_after_semicolon'   => ['remove_in_empty_for_expressions' => true],
-        'yoda_style'              => ['equal' => true, 'identical' => true, 'less_and_greater' => true],
+        'yoda_style'              => ['equal' => false, 'identical' => false, 'less_and_greater' => false],
 
         // @PHP70Migration:risky rules configured different from default
         'pow_to_exponentiation' => false,

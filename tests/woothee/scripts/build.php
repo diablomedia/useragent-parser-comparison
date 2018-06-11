@@ -18,7 +18,7 @@ $finder->in(__DIR__ . '/../vendor/woothee/woothee-testset/testsets');
 
 foreach ($finder as $fixture) {
     /** @var \Symfony\Component\Finder\SplFileInfo $fixture */
-    if (!$fixture->isFile() || 'yaml' !== $fixture->getExtension()) {
+    if (!$fixture->isFile() || $fixture->getExtension() !== 'yaml') {
         continue;
     }
 

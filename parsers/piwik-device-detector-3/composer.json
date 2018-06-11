@@ -1,6 +1,6 @@
 {
     "require": {
-        "piwik/device-detector": "~3.7.5",
+        "piwik/device-detector": "^3.7.5",
         "thadafinser/package-info": "^1.0"
     }
 }

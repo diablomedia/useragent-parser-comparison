@@ -16,7 +16,7 @@ $finder->in(__DIR__ . '/../vendor/endorphin-studio/browser-detector/tests/data/u
 
 foreach ($finder as $fixture) {
     /** @var \Symfony\Component\Finder\SplFileInfo $fixture */
-    if (!$fixture->isFile() || 'xml' !== $fixture->getExtension()) {
+    if (!$fixture->isFile() || $fixture->getExtension() !== 'xml') {
         continue;
     }
 
@@ -64,7 +64,7 @@ foreach ($finder as $fixture) {
 
                         break;
                     case 'isMobile':
-                        $expected['device']['ismobile'] = (bool) $item->Value ? 'true' : 'false';
+                        $expected['device']['ismobile'] = (bool) $item->Value ? true : false;
 
                         break;
                     case 'Robot->getName()':

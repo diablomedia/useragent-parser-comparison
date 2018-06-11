@@ -1,5 +1,3 @@
 parameters:
   excludes_analyse:
     - */tests/*/data/*
-  ignoreErrors:
-    - '~might not be defined~'

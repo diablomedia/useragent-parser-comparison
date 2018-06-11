@@ -18,9 +18,10 @@ before_install:
   - phpenv config-rm xdebug.ini || echo "xdebug not available"
   - echo 'opcache.enable=1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - echo 'opcache.enable_cli=1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - travis_retry composer self-update
 
-install: travis_retry composer install --optimize-autoloader --prefer-dist --no-progress --no-interaction --no-suggest -vv
+install:
+  - travis_retry composer install --optimize-autoloader --prefer-dist --no-progress --no-interaction --no-suggest -vv
+  - travis_retry yarn
 
 script: skip
 
@@ -30,7 +31,7 @@ jobs:
     - stage: check coding style
       php: 7.1
       env: TEST=php-cs-fixer
-      script: vendor/bin/php-cs-fixer fix --dry-run -vv
+      script: vendor/bin/php-cs-fixer fix --dry-run -vv && yarn run prettier -l "**/*.js"
 
     - stage: static code analysis
       php: 7.1

@@ -39,7 +39,7 @@ $finder->in(__DIR__ . '/../node_modules/ua-parser-js/test');
 
 foreach ($finder as $fixture) {
     /** @var \Symfony\Component\Finder\SplFileInfo $fixture */
-    if (!$fixture->isFile() || 'json' !== $fixture->getExtension()) {
+    if (!$fixture->isFile() || $fixture->getExtension() !== 'json') {
         continue;
     }
 
@@ -47,7 +47,7 @@ foreach ($finder as $fixture) {
 
     $content = file_get_contents($filepath);
 
-    if ('' === $content || PHP_EOL === $content) {
+    if ($content === '' || $content === PHP_EOL) {
         continue;
     }
 

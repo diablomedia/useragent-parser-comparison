@@ -68,7 +68,7 @@ class Test extends Command
         $answers = $questionHelper->ask($input, $output, $question);
 
         foreach ($answers as $name) {
-            if ('All Suites' === $name) {
+            if ($name === 'All Suites') {
                 $this->selectedTests = $this->tests;
 
                 break;
@@ -109,7 +109,7 @@ class Test extends Command
 
             $testOutput = json_decode($testOutput, true);
 
-            if (JSON_ERROR_NONE !== json_last_error() || empty($testOutput)) {
+            if (json_last_error() !== JSON_ERROR_NONE || empty($testOutput)) {
                 $output->writeln('<error>There was an error with the output from the ' . $testName . ' test suite.</error>');
 
                 continue;

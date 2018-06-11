@@ -7,7 +7,7 @@ ini_set('max_execution_time', '-1');
 $benchmarkPos = array_search('--benchmark', $argv);
 $benchmark    = false;
 
-if (false !== $benchmarkPos) {
+if ($benchmarkPos !== false) {
     $benchmark = true;
     unset($argv[$benchmarkPos]);
     $argv = array_values($argv);
@@ -49,15 +49,15 @@ while (!$file->eof()) {
         'parsed'    => [
             'browser' => [
                 'name'    => $r->ua->family,
-                'version' => $r->ua->toVersion(),
+                'version' => $r->ua->toVersion() === '0' ? '' : $r->ua->toVersion(),
             ],
             'platform' => [
                 'name'    => $r->os->family,
                 'version' => $r->ua->toVersion(),
             ],
             'device' => [
-                'name'     => null === $r->device->model ? '' : $r->device->model,
-                'brand'    => null === $r->device->brand ? '' : $r->device->brand,
+                'name'     => $r->device->model === null ? '' : $r->device->model,
+                'brand'    => $r->device->brand === null ? '' : $r->device->brand,
                 'type'     => null,
                 'ismobile' => null,
             ],

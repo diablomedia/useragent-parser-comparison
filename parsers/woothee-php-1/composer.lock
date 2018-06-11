@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "99e764051bedc8a7726c4994b5a527fd",
+    "content-hash": "b5ae2937b7d78f75d873258fdf302c86",
     "packages": [
         {
             "name": "thadafinser/package-info",
@@ -52,16 +52,16 @@
         },
         {
             "name": "woothee/woothee",
-            "version": "v1.5.0",
+            "version": "v1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/woothee/woothee-php.git",
-                "reference": "0d7a7335c479c5ea75f972ee418b911f48bfbfa4"
+                "reference": "5623febf8ff7017fa5399c1a5c3ccde478ead976"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/woothee/woothee-php/zipball/0d7a7335c479c5ea75f972ee418b911f48bfbfa4",
-                "reference": "0d7a7335c479c5ea75f972ee418b911f48bfbfa4",
+                "url": "https://api.github.com/repos/woothee/woothee-php/zipball/5623febf8ff7017fa5399c1a5c3ccde478ead976",
+                "reference": "5623febf8ff7017fa5399c1a5c3ccde478ead976",
                 "shasum": ""
             },
             "require": {
@@ -94,7 +94,7 @@
                 "user agent",
                 "useragent"
             ],
-            "time": "2016-08-21T15:36:24+00:00"
+            "time": "2017-04-30T06:43:26+00:00"
         }
     ],
     "packages-dev": [],

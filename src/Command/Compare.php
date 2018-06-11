@@ -35,7 +35,7 @@ class Compare extends Command
             ]);
             $returnCode = $command->run($parseInput, $output);
 
-            if (0 < $returnCode) {
+            if ($returnCode > 0) {
                 $output->writeln('<error>There was an error executing the "parse" command, cannot continue.</error>');
 
                 return;
@@ -52,7 +52,7 @@ class Compare extends Command
             $testInput  = new ArrayInput($arguments);
             $returnCode = $command->run($testInput, $output);
 
-            if (0 < $returnCode) {
+            if ($returnCode > 0) {
                 $output->writeln('<error>There was an error executing the "test" command, cannot continue.</error>');
 
                 return;
@@ -68,7 +68,7 @@ class Compare extends Command
         $normalizeInput = new ArrayInput($arguments);
         $returnCode     = $command->run($normalizeInput, $output);
 
-        if (0 < $returnCode) {
+        if ($returnCode > 0) {
             $output->writeln('<error>There was an error executing the "normalize" command, cannot continue.</error>');
 
             return;
@@ -83,7 +83,7 @@ class Compare extends Command
         $analyzeInput = new ArrayInput($arguments);
         $returnCode   = $command->run($analyzeInput, $output);
 
-        if (0 < $returnCode) {
+        if ($returnCode > 0) {
             $output->writeln('<error>There was an error executing the "analyze" command, cannot continue.</error>');
 
             return;

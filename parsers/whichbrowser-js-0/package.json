@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "which-browser": "^0.2"
+    "which-browser": "^0.2.9"
   }
 }
