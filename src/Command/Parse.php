@@ -126,7 +126,7 @@ class Parse extends Command
                 $answer = $questionHelper->ask($input, $output, $question);
             }
 
-            if ($csv || 'Dump as CSV' === $answer) {
+            if ($csv || $answer === 'Dump as CSV') {
                 $csvOutput = '';
 
                 $csvOutput .= $this->putcsv([

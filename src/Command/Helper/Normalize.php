@@ -31,12 +31,12 @@ class Normalize extends Helper
             $normalized[$section] = [];
 
             foreach ($properties as $key => $value) {
-                if (null !== $value) {
-                    if ('version' === $key) {
+                if ($value !== null) {
+                    if ($key === 'version') {
                         $value = $this->truncateVersion(mb_strtolower((string) $value));
-                    } elseif (false === $value) {
+                    } elseif ($value === false) {
                         $value = '';
-                    } elseif (true === $value) {
+                    } elseif ($value === true) {
                         $value = '1';
                     } else {
                         $value = preg_replace('|[^0-9a-z]|', '', mb_strtolower((string) $value));
@@ -44,7 +44,7 @@ class Normalize extends Helper
 
                     // Special Windows normalization for parsers that don't differntiate the version of windows
                     // in the name, but use the version.
-                    if ('platform' === $section && 'name' === $key && 'windows' === $value) {
+                    if ($section === 'platform' && $key === 'name' && $value === 'windows') {
                         if (!empty($parsed['platform']['version'])) {
                             $value .= preg_replace('|[^0-9a-z.]|', '', mb_strtolower($parsed['platform']['version']));
                         }

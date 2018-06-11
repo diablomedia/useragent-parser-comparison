@@ -21,8 +21,8 @@ function isMobile($data)
         return true;
     }
 
-    if ('gaming' === $data['device']['type']) {
-        if (isset($data['device']['subtype']) && 'portable' === $data['device']['subtype']) {
+    if ($data['device']['type'] === 'gaming') {
+        if (isset($data['device']['subtype']) && $data['device']['subtype'] === 'portable') {
             return true;
         }
     }
@@ -43,7 +43,7 @@ $finder->in(__DIR__ . '/../vendor/whichbrowser/parser/tests/data');
 
 foreach ($finder as $fixture) {
     /** @var \Symfony\Component\Finder\SplFileInfo $fixture */
-    if (!$fixture->isFile() || 'yaml' !== $fixture->getExtension()) {
+    if (!$fixture->isFile() || $fixture->getExtension() !== 'yaml') {
         continue;
     }
 
@@ -58,14 +58,14 @@ foreach ($finder as $fixture) {
         }
 
         if (is_array($data['headers']) && !empty($data['headers']['User-Agent'])) {
-            if (1 < count($data['headers'])) {
+            if (count($data['headers']) > 1) {
                 // Ignoring the ones that have the additional headers since we can't guarantee the expected value
                 // for those cases (assuming that whichbrowser changes some data based on those headers).
                 continue;
             }
             $ua = $data['headers']['User-Agent'];
         } else {
-            if (0 !== mb_strpos($data['headers'], 'User-Agent: ')) {
+            if (mb_strpos($data['headers'], 'User-Agent: ') !== 0) {
                 // There are a few tests that don't have a "User-Agent:" header
                 // discarding those since other parsers don't parse different headers in this comparison
                 continue;

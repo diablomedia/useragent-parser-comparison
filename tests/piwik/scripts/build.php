@@ -43,11 +43,11 @@ function isMobile($data): bool
     }
 
     // Check for browsers available for mobile devices only
-    if ('browser' === $data['client']['type'] && Browser::isMobileOnlyBrowser($data['client']['short_name'] ? $data['client']['short_name'] : 'UNK')) {
+    if ($data['client']['type'] === 'browser' && Browser::isMobileOnlyBrowser($data['client']['short_name'] ? $data['client']['short_name'] : 'UNK')) {
         return true;
     }
 
-    if (empty($os) || 'UNK' === $os) {
+    if (empty($os) || $os === 'UNK') {
         return false;
     }
 
@@ -57,11 +57,11 @@ function isMobile($data): bool
 function isDesktop($data): bool
 {
     $osShort = $data['os']['short_name'];
-    if (empty($osShort) || 'UNK' === $osShort) {
+    if (empty($osShort) || $osShort === 'UNK') {
         return false;
     }
     // Check for browsers available for mobile devices only
-    if ('browser' === $data['client']['type'] && Browser::isMobileOnlyBrowser($data['client']['short_name'] ? $data['client']['short_name'] : 'UNK')) {
+    if ($data['client']['type'] === 'browser' && Browser::isMobileOnlyBrowser($data['client']['short_name'] ? $data['client']['short_name'] : 'UNK')) {
         return false;
     }
 
@@ -79,7 +79,7 @@ $finder->in(__DIR__ . '/../vendor/piwik/device-detector/Tests/fixtures');
 
 foreach ($finder as $fixture) {
     /** @var \Symfony\Component\Finder\SplFileInfo $fixture */
-    if (!$fixture->isFile() || 'yml' !== $fixture->getExtension()) {
+    if (!$fixture->isFile() || $fixture->getExtension() !== 'yml') {
         continue;
     }
 

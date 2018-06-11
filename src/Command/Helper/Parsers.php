@@ -39,7 +39,7 @@ class Parsers extends Helper
                     $args = [
                         escapeshellarg($file),
                     ];
-                    if (true === $benchmark) {
+                    if ($benchmark === true) {
                         $args[] = '--benchmark';
                     }
 
@@ -47,12 +47,12 @@ class Parsers extends Helper
 
                     $result = shell_exec($parserDir->getPathName() . '/parse.sh ' . implode(' ', $args));
 
-                    if (null !== $result) {
+                    if ($result !== null) {
                         $result = trim($result);
 
                         $result = json_decode($result, true);
 
-                        if (JSON_ERROR_NONE !== json_last_error()) {
+                        if (json_last_error() !== JSON_ERROR_NONE) {
                             return null;
                         }
                     }
@@ -84,13 +84,13 @@ class Parsers extends Helper
         $questions = array_keys($names);
         sort($questions);
 
-        if (true === $multiple) {
+        if ($multiple === true) {
             $questions[] = 'All Parsers';
         }
 
         $helper = $this->helperSet->get('question');
 
-        if (true === $multiple) {
+        if ($multiple === true) {
             $questionText = 'Choose which parsers to use, separate multiple with commas (press enter to use all)';
             $default      = count($questions) - 1;
         } else {
@@ -104,7 +104,7 @@ class Parsers extends Helper
             $default
         );
 
-        if (true === $multiple) {
+        if ($multiple === true) {
             $question->setMultiselect(true);
         }
 
@@ -113,7 +113,7 @@ class Parsers extends Helper
         $answers = (array) $answers;
 
         foreach ($answers as $name) {
-            if ('All Parsers' === $name) {
+            if ($name === 'All Parsers') {
                 $this->selectedParsers = $this->parsers;
 
                 break;

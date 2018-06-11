@@ -5,7 +5,9 @@ var browscap = new Browscap();
 browscap.getBrowser('Test String');
 var initTime = process.hrtime(initStart)[1] / 1000000000;
 
-var browscapPackage = require(require('path').dirname(require.resolve('browscap-js')) + '/package.json');
+var browscapPackage = require(require('path').dirname(
+    require.resolve('browscap-js')
+) + '/package.json');
 var version = browscapPackage.version;
 
 var benchmark = false;
@@ -20,14 +22,14 @@ var lineReader = require('readline').createInterface({
 });
 
 var output = {
-    'results': [],
-    'parse_time': 0,
-    'init_time': initTime,
-    'memory_used': 0,
-    'version': version,
+    results: [],
+    parse_time: 0,
+    init_time: initTime,
+    memory_used: 0,
+    version: version
 };
 
-lineReader.on('line', function (line) {
+lineReader.on('line', function(line) {
     if (line === '') {
         return;
     }
@@ -43,30 +45,30 @@ lineReader.on('line', function (line) {
     }
 
     var result = {
-        'useragent': line,
-        'parsed': {
-            'browser': {
-                'name': browser.Browser,
-                'version': browser.Version,
+        useragent: line,
+        parsed: {
+            browser: {
+                name: browser.Browser,
+                version: browser.Version
             },
-            'platform': {
-                'name': browser.Platform,
-                'version': browser.Platform_Version,
+            platform: {
+                name: browser.Platform,
+                version: browser.Platform_Version
             },
-            'device': {
-                'name': browser.Device_Name,
-                'brand': browser.Device_Maker,
-                'type': browser.Device_Type,
-                'ismobile': browser.isMobileDevice ? true : false,
-            },
+            device: {
+                name: browser.Device_Name,
+                brand: browser.Device_Maker,
+                type: browser.Device_Type,
+                ismobile: browser.isMobileDevice ? true : false
+            }
         },
-        'time': end,
+        time: end
     };
 
     output.results.push(result);
 });
 
-lineReader.on('close', function () {
+lineReader.on('close', function() {
     output.memory_used = process.memoryUsage().heapUsed;
     console.log(JSON.stringify(output, null, 2));
 });

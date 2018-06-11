@@ -4,7 +4,8 @@ var parser = require('ua-parser-js');
 parser('Test String');
 var initTime = process.hrtime(initStart)[1] / 1000000000;
 
-var package = require(require('path').dirname(require.resolve('ua-parser-js')) + '/../package.json');
+var package = require(require('path').dirname(require.resolve('ua-parser-js')) +
+    '/../package.json');
 var version = package.version;
 
 var benchmark = false;
@@ -19,14 +20,14 @@ var lineReader = require('readline').createInterface({
 });
 
 var output = {
-    'results': [],
-    'parse_time': 0,
-    'init_time': initTime,
-    'memory_used': 0,
-    'version': version
+    results: [],
+    parse_time: 0,
+    init_time: initTime,
+    memory_used: 0,
+    version: version
 };
 
-lineReader.on('line', function (line) {
+lineReader.on('line', function(line) {
     if (line === '') {
         return;
     }
@@ -42,30 +43,35 @@ lineReader.on('line', function (line) {
     }
 
     var result = {
-        'useragent': line,
-        'parsed': {
-            'browser': {
-                'name': r.browser.name ? r.browser.name : '',
-                'version': r.browser.version ? r.browser.version : ''
+        useragent: line,
+        parsed: {
+            browser: {
+                name: r.browser.name ? r.browser.name : '',
+                version: r.browser.version ? r.browser.version : ''
             },
-            'platform': {
-                'name': r.os.name ? r.os.name : '',
-                'version': r.os.version ? r.os.version : ''
+            platform: {
+                name: r.os.name ? r.os.name : '',
+                version: r.os.version ? r.os.version : ''
             },
-            'device': {
-                'name': r.device.model ? r.device.model : '',
-                'brand': r.device.vendor ? r.device.vendor : '',
-                'type': r.device.type ? r.device.type : '',
-                'ismobile': (r.device.type === 'mobile' || r.device.type === 'tablet' || r.device.type === 'wearable') ? true : false
+            device: {
+                name: r.device.model ? r.device.model : '',
+                brand: r.device.vendor ? r.device.vendor : '',
+                type: r.device.type ? r.device.type : '',
+                ismobile:
+                    r.device.type === 'mobile' ||
+                    r.device.type === 'tablet' ||
+                    r.device.type === 'wearable'
+                        ? true
+                        : false
             }
         },
-        'time': end
+        time: end
     };
 
     output.results.push(result);
 });
 
-lineReader.on('close', function () {
+lineReader.on('close', function() {
     output.memory_used = process.memoryUsage().heapUsed;
     console.log(JSON.stringify(output, null, 2));
 });

@@ -79,30 +79,30 @@ uaparser-js-0           | 0.025s            | 0.097s             | 0.276s       
 
 Parser                  | Average Init Time | Average Parse Time | Average Extra Time | Average Memory Used
 -----|-----|-----|-----|-----
-3rd-eden-useragent-js-2 | 0.152s            | 0.229s             | 0.31s              | 16.14 M             
-browscap-js-1           | 0.032s            | 47.662s            | 0.452s             | 60.14 M             
-browscap-js-2           | 0.028s            | 39.13s             | 0.127s             | 64.03 M             
-browscap-php-2          | 0.739s            | 7.575s             | 0.109s             | 145.44 M            
-browscap-php-3-full     | 0.033s            | 15.241s            | 0.119s             | 4.78 M              
-browscap-php-3-lite     | 0.017s            | 1.565s             | 0.093s             | 1.36 M              
-browscap-php-3-standard | 0.017s            | 5.123s             | 0.075s             | 2.81 M              
-browscap-php-4-full     | 0.02s             | 15.046s            | 0.085s             | 4.75 M              
-crossjoin-1             | 0.013s            | 13.914s            | 0.11s              | 800.84 K            
-crossjoin-2             | 0.06s             | 55.894s            | 0.197s             | 1.1 M               
-crossjoin-3             | 0.023s            | 34.286s            | 0.094s             | 1.08 M              
-donatj-0                | 0.002s            | 0.06s              | 0.064s             | 551.53 K            
-endorphin-3             | 0.008s            | 0.75s              | 0.067s             | 585.95 K            
-jenssegers-agent-2      | 0.019s            | 3.088s             | 0.084s             | 909.71 K            
-php-get-browser         | 0.005s            | 114.259s           | 1.574s             | 428.41 K            
-piwik-device-detector-3 | 0.633s            | 3.403s             | 0.105s             | 3.42 M              
-sinergi-6               | 0.002s            | 0.019s             | 0.07s              | 546.92 K            
-ua-parser-php-3         | 0.035s            | 1.136s             | 0.089s             | 1.67 M              
-uaparser-js-0           | 0.014s            | 0.053s             | 0.125s             | 7.65 M              
-whichbrowser-js-0       | 0.311s            | 0.814s             | 0.139s             | 33.81 M             
-whichbrowser-php-2      | 0.041s            | 2.034s             | 0.094s             | 18.09 M             
-woothee-js-1            | 0.009s            | 0.013s             | 0.13s              | 6.27 M              
-woothee-php-1           | 0.009s            | 0.082s             | 0.073s             | 886.06 K            
-zsxsoft-php-1           | 0.007s            | 0.184s             | 0.072s             | 1020.63 K           
+3rd-eden-useragent-js-2 | 0.157s            | 0.228s             | 0.4s               | 16.02 M             
+browscap-js-1           | 0.024s            | 35.534s            | 0.127s             | 61.57 M             
+browscap-js-2           | 0.029s            | 36.626s            | 0.122s             | 59.71 M             
+browscap-php-2          | 0.686s            | 6.907s             | 0.083s             | 145.39 M            
+browscap-php-3-full     | 0.012s            | 8.288s             | 0.072s             | 4.65 M              
+browscap-php-3-lite     | 0.012s            | 0.474s             | 0.054s             | 1.23 M              
+browscap-php-3-standard | 0.011s            | 3.52s              | 0.062s             | 2.67 M              
+browscap-php-4-full     | 0.026s            | 14.444s            | 0.095s             | 4.64 M              
+crossjoin-1             | 0.008s            | 9.096s             | 0.087s             | 748.77 K            
+crossjoin-2             | 0.013s            | 28.353s            | 0.06s              | 1023.48 K           
+crossjoin-3             | 0.016s            | 29.778s            | 0.07s              | 1002.4 K            
+donatj-0                | 0.002s            | 0.01s              | 0.051s             | 534.52 K            
+endorphin-3             | 0.006s            | 0.326s             | 0.051s             | 557.28 K            
+jenssegers-agent-2      | 0.014s            | 0.892s             | 0.052s             | 871.7 K             
+php-get-browser         | 0.005s            | 108.675s           | 1.638s             | 428.3 K             
+piwik-device-detector-3 | 0.08s             | 0.892s             | 0.057s             | 3.31 M              
+sinergi-6               | 0.002s            | 0.001s             | 0.049s             | 529.38 K            
+ua-parser-php-3         | 0.027s            | 0.388s             | 0.051s             | 1.65 M              
+uaparser-js-0           | 0.011s            | 0.042s             | 0.1s               | 7.64 M              
+whichbrowser-js-0       | 0.233s            | 0.567s             | 0.1s               | 30.06 M             
+whichbrowser-php-2      | 0.025s            | 0.403s             | 0.057s             | 17.69 M             
+woothee-js-1            | 0.007s            | 0.009s             | 0.092s             | 6.27 M              
+woothee-php-1           | 0.008s            | 0.007s             | 0.05s              | 804.58 K            
+zsxsoft-php-1           | 0.005s            | 0.066s             | 0.051s             | 970.41 K            |         
 
 ## How To Use
 

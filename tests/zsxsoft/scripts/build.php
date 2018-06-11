@@ -16,7 +16,7 @@ while (!$file->eof()) {
     $line = trim($file->fgets());
     preg_match('/^\$brand = ("|\')(.*)("|\');$/', $line, $matches);
 
-    if (0 < count($matches)) {
+    if (count($matches) > 0) {
         $brand = $matches[2];
         if (!empty($brand)) {
             $brands[] = $brand;
@@ -40,7 +40,7 @@ foreach ($provider as $data) {
         $model = '';
 
         foreach ($brands as $brand) {
-            if (false !== mb_strpos($data[1][8], $brand)) {
+            if (mb_strpos($data[1][8], $brand) !== false) {
                 $model = trim(str_replace($brand, '', $data[1][8]));
 
                 break;

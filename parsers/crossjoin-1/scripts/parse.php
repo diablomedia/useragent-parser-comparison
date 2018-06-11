@@ -7,7 +7,7 @@ ini_set('max_execution_time', '-1');
 $benchmarkPos = array_search('--benchmark', $argv);
 $benchmark    = false;
 
-if (false !== $benchmarkPos) {
+if ($benchmarkPos !== false) {
     $benchmark = true;
     unset($argv[$benchmarkPos]);
     $argv = array_values($argv);
@@ -64,7 +64,7 @@ while (!$file->eof()) {
                 'name'     => $r->device_name,
                 'brand'    => $r->device_maker,
                 'type'     => $r->device_type,
-                'ismobile' => 'true' === $r->ismobiledevice,
+                'ismobile' => $r->ismobiledevice === 'true',
             ],
         ],
         'time' => $end,

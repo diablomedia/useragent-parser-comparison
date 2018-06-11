@@ -99,8 +99,8 @@ function processFixture($fixture, &$tests, $cache): void
                     case 'firefox_user_agent_strings.yaml':
                     case 'opera_mini_user_agent_strings.yaml':
                     case 'pgts_browser_list.yaml':
-                        $browserVersion = (isset($data['major']) && '' !== $data['major']) ? $data['major'] . (null !== $data['minor'] ? '.' . $data['minor'] : '') : '';
-                        if ('0' === $browserVersion) {
+                        $browserVersion = (isset($data['major']) && $data['major'] !== '') ? $data['major'] . ($data['minor'] !== null ? '.' . $data['minor'] : '') : '';
+                        if ($browserVersion === '0') {
                             $browserVersion = '';
                         }
                         $browser = [
@@ -140,11 +140,11 @@ $finder->in(__DIR__ . '/../node_modules/uap-core/test_resources');
 
 foreach ($finder as $fixture) {
     /** @var \Symfony\Component\Finder\SplFileInfo $fixture */
-    if (!$fixture->isFile() || 'yaml' !== $fixture->getExtension()) {
+    if (!$fixture->isFile() || $fixture->getExtension() !== 'yaml') {
         continue;
     }
 
-    if ('pgts_browser_list-orig.yaml' === $fixture->getFilename()) {
+    if ($fixture->getFilename() === 'pgts_browser_list-orig.yaml') {
         continue;
     }
 

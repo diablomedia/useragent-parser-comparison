@@ -16,7 +16,7 @@ $finder->in(__DIR__ . '/../vendor/browscap/browscap/tests/issues');
 
 foreach ($finder as $fixture) {
     /** @var \Symfony\Component\Finder\SplFileInfo $fixture */
-    if (!$fixture->isFile() || 'php' !== $fixture->getExtension()) {
+    if (!$fixture->isFile() || $fixture->getExtension() !== 'php') {
         continue;
     }
 
@@ -27,7 +27,7 @@ foreach ($finder as $fixture) {
     $provider = include $fixture->getPathName();
 
     foreach ($provider as $testName => $data) {
-        if (false === $data['full']) {
+        if ($data['full'] === false) {
             continue;
         }
 

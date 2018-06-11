@@ -11,7 +11,7 @@ ini_set('max_execution_time', '-1');
 $benchmarkPos = array_search('--benchmark', $argv);
 $benchmark    = false;
 
-if (false !== $benchmarkPos) {
+if ($benchmarkPos !== false) {
     $benchmark = true;
     unset($argv[$benchmarkPos]);
     $argv = array_values($argv);

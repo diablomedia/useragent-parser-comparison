@@ -1,0 +1,10 @@
+{
+  "name": "useragent-parser-comparison",
+  "version": "1.0.0",
+  "repository": "https://github.com/diablomedia/useragent-parser-comparison.git",
+  "author": "Jay Klehr <jay@diablomedia.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "1.13.5"
+  }
+}

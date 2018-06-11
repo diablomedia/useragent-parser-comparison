@@ -6,7 +6,8 @@ parser(true);
 parser.parse('Test String');
 var initTime = process.hrtime(initStart)[1] / 1000000000;
 
-var package = require(require('path').dirname(require.resolve('useragent')) + '/package.json');
+var package = require(require('path').dirname(require.resolve('useragent')) +
+    '/package.json');
 var version = package.version;
 
 var benchmark = false;
@@ -21,14 +22,14 @@ var lineReader = require('readline').createInterface({
 });
 
 var output = {
-    'results': [],
-    'parse_time': 0,
-    'init_time': initTime,
-    'memory_used': 0,
-    'version': version
+    results: [],
+    parse_time: 0,
+    init_time: initTime,
+    memory_used: 0,
+    version: version
 };
 
-lineReader.on('line', function (line) {
+lineReader.on('line', function(line) {
     if (line === '') {
         return;
     }
@@ -46,10 +47,10 @@ lineReader.on('line', function (line) {
     }
 
     var outputDevice = {
-        'name': '',
-        'brand': '',
-        'type': null,
-        'ismobile': null
+        name: '',
+        brand: '',
+        type: null,
+        ismobile: null
     };
 
     if (device.major !== '0') {
@@ -60,25 +61,25 @@ lineReader.on('line', function (line) {
     }
 
     var result = {
-        'useragent': line,
-        'parsed': {
-            'browser': {
-                'name': r.family,
-                'version': r.toVersion() == '0.0.0' ? '' : r.toVersion()
+        useragent: line,
+        parsed: {
+            browser: {
+                name: r.family,
+                version: r.toVersion() === '0.0.0' ? '' : r.toVersion()
             },
-            'platform': {
-                'name': os.family,
-                'version': r.os.toVersion()
+            platform: {
+                name: os.family,
+                version: r.os.toVersion()
             },
-            'device': outputDevice
+            device: outputDevice
         },
-        'time': end
+        time: end
     };
 
     output.results.push(result);
 });
 
-lineReader.on('close', function () {
+lineReader.on('close', function() {
     output.memory_used = process.memoryUsage().heapUsed;
     console.log(JSON.stringify(output, null, 2));
 });
