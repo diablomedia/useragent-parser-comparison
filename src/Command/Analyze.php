@@ -231,17 +231,18 @@ class Analyze extends Command
                         if ($data['parsed'][$compareKey] !== $expected[$compareKey]) {
                             $diff = $this->makeDiff($expected[$compareKey], $data['parsed'][$compareKey]);
                             if (!empty($diff)) {
-                                ++$passFail[$compareKey]['fail'];
                                 $failures[$compareKey] = $diff;
-                            } else {
-                                ++$passFail[$compareKey]['pass'];
                             }
-                        } else {
-                            ++$passFail[$compareKey]['pass'];
                         }
 
-                        $parserScores[$parserName][$testName]   += $this->calculateScore($expected[$compareKey], $data['parsed'][$compareKey]);
-                        $possibleScores[$parserName][$testName] += $this->calculateScore($expected[$compareKey], $data['parsed'][$compareKey], true);
+                        $score = $this->calculateScore($expected[$compareKey], $data['parsed'][$compareKey]);
+                        $possibleScore = $this->calculateScore($expected[$compareKey], $data['parsed'][$compareKey], true);
+
+                        $passFail[$compareKey]['pass'] += $score;
+                        $passFail[$compareKey]['fail'] += $possibleScore - $score;
+
+                        $parserScores[$parserName][$testName]   += $score;
+                        $possibleScores[$parserName][$testName] += $possibleScore;
                     }
 
                     if (!empty($failures)) {
@@ -254,7 +255,7 @@ class Analyze extends Command
                     $parserData['metadata']['version'] ?? 'n/a',
                     $passFail['browser']['pass'] . '/' . array_sum($passFail['browser']) . ' ' . round($passFail['browser']['pass'] / array_sum($passFail['browser']) * 100, 2) . '%',
                     $passFail['platform']['pass'] . '/' . array_sum($passFail['platform']) . ' ' . round($passFail['platform']['pass'] / array_sum($passFail['platform']) * 100, 2) . '%',
-                    $passFail['device']['pass'] . '/' . array_sum($passFail['device']) . ' ' . round($passFail['device']['pass'] / array_sum($passFail['device']) * 100, 2) . '%',
+                    $passFail['device']['pass'] . '/' . array_sum($passFail['device']) . ' ' . (array_sum($passFail['device']) == 0 ? '0.0' : round($passFail['device']['pass'] / array_sum($passFail['device']) * 100, 2)) . '%',
                     round($testResult['parse_time'] + $testResult['init_time'], 3) . 's',
                     $parserScores[$parserName][$testName] . '/' . $possibleScores[$parserName][$testName] . ' ' . round($parserScores[$parserName][$testName] / $possibleScores[$parserName][$testName] * 100, 2) . '%',
                 ];

@@ -1,6 +1,6 @@
 {
     "require": {
-        "crossjoin/browscap": "~3.0",
+        "crossjoin/browscap": "^3.0",
         "thadafinser/package-info": "^1.0",
         "ext-sqlite3": "*"
     }

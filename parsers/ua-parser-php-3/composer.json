@@ -1,6 +1,6 @@
 {
     "require": {
-        "ua-parser/uap-php": "~3.4.6",
+        "ua-parser/uap-php": "^3.4.6",
         "thadafinser/package-info": "^1.0"
     }
 }

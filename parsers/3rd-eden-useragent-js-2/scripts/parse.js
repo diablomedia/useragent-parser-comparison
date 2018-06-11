@@ -46,8 +46,8 @@ lineReader.on('line', function (line) {
     }
 
     var outputDevice = {
-        'name': null,
-        'brand': null,
+        'name': '',
+        'brand': '',
         'type': null,
         'ismobile': null
     };

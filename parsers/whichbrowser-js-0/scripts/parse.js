@@ -31,8 +31,32 @@ lineReader.on('line', function (line) {
         return;
     }
 
-    var start = process.hrtime();
-    var r = new WhichBrowser(line);
+    var start = process.hrtime(),
+        result = {};
+
+    try {
+        var r = new WhichBrowser(line);
+    } catch (err) {
+        result = {
+            'useragent': line,
+            'parsed': {
+                'browser': {
+                    'name': '',
+                    'version': ''
+                },
+                'platform': {
+                    'name': '',
+                    'version': ''
+                },
+                'device': {
+                    'name': '',
+                    'brand': '',
+                    'type': '',
+                    'ismobile': ''
+                }
+            }
+        };
+    }
     var end = process.hrtime(start)[1] / 1000000000;
 
     output.parse_time += end;
@@ -41,35 +65,37 @@ lineReader.on('line', function (line) {
         return;
     }
 
-    var mobileDeviceTypes = [
-        'mobile',
-        'tablet',
-        'watch',
-        'media',
-        'ereader',
-        'camera'
-    ];
+    if (typeof r !== 'undefined') {
+        var mobileDeviceTypes = [
+            'mobile',
+            'tablet',
+            'watch',
+            'media',
+            'ereader',
+            'camera'
+        ];
 
-    var result = {
-        'useragent': line,
-        'parsed': {
-            'browser': {
-                'name': r.browser.name ? r.browser.name : null,
-                'version': r.browser.version ? r.browser.version.value : null
+        var result = {
+            'useragent': line,
+            'parsed': {
+                'browser': {
+                    'name': r.browser.name ? r.browser.name : '',
+                    'version': r.browser.version ? r.browser.version.value : ''
+                },
+                'platform': {
+                    'name': r.os.name ? r.os.name : '',
+                    'version': r.os.version && r.os.version.value ? r.os.version.value : ''
+                },
+                'device': {
+                    'name': r.device.model ? r.device.model : '',
+                    'brand': r.device.manufacturer ? r.device.manufacturer : '',
+                    'type': r.device.type ? r.device.type : '',
+                    'ismobile': mobileDeviceTypes.indexOf(r.device.type) !== -1 || (r.device.subtype && r.device.subtype === 'portable') ? true : false
+                }
             },
-            'platform': {
-                'name': r.os.name ? r.os.name : null,
-                'version': r.os.version && r.os.version.value ? r.os.version.value : null
-            },
-            'device': {
-                'name': r.device.model ? r.device.model : null,
-                'brand': r.device.manufacturer ? r.device.manufacturer : null,
-                'type': r.device.type ? r.device.type : null,
-                'ismobile': mobileDeviceTypes.indexOf(r.device.type) !== -1 || (r.device.subtype && r.device.subtype === 'portable') ? true : false
-            }
-        },
-        'time': end
-    };
+            'time': end
+        };
+    }
 
     output.results.push(result);
 });
