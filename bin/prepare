@@ -7,7 +7,7 @@ cd ../parsers
 
 for f in *; do
     if [ -d ${f} ]; then
-        echo "Running prepare script for the $f parser"
+        echo -e "\033[0;35mRunning prepare script for the \033[4;31m$f\033[0;35m parser\033[0m"
         cd $f
         ./prepare.sh
         cd ..
@@ -20,7 +20,7 @@ cd ../tests
 
 for f in *; do
     if [ -d ${f} ]; then
-        echo "Running prepare script for the $f test suite"
+        echo -e "\033[0;35mRunning prepare script for the \033[4;31m$f\033[0;35m test suite\033[0m"
         cd $f
         ./prepare.sh
         cd ..
