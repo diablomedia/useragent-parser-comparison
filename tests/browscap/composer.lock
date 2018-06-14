@@ -1,23 +1,23 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "9534413350deb7156c6e2895141e4bb8",
     "packages": [
         {
             "name": "beberlei/assert",
-            "version": "v2.9.5",
+            "version": "v2.9.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/beberlei/assert.git",
-                "reference": "c07fe163d6a3b3e4b1275981ec004397954afa89"
+                "reference": "ec9e4cf0b63890edce844ee3922e2b95a526e936"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beberlei/assert/zipball/c07fe163d6a3b3e4b1275981ec004397954afa89",
-                "reference": "c07fe163d6a3b3e4b1275981ec004397954afa89",
+                "url": "https://api.github.com/repos/beberlei/assert/zipball/ec9e4cf0b63890edce844ee3922e2b95a526e936",
+                "reference": "ec9e4cf0b63890edce844ee3922e2b95a526e936",
                 "shasum": ""
             },
             "require": {
@@ -59,7 +59,7 @@
                 "assertion",
                 "validation"
             ],
-            "time": "2018-04-16T11:18:27+00:00"
+            "time": "2018-06-11T17:15:25+00:00"
         },
         {
             "name": "browscap/browscap",
