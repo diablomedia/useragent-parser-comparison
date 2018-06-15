@@ -319,7 +319,6 @@ class Analyze extends Command
 
     private function changePropertyDiffTestSuite(): string
     {
-        /** @var Question $questionHelper */
         $questionHelper = $this->getHelper('question');
 
         if (count($this->options['tests']) > 1) {
