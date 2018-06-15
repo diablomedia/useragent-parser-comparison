@@ -29,11 +29,11 @@ class Test extends Command
     {
         $this->setName('test')
             ->setDescription('Runs test against the parsers')
-            ->addArgument('name', InputArgument::OPTIONAL, 'The name of the test run, if omitted will be generated from date')
+            ->addArgument('run', InputArgument::OPTIONAL, 'The name of the test run, if omitted will be generated from date')
             ->setHelp('Runs various test suites against the parsers to help determine which is the most "correct".');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
         $this->collectTests();
 
@@ -82,7 +82,7 @@ class Test extends Command
         $parsers      = $parserHelper->getParsers($input, $output);
 
         // Prepare our test directory to store the data from this run
-        $thisRunDirName = $input->getArgument('name');
+        $thisRunDirName = $input->getArgument('run');
 
         if (empty($thisRunDirName)) {
             $thisRunDirName = date('YmdHis');
@@ -170,6 +170,8 @@ class Test extends Command
         );
 
         $output->writeln('<comment>Parsing complete, data stored in ' . $thisRunDirName . ' directory</comment>');
+
+        return 0;
     }
 
     private function collectTests(): void

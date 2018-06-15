@@ -18,12 +18,12 @@ class Parsers extends Helper
 
     private $parsersDir = __DIR__ . '/../../../parsers';
 
-    public function getName()
+    public function getName(): string
     {
         return 'parsers';
     }
 
-    public function getParsers(InputInterface $input, OutputInterface $output, $multiple = true)
+    public function getParsers(InputInterface $input, OutputInterface $output, bool $multiple = true): array
     {
         foreach (new \FilesystemIterator($this->parsersDir) as $parserDir) {
             if (file_exists($parserDir->getPathName() . '/metadata.json')) {
@@ -35,15 +35,13 @@ class Parsers extends Helper
             $this->parsers[$parserDir->getFilename()] = [
                 'path'     => $parserDir->getPathName(),
                 'metadata' => $metadata,
-                'parse'    => static function ($file, $benchmark = false) use ($parserDir) {
+                'parse'    => static function (string $file, bool $benchmark = false) use ($parserDir): ?array {
                     $args = [
                         escapeshellarg($file),
                     ];
                     if ($benchmark === true) {
                         $args[] = '--benchmark';
                     }
-
-                    $file = realpath(getcwd() . '/' . $file);
 
                     $result = shell_exec($parserDir->getPathName() . '/parse.sh ' . implode(' ', $args));
 
