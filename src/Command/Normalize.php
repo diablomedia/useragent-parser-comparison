@@ -64,7 +64,7 @@ class Normalize extends Command
 
                 $output->write('Processing output from the ' . $testFile->getFilename() . ' test suite... ');
 
-                $data       = $jsonParser->parse(
+                $data = $jsonParser->parse(
                     file_get_contents($testFile->getPathname()),
                     JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
                 );
@@ -115,7 +115,7 @@ class Normalize extends Command
 
                     $output->write("\t" . 'Processing results from the ' . $testName . ' test suite... ');
 
-                    $data       = $jsonParser->parse(
+                    $data = $jsonParser->parse(
                         file_get_contents($resultFile->getPathname()),
                         JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
                     );

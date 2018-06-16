@@ -104,7 +104,7 @@ class Analyze extends Command
                     file_get_contents($expectedFilename),
                     JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
                 );
-                $headerMessage   = '<fg=yellow>Parser comparison for ' . $testName . ' test suite' . (isset($testData['metadata']['version']) ? ' (' . $testData['metadata']['version'] . ')' : '') . '</>';
+                $headerMessage = '<fg=yellow>Parser comparison for ' . $testName . ' test suite' . (isset($testData['metadata']['version']) ? ' (' . $testData['metadata']['version'] . ')' : '') . '</>';
             } else {
                 // When we aren't comparing to a test suite, the first parser's results become the expected results
                 $expectedResults = [];

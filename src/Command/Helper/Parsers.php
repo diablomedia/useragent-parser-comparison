@@ -5,12 +5,13 @@ declare(strict_types = 1);
 namespace UserAgentParserComparison\Command\Helper;
 
 use Seld\JsonLint\JsonParser;
+use Seld\JsonLint\ParsingException;
+use SplFileInfo;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
-use SplFileInfo;
 
 class Parsers extends Helper
 {
@@ -25,8 +26,8 @@ class Parsers extends Helper
     {
         $jsonParser = new JsonParser();
 
-        $rows  = [];
-        $names = [];
+        $rows    = [];
+        $names   = [];
         $parsers = [];
 
         foreach (scandir($this->parsersDir) as $dir) {
@@ -37,10 +38,14 @@ class Parsers extends Helper
             $parserDir = new SplFileInfo($this->parsersDir . '/' . $dir);
 
             if (file_exists($parserDir->getPathName() . '/metadata.json')) {
-                $metadata = $jsonParser->parse(
-                    file_get_contents($parserDir->getPathName() . '/metadata.json'),
-                    JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
-                );
+                try {
+                    $metadata = $jsonParser->parse(
+                        file_get_contents($parserDir->getPathName().'/metadata.json'),
+                        JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
+                    );
+                } catch (ParsingException $e) {
+                    $metadata = [];
+                }
             } else {
                 $metadata = [];
             }
@@ -58,7 +63,7 @@ class Parsers extends Helper
 
                     $result = shell_exec($parserDir->getPathName() . '/parse.sh ' . implode(' ', $args));
 
-                    if (null !== $result) {
+                    if ($result !== null) {
                         $result = $jsonParser->parse(
                             trim($result),
                             JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
@@ -67,29 +72,10 @@ class Parsers extends Helper
 
                     return $result;
                 },
-                'warm-up' => static function () use ($parserDir, $jsonParser) {
-                    $result = shell_exec($parserDir->getPathName() . '/warm-up.sh');
+                'parse-ua' => static function (string $useragent) use ($parserDir, $jsonParser) {
+                    $result = shell_exec($parserDir->getPathName() . '/parse-ua.sh --ua=' . escapeshellarg($useragent));
 
-                    if (null !== $result) {
-                        $result = $jsonParser->parse(
-                            trim($result),
-                            JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
-                        );
-                    }
-
-                    return $result;
-                },
-                'parse-ua'    => static function ($useragent, $benchmark = false) use ($parserDir, $jsonParser) {
-                    $args = [
-                        '--ua=' . escapeshellarg($useragent),
-                    ];
-                    if (true === $benchmark) {
-                        $args[] = '--benchmark';
-                    }
-
-                    $result = shell_exec($parserDir->getPathName() . '/parse-ua.sh ' . implode(' ', $args));
-
-                    if (null !== $result) {
+                    if ($result !== null) {
                         $result = $jsonParser->parse(
                             trim($result),
                             JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
@@ -121,8 +107,6 @@ class Parsers extends Helper
             $questions[] = 'All Parsers';
         }
 
-        $helper = $this->helperSet->get('question');
-
         if ($multiple === true) {
             $questionText = 'Choose which parsers to use, separate multiple with commas (press enter to use all)';
             $default      = count($questions) - 1;
@@ -141,13 +125,14 @@ class Parsers extends Helper
             $question->setMultiselect(true);
         }
 
+        $helper  = $this->helperSet->get('question');
         $answers = $helper->ask($input, $output, $question);
 
-        $answers = (array) $answers;
+        $answers         = (array) $answers;
         $selectedParsers = [];
 
         foreach ($answers as $name) {
-            if ('All Parsers' === $name) {
+            if ($name === 'All Parsers') {
                 $selectedParsers = $parsers;
 
                 break;
