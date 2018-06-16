@@ -33,7 +33,7 @@ class Test extends Command
             ->setHelp('Runs various test suites against the parsers to help determine which is the most "correct".');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): ?int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->collectTests();
 

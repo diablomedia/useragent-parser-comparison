@@ -32,7 +32,7 @@ class Parse extends Command
             ->setHelp('Parses the useragent strings (one per line) from the passed in file and outputs the parsed properties.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): ?int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $file      = $input->getArgument('file');
         $normalize = $input->getOption('normalize');

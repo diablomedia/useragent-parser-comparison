@@ -20,7 +20,7 @@ class Compare extends Command
             ->setHelp('This command is a "meta" command that will execute the Test, Normalize and Analyze commands in order');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): ?int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $file = $input->getArgument('file');
 

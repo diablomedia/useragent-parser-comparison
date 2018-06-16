@@ -23,7 +23,7 @@ class Normalize extends Command
             ->setHelp('');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): ?int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $run = $input->getArgument('run');
 
