@@ -263,10 +263,14 @@ class Test extends Command
             $testDir = new \SplFileInfo($this->testsDir . '/' . $dir);
 
             if (file_exists($testDir->getPathName() . '/metadata.json')) {
-                $metadata = $this->jsonParser->parse(
-                    file_get_contents($testDir->getPathName() . '/metadata.json'),
-                    JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
-                );
+                try {
+                    $metadata = $this->jsonParser->parse(
+                        file_get_contents($testDir->getPathName().'/metadata.json'),
+                        JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
+                    );
+                } catch (ParsingException $e) {
+                    $metadata = [];
+                }
             } else {
                 $metadata = [];
             }

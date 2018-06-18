@@ -67,6 +67,7 @@ class Parse extends Command
         $parsers = $parserHelper->getParsers($input, $output);
 
         if ($singleUa) {
+            $result = [];
             $file = new \SplFileObject($file);
             $file->setFlags(\SplFileObject::DROP_NEW_LINE);
 
@@ -78,6 +79,16 @@ class Parse extends Command
                 }
 
                 foreach ($parsers as $parserName => $parser) {
+                    if (!array_key_exists($parserName, $result)) {
+                        $result[$parserName] = [
+                            'results'     => [],
+                            'parse_time'  => 0,
+                            'init_time'   => 0,
+                            'memory_used' => 0,
+                            'version'     => null,
+                        ];
+                    }
+
                     $output->write("\t".'Testing against the '.$parserName.' parser... ');
                     $singleResult = $parser['parse-ua']($agentString);
 
@@ -93,6 +104,23 @@ class Parse extends Command
                         $parsers[$parserName]['metadata']['version'] = $singleResult['version'];
                     }
 
+                    $result[$parserName]['results'][] = $singleResult['result'];
+
+                    if ($singleResult['init_time'] > $result[$parserName]['init_time']) {
+                        $result[$parserName]['init_time'] = $singleResult['init_time'];
+                    }
+
+                    if ($singleResult['memory_used'] > $result[$parserName]['memory_used']) {
+                        $result[$parserName]['memory_used'] = $singleResult['memory_used'];
+                    }
+
+                    $result[$parserName]['parse_time'] += $singleResult['parse_time'];
+                    $result[$parserName]['version'] = $singleResult['version'];
+
+                    $output->writeln('<info> done!</info>');
+                }
+
+                foreach ($parsers as $parserName => $parser) {
                     if ($name) {
                         if (!file_exists($this->runDir.'/'.$name.'/results/'.$parserName)) {
                             mkdir($this->runDir.'/'.$name.'/results/'.$parserName);
@@ -100,12 +128,12 @@ class Parse extends Command
 
                         file_put_contents(
                             $this->runDir.'/'.$name.'/results/'.$parserName.'/'.basename($file).'.json',
-                            json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+                            json_encode($result[$parserName], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
                         );
                     }
 
                     $rows = [];
-                    foreach ($result['results'] as $parsed) {
+                    foreach ($result[$parserName]['results'] as $parsed) {
                         if ($normalize) {
                             $parsed['parsed'] = $normalizeHelper->normalize(
                                 $parsed['parsed'],
@@ -165,7 +193,7 @@ class Parse extends Command
                                 $csvFile
                             )."\n";
 
-                        foreach ($result['results'] as $parsed) {
+                        foreach ($result[$parserName]['results'] as $parsed) {
                             $out = [
                                 $parsed['useragent'],
                                 $parsed['parsed']['browser']['name'],
