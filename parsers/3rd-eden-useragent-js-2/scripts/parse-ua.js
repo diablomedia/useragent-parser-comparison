@@ -12,18 +12,18 @@ var version = package.version;
 
 var hasUa = false;
 var uaPos = process.argv.indexOf('--ua');
-var line  = '';
+var line = '';
 if (uaPos >= 0) {
     line = process.argv[2];
     hasUa = true;
 }
 
 var output = {
-    'result': null,
-    'parse_time': 0,
-    'init_time': initTime,
-    'memory_used': 0,
-    'version': version
+    result: null,
+    parse_time: 0,
+    init_time: initTime,
+    memory_used: 0,
+    version: version
 };
 
 if (hasUa) {

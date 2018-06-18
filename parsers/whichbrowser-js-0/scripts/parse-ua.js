@@ -11,22 +11,22 @@ var version = package.version;
 
 var hasUa = false;
 var uaPos = process.argv.indexOf('--ua');
-var line  = '';
+var line = '';
 if (uaPos >= 0) {
     line = process.argv[2];
     hasUa = true;
 }
 
 var output = {
-    'result': null,
-    'parse_time': 0,
-    'init_time': initTime,
-    'memory_used': 0,
-    'version': version
+    result: null,
+    parse_time: 0,
+    init_time: initTime,
+    memory_used: 0,
+    version: version
 };
 
 if (hasUa) {
-    var start  = process.hrtime(),
+    var start = process.hrtime(),
         result = {};
     var browser = browscap.getBrowser(line);
     output.parse_time = process.hrtime(start)[1] / 1000000000;
@@ -74,9 +74,7 @@ if (hasUa) {
             platform: {
                 name: r.os.name ? r.os.name : '',
                 version:
-                    r.os.version && r.os.version.value
-                        ? r.os.version.value
-                        : ''
+                    r.os.version && r.os.version.value ? r.os.version.value : ''
             },
             device: {
                 name: r.device.model ? r.device.model : '',

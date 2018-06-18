@@ -6,12 +6,13 @@ var parser = require('woothee');
 parser.parse('Test String');
 var initTime = process.hrtime(initStart)[1] / 1000000000;
 
-var package = require(require('path').dirname(require.resolve('woothee')) + '/../package.json');
+var package = require(require('path').dirname(require.resolve('woothee')) +
+    '/../package.json');
 var version = package.version;
 
 var hasUa = false;
 var uaPos = process.argv.indexOf('--ua');
-var line  = '';
+var line = '';
 if (uaPos >= 0) {
     line = process.argv[2];
     hasUa = true;

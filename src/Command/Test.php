@@ -111,7 +111,7 @@ class Test extends Command
         $usedTests = [];
 
         foreach ($this->selectedTests as $testName => $testData) {
-            $output->write('Generating data for the '.$testName.' test suite... ');
+            $output->write('Generating data for the ' . $testName . ' test suite... ');
             $this->results[$testName] = [];
 
             $testOutput = trim((string) shell_exec($testData['path'] . '/build.sh'));
@@ -151,12 +151,12 @@ class Test extends Command
                             ];
                         }
 
-                        $output->write("\t".'Testing against the '.$parserName.' parser... ');
+                        $output->write("\t" . 'Testing against the ' . $parserName . ' parser... ');
                         $singleResult = $parser['parse-ua']($agent);
 
                         if (empty($singleResult)) {
                             $output->writeln(
-                                '<error>The '.$parserName.' parser did not return any data, there may have been an error</error>'
+                                '<error>The ' . $parserName . ' parser did not return any data, there may have been an error</error>'
                             );
 
                             continue;
@@ -166,8 +166,8 @@ class Test extends Command
                             $parsers[$parserName]['metadata']['version'] = $singleResult['version'];
                         }
 
-                        if (!file_exists($resultsDir.'/'.$parserName)) {
-                            mkdir($resultsDir.'/'.$parserName);
+                        if (!file_exists($resultsDir . '/' . $parserName)) {
+                            mkdir($resultsDir . '/' . $parserName);
                         }
 
                         $result[$parserName]['results'][] = $singleResult['result'];
@@ -189,14 +189,14 @@ class Test extends Command
 
                 foreach (array_keys($parsers) as $parserName) {
                     file_put_contents(
-                        $resultsDir.'/'.$parserName.'/'.$testName.'.json',
+                        $resultsDir . '/' . $parserName . '/' . $testName . '.json',
                         json_encode($result[$parserName], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
                     );
                 }
             } else {
-                $output->write('write test data for the '.$testName.' test suite into file... ');
+                $output->write('write test data for the ' . $testName . ' test suite into file... ');
                 // write our test's file that we'll pass to the parsers
-                $filename = $testFilesDir.'/'.$testName.'.txt';
+                $filename = $testFilesDir . '/' . $testName . '.txt';
 
                 if (is_array($testOutput['tests'])) {
                     $agents = array_keys($testOutput['tests']);
@@ -205,19 +205,19 @@ class Test extends Command
                 }
 
                 array_walk($agents, static function (&$item): void {
-                    $item = addcslashes((string)$item, PHP_EOL);
+                    $item = addcslashes((string) $item, PHP_EOL);
                 });
 
                 file_put_contents($filename, implode(PHP_EOL, $agents));
                 $output->writeln('<info>  done!</info>');
 
                 foreach ($parsers as $parserName => $parser) {
-                    $output->write("\t".'Testing against the '.$parserName.' parser... ');
+                    $output->write("\t" . 'Testing against the ' . $parserName . ' parser... ');
                     $result = $parser['parse']($filename);
 
                     if (empty($result)) {
                         $output->writeln(
-                            '<error>The '.$parserName.' parser did not return any data, there may have been an error</error>'
+                            '<error>The ' . $parserName . ' parser did not return any data, there may have been an error</error>'
                         );
 
                         continue;
@@ -227,12 +227,12 @@ class Test extends Command
                         $parsers[$parserName]['metadata']['version'] = $result['version'];
                     }
 
-                    if (!file_exists($resultsDir.'/'.$parserName)) {
-                        mkdir($resultsDir.'/'.$parserName);
+                    if (!file_exists($resultsDir . '/' . $parserName)) {
+                        mkdir($resultsDir . '/' . $parserName);
                     }
 
                     file_put_contents(
-                        $resultsDir.'/'.$parserName.'/'.$testName.'.json',
+                        $resultsDir . '/' . $parserName . '/' . $testName . '.json',
                         json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
                     );
                     $output->writeln('<info> done!</info>');
@@ -262,10 +262,10 @@ class Test extends Command
 
             $testDir = new \SplFileInfo($this->testsDir . '/' . $dir);
 
-            if (file_exists($testDir->getPathName() . '/metadata.json')) {
+            if (file_exists($testDir->getPathname() . '/metadata.json')) {
                 try {
                     $metadata = $this->jsonParser->parse(
-                        file_get_contents($testDir->getPathName().'/metadata.json'),
+                        file_get_contents($testDir->getPathname() . '/metadata.json'),
                         JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
                     );
                 } catch (ParsingException $e) {
@@ -276,7 +276,7 @@ class Test extends Command
             }
 
             $this->tests[$testDir->getFilename()] = [
-                'path'     => $testDir->getPathName(),
+                'path'     => $testDir->getPathname(),
                 'metadata' => $metadata,
             ];
         }

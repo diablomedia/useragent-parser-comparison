@@ -68,7 +68,7 @@ class Parse extends Command
 
         if ($singleUa) {
             $result = [];
-            $file = new \SplFileObject($file);
+            $file   = new \SplFileObject($file);
             $file->setFlags(\SplFileObject::DROP_NEW_LINE);
 
             while (!$file->eof()) {
@@ -89,12 +89,12 @@ class Parse extends Command
                         ];
                     }
 
-                    $output->write("\t".'Testing against the '.$parserName.' parser... ');
+                    $output->write("\t" . 'Testing against the ' . $parserName . ' parser... ');
                     $singleResult = $parser['parse-ua']($agentString);
 
                     if (empty($singleResult)) {
                         $output->writeln(
-                            '<error>The '.$parserName.' parser did not return any data, there may have been an error</error>'
+                            '<error>The ' . $parserName . ' parser did not return any data, there may have been an error</error>'
                         );
 
                         continue;
@@ -122,12 +122,12 @@ class Parse extends Command
 
                 foreach ($parsers as $parserName => $parser) {
                     if ($name) {
-                        if (!file_exists($this->runDir.'/'.$name.'/results/'.$parserName)) {
-                            mkdir($this->runDir.'/'.$name.'/results/'.$parserName);
+                        if (!file_exists($this->runDir . '/' . $name . '/results/' . $parserName)) {
+                            mkdir($this->runDir . '/' . $name . '/results/' . $parserName);
                         }
 
                         file_put_contents(
-                            $this->runDir.'/'.$name.'/results/'.$parserName.'/'.basename($file).'.json',
+                            $this->runDir . '/' . $name . '/results/' . $parserName . '/' . basename($file) . '.json',
                             json_encode($result[$parserName], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
                         );
                     }
@@ -142,8 +142,8 @@ class Parse extends Command
                         }
 
                         $rows[] = [
-                            new TableCell('<fg=yellow>'.$parsed['useragent'].'</>', ['colspan' => '7']),
-                            round($parsed['time'], 5).'s'
+                            new TableCell('<fg=yellow>' . $parsed['useragent'] . '</>', ['colspan' => '7']),
+                            round($parsed['time'], 5) . 's',
                         ];
                         $rows[] = [
                             $parsed['parsed']['browser']['name'],
@@ -191,7 +191,7 @@ class Parse extends Command
                                     'time',
                                 ],
                                 $csvFile
-                            )."\n";
+                            ) . "\n";
 
                         foreach ($result[$parserName]['results'] as $parsed) {
                             $out = [
@@ -207,11 +207,11 @@ class Parse extends Command
                                 $parsed['time'],
                             ];
 
-                            $csvOutput .= $this->putcsv($out, $csvFile)."\n";
+                            $csvOutput .= $this->putcsv($out, $csvFile) . "\n";
                         }
 
                         if ($csvFile) {
-                            $output->writeln('Wrote CSV data to '.$csvFile);
+                            $output->writeln('Wrote CSV data to ' . $csvFile);
                         } else {
                             $output->writeln($csvOutput);
                             $question = new Question('Press enter to continue', 'yes');
@@ -224,12 +224,12 @@ class Parse extends Command
             $output->writeln('<comment>Preparing to parse ' . $file . '</comment>');
 
             foreach ($parsers as $parserName => $parser) {
-                $output->write("\t".'Testing against the '.$parserName.' parser... ');
+                $output->write("\t" . 'Testing against the ' . $parserName . ' parser... ');
                 $result = $parser['parse']($file);
 
                 if (empty($result)) {
                     $output->writeln(
-                        '<error>The '.$parserName.' parser did not return any data, there may have been an error</error>'
+                        '<error>The ' . $parserName . ' parser did not return any data, there may have been an error</error>'
                     );
 
                     continue;
@@ -240,12 +240,12 @@ class Parse extends Command
                 }
 
                 if ($name) {
-                    if (!file_exists($this->runDir.'/'.$name.'/results/'.$parserName)) {
-                        mkdir($this->runDir.'/'.$name.'/results/'.$parserName);
+                    if (!file_exists($this->runDir . '/' . $name . '/results/' . $parserName)) {
+                        mkdir($this->runDir . '/' . $name . '/results/' . $parserName);
                     }
 
                     file_put_contents(
-                        $this->runDir.'/'.$name.'/results/'.$parserName.'/'.basename($file).'.json',
+                        $this->runDir . '/' . $name . '/results/' . $parserName . '/' . basename($file) . '.json',
                         json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
                     );
                 }
@@ -260,8 +260,8 @@ class Parse extends Command
                     }
 
                     $rows[] = [
-                        new TableCell('<fg=yellow>'.$parsed['useragent'].'</>', ['colspan' => '7']),
-                        round($parsed['time'], 5).'s'
+                        new TableCell('<fg=yellow>' . $parsed['useragent'] . '</>', ['colspan' => '7']),
+                        round($parsed['time'], 5) . 's',
                     ];
                     $rows[] = [
                         $parsed['parsed']['browser']['name'],
@@ -309,7 +309,7 @@ class Parse extends Command
                                 'time',
                             ],
                             $csvFile
-                        )."\n";
+                        ) . "\n";
 
                     foreach ($result['results'] as $parsed) {
                         $out = [
@@ -325,11 +325,11 @@ class Parse extends Command
                             $parsed['time'],
                         ];
 
-                        $csvOutput .= $this->putcsv($out, $csvFile)."\n";
+                        $csvOutput .= $this->putcsv($out, $csvFile) . "\n";
                     }
 
                     if ($csvFile) {
-                        $output->writeln('Wrote CSV data to '.$csvFile);
+                        $output->writeln('Wrote CSV data to ' . $csvFile);
                     } else {
                         $output->writeln($csvOutput);
                         $question = new Question('Press enter to continue', 'yes');

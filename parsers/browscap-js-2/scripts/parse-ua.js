@@ -7,12 +7,14 @@ var browscap = new Browscap();
 browscap.getBrowser('Test String');
 var initTime = process.hrtime(initStart)[1] / 1000000000;
 
-var browscapPackage = require(require('path').dirname(require.resolve('browscap-js')) + '/package.json');
+var browscapPackage = require(require('path').dirname(
+    require.resolve('browscap-js')
+) + '/package.json');
 var version = browscapPackage.version;
 
 var hasUa = false;
 var uaPos = process.argv.indexOf('--ua');
-var line  = '';
+var line = '';
 if (uaPos >= 0) {
     line = process.argv[2];
     hasUa = true;
@@ -36,20 +38,20 @@ if (hasUa) {
         parsed: {
             browser: {
                 name: browser.Browser,
-                version: browser.Version,
+                version: browser.Version
             },
             platform: {
                 name: browser.Platform,
-                version: browser.Platform_Version,
+                version: browser.Platform_Version
             },
             device: {
                 name: browser.Device_Name,
                 brand: browser.Device_Maker,
                 type: browser.Device_Type,
-                ismobile: browser.isMobileDevice ? true : false,
-            },
+                ismobile: browser.isMobileDevice ? true : false
+            }
         },
-        time: end,
+        time: end
     };
 }
 

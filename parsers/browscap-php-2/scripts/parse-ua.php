@@ -4,11 +4,11 @@
 ini_set('memory_limit', -1);
 ini_set('max_execution_time', -1);
 
-$uaPos = array_search('--ua', $argv);
-$hasUa    = false;
+$uaPos       = array_search('--ua', $argv);
+$hasUa       = false;
 $agentString = '';
 
-if (false !== $uaPos) {
+if ($uaPos !== false) {
     $hasUa = true;
 
     $agentString = $argv[1];

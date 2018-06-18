@@ -1,6 +1,10 @@
 <?php
 
 declare(strict_types = 1);
+
+use Seld\JsonLint\JsonParser;
+use Seld\JsonLint\ParsingException;
+
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 ini_set('memory_limit', '-1');
 ini_set('max_execution_time', '-1');
@@ -26,7 +30,7 @@ $base = [
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$jsonParser = new \Seld\JsonLint\JsonParser();
+$jsonParser = new JsonParser();
 
 $finder = new \Symfony\Component\Finder\Finder();
 $finder->files();
@@ -54,9 +58,9 @@ foreach ($finder as $fixture) {
     try {
         $provider = $jsonParser->parse(
             $content,
-            \Seld\JsonLint\JsonParser::DETECT_KEY_CONFLICTS | \Seld\JsonLint\JsonParser::PARSE_TO_ASSOC
+            JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
         );
-    } catch (\Seld\JsonLint\ParsingException $e) {
+    } catch (ParsingException $e) {
         continue;
     }
 
@@ -94,8 +98,15 @@ foreach ($finder as $fixture) {
 }
 
 // Get version from installed module's package.json
-$package = json_decode(file_get_contents(__DIR__ . '/../node_modules/ua-parser-js/package.json'));
-$version = $package->version;
+try {
+    $package = $jsonParser->parse(
+        file_get_contents(__DIR__ . '/../node_modules/ua-parser-js/package.json'),
+        JsonParser::DETECT_KEY_CONFLICTS
+    );
+    $version = $package->version;
+} catch (ParsingException $e) {
+    $version = null;
+}
 
 echo json_encode([
     'tests'   => $uas,

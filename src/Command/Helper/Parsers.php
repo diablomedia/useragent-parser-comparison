@@ -37,10 +37,10 @@ class Parsers extends Helper
 
             $parserDir = new SplFileInfo($this->parsersDir . '/' . $dir);
 
-            if (file_exists($parserDir->getPathName() . '/metadata.json')) {
+            if (file_exists($parserDir->getPathname() . '/metadata.json')) {
                 try {
                     $metadata = $jsonParser->parse(
-                        file_get_contents($parserDir->getPathName().'/metadata.json'),
+                        file_get_contents($parserDir->getPathname() . '/metadata.json'),
                         JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
                     );
                 } catch (ParsingException $e) {
@@ -51,7 +51,7 @@ class Parsers extends Helper
             }
 
             $parsers[$parserDir->getFilename()] = [
-                'path'     => $parserDir->getPathName(),
+                'path'     => $parserDir->getPathname(),
                 'metadata' => $metadata,
                 'parse'    => static function ($file, $benchmark = false) use ($parserDir, $jsonParser) {
                     $args = [
@@ -61,7 +61,7 @@ class Parsers extends Helper
                         $args[] = '--benchmark';
                     }
 
-                    $result = shell_exec($parserDir->getPathName() . '/parse.sh ' . implode(' ', $args));
+                    $result = shell_exec($parserDir->getPathname() . '/parse.sh ' . implode(' ', $args));
 
                     if ($result !== null) {
                         $result = $jsonParser->parse(
@@ -73,7 +73,7 @@ class Parsers extends Helper
                     return $result;
                 },
                 'parse-ua' => static function (string $useragent) use ($parserDir, $jsonParser) {
-                    $result = shell_exec($parserDir->getPathName() . '/parse-ua.sh --ua=' . escapeshellarg($useragent));
+                    $result = shell_exec($parserDir->getPathname() . '/parse-ua.sh --ua=' . escapeshellarg($useragent));
 
                     if ($result !== null) {
                         $result = $jsonParser->parse(

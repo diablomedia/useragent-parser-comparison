@@ -7,12 +7,14 @@ var browscap = new Browscap();
 browscap.getBrowser('Test String');
 var initTime = process.hrtime(initStart)[1] / 1000000000;
 
-var browscapPackage = require(require('path').dirname(require.resolve('browscap-js')) + '/package.json');
+var browscapPackage = require(require('path').dirname(
+    require.resolve('browscap-js')
+) + '/package.json');
 var version = browscapPackage.version;
 
 var hasUa = false;
 var uaPos = process.argv.indexOf('--ua');
-var line  = '';
+var line = '';
 if (uaPos >= 0) {
     line = process.argv[2];
     hasUa = true;

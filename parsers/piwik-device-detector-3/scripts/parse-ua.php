@@ -4,11 +4,11 @@
 ini_set('memory_limit', -1);
 ini_set('max_execution_time', -1);
 
-$uaPos = array_search('--ua', $argv);
-$hasUa    = false;
+$uaPos       = array_search('--ua', $argv);
+$hasUa       = false;
 $agentString = '';
 
-if (false !== $uaPos) {
+if ($uaPos !== false) {
     $hasUa = true;
 
     $agentString = $argv[1];
@@ -52,9 +52,9 @@ if ($hasUa) {
                 'version' => $osInfo['version'] ?? '',
             ],
             'device' => [
-                'name'     => null !== $model ? $model : '',
-                'brand'    => null !== $brand ? $brand : '',
-                'type'     => null !== $device ? $device : '',
+                'name'     => $model !== null ? $model : '',
+                'brand'    => $brand !== null ? $brand : '',
+                'type'     => $device !== null ? $device : '',
                 'ismobile' => $isMobile ? true : false,
             ],
         ],
