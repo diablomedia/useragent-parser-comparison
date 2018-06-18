@@ -15,17 +15,17 @@ $agentString = '';
 if ($uaPos !== false) {
     $hasUa = true;
 
-    $agentString = $argv[1];
+    $agentString = $argv[2];
 }
 
 $result    = null;
 $parseTime = 0;
 
 $start = microtime(true);
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 $browscap = new \Crossjoin\Browscap\Browscap();
 
-$parser = new \Crossjoin\Browscap\Parser\Sqlite\Parser(__DIR__ . '/data');
+$parser = new \Crossjoin\Browscap\Parser\Sqlite\Parser(__DIR__ . '/../data');
 $browscap->setParser($parser);
 $browscap->getBrowser('Test String');
 $initTime = microtime(true) - $start;

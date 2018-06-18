@@ -11,15 +11,15 @@ $agentString = '';
 if ($uaPos !== false) {
     $hasUa = true;
 
-    $agentString = $argv[1];
+    $agentString = $argv[2];
 }
 
 $result    = null;
 $parseTime = 0;
 
 $start = microtime(true);
-require __DIR__ . '/vendor/autoload.php';
-$cacheDir = __DIR__ . '/data';
+require __DIR__ . '/../vendor/autoload.php';
+$cacheDir = __DIR__ . '/../data';
 $bc       = new \BrowscapPHP\Browscap();
 $adapter  = new \WurflCache\Adapter\File([\WurflCache\Adapter\File::DIR => $cacheDir]);
 $bc->setCache($adapter);

@@ -11,14 +11,14 @@ $agentString = '';
 if ($uaPos !== false) {
     $hasUa = true;
 
-    $agentString = $argv[1];
+    $agentString = $argv[2];
 }
 
 $result    = null;
 $parseTime = 0;
 
 $start = microtime(true);
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 UserAgentFactory::analyze('Test String');
 $initTime = microtime(true) - $start;
 

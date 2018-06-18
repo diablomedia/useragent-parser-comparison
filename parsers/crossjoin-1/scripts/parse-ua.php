@@ -11,15 +11,15 @@ $agentString = '';
 if ($uaPos !== false) {
     $hasUa = true;
 
-    $agentString = $argv[1];
+    $agentString = $argv[2];
 }
 
 $result    = null;
 $parseTime = 0;
 
 $start = microtime(true);
-require __DIR__ . '/vendor/autoload.php';
-$cacheDir = __DIR__ . '/data';
+require __DIR__ . '/../vendor/autoload.php';
+$cacheDir = __DIR__ . '/../data';
 \Crossjoin\Browscap\Cache\File::setCacheDirectory($cacheDir);
 \Crossjoin\Browscap\Browscap::setDatasetType(\Crossjoin\Browscap\Browscap::DATASET_TYPE_LARGE);
 $updater = new \Crossjoin\Browscap\Updater\None();

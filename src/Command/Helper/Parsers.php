@@ -53,7 +53,7 @@ class Parsers extends Helper
             $parsers[$parserDir->getFilename()] = [
                 'path'     => $parserDir->getPathname(),
                 'metadata' => $metadata,
-                'parse'    => static function ($file, $benchmark = false) use ($parserDir, $jsonParser) {
+                'parse'    => static function ($file, $benchmark = false) use ($parserDir, $jsonParser, $output) {
                     $args = [
                         escapeshellarg($file),
                     ];
@@ -64,22 +64,32 @@ class Parsers extends Helper
                     $result = shell_exec($parserDir->getPathname() . '/parse.sh ' . implode(' ', $args));
 
                     if ($result !== null) {
-                        $result = $jsonParser->parse(
-                            trim($result),
-                            JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
-                        );
+                        try {
+                            $result = $jsonParser->parse(
+                                trim($result),
+                                JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
+                            );
+                        } catch (ParsingException $e) {
+                            $output->writeln('<error>' . $result . $e . '</error>');
+                            $result = null;
+                        }
                     }
 
                     return $result;
                 },
-                'parse-ua' => static function (string $useragent) use ($parserDir, $jsonParser) {
-                    $result = shell_exec($parserDir->getPathname() . '/parse-ua.sh --ua=' . escapeshellarg($useragent));
+                'parse-ua' => static function (string $useragent) use ($parserDir, $jsonParser, $output) {
+                    $result = shell_exec($parserDir->getPathname() . '/parse-ua.sh --ua ' . escapeshellarg($useragent));
 
                     if ($result !== null) {
-                        $result = $jsonParser->parse(
-                            trim($result),
-                            JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
-                        );
+                        try {
+                            $result = $jsonParser->parse(
+                                trim($result),
+                                JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
+                            );
+                        } catch (ParsingException $e) {
+                            $output->writeln('<error>' . $result . $e . '</error>');
+                            $result = null;
+                        }
                     }
 
                     return $result;

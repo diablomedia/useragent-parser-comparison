@@ -140,6 +140,8 @@ class Test extends Command
                 foreach (array_keys($testOutput['tests']) as $agent) {
                     $agent = addcslashes($agent, PHP_EOL);
 
+                    $output->writeln("\t" . 'Testing UA "' . $agent . '" ... ');
+
                     foreach ($parsers as $parserName => $parser) {
                         if (!array_key_exists($parserName, $result)) {
                             $result[$parserName] = [
@@ -151,7 +153,7 @@ class Test extends Command
                             ];
                         }
 
-                        $output->write("\t" . 'Testing against the ' . $parserName . ' parser... ');
+                        $output->write("\t\t" . 'Testing against the ' . $parserName . ' parser... ');
                         $singleResult = $parser['parse-ua']($agent);
 
                         if (empty($singleResult)) {
@@ -185,6 +187,8 @@ class Test extends Command
 
                         $output->writeln('<info> done!</info>');
                     }
+
+                    $output->writeln("\t" . '<info>done!</info>');
                 }
 
                 foreach (array_keys($parsers) as $parserName) {

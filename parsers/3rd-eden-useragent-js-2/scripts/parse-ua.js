@@ -14,7 +14,7 @@ var hasUa = false;
 var uaPos = process.argv.indexOf('--ua');
 var line = '';
 if (uaPos >= 0) {
-    line = process.argv[2];
+    line = process.argv[3];
     hasUa = true;
 }
 
@@ -31,7 +31,7 @@ if (hasUa) {
     var r = parser.parse(line),
         os = r.os,
         device = r.device;
-    output.parse_time = process.hrtime(start)[1] / 1000000000;
+    var end = process.hrtime(start)[1] / 1000000000;
 
     var outputDevice = {
         name: '',
@@ -62,6 +62,7 @@ if (hasUa) {
         },
         time: end
     };
+    output.parse_time = end;
 }
 
 output.memory_used = process.memoryUsage().heapUsed;

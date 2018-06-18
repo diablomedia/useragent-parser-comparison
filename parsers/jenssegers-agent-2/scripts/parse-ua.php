@@ -11,14 +11,14 @@ $agentString = '';
 if ($uaPos !== false) {
     $hasUa = true;
 
-    $agentString = $argv[1];
+    $agentString = $argv[2];
 }
 
 $result    = null;
 $parseTime = 0;
 
 $start = microtime(true);
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 use Jenssegers\Agent\Agent;
 

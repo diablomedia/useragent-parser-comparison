@@ -17,6 +17,7 @@ class Compare extends Command
     {
         $this->setName('compare')
             ->setDescription('Runs tests, normalizes the results then analyzes the results')
+            ->addArgument('run', InputArgument::OPTIONAL, 'The name of the test run, if omitted will be generated from date')
             ->addArgument('file', InputArgument::OPTIONAL, 'Path to a file to use as the source of useragents rather than test suites')
             ->addOption('single-ua', null, InputOption::VALUE_NONE, 'parses one useragent after another')
             ->setHelp('This command is a "meta" command that will execute the Test, Normalize and Analyze commands in order');
@@ -34,10 +35,15 @@ class Compare extends Command
     {
         $file = $input->getArgument('file');
 
-        if ($file) {
-            $command = $this->getApplication()->find('parse');
-            $name    = date('YmdHis');
+        // Prepare our test directory to store the data from this run
+        $name = $input->getArgument('run');
 
+        if (empty($name)) {
+            $name = date('YmdHis');
+        }
+
+        if ($file) {
+            $command   = $this->getApplication()->find('parse');
             $arguments = [
                 'command'     => 'parse',
                 'file'        => $file,
@@ -58,9 +64,7 @@ class Compare extends Command
                 return $returnCode;
             }
         } else {
-            $command = $this->getApplication()->find('test');
-            $name    = date('YmdHis');
-
+            $command   = $this->getApplication()->find('test');
             $arguments = [
                 'command' => 'test',
                 'run'     => $name,

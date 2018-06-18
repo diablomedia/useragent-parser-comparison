@@ -14,7 +14,7 @@ var hasUa = false;
 var uaPos = process.argv.indexOf('--ua');
 var line = '';
 if (uaPos >= 0) {
-    line = process.argv[2];
+    line = process.argv[3];
     hasUa = true;
 }
 
@@ -28,8 +28,8 @@ var output = {
 
 if (hasUa) {
     var start = process.hrtime();
-    var browser = browscap.getBrowser(line);
-    output.parse_time = process.hrtime(start)[1] / 1000000000;
+    var r = parser.parse(line);
+    var end = process.hrtime(start)[1] / 1000000000;
 
     output.result = {
         useragent: line,
@@ -51,6 +51,7 @@ if (hasUa) {
         },
         time: end
     };
+    output.parse_time = end;
 }
 
 output.memory_used = process.memoryUsage().heapUsed;

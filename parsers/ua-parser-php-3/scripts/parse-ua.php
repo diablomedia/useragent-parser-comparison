@@ -11,14 +11,14 @@ $agentString = '';
 if ($uaPos !== false) {
     $hasUa = true;
 
-    $agentString = $argv[1];
+    $agentString = $argv[2];
 }
 
 $result    = null;
 $parseTime = 0;
 
 $start = microtime(true);
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 $parser = UAParser\Parser::create();
 $parser->parse('Test String');
 $initTime = microtime(true) - $start;
@@ -60,7 +60,7 @@ $memory = memory_get_peak_usage();
 // Get version from composer
 $package = new \PackageInfo\Package('ua-parser/uap-php');
 
-$regexVersion = file_get_contents(__DIR__ . '/version.txt');
+$regexVersion = file_get_contents(__DIR__ . '/../version.txt');
 
 echo json_encode([
     'result'      => $result,
