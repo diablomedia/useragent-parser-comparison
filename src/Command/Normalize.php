@@ -91,7 +91,7 @@ class Normalize extends Command
                     json_encode($normalized, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
                 );
 
-                $output->writeln('<info> done!</info>');
+                $output->writeln('<info>done!</info>');
             }
         }
 
@@ -140,7 +140,7 @@ class Normalize extends Command
                         json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
                     );
 
-                    $output->writeln('<info> done!</info>');
+                    $output->writeln('<info>done!</info>');
                 }
             }
         }

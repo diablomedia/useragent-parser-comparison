@@ -117,7 +117,7 @@ class Parse extends Command
                     $result[$parserName]['parse_time'] += $singleResult['parse_time'];
                     $result[$parserName]['version'] = $singleResult['version'];
 
-                    $output->writeln('<info> done!</info>');
+                    $output->writeln('<info>done!</info>');
                 }
 
                 foreach ($parsers as $parserName => $parser) {
@@ -158,7 +158,7 @@ class Parse extends Command
                         $rows[] = new TableSeparator();
                     }
 
-                    $output->writeln('<info> done!</info>');
+                    $output->writeln('<info>done!</info>');
 
                     array_pop($rows);
 
@@ -276,7 +276,7 @@ class Parse extends Command
                     $rows[] = new TableSeparator();
                 }
 
-                $output->writeln('<info> done!</info>');
+                $output->writeln('<info>done!</info>');
 
                 array_pop($rows);
 

@@ -133,7 +133,7 @@ class Test extends Command
                 $testData['metadata']['version'] = $testOutput['version'];
             }
 
-            $output->writeln('<info>  done!</info>');
+            $output->writeln('<info>done! [' . count($testOutput['tests']) . ' tests]</info>');
 
             if ($input->getOption('single-ua')) {
                 $result = [];
@@ -185,7 +185,7 @@ class Test extends Command
                         $result[$parserName]['version'] = $singleResult['version'];
                     }
 
-                    $output->writeln('<info> done!</info>');
+                    $output->writeln('<info>done!</info>');
                 }
 
                 foreach (array_keys($parsers) as $parserName) {
@@ -210,7 +210,7 @@ class Test extends Command
                 });
 
                 file_put_contents($filename, implode(PHP_EOL, $agents));
-                $output->writeln('<info>  done!</info>');
+                $output->writeln('<info>done!</info>');
 
                 foreach ($parsers as $parserName => $parser) {
                     $output->write("\t" . 'Testing against the ' . $parserName . ' parser... ');
@@ -236,7 +236,7 @@ class Test extends Command
                         $resultsDir . '/' . $parserName . '/' . $testName . '.json',
                         json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
                     );
-                    $output->writeln('<info> done!</info>');
+                    $output->writeln('<info>done!</info>');
                 }
             }
 
