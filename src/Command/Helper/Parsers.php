@@ -4,6 +4,9 @@ declare(strict_types = 1);
 
 namespace UserAgentParserComparison\Command\Helper;
 
+use Seld\JsonLint\JsonParser;
+use Seld\JsonLint\ParsingException;
+use SplFileInfo;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,10 +15,6 @@ use Symfony\Component\Console\Question\ChoiceQuestion;
 
 class Parsers extends Helper
 {
-    private $parsers = [];
-
-    private $selectedParsers = [];
-
     private $parsersDir = __DIR__ . '/../../../parsers';
 
     public function getName()
@@ -23,19 +22,38 @@ class Parsers extends Helper
         return 'parsers';
     }
 
-    public function getParsers(InputInterface $input, OutputInterface $output, $multiple = true)
+    public function getParsers(InputInterface $input, OutputInterface $output, bool $multiple = true): array
     {
-        foreach (new \FilesystemIterator($this->parsersDir) as $parserDir) {
-            if (file_exists($parserDir->getPathName() . '/metadata.json')) {
-                $metadata = json_decode(file_get_contents($parserDir->getPathName() . '/metadata.json'), true);
+        $jsonParser = new JsonParser();
+
+        $rows    = [];
+        $names   = [];
+        $parsers = [];
+
+        foreach (scandir($this->parsersDir) as $dir) {
+            if (in_array($dir, ['.', '..'])) {
+                continue;
+            }
+
+            $parserDir = new SplFileInfo($this->parsersDir . '/' . $dir);
+
+            if (file_exists($parserDir->getPathname() . '/metadata.json')) {
+                try {
+                    $metadata = $jsonParser->parse(
+                        file_get_contents($parserDir->getPathname() . '/metadata.json'),
+                        JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
+                    );
+                } catch (ParsingException $e) {
+                    $metadata = [];
+                }
             } else {
                 $metadata = [];
             }
 
-            $this->parsers[$parserDir->getFilename()] = [
-                'path'     => $parserDir->getPathName(),
+            $parsers[$parserDir->getFilename()] = [
+                'path'     => $parserDir->getPathname(),
                 'metadata' => $metadata,
-                'parse'    => static function ($file, $benchmark = false) use ($parserDir) {
+                'parse'    => static function ($file, $benchmark = false) use ($parserDir, $jsonParser, $output) {
                     $args = [
                         escapeshellarg($file),
                     ];
@@ -43,37 +61,48 @@ class Parsers extends Helper
                         $args[] = '--benchmark';
                     }
 
-                    $file = realpath(getcwd() . '/' . $file);
-
-                    $result = shell_exec($parserDir->getPathName() . '/parse.sh ' . implode(' ', $args));
+                    $result = shell_exec($parserDir->getPathname() . '/parse.sh ' . implode(' ', $args));
 
                     if ($result !== null) {
-                        $result = trim($result);
+                        try {
+                            $result = $jsonParser->parse(
+                                trim($result),
+                                JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
+                            );
+                        } catch (ParsingException $e) {
+                            $output->writeln('<error>' . $result . $e . '</error>');
+                            $result = null;
+                        }
+                    }
 
-                        $result = json_decode($result, true);
+                    return $result;
+                },
+                'parse-ua' => static function (string $useragent) use ($parserDir, $jsonParser, $output) {
+                    $result = shell_exec($parserDir->getPathname() . '/parse-ua.sh --ua ' . escapeshellarg($useragent));
 
-                        if (json_last_error() !== JSON_ERROR_NONE) {
-                            return null;
+                    if ($result !== null) {
+                        try {
+                            $result = $jsonParser->parse(
+                                trim($result),
+                                JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
+                            );
+                        } catch (ParsingException $e) {
+                            $output->writeln('<error>' . $result . $e . '</error>');
+                            $result = null;
                         }
                     }
 
                     return $result;
                 },
             ];
-        }
 
-        $rows  = [];
-        $names = [];
-
-        ksort($this->parsers);
-
-        foreach ($this->parsers as $name => $data) {
             $rows[] = [
-                $data['metadata']['name'] ?? $name,
-                $data['metadata']['language'] ?? '',
-                $data['metadata']['data_source'] ?? '',
+                $metadata['name'] ?? $parserDir->getFilename(),
+                $metadata['language'] ?? '',
+                $metadata['data_source'] ?? '',
             ];
-            $names[$data['metadata']['name'] ?? $name] = $name;
+
+            $names[$metadata['name'] ?? $parserDir->getFilename()] = $parserDir->getFilename();
         }
 
         $table = new Table($output);
@@ -87,8 +116,6 @@ class Parsers extends Helper
         if ($multiple === true) {
             $questions[] = 'All Parsers';
         }
-
-        $helper = $this->helperSet->get('question');
 
         if ($multiple === true) {
             $questionText = 'Choose which parsers to use, separate multiple with commas (press enter to use all)';
@@ -108,20 +135,22 @@ class Parsers extends Helper
             $question->setMultiselect(true);
         }
 
+        $helper  = $this->helperSet->get('question');
         $answers = $helper->ask($input, $output, $question);
 
-        $answers = (array) $answers;
+        $answers         = (array) $answers;
+        $selectedParsers = [];
 
         foreach ($answers as $name) {
             if ($name === 'All Parsers') {
-                $this->selectedParsers = $this->parsers;
+                $selectedParsers = $parsers;
 
                 break;
             }
 
-            $this->selectedParsers[$names[$name]] = $this->parsers[$names[$name]];
+            $selectedParsers[$names[$name]] = $parsers[$names[$name]];
         }
 
-        return $this->selectedParsers;
+        return $selectedParsers;
     }
 }

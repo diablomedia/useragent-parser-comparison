@@ -24,26 +24,29 @@ class Parse extends Command
         $this->setName('parse')
             ->setDescription('Parses useragents in a file using the selected parser(s)')
             ->addArgument('file', InputArgument::REQUIRED, 'Path to the file to parse')
+            ->addArgument('run', InputArgument::OPTIONAL, 'Name of the run, for storing results')
             ->addOption('normalize', null, InputOption::VALUE_NONE, 'Whether to normalize the output')
-            ->addOption('name', null, InputOption::VALUE_OPTIONAL, 'Name of the run, for storing results')
             ->addOption('csv', null, InputOption::VALUE_NONE, 'Outputs CSV without showing CLI table')
-            ->addOption('csv-file', null, InputOption::VALUE_OPTIONAL, 'File name to output CSV data to')
             ->addOption('no-output', null, InputOption::VALUE_NONE, 'Disables output after parsing, useful when chaining commands')
+            ->addOption('csv-file', null, InputOption::VALUE_OPTIONAL, 'File name to output CSV data to, implies the options "csv" and "no-output"')
+            ->addOption('single-ua', null, InputOption::VALUE_NONE, 'parses one useragent after another')
             ->setHelp('Parses the useragent strings (one per line) from the passed in file and outputs the parsed properties.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
         $file      = $input->getArgument('file');
         $normalize = $input->getOption('normalize');
         $csv       = $input->getOption('csv');
-        $name      = $input->getOption('name');
+        $name      = $input->getArgument('run');
         $noOutput  = $input->getOption('no-output');
         $csvFile   = $input->getOption('csv-file');
+        $singleUa  = $input->getOption('single-ua');
 
         if ($csvFile) {
             $noOutput = true;
             $csv      = true;
+            $singleUa = false;
         }
 
         $parserHelper    = $this->getHelper('parsers');
@@ -61,90 +64,206 @@ class Parse extends Command
             mkdir($this->runDir . '/' . $name . '/results');
         }
 
-        $output->writeln('<comment>Preparing to parse ' . $file . '</comment>');
-
         $parsers = $parserHelper->getParsers($input, $output);
 
-        foreach ($parsers as $parserName => $parser) {
-            $output->write("\t" . 'Testing against the ' . $parserName . ' parser... ');
-            $result = $parser['parse']($file);
+        if ($singleUa) {
+            $result = [];
+            $file   = new \SplFileObject($file);
+            $file->setFlags(\SplFileObject::DROP_NEW_LINE);
 
-            if (empty($result)) {
-                $output->writeln('<error>The ' . $parserName . ' parser did not return any data, there may have been an error</error>');
+            while (!$file->eof()) {
+                $agentString = $file->fgets();
 
-                continue;
-            }
-
-            if (isset($result['version'])) {
-                $parsers[$parserName]['metadata']['version'] = $result['version'];
-            }
-
-            if ($name) {
-                if (!file_exists($this->runDir . '/' . $name . '/results/' . $parserName)) {
-                    mkdir($this->runDir . '/' . $name . '/results/' . $parserName);
+                if (empty($agentString)) {
+                    continue;
                 }
 
-                file_put_contents(
-                    $this->runDir . '/' . $name . '/results/' . $parserName . '/' . basename($file) . '.json',
-                    json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
-                );
-            }
+                foreach ($parsers as $parserName => $parser) {
+                    if (!array_key_exists($parserName, $result)) {
+                        $result[$parserName] = [
+                            'results'     => [],
+                            'parse_time'  => 0,
+                            'init_time'   => 0,
+                            'memory_used' => 0,
+                            'version'     => null,
+                        ];
+                    }
 
-            $rows = [];
-            foreach ($result['results'] as $parsed) {
-                if ($normalize) {
-                    $parsed['parsed'] = $normalizeHelper->normalize($parsed['parsed'], $parser['metadata']['data_source']);
+                    $output->write("\t" . 'Testing against the ' . $parserName . ' parser... ');
+                    $singleResult = $parser['parse-ua']($agentString);
+
+                    if (empty($singleResult)) {
+                        $output->writeln(
+                            '<error>The ' . $parserName . ' parser did not return any data, there may have been an error</error>'
+                        );
+
+                        continue;
+                    }
+
+                    if (isset($singleResult['version'])) {
+                        $parsers[$parserName]['metadata']['version'] = $singleResult['version'];
+                    }
+
+                    $result[$parserName]['results'][] = $singleResult['result'];
+
+                    if ($singleResult['init_time'] > $result[$parserName]['init_time']) {
+                        $result[$parserName]['init_time'] = $singleResult['init_time'];
+                    }
+
+                    if ($singleResult['memory_used'] > $result[$parserName]['memory_used']) {
+                        $result[$parserName]['memory_used'] = $singleResult['memory_used'];
+                    }
+
+                    $result[$parserName]['parse_time'] += $singleResult['parse_time'];
+                    $result[$parserName]['version'] = $singleResult['version'];
+
+                    $output->writeln('<info>done!</info>');
                 }
 
-                $rows[] = [new TableCell('<fg=yellow>' . $parsed['useragent'] . '</>', ['colspan' => '7']), round($parsed['time'], 5) . 's'];
-                $rows[] = [
-                    $parsed['parsed']['browser']['name'],
-                    $parsed['parsed']['browser']['version'],
-                    $parsed['parsed']['platform']['name'],
-                    $parsed['parsed']['platform']['version'],
-                    $parsed['parsed']['device']['name'],
-                    $parsed['parsed']['device']['brand'],
-                    $parsed['parsed']['device']['type'],
-                    $parsed['parsed']['device']['ismobile'],
-                ];
-                $rows[] = new TableSeparator();
+                foreach ($parsers as $parserName => $parser) {
+                    if ($name) {
+                        if (!file_exists($this->runDir . '/' . $name . '/results/' . $parserName)) {
+                            mkdir($this->runDir . '/' . $name . '/results/' . $parserName);
+                        }
+
+                        file_put_contents(
+                            $this->runDir . '/' . $name . '/results/' . $parserName . '/' . basename($file) . '.json',
+                            json_encode($result[$parserName], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+                        );
+                    }
+
+                    $rows = [];
+                    foreach ($result[$parserName]['results'] as $parsed) {
+                        if ($normalize) {
+                            $parsed['parsed'] = $normalizeHelper->normalize(
+                                $parsed['parsed'],
+                                $parser['metadata']['data_source']
+                            );
+                        }
+
+                        $rows[] = [
+                            new TableCell('<fg=yellow>' . $parsed['useragent'] . '</>', ['colspan' => '7']),
+                            round($parsed['time'], 5) . 's',
+                        ];
+                        $rows[] = [
+                            $parsed['parsed']['browser']['name'],
+                            $parsed['parsed']['browser']['version'],
+                            $parsed['parsed']['platform']['name'],
+                            $parsed['parsed']['platform']['version'],
+                            $parsed['parsed']['device']['name'],
+                            $parsed['parsed']['device']['brand'],
+                            $parsed['parsed']['device']['type'],
+                            $parsed['parsed']['device']['ismobile'],
+                        ];
+                        $rows[] = new TableSeparator();
+                    }
+
+                    $output->writeln('<info>done!</info>');
+
+                    array_pop($rows);
+
+                    $table->setRows($rows);
+
+                    $answer = '';
+
+                    if (!$csv && !$noOutput) {
+                        $table->render();
+
+                        $question = new ChoiceQuestion('What would you like to do?', ['Dump as CSV', 'Continue'], 1);
+
+                        $answer = $questionHelper->ask($input, $output, $question);
+                    }
+
+                    if ($csv || $answer === 'Dump as CSV') {
+                        $csvOutput = '';
+
+                        $csvOutput .= $this->putcsv(
+                                [
+                                    'useragent',
+                                    'browser_name',
+                                    'browser_version',
+                                    'platform_name',
+                                    'platform_version',
+                                    'device_name',
+                                    'device_brand',
+                                    'device_type',
+                                    'ismobile',
+                                    'time',
+                                ],
+                                $csvFile
+                            ) . "\n";
+
+                        foreach ($result[$parserName]['results'] as $parsed) {
+                            $out = [
+                                $parsed['useragent'],
+                                $parsed['parsed']['browser']['name'],
+                                $parsed['parsed']['browser']['version'],
+                                $parsed['parsed']['platform']['name'],
+                                $parsed['parsed']['platform']['version'],
+                                $parsed['parsed']['device']['name'],
+                                $parsed['parsed']['device']['brand'],
+                                $parsed['parsed']['device']['type'],
+                                $parsed['parsed']['device']['ismobile'],
+                                $parsed['time'],
+                            ];
+
+                            $csvOutput .= $this->putcsv($out, $csvFile) . "\n";
+                        }
+
+                        if ($csvFile) {
+                            $output->writeln('Wrote CSV data to ' . $csvFile);
+                        } else {
+                            $output->writeln($csvOutput);
+                            $question = new Question('Press enter to continue', 'yes');
+                            $questionHelper->ask($input, $output, $question);
+                        }
+                    }
+                }
             }
+        } else {
+            $output->writeln('<comment>Preparing to parse ' . $file . '</comment>');
 
-            $output->writeln('<info> done!</info>');
+            foreach ($parsers as $parserName => $parser) {
+                $output->write("\t" . 'Testing against the ' . $parserName . ' parser... ');
+                $result = $parser['parse']($file);
 
-            array_pop($rows);
+                if (empty($result)) {
+                    $output->writeln(
+                        '<error>The ' . $parserName . ' parser did not return any data, there may have been an error</error>'
+                    );
 
-            $table->setRows($rows);
+                    continue;
+                }
 
-            $answer = '';
+                if (isset($result['version'])) {
+                    $parsers[$parserName]['metadata']['version'] = $result['version'];
+                }
 
-            if (!$csv && !$noOutput) {
-                $table->render();
+                if ($name) {
+                    if (!file_exists($this->runDir . '/' . $name . '/results/' . $parserName)) {
+                        mkdir($this->runDir . '/' . $name . '/results/' . $parserName);
+                    }
 
-                $question = new ChoiceQuestion('What would you like to do?', ['Dump as CSV', 'Continue'], 1);
+                    file_put_contents(
+                        $this->runDir . '/' . $name . '/results/' . $parserName . '/' . basename($file) . '.json',
+                        json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+                    );
+                }
 
-                $answer = $questionHelper->ask($input, $output, $question);
-            }
-
-            if ($csv || $answer === 'Dump as CSV') {
-                $csvOutput = '';
-
-                $csvOutput .= $this->putcsv([
-                    'useragent',
-                    'browser_name',
-                    'browser_version',
-                    'platform_name',
-                    'platform_version',
-                    'device_name',
-                    'device_brand',
-                    'device_type',
-                    'ismobile',
-                    'time',
-                ], $csvFile) . "\n";
-
+                $rows = [];
                 foreach ($result['results'] as $parsed) {
-                    $out = [
-                        $parsed['useragent'],
+                    if ($normalize) {
+                        $parsed['parsed'] = $normalizeHelper->normalize(
+                            $parsed['parsed'],
+                            $parser['metadata']['data_source']
+                        );
+                    }
+
+                    $rows[] = [
+                        new TableCell('<fg=yellow>' . $parsed['useragent'] . '</>', ['colspan' => '7']),
+                        round($parsed['time'], 5) . 's',
+                    ];
+                    $rows[] = [
                         $parsed['parsed']['browser']['name'],
                         $parsed['parsed']['browser']['version'],
                         $parsed['parsed']['platform']['name'],
@@ -153,18 +272,69 @@ class Parse extends Command
                         $parsed['parsed']['device']['brand'],
                         $parsed['parsed']['device']['type'],
                         $parsed['parsed']['device']['ismobile'],
-                        $parsed['time'],
                     ];
-
-                    $csvOutput .= $this->putcsv($out, $csvFile) . "\n";
+                    $rows[] = new TableSeparator();
                 }
 
-                if ($csvFile) {
-                    $output->writeln('Wrote CSV data to ' . $csvFile);
-                } else {
-                    $output->writeln($csvOutput);
-                    $question = new Question('Press enter to continue', 'yes');
-                    $questionHelper->ask($input, $output, $question);
+                $output->writeln('<info>done!</info>');
+
+                array_pop($rows);
+
+                $table->setRows($rows);
+
+                $answer = '';
+
+                if (!$csv && !$noOutput) {
+                    $table->render();
+
+                    $question = new ChoiceQuestion('What would you like to do?', ['Dump as CSV', 'Continue'], 1);
+
+                    $answer = $questionHelper->ask($input, $output, $question);
+                }
+
+                if ($csv || $answer === 'Dump as CSV') {
+                    $csvOutput = '';
+
+                    $csvOutput .= $this->putcsv(
+                            [
+                                'useragent',
+                                'browser_name',
+                                'browser_version',
+                                'platform_name',
+                                'platform_version',
+                                'device_name',
+                                'device_brand',
+                                'device_type',
+                                'ismobile',
+                                'time',
+                            ],
+                            $csvFile
+                        ) . "\n";
+
+                    foreach ($result['results'] as $parsed) {
+                        $out = [
+                            $parsed['useragent'],
+                            $parsed['parsed']['browser']['name'],
+                            $parsed['parsed']['browser']['version'],
+                            $parsed['parsed']['platform']['name'],
+                            $parsed['parsed']['platform']['version'],
+                            $parsed['parsed']['device']['name'],
+                            $parsed['parsed']['device']['brand'],
+                            $parsed['parsed']['device']['type'],
+                            $parsed['parsed']['device']['ismobile'],
+                            $parsed['time'],
+                        ];
+
+                        $csvOutput .= $this->putcsv($out, $csvFile) . "\n";
+                    }
+
+                    if ($csvFile) {
+                        $output->writeln('Wrote CSV data to ' . $csvFile);
+                    } else {
+                        $output->writeln($csvOutput);
+                        $question = new Question('Press enter to continue', 'yes');
+                        $questionHelper->ask($input, $output, $question);
+                    }
                 }
             }
         }
@@ -175,6 +345,8 @@ class Parse extends Command
                 json_encode(['parsers' => $parsers, 'date' => time(), 'file' => basename($file)], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
             );
         }
+
+        return 0;
     }
 
     private function putcsv($input, $csvFile)

@@ -1,21 +1,20 @@
+#!/usr/bin/env php
 <?php
 
-declare(strict_types = 1);
-ini_set('memory_limit', '-1');
-ini_set('max_execution_time', '-1');
+ini_set('memory_limit', -1);
+ini_set('max_execution_time', -1);
 
-$benchmarkPos = array_search('--benchmark', $argv);
-$benchmark    = false;
+$uaPos       = array_search('--ua', $argv);
+$hasUa       = false;
+$agentString = '';
 
-if ($benchmarkPos !== false) {
-    $benchmark = true;
-    unset($argv[$benchmarkPos]);
-    $argv = array_values($argv);
+if ($uaPos !== false) {
+    $hasUa = true;
+
+    $agentString = $argv[2];
 }
 
-$agentListFile = $argv[1];
-
-$results   = [];
+$result    = null;
 $parseTime = 0;
 
 $start = microtime(true);
@@ -23,27 +22,12 @@ require_once __DIR__ . '/../vendor/autoload.php';
 parse_user_agent('Test String');
 $initTime = microtime(true) - $start;
 
-$file = new SplFileObject($agentListFile);
-$file->setFlags(SplFileObject::DROP_NEW_LINE);
-
-while (!$file->eof()) {
-    $agentString = $file->fgets();
-
-    if (empty($agentString)) {
-        continue;
-    }
-
+if ($hasUa) {
     $start = microtime(true);
     $r     = parse_user_agent($agentString);
     $end   = microtime(true) - $start;
 
-    $parseTime += $end;
-
-    if ($benchmark) {
-        continue;
-    }
-
-    $results[] = [
+    $result = [
         'useragent' => $agentString,
         'parsed'    => [
             'browser' => [
@@ -63,16 +47,17 @@ while (!$file->eof()) {
         ],
         'time' => $end,
     ];
+
+    $parseTime = $end;
 }
 
-$file   = null;
 $memory = memory_get_peak_usage();
 
 // Get version from composer
 $package = new \PackageInfo\Package('donatj/phpuseragentparser');
 
 echo json_encode([
-    'results'     => $results,
+    'result'      => $result,
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,
     'memory_used' => $memory,
