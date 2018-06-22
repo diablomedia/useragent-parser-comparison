@@ -52,16 +52,16 @@
         },
         {
             "name": "zsxsoft/php-useragent",
-            "version": "1.4",
+            "version": "1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zsxsoft/php-useragent.git",
-                "reference": "f8bf32db3064becdc6d3fac9be61260cd7e1f1bd"
+                "reference": "a23128c6ebe008b88cf3b8f982a180727ad94497"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zsxsoft/php-useragent/zipball/f8bf32db3064becdc6d3fac9be61260cd7e1f1bd",
-                "reference": "f8bf32db3064becdc6d3fac9be61260cd7e1f1bd",
+                "url": "https://api.github.com/repos/zsxsoft/php-useragent/zipball/a23128c6ebe008b88cf3b8f982a180727ad94497",
+                "reference": "a23128c6ebe008b88cf3b8f982a180727ad94497",
                 "shasum": ""
             },
             "require": {
@@ -91,7 +91,7 @@
                 }
             ],
             "description": "A User-agent analyze project.",
-            "time": "2017-01-04T12:06:02+00:00"
+            "time": "2018-06-15T07:58:13+00:00"
         }
     ],
     "packages-dev": [],

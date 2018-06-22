@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace UserAgentParserComparison\Command;
 
+use FilesystemIterator;
+use SplFileInfo;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
@@ -13,17 +15,30 @@ use Symfony\Component\Console\Question\ChoiceQuestion;
 
 class Test extends Command
 {
+    /**
+     * @var array
+     */
     private $tests = [];
 
+    /**
+     * @var array
+     */
     private $selectedTests = [];
 
+    /**
+     * @var string
+     */
     private $testsDir = __DIR__ . '/../../tests';
 
+    /**
+     * @var string
+     */
     private $runDir = __DIR__ . '/../../data/test-runs';
 
+    /**
+     * @var array
+     */
     private $results = [];
-
-    private $failures = [];
 
     protected function configure(): void
     {
@@ -128,8 +143,8 @@ class Test extends Command
                 $agents = [];
             }
 
-            array_walk($agents, static function (&$item): void {
-                $item = addcslashes((string) $item, PHP_EOL);
+            array_walk($agents, static function (string &$item): void {
+                $item = addcslashes($item, PHP_EOL);
             });
 
             file_put_contents($filename, implode(PHP_EOL, $agents));
@@ -176,15 +191,16 @@ class Test extends Command
 
     private function collectTests(): void
     {
-        foreach (new \FilesystemIterator($this->testsDir) as $testDir) {
-            if (file_exists($testDir->getPathName() . '/metadata.json')) {
-                $metadata = json_decode(file_get_contents($testDir->getPathName() . '/metadata.json'), true);
+        /** @var SplFileInfo $testDir */
+        foreach (new FilesystemIterator($this->testsDir) as $testDir) {
+            if (file_exists($testDir->getPathname() . '/metadata.json')) {
+                $metadata = json_decode(file_get_contents($testDir->getPathname() . '/metadata.json'), true);
             } else {
                 $metadata = [];
             }
 
             $this->tests[$testDir->getFilename()] = [
-                'path'     => $testDir->getPathName(),
+                'path'     => $testDir->getPathname(),
                 'metadata' => $metadata,
             ];
         }
