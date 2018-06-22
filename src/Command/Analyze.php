@@ -16,23 +16,44 @@ use Symfony\Component\Console\Question\Question;
 
 class Analyze extends Command
 {
+    /**
+     * @var string
+     */
     private $runDir = __DIR__ . '/../../data/test-runs';
 
+    /**
+     * @var array
+     */
     private $options = [];
 
+    /**
+     * @var array
+     */
     private $comparison = [];
 
+    /**
+     * @var array
+     */
     private $agents = [];
 
     /**
-     * @var \Symfony\Component\Console\Helper\Table
+     * @var Table
      */
     private $summaryTable;
 
+    /**
+     * @var InputInterface
+     */
     private $input;
 
+    /**
+     * @var OutputInterface
+     */
     private $output;
 
+    /**
+     * @var array
+     */
     private $failures = [];
 
     protected function configure(): void
@@ -604,7 +625,7 @@ class Analyze extends Command
     {
         if (!empty($this->comparison[$test][$compareKey][$compareSubKey])) {
             ksort($this->comparison[$test][$compareKey][$compareSubKey]);
-            uasort($this->comparison[$test][$compareKey][$compareSubKey], static function ($a, $b) {
+            uasort($this->comparison[$test][$compareKey][$compareSubKey], static function (array $a, array $b): int {
                 if ($a['expected']['count'] === $b['expected']['count']) {
                     return 0;
                 }
@@ -616,7 +637,7 @@ class Analyze extends Command
 
             $headers = [' Expected ' . ucfirst($compareKey) . ' ' . ucfirst($compareSubKey)];
 
-            foreach ($this->options['parsers'] as $parser => $data) {
+            foreach (array_keys($this->options['parsers']) as $parser) {
                 $headers[] = $parser;
             }
 
@@ -638,7 +659,7 @@ class Analyze extends Command
 
                 foreach (array_keys($this->options['parsers']) as $parser) {
                     if (isset($compareRow[$parser])) {
-                        uasort($compareRow[$parser], static function ($a, $b) {
+                        uasort($compareRow[$parser], static function (array $a, array $b): int {
                             if ($a['count'] === $b['count']) {
                                 return 0;
                             }

@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace UserAgentParserComparison\Command;
 
+use FilesystemIterator;
+use SplFileInfo;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -11,8 +13,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Normalize extends Command
 {
+    /**
+     * @var string
+     */
     private $runDir = __DIR__ . '/../../data/test-runs';
 
+    /**
+     * @var array
+     */
     private $options = [];
 
     protected function configure(): void
@@ -51,7 +59,8 @@ class Normalize extends Command
             }
 
             // Process the test files (expected data)
-            foreach (new \FilesystemIterator($this->runDir . '/' . $run . '/expected') as $testFile) {
+            /** @var SplFileInfo $testFile */
+            foreach (new FilesystemIterator($this->runDir . '/' . $run . '/expected') as $testFile) {
                 if ($testFile->isDir()) {
                     continue;
                 }
@@ -88,7 +97,8 @@ class Normalize extends Command
 
         if (!empty($this->options['parsers'])) {
             // Process the parser runs
-            foreach (new \FilesystemIterator($this->runDir . '/' . $run . '/results') as $resultDir) {
+            /** @var SplFileInfo $resultDir */
+            foreach (new FilesystemIterator($this->runDir . '/' . $run . '/results') as $resultDir) {
                 $parserName = $resultDir->getFilename();
 
                 $output->writeln('Processing results from the ' . $parserName . ' parser');
@@ -97,7 +107,8 @@ class Normalize extends Command
                     mkdir($this->runDir . '/' . $run . '/results/' . $parserName . '/normalized');
                 }
 
-                foreach (new \FilesystemIterator($resultDir->getPathname()) as $resultFile) {
+                /** @var SplFileInfo $resultFile */
+                foreach (new FilesystemIterator($resultDir->getPathname()) as $resultFile) {
                     if ($resultFile->isDir()) {
                         continue;
                     }
@@ -140,8 +151,9 @@ class Normalize extends Command
         return 0;
     }
 
-    private function normalize($parsed, $source)
+    private function normalize(array $parsed, string $source): array
     {
+        /** @var \UserAgentParserComparison\Command\Helper\Normalize $normalizeHelper */
         $normalizeHelper = $this->getHelper('normalize');
 
         return $normalizeHelper->normalize($parsed, $source);

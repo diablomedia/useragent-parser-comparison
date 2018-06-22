@@ -28,6 +28,7 @@ class Benchmark extends Command
         $file       = $input->getArgument('file');
         $iterations = (int) $input->getOption('iterations');
 
+        /** @var \UserAgentParserComparison\Command\Helper\Parsers $parserHelper */
         $parserHelper = $this->getHelper('parsers');
 
         $parsers = $parserHelper->getParsers($input, $output);
@@ -78,7 +79,7 @@ class Benchmark extends Command
         return 0;
     }
 
-    private function formatBytes($bytes, $precision = 2)
+    private function formatBytes(float $bytes, int $precision = 2): string
     {
         $base     = log($bytes, 1024);
         $suffixes = ['', 'K', 'M', 'G', 'T'];

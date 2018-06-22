@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace UserAgentParserComparison\Command\Helper;
 
+use FilesystemIterator;
+use SplFileInfo;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,10 +14,19 @@ use Symfony\Component\Console\Question\ChoiceQuestion;
 
 class Parsers extends Helper
 {
+    /**
+     * @var array
+     */
     private $parsers = [];
 
+    /**
+     * @var array
+     */
     private $selectedParsers = [];
 
+    /**
+     * @var string
+     */
     private $parsersDir = __DIR__ . '/../../../parsers';
 
     public function getName(): string
@@ -25,15 +36,16 @@ class Parsers extends Helper
 
     public function getParsers(InputInterface $input, OutputInterface $output, bool $multiple = true): array
     {
-        foreach (new \FilesystemIterator($this->parsersDir) as $parserDir) {
-            if (file_exists($parserDir->getPathName() . '/metadata.json')) {
-                $metadata = json_decode(file_get_contents($parserDir->getPathName() . '/metadata.json'), true);
+        /** @var SplFileInfo $parserDir */
+        foreach (new FilesystemIterator($this->parsersDir) as $parserDir) {
+            if (file_exists($parserDir->getPathname() . '/metadata.json')) {
+                $metadata = json_decode(file_get_contents($parserDir->getPathname() . '/metadata.json'), true);
             } else {
                 $metadata = [];
             }
 
             $this->parsers[$parserDir->getFilename()] = [
-                'path'     => $parserDir->getPathName(),
+                'path'     => $parserDir->getPathname(),
                 'metadata' => $metadata,
                 'parse'    => static function (string $file, bool $benchmark = false) use ($parserDir): ?array {
                     $args = [
@@ -43,7 +55,7 @@ class Parsers extends Helper
                         $args[] = '--benchmark';
                     }
 
-                    $result = shell_exec($parserDir->getPathName() . '/parse.sh ' . implode(' ', $args));
+                    $result = shell_exec($parserDir->getPathname() . '/parse.sh ' . implode(' ', $args));
 
                     if ($result !== null) {
                         $result = trim($result);

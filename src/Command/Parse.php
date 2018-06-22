@@ -17,6 +17,9 @@ use Symfony\Component\Console\Question\Question;
 
 class Parse extends Command
 {
+    /**
+     * @var string
+     */
     private $runDir = __DIR__ . '/../../data/test-runs';
 
     protected function configure(): void

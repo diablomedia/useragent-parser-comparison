@@ -2,7 +2,7 @@ language: php
 sudo: false
 dist: trusty
 
-php: 7.1
+php: 7.2
 
 os: linux
 
@@ -29,14 +29,14 @@ jobs:
   fast_finish: true
   include:
     - stage: check coding style
-      php: 7.1
-      env: TEST=php-cs-fixer
+      php: 7.2
       script: vendor/bin/php-cs-fixer fix --dry-run -vv && yarn run prettier -l "**/*.js"
 
     - stage: static code analysis
-      php: 7.1
-      env: TEST=phpstan
-      script: vendor/bin/phpstan analyse -l 7 -c phpstan.neon --autoload-file=vendor/autoload.php --memory-limit=768M --no-progress src bin mappings
+      php: 7.2
+      script:
+        - vendor/bin/phpstan analyse -l 7 -c phpstan.neon --autoload-file=vendor/autoload.php --memory-limit=768M --no-progress src bin mappings
+        - vendor/bin/psalm --show-info=false
 
 notifications:
   email: false

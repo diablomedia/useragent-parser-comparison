@@ -8,6 +8,9 @@ use Symfony\Component\Console\Helper\Helper;
 
 class Normalize extends Helper
 {
+    /**
+     * @var string
+     */
     private $mapDir = __DIR__ . '/../../../mappings';
 
     public function getName(): string

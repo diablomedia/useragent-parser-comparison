@@ -5,13 +5,13 @@
   "requires": true,
   "dependencies": {
     "browscap-js": {
-      "version": "1.11.6000028",
-      "resolved": "https://registry.npmjs.org/browscap-js/-/browscap-js-1.11.6000028.tgz",
-      "integrity": "sha512-AoJi9cD3xejrFlpxV7ZvcFYfugDt7+levQT2j3BUJbio6aVD7H3hEfDghs/WauzKwjbBCKjiCtOvzZsVtd/jKQ==",
+      "version": "1.11.6000029",
+      "resolved": "https://registry.npmjs.org/browscap-js/-/browscap-js-1.11.6000029.tgz",
+      "integrity": "sha512-WIEkJkkZoqmPYZWRAv2K8GMiMml0fviTzAmUD2Db7RMnif+mbCCkKbQBpHn9mRY7EeK4OaT4ZR0whRvT8+HQJg==",
       "requires": {
-        "browscap-js-cache": "1.2.0",
-        "browscap-json-cache-files": "1.2.6000028",
-        "md5": "2.2.1"
+        "browscap-js-cache": "^1.2.0",
+        "browscap-json-cache-files": "^1.2.6000029",
+        "md5": "^2.0.0"
       }
     },
     "browscap-js-cache": {
@@ -20,9 +20,9 @@
       "integrity": "sha1-VN8MfBREDPQxUXOFSSIZ7lqtFfI="
     },
     "browscap-json-cache-files": {
-      "version": "1.2.6000028",
-      "resolved": "https://registry.npmjs.org/browscap-json-cache-files/-/browscap-json-cache-files-1.2.6000028.tgz",
-      "integrity": "sha512-+tY6PZQPhNagrBahHgap8C2k/5lehFDlxDfdpuTaYwCkHdOJoIRAz74INEsxzlxa34l0dcDoAkqVl7Vhjouoig=="
+      "version": "1.2.6000029",
+      "resolved": "https://registry.npmjs.org/browscap-json-cache-files/-/browscap-json-cache-files-1.2.6000029.tgz",
+      "integrity": "sha512-/o2cvDyMry0X2TwYAxknXVuHbEM4LqrnKvftucU3CHEpHy71oDJRc86NF+RQLcdAHdm/w82kWnh/GfKZT/Nw8w=="
     },
     "charenc": {
       "version": "0.0.2",
@@ -37,16 +37,16 @@
     "is-buffer": {
       "version": "1.1.6",
       "resolved": "https://registry.npmjs.org/is-buffer/-/is-buffer-1.1.6.tgz",
-      "integrity": "sha512-NcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w=="
+      "integrity": "sha1-76ouqdqg16suoTqXsritUf776L4="
     },
     "md5": {
       "version": "2.2.1",
       "resolved": "https://registry.npmjs.org/md5/-/md5-2.2.1.tgz",
       "integrity": "sha1-U6s41f48iJG6RlMp6iP6wFQBJvk=",
       "requires": {
-        "charenc": "0.0.2",
-        "crypt": "0.0.2",
-        "is-buffer": "1.1.6"
+        "charenc": "~0.0.1",
+        "crypt": "~0.0.1",
+        "is-buffer": "~1.1.1"
       }
     }
   }
