@@ -23,7 +23,7 @@ class Benchmark extends Command
             ->setHelp('Runs the selected parsers against a list of useragents (provided in the passed in "file" argument). By default performs just one iteration per parser but this can be configured with the "--iterations" option.  Reports the time taken and memory use of each parser.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $file       = $input->getArgument('file');
         $iterations = (int) $input->getOption('iterations');
@@ -74,6 +74,8 @@ class Benchmark extends Command
 
         $table->setRows($rows);
         $table->render();
+
+        return 0;
     }
 
     private function formatBytes($bytes, $precision = 2)

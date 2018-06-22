@@ -43,7 +43,7 @@ class Analyze extends Command
             ->setHelp('');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->input  = $input;
         $this->output = $output;
@@ -57,7 +57,7 @@ class Analyze extends Command
         if (!file_exists($this->runDir . '/' . $run)) {
             $output->writeln('<error>No run directory found with that id (' . $run . ')</error>');
 
-            return;
+            return 1;
         }
 
         if (file_exists($this->runDir . '/' . $run . '/metadata.json')) {
@@ -65,7 +65,7 @@ class Analyze extends Command
         } else {
             $output->writeln('<error>No options file found for this test run</error>');
 
-            return;
+            return 2;
         }
 
         $output->writeln('<info>Analyzing data from test run: ' . $run . '</info>');
@@ -80,7 +80,7 @@ class Analyze extends Command
         } else {
             $output->writeln('<error>Error in options file for this test run</error>');
 
-            return;
+            return 3;
         }
 
         $this->summaryTable = new Table($output);
@@ -308,6 +308,8 @@ class Analyze extends Command
         $this->showSummary();
 
         $this->showMenu();
+
+        return 0;
     }
 
     private function showSummary(): void
@@ -315,7 +317,7 @@ class Analyze extends Command
         $this->summaryTable->render();
     }
 
-    private function changePropertyDiffTestSuite()
+    private function changePropertyDiffTestSuite(): string
     {
         $questionHelper = $this->getHelper('question');
 
@@ -333,7 +335,7 @@ class Analyze extends Command
         return $selectedTest;
     }
 
-    private function changePropertyDiffSection()
+    private function changePropertyDiffSection(): string
     {
         $questionHelper = $this->getHelper('question');
 
@@ -346,7 +348,7 @@ class Analyze extends Command
         return $section;
     }
 
-    private function changePropertyDiffProperty($section)
+    private function changePropertyDiffProperty(string $section): string
     {
         $questionHelper = $this->getHelper('question');
         $subs           = [];
@@ -540,7 +542,7 @@ class Analyze extends Command
         }
     }
 
-    private function showComparisonAgents($test, $section, $property, $value): void
+    private function showComparisonAgents(string $test, string $section, string $property, string $value): void
     {
         if ($value === '[no value]') {
             $value = '';
@@ -561,7 +563,7 @@ class Analyze extends Command
         }
     }
 
-    private function analyzeFailures($test, $parser, $justAgents = false): void
+    private function analyzeFailures(string $test, string $parser, bool $justAgents = false): void
     {
         if (!empty($this->failures[$test][$parser])) {
             $table = new Table($this->output);
@@ -598,7 +600,7 @@ class Analyze extends Command
         }
     }
 
-    private function showComparison($test, $compareKey, $compareSubKey, $justFails = false): void
+    private function showComparison(string $test, string $compareKey, string $compareSubKey, bool $justFails = false): void
     {
         if (!empty($this->comparison[$test][$compareKey][$compareSubKey])) {
             ksort($this->comparison[$test][$compareKey][$compareSubKey]);
@@ -685,7 +687,7 @@ class Analyze extends Command
         }
     }
 
-    private function makeDiff($expected, $actual)
+    private function makeDiff(array $expected, array $actual): array
     {
         $result = [];
 
@@ -705,7 +707,7 @@ class Analyze extends Command
         return $result;
     }
 
-    private function calculateScore($expected, $actual, $possible = false)
+    private function calculateScore(array $expected, array $actual, bool $possible = false): int
     {
         $score = 0;
 
@@ -723,7 +725,7 @@ class Analyze extends Command
         return $score;
     }
 
-    private function outputDiff($diff)
+    private function outputDiff(array $diff): string
     {
         $output = '';
 
