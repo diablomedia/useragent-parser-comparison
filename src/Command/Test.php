@@ -5,6 +5,8 @@ declare(strict_types = 1);
 namespace UserAgentParserComparison\Command;
 
 use FilesystemIterator;
+use Seld\JsonLint\JsonParser;
+use Seld\JsonLint\ParsingException;
 use SplFileInfo;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -48,9 +50,16 @@ class Test extends Command
             ->setHelp('Runs various test suites against the parsers to help determine which is the most "correct".');
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->collectTests();
+        $jsonParser = new JsonParser();
+
+        $this->collectTests($output);
 
         $rows = [];
 
@@ -122,10 +131,16 @@ class Test extends Command
 
             file_put_contents($expectedDir . '/' . $testName . '.json', $testOutput);
 
-            $testOutput = json_decode($testOutput, true);
-
-            if (json_last_error() !== JSON_ERROR_NONE || empty($testOutput)) {
+            try {
+                $testOutput = $jsonParser->parse($testOutput, JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC);
+            } catch (ParsingException $e) {
                 $output->writeln('<error>There was an error with the output from the ' . $testName . ' test suite.</error>');
+
+                continue;
+            }
+
+            if (empty($testOutput)) {
+                $output->writeln('<error>Test suite' . $testName . ' returned no data.</error>');
 
                 continue;
             }
@@ -189,12 +204,22 @@ class Test extends Command
         return 0;
     }
 
-    private function collectTests(): void
+    private function collectTests(OutputInterface $output): void
     {
+        $jsonParser = new JsonParser();
+
         /** @var SplFileInfo $testDir */
         foreach (new FilesystemIterator($this->testsDir) as $testDir) {
             if (file_exists($testDir->getPathname() . '/metadata.json')) {
-                $metadata = json_decode(file_get_contents($testDir->getPathname() . '/metadata.json'), true);
+                try {
+                    $metadata = $jsonParser->parse(
+                        file_get_contents($testDir->getPathname() . '/metadata.json'),
+                        JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
+                    );
+                } catch (ParsingException $e) {
+                    $output->writeln('<error>There was an error with the metadata from the ' . $testDir->getPathname() . ' test suite.</error>');
+                    $metadata = [];
+                }
             } else {
                 $metadata = [];
             }

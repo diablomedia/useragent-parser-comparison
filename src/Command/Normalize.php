@@ -6,6 +6,7 @@ namespace UserAgentParserComparison\Command;
 
 use FilesystemIterator;
 use SplFileInfo;
+use Seld\JsonLint\JsonParser;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -33,6 +34,8 @@ class Normalize extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $jsonParser = new JsonParser();
+
         $run = $input->getArgument('run');
 
         if (empty($run)) {
@@ -48,7 +51,10 @@ class Normalize extends Command
         $output->writeln('<comment>Normalizing data from test run: ' . $run . '</comment>');
 
         if (file_exists($this->runDir . '/' . $run . '/metadata.json')) {
-            $this->options = json_decode(file_get_contents($this->runDir . '/' . $run . '/metadata.json'), true);
+            $this->options = $jsonParser->parse(
+                file_get_contents($this->runDir . '/' . $run . '/metadata.json'),
+                JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
+            );
         } else {
             $this->options = ['tests' => [], 'parsers' => []];
         }
@@ -67,7 +73,10 @@ class Normalize extends Command
 
                 $output->write('Processing output from the ' . $testFile->getFilename() . ' test suite... ');
 
-                $data       = json_decode(file_get_contents($testFile->getPathname()), true);
+                $data = $jsonParser->parse(
+                    file_get_contents($testFile->getPathname()),
+                    JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
+                );
                 $normalized = $data;
 
                 $dataSource = null;
@@ -117,7 +126,10 @@ class Normalize extends Command
 
                     $output->write("\t" . 'Processing results from the ' . $testName . ' test suite... ');
 
-                    $data       = json_decode(file_get_contents($resultFile->getPathname()), true);
+                    $data = $jsonParser->parse(
+                        file_get_contents($resultFile->getPathname()),
+                        JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
+                    );
                     $normalized = [];
 
                     $dataSource = null;
