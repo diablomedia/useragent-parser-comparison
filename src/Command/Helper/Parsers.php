@@ -69,7 +69,7 @@ class Parsers extends Helper
 
                     $result = shell_exec($parserDir->getPathname() . '/parse.sh ' . implode(' ', $args));
 
-                    if (null === $result) {
+                    if ($result === null) {
                         return null;
                     }
 
@@ -88,6 +88,7 @@ class Parsers extends Helper
                                 $file
                             )
                         );
+
                         return null;
                     }
 

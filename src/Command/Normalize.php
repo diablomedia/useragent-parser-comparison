@@ -5,8 +5,8 @@ declare(strict_types = 1);
 namespace UserAgentParserComparison\Command;
 
 use FilesystemIterator;
-use SplFileInfo;
 use Seld\JsonLint\JsonParser;
+use SplFileInfo;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
