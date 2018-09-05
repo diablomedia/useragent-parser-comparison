@@ -188,7 +188,7 @@ class Parse extends Command
         $enclosure = '"';
 
         if ($csvFile) {
-            $fp = fopen($csvFile, 'a+');
+            $fp = fopen($csvFile, 'a+b');
         } else {
             $fp = fopen('php://temp', 'r+b');
         }
