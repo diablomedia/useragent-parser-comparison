@@ -62,5 +62,19 @@
             </errorLevel>
         </RedundantCondition>
 
+        <PossiblyInvalidArrayAccess>
+            <errorLevel type="info">
+                <!-- Psalm believes this array element might be an int, I don't see where -->
+                <file name="src/Command/Analyze.php" />
+            </errorLevel>
+        </PossiblyInvalidArrayAccess>
+
+        <PossiblyInvalidArrayAssignment>
+            <errorLevel type="info">
+                <!-- Psalm believes this array element might be an int, I don't see where -->
+                <file name="src/Command/Analyze.php" />
+            </errorLevel>
+        </PossiblyInvalidArrayAssignment>
+
     </issueHandlers>
 </psalm>
