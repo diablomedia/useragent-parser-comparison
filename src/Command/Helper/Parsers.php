@@ -5,6 +5,8 @@ declare(strict_types = 1);
 namespace UserAgentParserComparison\Command\Helper;
 
 use FilesystemIterator;
+use Seld\JsonLint\JsonParser;
+use Seld\JsonLint\ParsingException;
 use SplFileInfo;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Helper\Table;
@@ -36,10 +38,20 @@ class Parsers extends Helper
 
     public function getParsers(InputInterface $input, OutputInterface $output, bool $multiple = true): array
     {
+        $jsonParser = new JsonParser();
+
         /** @var SplFileInfo $parserDir */
         foreach (new FilesystemIterator($this->parsersDir) as $parserDir) {
             if (file_exists($parserDir->getPathname() . '/metadata.json')) {
-                $metadata = json_decode(file_get_contents($parserDir->getPathname() . '/metadata.json'), true);
+                try {
+                    $metadata = $jsonParser->parse(
+                        file_get_contents($parserDir->getPathname() . '/metadata.json'),
+                        JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
+                    );
+                } catch (ParsingException $e) {
+                    $output->writeln('<error>There was an error with the metadata from the ' . $parserDir->getPathname() . ' parser.</error>');
+                    $metadata = [];
+                }
             } else {
                 $metadata = [];
             }
@@ -47,7 +59,7 @@ class Parsers extends Helper
             $this->parsers[$parserDir->getFilename()] = [
                 'path'     => $parserDir->getPathname(),
                 'metadata' => $metadata,
-                'parse'    => static function (string $file, bool $benchmark = false) use ($parserDir): ?array {
+                'parse'    => static function (string $file, bool $benchmark = false) use ($parserDir, $jsonParser, $output): ?array {
                     $args = [
                         escapeshellarg($file),
                     ];
@@ -57,14 +69,27 @@ class Parsers extends Helper
 
                     $result = shell_exec($parserDir->getPathname() . '/parse.sh ' . implode(' ', $args));
 
-                    if ($result !== null) {
-                        $result = trim($result);
+                    if ($result === null) {
+                        return null;
+                    }
 
-                        $result = json_decode($result, true);
+                    $result = trim($result);
 
-                        if (json_last_error() !== JSON_ERROR_NONE) {
-                            return null;
-                        }
+                    try {
+                        $result = $jsonParser->parse(
+                            $result,
+                            JsonParser::DETECT_KEY_CONFLICTS | JsonParser::PARSE_TO_ASSOC
+                        );
+                    } catch (ParsingException $e) {
+                        $output->writeln(
+                            sprintf(
+                                '<error>There was an error with the result from the %s parser in the file %s.</error>',
+                                $parserDir->getPathname(),
+                                $file
+                            )
+                        );
+
+                        return null;
                     }
 
                     return $result;

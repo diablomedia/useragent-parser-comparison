@@ -94,8 +94,15 @@ foreach ($finder as $fixture) {
 }
 
 // Get version from installed module's package.json
-$package = json_decode(file_get_contents(__DIR__ . '/../node_modules/ua-parser-js/package.json'));
-$version = $package->version;
+try {
+    $package = $jsonParser->parse(
+        file_get_contents(__DIR__ . '/../node_modules/ua-parser-js/package.json'),
+        \Seld\JsonLint\JsonParser::DETECT_KEY_CONFLICTS
+    );
+    $version = $package->version;
+} catch (\Seld\JsonLint\ParsingException $e) {
+    $version = null;
+}
 
 echo json_encode([
     'tests'   => $uas,
