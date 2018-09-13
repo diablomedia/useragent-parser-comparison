@@ -5,7 +5,9 @@ var browscap = new Browscap();
 browscap.getBrowser('Test String');
 var initTime = process.hrtime(initStart)[1] / 1000000000;
 
-var browscapPackage = require(require('path').dirname(require.resolve('browscap-js')) + '/package.json');
+var browscapPackage = require(require('path').dirname(
+    require.resolve('browscap-js')
+) + '/package.json');
 var version = browscapPackage.version;
 
 var benchmark = false;
