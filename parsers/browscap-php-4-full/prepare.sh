@@ -11,4 +11,4 @@ command -v "$composer_command" >/dev/null 2>&1 || {
 
 $composer_command install --ignore-platform-reqs
 
-./vendor/bin/browscap-php browscap:update --cache ./data --remote-file Full_PHP_BrowscapINI
+./vendor/bin/browscap-php browscap:update --cache ./data --remote-file Full_PHP_BrowscapINI -vv

@@ -58,16 +58,16 @@
         },
         {
             "name": "piwik/device-detector",
-            "version": "3.10.2",
+            "version": "3.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matomo-org/device-detector.git",
-                "reference": "67e96595cd7649b7967533053fcbfbe02d5c55a3"
+                "reference": "0ec14d28cbf71c48b21697e65b892cfd8c3ca519"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/matomo-org/device-detector/zipball/67e96595cd7649b7967533053fcbfbe02d5c55a3",
-                "reference": "67e96595cd7649b7967533053fcbfbe02d5c55a3",
+                "url": "https://api.github.com/repos/matomo-org/device-detector/zipball/0ec14d28cbf71c48b21697e65b892cfd8c3ca519",
+                "reference": "0ec14d28cbf71c48b21697e65b892cfd8c3ca519",
                 "shasum": ""
             },
             "require": {
@@ -108,20 +108,20 @@
                 "parser",
                 "useragent"
             ],
-            "time": "2018-05-07T19:33:29+00:00"
+            "time": "2018-08-10T18:28:32+00:00"
         },
         {
             "name": "symfony/finder",
-            "version": "v4.1.0",
+            "version": "v4.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "087e2ee0d74464a4c6baac4e90417db7477dc238"
+                "reference": "e162f1df3102d0b7472805a5a9d5db9fcf0a8068"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/087e2ee0d74464a4c6baac4e90417db7477dc238",
-                "reference": "087e2ee0d74464a4c6baac4e90417db7477dc238",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/e162f1df3102d0b7472805a5a9d5db9fcf0a8068",
+                "reference": "e162f1df3102d0b7472805a5a9d5db9fcf0a8068",
                 "shasum": ""
             },
             "require": {
@@ -157,7 +157,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2018-05-16T14:33:22+00:00"
+            "time": "2018-07-26T11:24:31+00:00"
         },
         {
             "name": "thadafinser/package-info",

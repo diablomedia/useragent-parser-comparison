@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "browscap-js": "^2.2.6000029"
+    "browscap-js": "^2.2.6000030"
   }
 }

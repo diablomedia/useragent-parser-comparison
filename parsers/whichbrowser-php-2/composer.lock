@@ -98,16 +98,16 @@
         },
         {
             "name": "whichbrowser/parser",
-            "version": "v2.0.32",
+            "version": "v2.0.35",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WhichBrowser/Parser-PHP.git",
-                "reference": "933a695fe0b3d6cf3e957af9b73dd14ade6ed354"
+                "reference": "ad4fce96a17fc1bf6fc741b175de5e231bae7ebe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WhichBrowser/Parser-PHP/zipball/933a695fe0b3d6cf3e957af9b73dd14ade6ed354",
-                "reference": "933a695fe0b3d6cf3e957af9b73dd14ade6ed354",
+                "url": "https://api.github.com/repos/WhichBrowser/Parser-PHP/zipball/ad4fce96a17fc1bf6fc741b175de5e231bae7ebe",
+                "reference": "ad4fce96a17fc1bf6fc741b175de5e231bae7ebe",
                 "shasum": ""
             },
             "require": {
@@ -153,7 +153,7 @@
                 "ua",
                 "useragent"
             ],
-            "time": "2018-01-24T20:27:42+00:00"
+            "time": "2018-08-08T10:00:00+00:00"
         }
     ],
     "packages-dev": [],
