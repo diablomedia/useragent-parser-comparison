@@ -5,9 +5,9 @@
   "requires": true,
   "dependencies": {
     "browscap-js": {
-      "version": "1.11.6000029",
-      "resolved": "https://registry.npmjs.org/browscap-js/-/browscap-js-1.11.6000029.tgz",
-      "integrity": "sha512-WIEkJkkZoqmPYZWRAv2K8GMiMml0fviTzAmUD2Db7RMnif+mbCCkKbQBpHn9mRY7EeK4OaT4ZR0whRvT8+HQJg==",
+      "version": "1.11.6000030",
+      "resolved": "https://registry.npmjs.org/browscap-js/-/browscap-js-1.11.6000030.tgz",
+      "integrity": "sha512-YaeBot8XNfASox6eSwy37CB00JcuOrfO/aT9cCzDHNbp91bIaCNhC7gSuu8O8UtTVdYlAhI7KWkO2d5jEaSC8Q==",
       "requires": {
         "browscap-js-cache": "^1.2.0",
         "browscap-json-cache-files": "^1.2.6000029",
@@ -20,9 +20,9 @@
       "integrity": "sha1-VN8MfBREDPQxUXOFSSIZ7lqtFfI="
     },
     "browscap-json-cache-files": {
-      "version": "1.2.6000029",
-      "resolved": "https://registry.npmjs.org/browscap-json-cache-files/-/browscap-json-cache-files-1.2.6000029.tgz",
-      "integrity": "sha512-/o2cvDyMry0X2TwYAxknXVuHbEM4LqrnKvftucU3CHEpHy71oDJRc86NF+RQLcdAHdm/w82kWnh/GfKZT/Nw8w=="
+      "version": "1.2.6000030",
+      "resolved": "https://registry.npmjs.org/browscap-json-cache-files/-/browscap-json-cache-files-1.2.6000030.tgz",
+      "integrity": "sha512-kIfCVAl9saGheSmPI7s865NirDJODHBfK37tkUQzhnuzGsdqTgF4wgFrk5xIgDO53UpGF6mCxmWXiHyaR6M9iQ=="
     },
     "charenc": {
       "version": "0.0.2",
@@ -37,7 +37,7 @@
     "is-buffer": {
       "version": "1.1.6",
       "resolved": "https://registry.npmjs.org/is-buffer/-/is-buffer-1.1.6.tgz",
-      "integrity": "sha1-76ouqdqg16suoTqXsritUf776L4="
+      "integrity": "sha512-NcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w=="
     },
     "md5": {
       "version": "2.2.1",
