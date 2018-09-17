@@ -23,15 +23,13 @@ require __DIR__ . '/../vendor/autoload.php';
 $cacheDir  = __DIR__ . '/../data';
 $fileCache = new \Doctrine\Common\Cache\FilesystemCache($cacheDir);
 $cache     = new \Roave\DoctrineSimpleCache\SimpleCacheAdapter($fileCache);
-$logger    = new \Monolog\Logger('null');
+$logger    = new \Psr\Log\NullLogger('null');
 $bc        = new \BrowscapPHP\Browscap($cache, $logger);
 $bc->getBrowser('Test String');
 $initTime = microtime(true) - $start;
 
 $file = new SplFileObject($agentListFile);
 $file->setFlags(SplFileObject::DROP_NEW_LINE);
-
-//$test = [];
 
 while (!$file->eof()) {
     $agentString = $file->fgets();
