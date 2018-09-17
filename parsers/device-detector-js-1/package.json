@@ -1,0 +1,15 @@
+{
+  "name": "device-detector-js-1",
+  "version": "1.0.0",
+  "description": "device-detector-js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "device-detector-js": "^1.0.0"
+  }
+}
