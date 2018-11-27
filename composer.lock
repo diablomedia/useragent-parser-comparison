@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b02167b33620082880d1d0f52955591d",
+    "content-hash": "6d51aca9c67b0db89dfe3c70ad564c90",
     "packages": [
         {
             "name": "symfony/console",
@@ -1032,16 +1032,16 @@
         },
         {
             "name": "psr/log",
-            "version": "1.0.2",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d"
+                "reference": "6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
-                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd",
+                "reference": "6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd",
                 "shasum": ""
             },
             "require": {
@@ -1075,7 +1075,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-10-10T12:19:37+00:00"
+            "time": "2018-11-20T15:27:04+00:00"
         },
         {
             "name": "sabre/event",
@@ -1676,16 +1676,16 @@
         },
         {
             "name": "vimeo/psalm",
-            "version": "3.0.1",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vimeo/psalm.git",
-                "reference": "b982090e10b7c860127ee580bd08775049438187"
+                "reference": "bcc062cfc5a7561a9a2a763eb693be6b2b29e28a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/b982090e10b7c860127ee580bd08775049438187",
-                "reference": "b982090e10b7c860127ee580bd08775049438187",
+                "url": "https://api.github.com/repos/vimeo/psalm/zipball/bcc062cfc5a7561a9a2a763eb693be6b2b29e28a",
+                "reference": "bcc062cfc5a7561a9a2a763eb693be6b2b29e28a",
                 "shasum": ""
             },
             "require": {
@@ -1727,6 +1727,7 @@
             "extra": {
                 "branch-alias": {
                     "dev-master": "3.x-dev",
+                    "dev-2.x": "2.x-dev",
                     "dev-1.x": "1.x-dev"
                 }
             },
@@ -1751,7 +1752,7 @@
                 "inspection",
                 "php"
             ],
-            "time": "2018-11-20T03:57:59+00:00"
+            "time": "2018-11-27T05:46:19+00:00"
         },
         {
             "name": "webmozart/assert",
