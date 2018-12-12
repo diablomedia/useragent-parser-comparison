@@ -36,11 +36,6 @@
       <code>shell_exec($parserDir-&gt;getPathname() . '/parse.sh ' . implode(' ', $args))</code>
     </ForbiddenCode>
   </file>
-  <file src="src/Command/Parse.php">
-    <PossiblyNullArgument occurrences="1">
-      <code>$csvFile</code>
-    </PossiblyNullArgument>
-  </file>
   <file src="src/Command/Test.php">
     <ForbiddenCode occurrences="1">
       <code>shell_exec($testData['path'] . '/build.sh')</code>
