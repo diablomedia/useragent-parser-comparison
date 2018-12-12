@@ -51,10 +51,13 @@ class Normalize extends Command
 
         $output->writeln('<comment>Normalizing data from test run: ' . $run . '</comment>');
 
+        $this->options = ['tests' => [], 'parsers' => []];
+
         if (file_exists($this->runDir . '/' . $run . '/metadata.json')) {
-            $this->options = json_decode(file_get_contents($this->runDir . '/' . $run . '/metadata.json'), true);
-        } else {
-            $this->options = ['tests' => [], 'parsers' => []];
+            $contents = file_get_contents($this->runDir . '/' . $run . '/metadata.json');
+            if ($contents !== false) {
+                $this->options = json_decode($contents, true);
+            }
         }
 
         if (!empty($this->options['tests'])) {
@@ -71,7 +74,13 @@ class Normalize extends Command
 
                 $output->write('Processing output from the ' . $testFile->getFilename() . ' test suite... ');
 
-                $data       = json_decode(file_get_contents($testFile->getPathname()), true);
+                $contents = file_get_contents($testFile->getPathname());
+
+                if ($contents === false) {
+                    continue;
+                }
+
+                $data       = json_decode($contents, true);
                 $normalized = $data;
 
                 $dataSource = null;
@@ -121,7 +130,13 @@ class Normalize extends Command
 
                     $output->write("\t" . 'Processing results from the ' . $testName . ' test suite... ');
 
-                    $data       = json_decode(file_get_contents($resultFile->getPathname()), true);
+                    $contents = file_get_contents($resultFile->getPathname());
+
+                    if ($contents === false) {
+                        continue;
+                    }
+
+                    $data       = json_decode($contents, true);
                     $normalized = [];
 
                     $dataSource = null;

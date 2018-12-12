@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace UserAgentParserComparison\Command;
 
+use Exception;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableCell;
@@ -191,6 +192,9 @@ class Parse extends Command
         return 0;
     }
 
+    /**
+     * @throws Exception if cannot open file stream
+     */
     private function putcsv(array $input, string $csvFile): string
     {
         $delimiter = ',';
@@ -202,9 +206,13 @@ class Parse extends Command
             $fp = fopen('php://temp', 'r+b');
         }
 
+        if ($fp === false) {
+            throw new Exception('Could not open file or stream');
+        }
+
         fputcsv($fp, $input, $delimiter, $enclosure);
         rewind($fp);
-        $data = rtrim(stream_get_contents($fp), "\n");
+        $data = rtrim((string) stream_get_contents($fp), "\n");
         fclose($fp);
 
         if ($csvFile) {

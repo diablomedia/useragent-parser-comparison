@@ -86,7 +86,16 @@ class Analyze extends Command
         }
 
         if (file_exists($this->runDir . '/' . $run . '/metadata.json')) {
-            $this->options = json_decode(file_get_contents($this->runDir . '/' . $run . '/metadata.json'), true);
+            $contents = file_get_contents($this->runDir . '/' . $run . '/metadata.json');
+            if ($contents !== false) {
+                $this->options = json_decode($contents, true);
+            } else {
+                $output->writeln(
+                    '<error>Could not read file (' . $this->runDir . '/' . $run . '/metadata.json' . ')</error>'
+                );
+
+                return 2;
+            }
         } else {
             $output->writeln('<error>No options file found for this test run</error>');
 
@@ -119,25 +128,39 @@ class Analyze extends Command
             $expectedFilename = $this->runDir . '/' . $run . '/expected/normalized/' . $testName . '.json';
 
             if (file_exists($expectedFilename)) {
-                $expectedResults = json_decode(file_get_contents($expectedFilename), true);
-                $headerMessage   = '<fg=yellow>Parser comparison for ' . $testName . ' test suite' . (isset($testData['metadata']['version']) ? ' (' . $testData['metadata']['version'] . ')' : '') . '</>';
+                $contents = file_get_contents($expectedFilename);
+
+                if ($contents === false) {
+                    $headerMessage   = '<error>Could not read file (' . $expectedFilename . ')</error>';
+                    $expectedResults = [];
+                } else {
+                    $expectedResults = json_decode($contents, true);
+                    $headerMessage   = '<fg=yellow>Parser comparison for ' . $testName . ' test suite' . (isset($testData['metadata']['version']) ? ' (' . $testData['metadata']['version'] . ')' : '') . '</>';
+                }
             } else {
                 // When we aren't comparing to a test suite, the first parser's results become the expected results
                 $expectedResults = [];
-                $testResult      = json_decode(
-                    file_get_contents(
-                        $this->runDir . '/' . $run . '/results/' . array_keys(
-                            $this->options['parsers']
-                        )[0] . '/normalized/' . $testName . '.json'
-                    ),
-                    true
+                $fileName        = $this->runDir . '/' . $run . '/results/' . array_keys(
+                    $this->options['parsers']
+                )[0] . '/normalized/' . $testName . '.json';
+                $contents = file_get_contents(
+                    $fileName
                 );
 
-                foreach ($testResult['results'] as $data) {
-                    $expectedResults['tests'][$data['useragent']] = $data['parsed'];
-                }
+                if ($contents !== false) {
+                    $testResult = json_decode(
+                        $contents,
+                        true
+                    );
 
-                $headerMessage = '<fg=yellow>Parser comparison for ' . $testName . ' file, using ' . array_keys($this->options['parsers'])[0] . ' results as expected</>';
+                    foreach ($testResult['results'] as $data) {
+                        $expectedResults['tests'][$data['useragent']] = $data['parsed'];
+                    }
+
+                    $headerMessage = '<fg=yellow>Parser comparison for ' . $testName . ' file, using ' . array_keys($this->options['parsers'])[0] . ' results as expected</>';
+                } else {
+                    $headerMessage = '<error>Could not read file (' . $fileName . ')</error>';
+                }
             }
 
             if (!isset($expectedResults['tests']) || !is_array($expectedResults['tests'])) {
@@ -195,8 +218,17 @@ class Analyze extends Command
                     continue;
                 }
 
+                $fileName = $this->runDir . '/' . $run . '/results/' . $parserName . '/normalized/' . $testName . '.json';
+                $contents = file_get_contents($fileName);
+
+                if ($contents === false) {
+                    $this->output->writeln('<error>Could not read file (' . $fileName . '), skipping</error>');
+
+                    continue;
+                }
+
                 $testResult = json_decode(
-                    file_get_contents($this->runDir . '/' . $run . '/results/' . $parserName . '/normalized/' . $testName . '.json'),
+                    $contents,
                     true
                 );
 
