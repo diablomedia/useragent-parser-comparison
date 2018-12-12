@@ -4,77 +4,13 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="https://getpsalm.org/schema/config"
     xsi:schemaLocation="https://getpsalm.org/schema/config file:///Volumes/GitWorkspace/Sites/useragent-parser-comparison/vendor/vimeo/psalm/config.xsd"
+    errorBaseline="psalm-baseline.xml"
 >
     <projectFiles>
         <directory name="./src/" />
     </projectFiles>
 
     <issueHandlers>
-        <PropertyNotSetInConstructor>
-            <errorLevel type="info">
-                <!-- these three are set in the `exec` method, which sort of acts like the constructor from our point of
-                view. As it's the main entry point to the execution of this class -->
-                <file name="src/Command/Analyze.php" />
-            </errorLevel>
-        </PropertyNotSetInConstructor>
-
-        <InvalidArrayOffset>
-            <errorLevel type="info">
-                <!-- in all of these cases, the array_search needle is a static string defined in the array above, so
-                false should never be returned by array_search. Could restructure code to check for that to be safe
-                (in case that array changes an the array_search call isn't updated), but not high priority -->
-                <file name="src/Command/Analyze.php" />
-            </errorLevel>
-        </InvalidArrayOffset>
-
-        <UndefinedVariable>
-            <errorLevel type="info">
-                <!-- defined in loop, and isset checks before accessed -->
-                <file name="src/Command/Analyze.php" />
-            </errorLevel>
-        </UndefinedVariable>
-        <TypeDoesNotContainType>
-            <errorLevel type="info">
-                <!-- Similar to above, these variables change during the loop -->
-                <file name="src/Command/Analyze.php" />
-            </errorLevel>
-        </TypeDoesNotContainType>
-
-        <ForbiddenCode>
-            <errorLevel type="info">
-                <!-- Psalm does not like shell_exec, maybe replace with something else? -->
-                <file name="src/Command/Helper/Parsers.php" />
-                <file name="src/Command/Test.php" />
-            </errorLevel>
-        </ForbiddenCode>
-
-        <UnresolvableInclude>
-            <errorLevel type="info">
-                <!-- There's a file_exists check around this -->
-                <file name="src/Command/Helper/Normalize.php" />
-            </errorLevel>
-        </UnresolvableInclude>
-
-        <RedundantCondition>
-            <errorLevel type="info">
-                <!-- it's possible that these properties aren't set when first running through the loop -->
-                <file name="src/Command/Analyze.php" />
-            </errorLevel>
-        </RedundantCondition>
-
-        <PossiblyInvalidArrayAccess>
-            <errorLevel type="info">
-                <!-- Psalm believes this array element might be an int, I don't see where -->
-                <file name="src/Command/Analyze.php" />
-            </errorLevel>
-        </PossiblyInvalidArrayAccess>
-
-        <PossiblyInvalidArrayAssignment>
-            <errorLevel type="info">
-                <!-- Psalm believes this array element might be an int, I don't see where -->
-                <file name="src/Command/Analyze.php" />
-            </errorLevel>
-        </PossiblyInvalidArrayAssignment>
 
     </issueHandlers>
 </psalm>

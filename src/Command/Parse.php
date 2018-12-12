@@ -37,16 +37,25 @@ class Parse extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        /** @var string $file */
         $file      = $input->getArgument('file');
         $normalize = $input->getOption('normalize');
         $csv       = $input->getOption('csv');
-        $name      = $input->getArgument('run');
-        $noOutput  = $input->getOption('no-output');
-        $csvFile   = $input->getOption('csv-file');
+        /** @var string|null $name */
+        $name     = $input->getArgument('run');
+        $noOutput = $input->getOption('no-output');
+        /** @var string|null $csvFile */
+        $csvFile = $input->getOption('csv-file');
 
         if ($csvFile) {
             $noOutput = true;
             $csv      = true;
+        } elseif ($csv) {
+            $output->writeln(
+                '<error>csvFile parameter is required if csv parameter is specified</error>'
+            );
+
+            return 1;
         }
 
         $parserHelper    = $this->getHelper('parsers');
@@ -129,7 +138,7 @@ class Parse extends Command
                 $answer = $questionHelper->ask($input, $output, $question);
             }
 
-            if ($csv || $answer === 'Dump as CSV') {
+            if (($csv || $answer === 'Dump as CSV') && $csvFile) {
                 $csvOutput = '';
 
                 $csvOutput .= $this->putcsv([

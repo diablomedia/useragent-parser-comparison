@@ -97,6 +97,7 @@ class Test extends Command
         $parsers      = $parserHelper->getParsers($input, $output);
 
         // Prepare our test directory to store the data from this run
+        /** @var string|null $thisRunDirName */
         $thisRunDirName = $input->getArgument('run');
 
         if (empty($thisRunDirName)) {
