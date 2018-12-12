@@ -33,10 +33,14 @@ class Normalize extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        /** @var string|null $run */
         $run = $input->getArgument('run');
 
         if (empty($run)) {
-            // Show user the available runs, perhaps limited to 10 or something
+            // @todo Show user the available runs, perhaps limited to 10 or something, for now, throw an error
+            $output->writeln('<error>run argument is required</error>');
+
+            return 1;
         }
 
         if (!file_exists($this->runDir . '/' . $run)) {

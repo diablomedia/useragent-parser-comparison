@@ -69,10 +69,14 @@ class Analyze extends Command
         $this->input  = $input;
         $this->output = $output;
 
+        /** @var string|null $run */
         $run = $input->getArgument('run');
 
         if (empty($run)) {
-            // Show user the available runs, perhaps limited to 10 or something
+            // @todo Show user the available runs, perhaps limited to 10 or something, for now, throw an error
+            $output->writeln('<error>run argument is required</error>');
+
+            return 1;
         }
 
         if (!file_exists($this->runDir . '/' . $run)) {
@@ -392,8 +396,10 @@ class Analyze extends Command
                 $subs
             );
             $property = $questionHelper->ask($this->input, $this->output, $question);
+        } elseif (count($subs) === 1) {
+            $property = reset($subs);
         } else {
-            $property = $subs[0];
+            $property = 'name';
         }
 
         return $property;
