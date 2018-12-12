@@ -194,10 +194,13 @@ class Test extends Command
     {
         /** @var SplFileInfo $testDir */
         foreach (new FilesystemIterator($this->testsDir) as $testDir) {
+            $metadata = [];
             if (file_exists($testDir->getPathname() . '/metadata.json')) {
-                $metadata = json_decode(file_get_contents($testDir->getPathname() . '/metadata.json'), true);
-            } else {
-                $metadata = [];
+                $contents = file_get_contents($testDir->getPathname() . '/metadata.json');
+
+                if ($contents !== false) {
+                    $metadata = json_decode($contents, true);
+                }
             }
 
             $this->tests[$testDir->getFilename()] = [

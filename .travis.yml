@@ -35,7 +35,7 @@ jobs:
     - stage: static code analysis
       php: 7.2
       script:
-        - vendor/bin/phpstan analyse -l 7 -c phpstan.neon --autoload-file=vendor/autoload.php --memory-limit=768M --no-progress src bin mappings
+        - vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=768M --no-progress
         - vendor/bin/psalm --show-info=false
 
 notifications:

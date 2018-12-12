@@ -38,10 +38,13 @@ class Parsers extends Helper
     {
         /** @var SplFileInfo $parserDir */
         foreach (new FilesystemIterator($this->parsersDir) as $parserDir) {
+            $metadata = [];
+
             if (file_exists($parserDir->getPathname() . '/metadata.json')) {
-                $metadata = json_decode(file_get_contents($parserDir->getPathname() . '/metadata.json'), true);
-            } else {
-                $metadata = [];
+                $contents = file_get_contents($parserDir->getPathname() . '/metadata.json');
+                if ($contents !== false) {
+                    $metadata = json_decode($contents, true);
+                }
             }
 
             $this->parsers[$parserDir->getFilename()] = [

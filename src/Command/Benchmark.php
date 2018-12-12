@@ -25,8 +25,10 @@ class Benchmark extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $file       = $input->getArgument('file');
-        $iterations = (int) $input->getOption('iterations');
+        $file = $input->getArgument('file');
+        /** @var bool|string|null $iterations */
+        $iterations = $input->getOption('iterations');
+        $iterations = (int) $iterations;
 
         /** @var \UserAgentParserComparison\Command\Helper\Parsers $parserHelper */
         $parserHelper = $this->getHelper('parsers');
