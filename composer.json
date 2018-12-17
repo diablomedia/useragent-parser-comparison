@@ -11,7 +11,7 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "2.13.1",
-        "vimeo/psalm": "3.0.3",
+        "vimeo/psalm": "3.0.5",
         "phpstan/phpstan": "0.10.6"
     }
 }
