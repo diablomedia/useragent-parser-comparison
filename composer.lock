@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1ca10b1da8d9a79dae1e744fe3b57e67",
+    "content-hash": "f2c2fb6a4774e96970a21ceb56f5079c",
     "packages": [
         {
             "name": "symfony/console",
@@ -2406,16 +2406,16 @@
         },
         {
             "name": "vimeo/psalm",
-            "version": "3.0.3",
+            "version": "3.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vimeo/psalm.git",
-                "reference": "f9753e1517efd2f7282bf9c7c141fd7224e242ec"
+                "reference": "195cb289edf071fd14195ecf3951eabf634b577a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/f9753e1517efd2f7282bf9c7c141fd7224e242ec",
-                "reference": "f9753e1517efd2f7282bf9c7c141fd7224e242ec",
+                "url": "https://api.github.com/repos/vimeo/psalm/zipball/195cb289edf071fd14195ecf3951eabf634b577a",
+                "reference": "195cb289edf071fd14195ecf3951eabf634b577a",
                 "shasum": ""
             },
             "require": {
@@ -2480,7 +2480,7 @@
                 "inspection",
                 "php"
             ],
-            "time": "2018-12-11T04:20:46+00:00"
+            "time": "2019-01-07T13:38:56+00:00"
         },
         {
             "name": "webmozart/assert",
