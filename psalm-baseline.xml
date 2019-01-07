@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files>
   <file src="src/Command/Analyze.php">
-    <InvalidArrayOffset occurrences="4">
+    <InvalidArrayOffset occurrences="2">
       <code>$questions[array_search('Change Test Suite', $questions)]</code>
-      <code>$questions[array_search('Change Parser', $questions)]</code>
       <code>$questions[array_search('Change Test Suite', $questions)]</code>
-      <code>$questions[array_search('Change Property', $questions)]</code>
     </InvalidArrayOffset>
+    <PossiblyInvalidArrayOffset occurrences="2">
+      <code>$questions[array_search('Change Parser', $questions)]</code>
+      <code>$questions[array_search('Change Property', $questions)]</code>
+    </PossiblyInvalidArrayOffset>
     <PossiblyUndefinedVariable occurrences="2">
       <code>$parserScores</code>
       <code>$possibleScores</code>
