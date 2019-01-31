@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace UserAgentParserComparison\Command;
 
 use Exception;
+use JsonClass\Json;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableCell;
@@ -59,7 +60,9 @@ class Parse extends Command
             return 1;
         }
 
-        $parserHelper    = $this->getHelper('parsers');
+        $parserHelper = $this->getHelper('parsers');
+
+        /** @var Helper\Normalize $normalizeHelper */
         $normalizeHelper = $this->getHelper('normalize');
         $questionHelper  = $this->getHelper('question');
 
@@ -99,14 +102,14 @@ class Parse extends Command
 
                 file_put_contents(
                     $this->runDir . '/' . $name . '/results/' . $parserName . '/' . basename($file) . '.json',
-                    json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+                    (new Json())->encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
                 );
             }
 
             $rows = [];
             foreach ($result['results'] as $parsed) {
                 if ($normalize) {
-                    $parsed['parsed'] = $normalizeHelper->normalize($parsed['parsed'], $parser['metadata']['data_source']);
+                    $parsed['parsed'] = $normalizeHelper->normalize($parsed['parsed']);
                 }
 
                 $rows[] = [new TableCell('<fg=yellow>' . $parsed['useragent'] . '</>', ['colspan' => '7']), round($parsed['time'], 5) . 's'];
@@ -142,18 +145,24 @@ class Parse extends Command
             if (($csv || $answer === 'Dump as CSV') && $csvFile) {
                 $csvOutput = '';
 
-                $csvOutput .= $this->putcsv([
-                    'useragent',
-                    'browser_name',
-                    'browser_version',
-                    'platform_name',
-                    'platform_version',
-                    'device_name',
-                    'device_brand',
-                    'device_type',
-                    'ismobile',
-                    'time',
-                ], $csvFile) . "\n";
+                try {
+                    $title = [
+                        'useragent',
+                        'browser_name',
+                        'browser_version',
+                        'platform_name',
+                        'platform_version',
+                        'device_name',
+                        'device_brand',
+                        'device_type',
+                        'ismobile',
+                        'time',
+                    ];
+
+                    $csvOutput .= $this->putcsv($title, $csvFile) . "\n";
+                } catch (Exception $e) {
+                    $output->writeln('<error> error</error>');
+                }
 
                 foreach ($result['results'] as $parsed) {
                     $out = [
@@ -169,7 +178,11 @@ class Parse extends Command
                         $parsed['time'],
                     ];
 
-                    $csvOutput .= $this->putcsv($out, $csvFile) . "\n";
+                    try {
+                        $csvOutput .= $this->putcsv($out, $csvFile) . "\n";
+                    } catch (Exception $e) {
+                        $output->writeln('<error> error</error>');
+                    }
                 }
 
                 if ($csvFile) {
@@ -185,7 +198,7 @@ class Parse extends Command
         if ($name) {
             file_put_contents(
                 $this->runDir . '/' . $name . '/metadata.json',
-                json_encode(['parsers' => $parsers, 'date' => time(), 'file' => basename($file)], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+                (new Json())->encode(['parsers' => $parsers, 'date' => time(), 'file' => basename($file)], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
             );
         }
 
@@ -193,7 +206,7 @@ class Parse extends Command
     }
 
     /**
-     * @throws Exception if cannot open file stream
+     * @throws \Exception if cannot open file stream
      */
     private function putcsv(array $input, string $csvFile): string
     {
@@ -201,9 +214,9 @@ class Parse extends Command
         $enclosure = '"';
 
         if ($csvFile) {
-            $fp = fopen($csvFile, 'a+b');
+            $fp = fopen($csvFile, 'a+');
         } else {
-            $fp = fopen('php://temp', 'r+b');
+            $fp = fopen('php://temp', 'r+');
         }
 
         if ($fp === false) {

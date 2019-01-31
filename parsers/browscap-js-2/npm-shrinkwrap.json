@@ -9,10 +9,10 @@
       "resolved": "https://registry.npmjs.org/browscap-js/-/browscap-js-2.2.6000030.tgz",
       "integrity": "sha512-IrweTS3aApeD7KldIP93hmTFo67INMEn/IN030nxAwZrkRgU63b7Eg+kF4F9SzNv8ORwkrXmhc6DEaE7nq4EOQ==",
       "requires": {
-        "browscap-js-cache": "^1.2.0",
-        "browscap-json-cache-files": "^1.2.6000030",
-        "md5": "^2.0.0",
-        "synchronous-promise": "^1.0.18||^2.0.4"
+        "browscap-js-cache": "1.2.0",
+        "browscap-json-cache-files": "1.2.6000030",
+        "md5": "2.2.1",
+        "synchronous-promise": "2.0.6"
       }
     },
     "browscap-js-cache": {
@@ -45,15 +45,15 @@
       "resolved": "https://registry.npmjs.org/md5/-/md5-2.2.1.tgz",
       "integrity": "sha1-U6s41f48iJG6RlMp6iP6wFQBJvk=",
       "requires": {
-        "charenc": "~0.0.1",
-        "crypt": "~0.0.1",
-        "is-buffer": "~1.1.1"
+        "charenc": "0.0.2",
+        "crypt": "0.0.2",
+        "is-buffer": "1.1.6"
       }
     },
     "synchronous-promise": {
-      "version": "2.0.5",
-      "resolved": "https://registry.npmjs.org/synchronous-promise/-/synchronous-promise-2.0.5.tgz",
-      "integrity": "sha512-+X+ZOwu5X3CCVoZ0DozKZGpprZS/bRWlstpSRcRrQitababOtD2Be2c012qP0nZ212XOd4OlSXnaS7n+bmRsiA=="
+      "version": "2.0.6",
+      "resolved": "https://registry.npmjs.org/synchronous-promise/-/synchronous-promise-2.0.6.tgz",
+      "integrity": "sha512-TyOuWLwkmtPL49LHCX1caIwHjRzcVd62+GF6h8W/jHOeZUFHpnd2XJDVuUlaTaLPH1nuu2M69mfHr5XbQJnf/g=="
     }
   }
 }

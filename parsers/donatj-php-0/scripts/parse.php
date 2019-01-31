@@ -47,11 +47,11 @@ while (!$file->eof()) {
         'useragent' => $agentString,
         'parsed'    => [
             'browser' => [
-                'name'    => $r['browser'] ?? '',
-                'version' => $r['version'] ?? '',
+                'name'    => $r['browser'] ?? null,
+                'version' => $r['version'] ?? null,
             ],
             'platform' => [
-                'name'    => $r['platform'] ?? '',
+                'name'    => $r['platform'] ?? null,
                 'version' => null,
             ],
             'device' => [
@@ -71,7 +71,7 @@ $memory = memory_get_peak_usage();
 // Get version from composer
 $package = new \PackageInfo\Package('donatj/phpuseragentparser');
 
-echo json_encode([
+echo (new \JsonClass\Json())->encode([
     'results'     => $results,
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,

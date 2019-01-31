@@ -60,17 +60,17 @@ while (!$file->eof()) {
         'useragent' => $agentString,
         'parsed'    => [
             'browser' => [
-                'name'    => $clientInfo['name'] ?? '',
-                'version' => $clientInfo['version'] ?? '',
+                'name'    => $clientInfo['name'] ?? null,
+                'version' => $clientInfo['version'] ?? null,
             ],
             'platform' => [
-                'name'    => $osInfo['name'] ?? '',
-                'version' => $osInfo['version'] ?? '',
+                'name'    => $osInfo['name'] ?? null,
+                'version' => $osInfo['version'] ?? null,
             ],
             'device' => [
-                'name'     => $model !== null ? $model : '',
-                'brand'    => $brand !== null ? $brand : '',
-                'type'     => $device !== null ? $device : '',
+                'name'     => $model,
+                'brand'    => $brand,
+                'type'     => $device,
                 'ismobile' => $isMobile ? true : false,
             ],
         ],
@@ -83,7 +83,7 @@ $file = null;
 // Get version from composer
 $package = new \PackageInfo\Package('piwik/device-detector');
 
-echo json_encode([
+echo (new \JsonClass\Json())->encode([
     'results'     => $results,
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,

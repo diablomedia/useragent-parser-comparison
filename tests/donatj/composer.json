@@ -1,7 +1,7 @@
 {
     "require": {
         "donatj/phpuseragentparser": "^0.9",
-        "seld/jsonlint": "^1.7",
-        "thadafinser/package-info": "^1.0"
+        "thadafinser/package-info": "^1.0",
+        "mimmi20/json-class": "~2.0.1"
     }
 }

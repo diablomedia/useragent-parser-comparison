@@ -80,7 +80,7 @@ $memory = memory_get_peak_usage();
 // Get version from composer
 $package = new \PackageInfo\Package('sinergi/browser-detector');
 
-echo json_encode([
+echo (new \JsonClass\Json())->encode([
     'results'     => $results,
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,

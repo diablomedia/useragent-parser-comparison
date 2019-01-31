@@ -1,6 +1,7 @@
 {
     "require": {
         "endorphin-studio/browser-detector": "^3.0",
-        "thadafinser/package-info": "^1.0"
+        "thadafinser/package-info": "^1.0",
+        "mimmi20/json-class": "~2.0.1"
     }
 }

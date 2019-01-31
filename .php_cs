@@ -42,7 +42,6 @@ return PhpCsFixer\Config::create()
         // @Symfony rules configured different from default
         'binary_operator_spaces'  => ['default' => 'align_single_space_minimal'],
         'concat_space'            => ['spacing' => 'one'],
-        'fopen_flags'             => ['b_mode' => true],
         'declare_equal_normalize' => ['space' => 'single'],
         'phpdoc_no_empty_return'  => false,
         'phpdoc_summary'          => false,

@@ -43,18 +43,18 @@ lineReader.on('line', function(line) {
             useragent: line,
             parsed: {
                 browser: {
-                    name: '',
-                    version: ''
+                    name: null,
+                    version: null
                 },
                 platform: {
-                    name: '',
-                    version: ''
+                    name: null,
+                    version: null
                 },
                 device: {
-                    name: '',
-                    brand: '',
-                    type: '',
-                    ismobile: ''
+                    name: null,
+                    brand: null,
+                    type: null,
+                    ismobile: null
                 }
             }
         };
@@ -81,20 +81,20 @@ lineReader.on('line', function(line) {
             useragent: line,
             parsed: {
                 browser: {
-                    name: r.browser.name ? r.browser.name : '',
-                    version: r.browser.version ? r.browser.version.value : ''
+                    name: r.browser.name ? r.browser.name : null,
+                    version: r.browser.version ? r.browser.version.value : null
                 },
                 platform: {
-                    name: r.os.name ? r.os.name : '',
+                    name: r.os.name ? r.os.name : null,
                     version:
                         r.os.version && r.os.version.value
                             ? r.os.version.value
-                            : ''
+                            : null
                 },
                 device: {
-                    name: r.device.model ? r.device.model : '',
-                    brand: r.device.manufacturer ? r.device.manufacturer : '',
-                    type: r.device.type ? r.device.type : '',
+                    name: r.device.model ? r.device.model : null,
+                    brand: r.device.manufacturer ? r.device.manufacturer : null,
+                    type: r.device.type ? r.device.type : null,
                     ismobile:
                         mobileDeviceTypes.indexOf(r.device.type) !== -1 ||
                         (r.device.subtype && r.device.subtype === 'portable')

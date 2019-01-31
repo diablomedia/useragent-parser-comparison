@@ -4,7 +4,10 @@ declare(strict_types = 1);
 
 namespace UserAgentParserComparison\Command;
 
+use ExceptionalJSON\DecodeErrorException;
+use ExceptionalJSON\EncodeErrorException;
 use FilesystemIterator;
+use JsonClass\Json;
 use SplFileInfo;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -50,7 +53,7 @@ class Test extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->collectTests();
+        $this->collectTests($output);
 
         $rows = [];
 
@@ -123,9 +126,9 @@ class Test extends Command
 
             file_put_contents($expectedDir . '/' . $testName . '.json', $testOutput);
 
-            $testOutput = json_decode($testOutput, true);
-
-            if (json_last_error() !== JSON_ERROR_NONE || empty($testOutput)) {
+            try {
+                $testOutput = (new Json())->decode($testOutput, true);
+            } catch (DecodeErrorException $e) {
                 $output->writeln('<error>There was an error with the output from the ' . $testName . ' test suite.</error>');
 
                 continue;
@@ -149,7 +152,7 @@ class Test extends Command
             });
 
             file_put_contents($filename, implode(PHP_EOL, $agents));
-            $output->writeln('<info>  done!</info>');
+            $output->writeln('<info>  done! [' . count($agents) . ' tests found]</info>');
 
             foreach ($parsers as $parserName => $parser) {
                 $output->write("\t" . 'Testing against the ' . $parserName . ' parser... ');
@@ -169,9 +172,19 @@ class Test extends Command
                     mkdir($resultsDir . '/' . $parserName);
                 }
 
+                try {
+                    $encoded = (new Json())->encode(
+                        $result,
+                        JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
+                    );
+                } catch (EncodeErrorException $e) {
+                    $output->writeln('<error> encoding the result failed!</error>');
+                    continue;
+                }
+
                 file_put_contents(
                     $resultsDir . '/' . $parserName . '/' . $testName . '.json',
-                    json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+                    $encoded
                 );
                 $output->writeln('<info> done!</info>');
             }
@@ -179,10 +192,21 @@ class Test extends Command
             $usedTests[$testName] = $testData;
         }
 
+        try {
+            $encoded = (new Json())->encode(
+                ['tests' => $usedTests, 'parsers' => $parsers, 'date' => time()],
+                JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
+            );
+        } catch (EncodeErrorException $e) {
+            $output->writeln('<error>Encoding result metadata failed for the ' . $thisRunDirName . ' directory</error>');
+
+            return 1;
+        }
+
         // write some test data to file
         file_put_contents(
             $thisRunDir . '/metadata.json',
-            json_encode(['tests' => $usedTests, 'parsers' => $parsers, 'date' => time()], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+            $encoded
         );
 
         $output->writeln('<comment>Parsing complete, data stored in ' . $thisRunDirName . ' directory</comment>');
@@ -190,7 +214,7 @@ class Test extends Command
         return 0;
     }
 
-    private function collectTests(): void
+    private function collectTests(OutputInterface $output): void
     {
         /** @var SplFileInfo $testDir */
         foreach (new FilesystemIterator($this->testsDir) as $testDir) {
@@ -199,7 +223,11 @@ class Test extends Command
                 $contents = file_get_contents($testDir->getPathname() . '/metadata.json');
 
                 if ($contents !== false) {
-                    $metadata = json_decode($contents, true);
+                    try {
+                        $metadata = (new Json())->decode($contents, true);
+                    } catch (DecodeErrorException $e) {
+                        $output->writeln('<error>An error occured while parsing results for the ' . $testDir->getPathname() . ' test suite</error>');
+                    }
                 }
             }
 

@@ -9,9 +9,9 @@
       "resolved": "https://registry.npmjs.org/browscap-js/-/browscap-js-3.0.6000030.tgz",
       "integrity": "sha512-BlGwptzmIDl6jqZVfUGhtLGMMNHF34WKmoOYjbt+u18qX+rTjfdp3wesR4xF4lEGH6R72XSPfNPLD4neaHhk9Q==",
       "requires": {
-        "browscap-js-cache": "^2.0.1",
-        "browscap-json-cache-files": "^1.2.6000030",
-        "md5": "^2.0.0"
+        "browscap-js-cache": "2.0.1",
+        "browscap-json-cache-files": "1.2.6000030",
+        "md5": "2.2.1"
       }
     },
     "browscap-js-cache": {
@@ -44,9 +44,9 @@
       "resolved": "https://registry.npmjs.org/md5/-/md5-2.2.1.tgz",
       "integrity": "sha1-U6s41f48iJG6RlMp6iP6wFQBJvk=",
       "requires": {
-        "charenc": "~0.0.1",
-        "crypt": "~0.0.1",
-        "is-buffer": "~1.1.1"
+        "charenc": "0.0.2",
+        "crypt": "0.0.2",
+        "is-buffer": "1.1.6"
       }
     }
   }

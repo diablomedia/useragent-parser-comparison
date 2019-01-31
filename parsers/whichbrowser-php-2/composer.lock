@@ -4,8 +4,105 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6ad0ea299c670b6ee5e22d69472a663f",
+    "content-hash": "2c52ad7e4d4bfea0de62a6ed1b8f264d",
     "packages": [
+        {
+            "name": "daverandom/exceptional-json",
+            "version": "v1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DaveRandom/ExceptionalJSON.git",
+                "reference": "fed957142b4687b079495c80975666dd1a67d61d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DaveRandom/ExceptionalJSON/zipball/fed957142b4687b079495c80975666dd1a67d61d",
+                "reference": "fed957142b4687b079495c80975666dd1a67d61d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ExceptionalJSON\\": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Wright"
+                }
+            ],
+            "description": "JSON encoding and decoding that throws exceptions on failure",
+            "time": "2018-06-11T11:25:57+00:00"
+        },
+        {
+            "name": "mimmi20/json-class",
+            "version": "2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mimmi20/json-class.git",
+                "reference": "d53745fbc4080d502bcf4126a77491be7902b252"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mimmi20/json-class/zipball/d53745fbc4080d502bcf4126a77491be7902b252",
+                "reference": "d53745fbc4080d502bcf4126a77491be7902b252",
+                "shasum": ""
+            },
+            "require": {
+                "daverandom/exceptional-json": "^1.0.4",
+                "ext-json": "*",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.13",
+                "localheinz/composer-normalize": "^1.0.0",
+                "localheinz/phpstan-rules": "^0.4 || ^0.5",
+                "pepakriz/phpstan-exception-rules": "^0.3 || ^0.4",
+                "phpstan/phpstan": "^0.10",
+                "phpstan/phpstan-deprecation-rules": "^0.10",
+                "phpstan/phpstan-phpunit": "^0.10",
+                "phpstan/phpstan-strict-rules": "^0.10",
+                "phpunit/phpunit": "^7.5",
+                "squizlabs/php_codesniffer": "^3.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "JsonClass\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Thomas Müller",
+                    "homepage": "https://github.com/mimmi20",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/mimmi20/json-class/graphs/contributors"
+                }
+            ],
+            "description": "Class wrapper for ",
+            "homepage": "https://github.com/mimmi20/json-class",
+            "keywords": [
+                "json"
+            ],
+            "time": "2019-01-02T21:26:59+00:00"
+        },
         {
             "name": "psr/cache",
             "version": "1.0.1",
@@ -98,16 +195,16 @@
         },
         {
             "name": "whichbrowser/parser",
-            "version": "v2.0.35",
+            "version": "v2.0.37",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WhichBrowser/Parser-PHP.git",
-                "reference": "ad4fce96a17fc1bf6fc741b175de5e231bae7ebe"
+                "reference": "9c6ad8eadc23294b1c66d92876c11f13c5d4cf48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WhichBrowser/Parser-PHP/zipball/ad4fce96a17fc1bf6fc741b175de5e231bae7ebe",
-                "reference": "ad4fce96a17fc1bf6fc741b175de5e231bae7ebe",
+                "url": "https://api.github.com/repos/WhichBrowser/Parser-PHP/zipball/9c6ad8eadc23294b1c66d92876c11f13c5d4cf48",
+                "reference": "9c6ad8eadc23294b1c66d92876c11f13c5d4cf48",
                 "shasum": ""
             },
             "require": {
@@ -115,7 +212,7 @@
                 "psr/cache": "^1.0"
             },
             "require-dev": {
-                "icomefromthenet/reverse-regex": "dev-master",
+                "icomefromthenet/reverse-regex": "0.0.6.3",
                 "phpunit/php-code-coverage": "^2.2|^3.0",
                 "phpunit/phpunit": "^4.0|^5.0",
                 "satooshi/php-coveralls": "^1.0",
@@ -153,7 +250,7 @@
                 "ua",
                 "useragent"
             ],
-            "time": "2018-08-08T10:00:00+00:00"
+            "time": "2018-10-02T09:26:41+00:00"
         }
     ],
     "packages-dev": [],

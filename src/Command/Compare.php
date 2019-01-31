@@ -20,6 +20,9 @@ class Compare extends Command
             ->setHelp('This command is a "meta" command that will execute the Test, Normalize and Analyze commands in order');
     }
 
+    /**
+     * @throws \Exception
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $file = $input->getArgument('file');
