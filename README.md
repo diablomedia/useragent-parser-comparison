@@ -108,7 +108,8 @@ zsxsoft-php-1           | 0.005s            | 0.066s             | 0.051s       
 ## Windows 10 system requirements
 
 Enabling sqlite php extension.
-Enabling wget command 
+
+Enabling wget command.
 
 ## How To Use
 
