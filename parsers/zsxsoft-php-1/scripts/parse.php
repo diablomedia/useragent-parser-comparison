@@ -47,16 +47,16 @@ while (!$file->eof()) {
         'useragent' => $agentString,
         'parsed'    => [
             'browser' => [
-                'name'    => !empty($r->browser['name']) ? $r->browser['name'] : '',
-                'version' => !empty($r->browser['version']) ? $r->browser['version'] : '',
+                'name'    => !empty($r->browser['name']) ? $r->browser['name'] : null,
+                'version' => !empty($r->browser['version']) ? $r->browser['version'] : null,
             ],
             'platform' => [
-                'name'    => !empty($r->os['name']) ? $r->os['name'] : '',
-                'version' => !empty($r->os['version']) ? $r->os['version'] : '',
+                'name'    => !empty($r->os['name']) ? $r->os['name'] : null,
+                'version' => !empty($r->os['version']) ? $r->os['version'] : null,
             ],
             'device' => [
-                'name'     => !empty($r->device['model']) ? $r->device['model'] : '',
-                'brand'    => !empty($r->device['brand']) ? $r->device['brand'] : '',
+                'name'     => !empty($r->device['model']) ? $r->device['model'] : null,
+                'brand'    => !empty($r->device['brand']) ? $r->device['brand'] : null,
                 'type'     => null,
                 'ismobile' => null,
             ],
@@ -72,7 +72,7 @@ $memory = memory_get_peak_usage();
 // Get version from composer
 $package = new \PackageInfo\Package('zsxsoft/php-useragent');
 
-echo json_encode([
+echo (new \JsonClass\Json())->encode([
     'results'     => $results,
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,

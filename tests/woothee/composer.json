@@ -2,7 +2,8 @@
     "require": {
         "woothee/woothee-testset": "^1.4",
         "mustangostang/spyc": "^0.6.1",
-        "symfony/finder": "^4.0",
-        "thadafinser/package-info": "^1.0"
+        "symfony/finder": "^4.2",
+        "thadafinser/package-info": "^1.0",
+        "mimmi20/json-class": "~2.0.1"
     }
 }

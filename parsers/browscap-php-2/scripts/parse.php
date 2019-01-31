@@ -53,15 +53,15 @@ while (!$file->eof()) {
         'parsed'    => [
             'browser' => [
                 'name'    => $r->Browser,
-                'version' => $r->Version,
+                'version' => ($r->Version === '0.0' ? null : $r->Version),
             ],
             'platform' => [
                 'name'    => $r->Platform,
-                'version' => $r->Platform_Version,
+                'version' => ($r->Platform_Version === '0.0' ? null : $r->Platform_Version),
             ],
             'device' => [
-                'name'     => $r->Device_Name,
-                'brand'    => $r->Device_Maker,
+                'name'     => $r->Device_Code_Name,
+                'brand'    => $r->Device_Brand_Name,
                 'type'     => $r->Device_Type,
                 'ismobile' => $r->isMobileDevice ? true : false,
             ],
@@ -75,7 +75,7 @@ $file = null;
 // Get version from composer
 $package = new \PackageInfo\Package('browscap/browscap-php');
 
-echo json_encode([
+echo (new \JsonClass\Json())->encode([
     'results'     => $results,
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,

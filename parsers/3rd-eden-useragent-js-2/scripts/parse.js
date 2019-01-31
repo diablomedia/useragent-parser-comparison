@@ -47,8 +47,8 @@ lineReader.on('line', function(line) {
     }
 
     var outputDevice = {
-        name: '',
-        brand: '',
+        name: null,
+        brand: null,
         type: null,
         ismobile: null
     };
@@ -65,7 +65,7 @@ lineReader.on('line', function(line) {
         parsed: {
             browser: {
                 name: r.family,
-                version: r.toVersion() === '0.0.0' ? '' : r.toVersion()
+                version: r.toVersion() === '0.0.0' ? null : r.toVersion()
             },
             platform: {
                 name: os.family,

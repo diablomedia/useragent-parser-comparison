@@ -50,17 +50,17 @@ while (!$file->eof()) {
         'useragent' => $agentString,
         'parsed'    => [
             'browser' => [
-                'name'    => $r->isBot ? (isset($r->Robot) ? $r->Robot->getName() : '') : (isset($r->Browser) ? $r->Browser->getName() : ''),
-                'version' => isset($r->Browser) ? $r->Browser->getVersion() : '',
+                'name'    => $r->isBot ? (isset($r->Robot) ? $r->Robot->getName() : null) : (isset($r->Browser) ? $r->Browser->getName() : null),
+                'version' => isset($r->Browser) ? $r->Browser->getVersion() : null,
             ],
             'platform' => [
-                'name'    => isset($r->OS) ? $r->OS->getName() : '',
-                'version' => isset($r->OS) ? $r->OS->getVersion() : '',
+                'name'    => isset($r->OS) ? $r->OS->getName() : null,
+                'version' => isset($r->OS) ? $r->OS->getVersion() : null,
             ],
             'device' => [
-                'name'     => isset($r->Device) ? $r->Device->getName() : '',
+                'name'     => isset($r->Device) ? $r->Device->getName() : null,
                 'brand'    => null,
-                'type'     => isset($r->Device) ? $r->Device->getType() : '',
+                'type'     => isset($r->Device) ? $r->Device->getType() : null,
                 'ismobile' => $r->isMobile ? true : false,
             ],
         ],
@@ -74,7 +74,7 @@ $memory = memory_get_peak_usage();
 // Get version from composer
 $package = new \PackageInfo\Package('endorphin-studio/browser-detector');
 
-echo json_encode([
+echo (new \JsonClass\Json())->encode([
     'results'     => $results,
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,

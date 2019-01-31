@@ -52,7 +52,7 @@ foreach ($finder as $fixture) {
 // Get version from composer
 $package = new \PackageInfo\Package('woothee/woothee-testset');
 
-echo json_encode([
+echo (new \JsonClass\Json())->encode([
     'tests'   => $tests,
     'version' => $package->getVersion(),
 ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

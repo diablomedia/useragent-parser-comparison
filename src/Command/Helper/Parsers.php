@@ -4,7 +4,9 @@ declare(strict_types = 1);
 
 namespace UserAgentParserComparison\Command\Helper;
 
+use ExceptionalJSON\DecodeErrorException;
 use FilesystemIterator;
+use JsonClass\Json;
 use SplFileInfo;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Helper\Table;
@@ -43,7 +45,11 @@ class Parsers extends Helper
             if (file_exists($parserDir->getPathname() . '/metadata.json')) {
                 $contents = file_get_contents($parserDir->getPathname() . '/metadata.json');
                 if ($contents !== false) {
-                    $metadata = json_decode($contents, true);
+                    try {
+                        $metadata = (new Json())->decode($contents, true);
+                    } catch (DecodeErrorException $e) {
+                        $output->writeln('<error>An error occured while parsing metadata for parser ' . $parserDir->getPathname() . '</error>');
+                    }
                 }
             }
 
@@ -63,9 +69,9 @@ class Parsers extends Helper
                     if ($result !== null) {
                         $result = trim($result);
 
-                        $result = json_decode($result, true);
-
-                        if (json_last_error() !== JSON_ERROR_NONE) {
+                        try {
+                            $result = (new Json())->decode($result, true);
+                        } catch (DecodeErrorException $e) {
                             return null;
                         }
                     }

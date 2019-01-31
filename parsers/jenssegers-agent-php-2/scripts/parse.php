@@ -71,14 +71,14 @@ while (!$file->eof()) {
         'parsed'    => [
             'browser' => [
                 'name'    => $browser,
-                'version' => $browserVersion ? $browserVersion : '',
+                'version' => $browserVersion ? $browserVersion : null,
             ],
             'platform' => [
                 'name'    => $platform,
-                'version' => $platformVersion ? $platformVersion : '',
+                'version' => $platformVersion ? $platformVersion : null,
             ],
             'device' => [
-                'name'     => $device,
+                'name'     => ($device !== false ? $device : null),
                 'brand'    => null,
                 'type'     => $type,
                 'ismobile' => $isMobile ? true : false,
@@ -94,7 +94,7 @@ $memory = memory_get_peak_usage();
 // Get version from composer
 $package = new \PackageInfo\Package('jenssegers/agent');
 
-echo json_encode([
+echo (new \JsonClass\Json())->encode([
     'results'     => $results,
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,

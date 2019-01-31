@@ -51,15 +51,15 @@ foreach ($finder as $fixture) {
             $expected = [
                 'browser' => [
                     'name'    => $data['properties']['Browser'],
-                    'version' => $data['properties']['Version'],
+                    'version' => ($data['properties']['Version'] === '0.0' ? null : $data['properties']['Version']),
                 ],
                 'platform' => [
                     'name'    => $data['properties']['Platform'] ?? 'unknown',
-                    'version' => $data['properties']['Platform_Version'],
+                    'version' => ($data['properties']['Platform_Version'] === '0.0' ? null : $data['properties']['Platform_Version']),
                 ],
                 'device' => [
-                    'name'     => $data['properties']['Device_Name'],
-                    'brand'    => $data['properties']['Device_Maker'],
+                    'name'     => $data['properties']['Device_Code_Name'],
+                    'brand'    => $data['properties']['Device_Brand_Name'],
                     'type'     => $data['properties']['Device_Type'],
                     'ismobile' => $isMobile,
                 ],
@@ -73,7 +73,7 @@ foreach ($finder as $fixture) {
 // Get version from composer
 $package = new \PackageInfo\Package('browscap/browscap');
 
-echo json_encode([
+echo (new \JsonClass\Json())->encode([
     'tests'   => $tests,
     'version' => $package->getVersion(),
 ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
