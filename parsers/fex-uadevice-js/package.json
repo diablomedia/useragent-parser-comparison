@@ -1,0 +1,15 @@
+{
+  "name": "ua-device-js-0",
+  "version": "1.0.0",
+  "description": "ua-device-js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ua-device": "^0.1.0"
+  }
+}
