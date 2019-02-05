@@ -1,0 +1,21 @@
+{
+  "name": "browser-detect-js-0",
+  "version": "1.0.0",
+  "lockfileVersion": 1,
+  "requires": true,
+  "dependencies": {
+    "browser-detect": {
+      "version": "0.2.28",
+      "resolved": "https://registry.npmjs.org/browser-detect/-/browser-detect-0.2.28.tgz",
+      "integrity": "sha512-KeWGHqYQmHDkCFG2dIiX/2wFUgqevbw/rd6wNi9N6rZbaSJFtG5kel0HtprRwCGp8sqpQP79LzDJXf/WCx4WAw==",
+      "requires": {
+        "core-js": "2.6.3"
+      }
+    },
+    "core-js": {
+      "version": "2.6.3",
+      "resolved": "https://registry.npmjs.org/core-js/-/core-js-2.6.3.tgz",
+      "integrity": "sha512-l00tmFFZOBHtYhN4Cz7k32VM7vTn3rE2ANjQDxdEN6zmXZ/xq1jQuutnmHvMG1ZJ7xd72+TA5YpUK8wz3rWsfQ=="
+    }
+  }
+}
