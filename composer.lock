@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "14517c63201b31b5739bf5d85db322dc",
+    "content-hash": "65e7bf233b85c9a1d0206be025fdad96",
     "packages": [
         {
             "name": "symfony/console",
@@ -2130,7 +2130,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "backendtea@gmail.com"
+                    "email": "BackEndTea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
@@ -2358,16 +2358,16 @@
         },
         {
             "name": "vimeo/psalm",
-            "version": "3.0.13",
+            "version": "3.0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vimeo/psalm.git",
-                "reference": "0bb5143efd2350bcbb01f06f5374a4c6cf5a7a4b"
+                "reference": "6d5c99545874de2cf167b88a993f5fda6783cef2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/0bb5143efd2350bcbb01f06f5374a4c6cf5a7a4b",
-                "reference": "0bb5143efd2350bcbb01f06f5374a4c6cf5a7a4b",
+                "url": "https://api.github.com/repos/vimeo/psalm/zipball/6d5c99545874de2cf167b88a993f5fda6783cef2",
+                "reference": "6d5c99545874de2cf167b88a993f5fda6783cef2",
                 "shasum": ""
             },
             "require": {
@@ -2431,7 +2431,7 @@
                 "inspection",
                 "php"
             ],
-            "time": "2019-01-29T15:34:31+00:00"
+            "time": "2019-02-05T13:02:06+00:00"
         },
         {
             "name": "webmozart/assert",
