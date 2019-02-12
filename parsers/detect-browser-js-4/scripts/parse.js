@@ -4,7 +4,9 @@ const { parseUserAgent } = require('detect-browser');
 parseUserAgent('Test String');
 const initTime = process.hrtime(initStart)[1] / 1000000000;
 
-const package = require(require('path').dirname(require.resolve('detect-browser')) + '/package.json');
+const package = require(require('path').dirname(
+    require.resolve('detect-browser')
+) + '/package.json');
 const version = package.version;
 
 let benchmark = false;
