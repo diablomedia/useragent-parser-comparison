@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "057746700bfad95aa506dcaaee03ea16",
+    "content-hash": "939a50c8d4f534c31f086ddd657ca284",
     "packages": [
         {
             "name": "daverandom/exceptional-json",
@@ -2591,16 +2591,16 @@
         },
         {
             "name": "vimeo/psalm",
-            "version": "3.0.15",
+            "version": "3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vimeo/psalm.git",
-                "reference": "c310a2dd86660944b3f15fb8486ab73d45066618"
+                "reference": "aeab6e292bc6102ff994ca4204ebcdd059b92c1c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/c310a2dd86660944b3f15fb8486ab73d45066618",
-                "reference": "c310a2dd86660944b3f15fb8486ab73d45066618",
+                "url": "https://api.github.com/repos/vimeo/psalm/zipball/aeab6e292bc6102ff994ca4204ebcdd059b92c1c",
+                "reference": "aeab6e292bc6102ff994ca4204ebcdd059b92c1c",
                 "shasum": ""
             },
             "require": {
@@ -2625,6 +2625,7 @@
             "require-dev": {
                 "bamarni/composer-bin-plugin": "^1.2",
                 "phpunit/phpunit": "^6.0 || ^7.0",
+                "psalm/plugin-phpunit": "^0.5.1",
                 "squizlabs/php_codesniffer": "^3.0"
             },
             "suggest": {
@@ -2665,7 +2666,7 @@
                 "inspection",
                 "php"
             ],
-            "time": "2019-02-11T23:39:19+00:00"
+            "time": "2019-03-04T05:17:45+00:00"
         },
         {
             "name": "webmozart/assert",
