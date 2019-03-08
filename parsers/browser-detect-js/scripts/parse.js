@@ -4,8 +4,9 @@ const parser = require('browser-detect');
 parser('Test String');
 const initTime = process.hrtime(initStart)[1] / 1000000000;
 
-const package = require(require('path').dirname(require.resolve('browser-detect')) +
-    '/../package.json');
+const package = require(require('path').dirname(
+    require.resolve('browser-detect')
+) + '/../package.json');
 const version = package.version;
 
 let benchmark = false;
