@@ -1,0 +1,15 @@
+{
+  "name": "bowser-js-2",
+  "version": "1.0.0",
+  "description": "bowser-js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bowser": "^2.1.0"
+  }
+}
