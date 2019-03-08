@@ -6,9 +6,15 @@ php: 7.2
 
 os: linux
 
+env:
+  global:
+    - COMPOSER_DISCARD_CHANGES=1
+
 cache:
   directories:
     - $HOME/.composer/cache
+    - vendor
+    - node_modules
 
 stages:
   - check coding style
@@ -38,6 +44,3 @@ jobs:
       script:
         - composer phpstan
         - composer psalm
-
-notifications:
-  email: false
