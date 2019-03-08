@@ -4,7 +4,8 @@ const parser = require('ua-device');
 const tmp = new parser('Test String');
 const initTime = process.hrtime(initStart)[1] / 1000000000;
 
-const package = require(require('path').dirname(require.resolve('ua-device')) + '/package.json');
+const package = require(require('path').dirname(require.resolve('ua-device')) +
+    '/package.json');
 const version = package.version;
 
 let benchmark = false;
@@ -51,11 +52,21 @@ lineReader.on('line', function(line) {
         parsed: {
             browser: {
                 name: r.browser.name ? r.browser.name : null,
-                version: typeof r.browser.version !== 'undefined' && r.browser.version !== null && typeof r.browser.version.original !== 'undefined' ? r.browser.version.original : null
+                version:
+                    typeof r.browser.version !== 'undefined' &&
+                    r.browser.version !== null &&
+                    typeof r.browser.version.original !== 'undefined'
+                        ? r.browser.version.original
+                        : null
             },
             platform: {
                 name: r.os.name ? r.os.name : null,
-                version: typeof r.os.version !== 'undefined' && r.os.version !== null && typeof r.os.version.original !== 'undefined' ? r.os.version.original : null
+                version:
+                    typeof r.os.version !== 'undefined' &&
+                    r.os.version !== null &&
+                    typeof r.os.version.original !== 'undefined'
+                        ? r.os.version.original
+                        : null
             },
             device: {
                 name: r.device.model ? r.device.model : null,
