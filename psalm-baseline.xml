@@ -29,9 +29,16 @@
     </UndefinedVariable>
   </file>
   <file src="src/Command/Helper/Normalize.php">
-    <UnresolvableInclude occurrences="1">
-      <code>include $this-&gt;mapDir . '/' . $source . '.php'</code>
-    </UnresolvableInclude>
+    <PossiblyInvalidArgument occurrences="1">
+      <code>$value</code>
+    </PossiblyInvalidArgument>
+    <PossiblyInvalidArrayOffset occurrences="1">
+      <code>$v[$value]</code>
+    </PossiblyInvalidArrayOffset>
+    <PossiblyInvalidOperand occurrences="2">
+      <code>preg_replace('|[^0-9a-z.]|', '', mb_strtolower($parsed['platform']['version']))</code>
+      <code>preg_replace('|[^0-9a-z.]|', '', mb_strtolower($parsed['platform']['version']))</code>
+    </PossiblyInvalidOperand>
   </file>
   <file src="src/Command/Helper/Parsers.php">
     <ForbiddenCode occurrences="1">

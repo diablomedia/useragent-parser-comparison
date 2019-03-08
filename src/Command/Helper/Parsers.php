@@ -4,9 +4,12 @@ declare(strict_types = 1);
 
 namespace UserAgentParserComparison\Command\Helper;
 
-use ExceptionalJSON\DecodeErrorException;
+use Exception;
 use FilesystemIterator;
-use JsonClass\Json;
+use function Safe\file_get_contents;
+use function Safe\json_decode;
+use function Safe\ksort;
+use function Safe\sort;
 use SplFileInfo;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Helper\Table;
@@ -37,13 +40,16 @@ class Parsers extends Helper
             $metadata = [];
 
             if (file_exists($parserDir->getPathname() . '/metadata.json')) {
-                $contents = file_get_contents($parserDir->getPathname() . '/metadata.json');
-                if ($contents !== false) {
+                try {
+                    $contents = file_get_contents($parserDir->getPathname() . '/metadata.json');
+
                     try {
-                        $metadata = (new Json())->decode($contents, true);
-                    } catch (DecodeErrorException $e) {
+                        $metadata = json_decode($contents, true);
+                    } catch (Exception $e) {
                         $output->writeln('<error>An error occured while parsing metadata for parser ' . $parserDir->getPathname() . '</error>');
                     }
+                } catch (Exception $e) {
+                    $output->writeln('<error>Could not read metadata file for parser in ' . $parserDir->getPathname() . '</error>');
                 }
             }
 
@@ -64,8 +70,8 @@ class Parsers extends Helper
                         $result = trim($result);
 
                         try {
-                            $result = (new Json())->decode($result, true);
-                        } catch (DecodeErrorException $e) {
+                            $result = json_decode($result, true);
+                        } catch (Exception $e) {
                             $output->writeln('<error>' . $result . $e . '</error>');
 
                             return null;

@@ -6,7 +6,7 @@
   "dependencies": {
     "which-browser": {
       "version": "0.2.9",
-      "resolved": "http://registry.npmjs.org/which-browser/-/which-browser-0.2.9.tgz",
+      "resolved": "https://registry.npmjs.org/which-browser/-/which-browser-0.2.9.tgz",
       "integrity": "sha512-5rFGxmfBizQSej8ru/jvbeDTl74n2HCOeEoGLFT9HuGkFwvsjCgKxvNLX8wA7lIhdj3PIxmaKfY1shsf8HvXQw=="
     }
   }

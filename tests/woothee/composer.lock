@@ -155,16 +155,16 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v4.2.3",
+            "version": "v4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "ef71816cbb264988bb57fe6a73f610888b9aa70c"
+                "reference": "267b7002c1b70ea80db0833c3afe05f0fbde580a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/ef71816cbb264988bb57fe6a73f610888b9aa70c",
-                "reference": "ef71816cbb264988bb57fe6a73f610888b9aa70c",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/267b7002c1b70ea80db0833c3afe05f0fbde580a",
+                "reference": "267b7002c1b70ea80db0833c3afe05f0fbde580a",
                 "shasum": ""
             },
             "require": {
@@ -200,7 +200,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2019-01-16T20:35:37+00:00"
+            "time": "2019-02-23T15:42:05+00:00"
         },
         {
             "name": "thadafinser/package-info",
@@ -248,16 +248,16 @@
         },
         {
             "name": "woothee/woothee-testset",
-            "version": "v1.4.0",
+            "version": "v1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/woothee/woothee.git",
-                "reference": "2acce351b0268b54d07d31522cfbb4b21569fbbe"
+                "reference": "fc4b4703b7eef72dce27a79a2ea8f05db1ff3c9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/woothee/woothee/zipball/2acce351b0268b54d07d31522cfbb4b21569fbbe",
-                "reference": "2acce351b0268b54d07d31522cfbb4b21569fbbe",
+                "url": "https://api.github.com/repos/woothee/woothee/zipball/fc4b4703b7eef72dce27a79a2ea8f05db1ff3c9e",
+                "reference": "fc4b4703b7eef72dce27a79a2ea8f05db1ff3c9e",
                 "shasum": ""
             },
             "type": "library",
@@ -272,7 +272,7 @@
                 }
             ],
             "description": "Set of test case for woothee project. Project Woothee is multi-language user-agent strings parsers.",
-            "time": "2016-05-17T06:11:33+00:00"
+            "time": "2019-02-18T08:01:02+00:00"
         }
     ],
     "packages-dev": [],
