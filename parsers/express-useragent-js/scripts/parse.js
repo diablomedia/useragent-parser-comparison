@@ -4,7 +4,9 @@ const parser = require('express-useragent');
 parser.parse('Test String');
 const initTime = process.hrtime(initStart)[1] / 1000000000;
 
-const package = require(require('path').dirname(require.resolve('express-useragent')) + '/package.json');
+const package = require(require('path').dirname(
+    require.resolve('express-useragent')
+) + '/package.json');
 const version = package.version;
 
 let benchmark = false;
