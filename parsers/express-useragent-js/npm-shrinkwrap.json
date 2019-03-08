@@ -1,0 +1,13 @@
+{
+  "name": "express-useragent-js-0",
+  "version": "1.0.0",
+  "lockfileVersion": 1,
+  "requires": true,
+  "dependencies": {
+    "express-useragent": {
+      "version": "1.0.12",
+      "resolved": "https://registry.npmjs.org/express-useragent/-/express-useragent-1.0.12.tgz",
+      "integrity": "sha1-W64BCakl7Js1QX8xpOitE/GRJTo="
+    }
+  }
+}

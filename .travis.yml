@@ -6,9 +6,15 @@ php: 7.2
 
 os: linux
 
+env:
+  global:
+    - COMPOSER_DISCARD_CHANGES=1
+
 cache:
   directories:
     - $HOME/.composer/cache
+    - vendor
+    - node_modules
 
 stages:
   - check coding style
@@ -31,13 +37,10 @@ jobs:
       php: 7.2
       script:
         - composer php-cs-fixer-check
-        - yarn run prettier --check "**/*.js"
+        - composer prettier-check
 
     - stage: static code analysis
       php: 7.2
       script:
         - composer phpstan
         - composer psalm
-
-notifications:
-  email: false
