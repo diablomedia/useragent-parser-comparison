@@ -39,19 +39,22 @@ class Parse extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        /** @var string $file */
-        $file      = $input->getArgument('file');
+        /** @var string $filename */
+        $filename  = $input->getArgument('file');
         $normalize = $input->getOption('normalize');
         $csv       = $input->getOption('csv');
+
         /** @var string|null $name */
         $name     = $input->getArgument('run');
         $noOutput = $input->getOption('no-output');
+
         /** @var string|null $csvFile */
         $csvFile = $input->getOption('csv-file');
 
         if ($csvFile) {
             $noOutput = true;
             $csv      = true;
+            $csvFile  = (string) $csvFile;
         } elseif ($csv) {
             $output->writeln(
                 '<error>csvFile parameter is required if csv parameter is specified</error>'
@@ -77,16 +80,18 @@ class Parse extends Command
             mkdir($this->runDir . '/' . $name . '/results');
         }
 
-        $output->writeln('<comment>Preparing to parse ' . $file . '</comment>');
-
         $parsers = $parserHelper->getParsers($input, $output);
 
+        $output->writeln('<comment>Preparing to parse ' . $filename . '</comment>');
+
         foreach ($parsers as $parserName => $parser) {
-            $output->write("\t" . 'Testing against the ' . $parserName . ' parser... ');
-            $result = $parser['parse']($file);
+            $output->write('  <info> Testing against the <fg=green;options=bold,underscore>' . $parserName . '</> parser... </info>');
+            $result = $parser['parse']($filename);
 
             if (empty($result)) {
-                $output->writeln('<error>The ' . $parserName . ' parser did not return any data, there may have been an error</error>');
+                $output->writeln(
+                    '<error>The <fg=red;options=bold,underscore>' . $parserName . '</> parser did not return any data, there may have been an error</error>'
+                );
 
                 continue;
             }
@@ -101,18 +106,27 @@ class Parse extends Command
                 }
 
                 file_put_contents(
-                    $this->runDir . '/' . $name . '/results/' . $parserName . '/' . basename($file) . '.json',
+                    $this->runDir . '/' . $name . '/results/' . $parserName . '/' . basename($filename) . '.json',
                     (new Json())->encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
                 );
             }
 
             $rows = [];
             foreach ($result['results'] as $parsed) {
+                if (!isset($parsed['parsed'])) {
+                    $output->writeLn('<error>There was no "parsed" property in the result</error>');
+
+                    continue;
+                }
+
                 if ($normalize) {
                     $parsed['parsed'] = $normalizeHelper->normalize($parsed['parsed']);
                 }
 
-                $rows[] = [new TableCell('<fg=yellow>' . $parsed['useragent'] . '</>', ['colspan' => '7']), round($parsed['time'], 5) . 's'];
+                $rows[] = [
+                    new TableCell('<fg=yellow>' . $parsed['useragent'] . '</>', ['colspan' => '7']),
+                    round($parsed['time'], 5) . 's',
+                ];
                 $rows[] = [
                     $parsed['parsed']['browser']['name'],
                     $parsed['parsed']['browser']['version'],
@@ -126,7 +140,7 @@ class Parse extends Command
                 $rows[] = new TableSeparator();
             }
 
-            $output->writeln('<info> done!</info>');
+            $output->writeln('<info>done!</info>');
 
             array_pop($rows);
 
@@ -198,7 +212,7 @@ class Parse extends Command
         if ($name) {
             file_put_contents(
                 $this->runDir . '/' . $name . '/metadata.json',
-                (new Json())->encode(['parsers' => $parsers, 'date' => time(), 'file' => basename($file)], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+                (new Json())->encode(['parsers' => $parsers, 'date' => time(), 'file' => basename($filename)], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
             );
         }
 

@@ -1,27 +1,27 @@
-var initStart = process.hrtime();
-var DeviceDetector = require('device-detector-node');
-var detector = new DeviceDetector();
+const initStart = process.hrtime();
+const DeviceDetector = require('device-detector-node');
+const detector = new DeviceDetector();
 // Trigger a parse to force cache loading
 detector.detect('Test String');
-var initTime = process.hrtime(initStart)[1] / 1000000000;
+const initTime = process.hrtime(initStart)[1] / 1000000000;
 
-var package = require(require('path').dirname(
+const package = require(require('path').dirname(
     require.resolve('device-detector-node')
 ) + '/package.json');
-var version = package.version;
+const version = package.version;
 
-var benchmark = false;
-var benchmarkPos = process.argv.indexOf('--benchmark');
+let benchmark = false;
+const benchmarkPos = process.argv.indexOf('--benchmark');
 if (benchmarkPos >= 0) {
     process.argv.splice(benchmarkPos, 1);
     benchmark = true;
 }
 
-var lineReader = require('readline').createInterface({
+const lineReader = require('readline').createInterface({
     input: require('fs').createReadStream(process.argv[2])
 });
 
-var output = {
+const output = {
     results: [],
     parse_time: 0,
     init_time: initTime,
@@ -34,11 +34,12 @@ lineReader.on('line', function(line) {
         return;
     }
 
-    var start = process.hrtime(),
-        error = null,
-        result = {};
+    const start = process.hrtime();
+    let error = null,
+        result = {},
+        r = null;
     try {
-        var r = detector.detect(line);
+        r = detector.detect(line);
     } catch (err) {
         error = err;
 
@@ -62,7 +63,7 @@ lineReader.on('line', function(line) {
             }
         };
     }
-    var end = process.hrtime(start)[1] / 1000000000;
+    const end = process.hrtime(start)[1] / 1000000000;
 
     output.parse_time += end;
 
@@ -70,7 +71,7 @@ lineReader.on('line', function(line) {
         return;
     }
 
-    if (typeof r !== 'undefined') {
+    if (r !== null) {
         result = {
             useragent: line,
             parsed: {

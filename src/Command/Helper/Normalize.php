@@ -46,9 +46,9 @@ class Normalize extends Helper
                 if ($key === 'version') {
                     $value = $this->truncateVersion(mb_strtolower((string) $value));
                 } elseif ($value === false) {
-                    $value = '';
+                    $value = 'false';
                 } elseif ($value === true) {
-                    $value = '1';
+                    $value = 'true';
                 } else {
                     $value = preg_replace('|[^0-9a-z]|', '', mb_strtolower((string) $value));
                 }

@@ -24,11 +24,6 @@ class Test extends Command
     private $tests = [];
 
     /**
-     * @var array
-     */
-    private $selectedTests = [];
-
-    /**
      * @var string
      */
     private $testsDir = __DIR__ . '/../../tests';
@@ -83,16 +78,17 @@ class Test extends Command
         );
         $question->setMultiselect(true);
 
-        $answers = $questionHelper->ask($input, $output, $question);
+        $answers       = $questionHelper->ask($input, $output, $question);
+        $selectedTests = [];
 
         foreach ($answers as $name) {
             if ($name === 'All Suites') {
-                $this->selectedTests = $this->tests;
+                $selectedTests = $this->tests;
 
                 break;
             }
 
-            $this->selectedTests[$name] = $this->tests[$name];
+            $selectedTests[$name] = $this->tests[$name];
         }
 
         $output->writeln('Choose which parsers you would like to run this test suite against');
@@ -118,7 +114,7 @@ class Test extends Command
 
         $usedTests = [];
 
-        foreach ($this->selectedTests as $testName => $testData) {
+        foreach ($selectedTests as $testName => $testData) {
             $output->write('Generating data for the ' . $testName . ' test suite... ');
             $this->results[$testName] = [];
 
@@ -134,10 +130,18 @@ class Test extends Command
                 continue;
             }
 
+            if ($testOutput['tests'] === null) {
+                $output->writeln('<error>There was an error with the output from the ' . $testName . ' test suite, no tests were found.</error>');
+                continue;
+            }
+
             if (!empty($testOutput['version'])) {
                 $testData['metadata']['version'] = $testOutput['version'];
             }
 
+            $output->writeln('<info>done! [' . count($testOutput['tests']) . ' tests]</info>');
+
+            $output->write('write test data for the ' . $testName . ' test suite into file... ');
             // write our test's file that we'll pass to the parsers
             $filename = $testFilesDir . '/' . $testName . '.txt';
 
@@ -155,11 +159,13 @@ class Test extends Command
             $output->writeln('<info>  done! [' . count($agents) . ' tests found]</info>');
 
             foreach ($parsers as $parserName => $parser) {
-                $output->write("\t" . 'Testing against the ' . $parserName . ' parser... ');
+                $output->write('  <info> Testing against the <fg=green;options=bold,underscore>' . $parserName . '</> parser... </info>');
                 $result = $parser['parse']($filename);
 
                 if (empty($result)) {
-                    $output->writeln('<error>The ' . $parserName . ' parser did not return any data, there may have been an error</error>');
+                    $output->writeln(
+                        '<error>The <fg=red;options=bold,underscore>' . $parserName . '</> parser did not return any data, there may have been an error</error>'
+                    );
 
                     continue;
                 }
@@ -187,9 +193,9 @@ class Test extends Command
                     $encoded
                 );
                 $output->writeln('<info> done!</info>');
-            }
 
-            $usedTests[$testName] = $testData;
+                $usedTests[$testName] = $testData;
+            }
         }
 
         try {
@@ -236,5 +242,7 @@ class Test extends Command
                 'metadata' => $metadata,
             ];
         }
+
+        ksort($this->tests);
     }
 }

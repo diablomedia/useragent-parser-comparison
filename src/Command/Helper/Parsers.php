@@ -17,16 +17,6 @@ use Symfony\Component\Console\Question\ChoiceQuestion;
 class Parsers extends Helper
 {
     /**
-     * @var array
-     */
-    private $parsers = [];
-
-    /**
-     * @var array
-     */
-    private $selectedParsers = [];
-
-    /**
      * @var string
      */
     private $parsersDir = __DIR__ . '/../../../parsers';
@@ -38,6 +28,10 @@ class Parsers extends Helper
 
     public function getParsers(InputInterface $input, OutputInterface $output, bool $multiple = true): array
     {
+        $rows    = [];
+        $names   = [];
+        $parsers = [];
+
         /** @var SplFileInfo $parserDir */
         foreach (new FilesystemIterator($this->parsersDir) as $parserDir) {
             $metadata = [];
@@ -53,10 +47,10 @@ class Parsers extends Helper
                 }
             }
 
-            $this->parsers[$parserDir->getFilename()] = [
+            $parsers[$parserDir->getFilename()] = [
                 'path'     => $parserDir->getPathname(),
                 'metadata' => $metadata,
-                'parse'    => static function (string $file, bool $benchmark = false) use ($parserDir): ?array {
+                'parse'    => static function (string $file, bool $benchmark = false) use ($parserDir, $output): ?array {
                     $args = [
                         escapeshellarg($file),
                     ];
@@ -72,6 +66,8 @@ class Parsers extends Helper
                         try {
                             $result = (new Json())->decode($result, true);
                         } catch (DecodeErrorException $e) {
+                            $output->writeln('<error>' . $result . $e . '</error>');
+
                             return null;
                         }
                     }
@@ -79,20 +75,14 @@ class Parsers extends Helper
                     return $result;
                 },
             ];
-        }
 
-        $rows  = [];
-        $names = [];
-
-        ksort($this->parsers);
-
-        foreach ($this->parsers as $name => $data) {
             $rows[] = [
-                $data['metadata']['name'] ?? $name,
-                $data['metadata']['language'] ?? '',
-                $data['metadata']['data_source'] ?? '',
+                $metadata['name'] ?? $parserDir->getFilename(),
+                $metadata['language'] ?? '',
+                $metadata['data_source'] ?? '',
             ];
-            $names[$data['metadata']['name'] ?? $name] = $name;
+
+            $names[$metadata['name'] ?? $parserDir->getFilename()] = $parserDir->getFilename();
         }
 
         $table = new Table($output);
@@ -106,8 +96,6 @@ class Parsers extends Helper
         if ($multiple === true) {
             $questions[] = 'All Parsers';
         }
-
-        $helper = $this->helperSet->get('question');
 
         if ($multiple === true) {
             $questionText = 'Choose which parsers to use, separate multiple with commas (press enter to use all)';
@@ -127,20 +115,24 @@ class Parsers extends Helper
             $question->setMultiselect(true);
         }
 
+        $helper  = $this->helperSet->get('question');
         $answers = $helper->ask($input, $output, $question);
 
-        $answers = (array) $answers;
+        $answers         = (array) $answers;
+        $selectedParsers = [];
 
         foreach ($answers as $name) {
             if ($name === 'All Parsers') {
-                $this->selectedParsers = $this->parsers;
+                $selectedParsers = $parsers;
 
                 break;
             }
 
-            $this->selectedParsers[$names[$name]] = $this->parsers[$names[$name]];
+            $selectedParsers[$names[$name]] = $parsers[$names[$name]];
         }
 
-        return $this->selectedParsers;
+        ksort($selectedParsers);
+
+        return $selectedParsers;
     }
 }

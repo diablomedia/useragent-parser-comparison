@@ -24,7 +24,7 @@ foreach ($finder as $fixture) {
         continue;
     }
 
-    $provider = include $fixture->getPathName();
+    $provider = include $fixture->getPathname();
 
     foreach ($provider as $testName => $data) {
         if ($data['full'] === false) {

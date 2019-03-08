@@ -81,7 +81,7 @@ class Normalize extends Command
                     continue;
                 }
 
-                $message = sprintf('%sProcessing output from the <fg=yellow>%s</> test suite... ', "\t", $testFile->getBasename('.' . $testFile->getExtension()));
+                $message = sprintf('%sProcessing output from the <fg=yellow>%s</> test suite... ', '  ', $testFile->getBasename('.' . $testFile->getExtension()));
 
                 $output->write($message . '<info> parsing result</info>');
 
@@ -143,7 +143,7 @@ class Normalize extends Command
 
                     $testName = str_replace('.json', '', $resultFile->getFilename());
 
-                    $message = sprintf('%sProcessing results from the <fg=yellow>%s</> test suite... ', "\t", $testName);
+                    $message = sprintf('%sProcessing results from the <fg=yellow>%s</> test suite... ', '  ', $testName);
 
                     $output->write($message . '<info> parsing result</info>');
 
@@ -166,11 +166,15 @@ class Normalize extends Command
                         continue;
                     }
 
-                    $output->write("\r" . $message . '<info> normalizing result</info>');
+                    $output->write("\r" . $message . '<info> normalizing result</info>' . "\n");
 
                     foreach ($data['results'] as $result) {
-                        $result['parsed'] = $this->normalize($result['parsed']);
-                        $normalized[]     = $result;
+                        if (!isset($result['parsed'])) {
+                            $output->writeLn('<error>There was no "parsed" property for the ' . $testName . ' test suite </error>');
+                        } else {
+                            $result['parsed'] = $this->normalize($result['parsed']);
+                            $normalized[]     = $result;
+                        }
                     }
 
                     $output->write("\r" . $message . '<info> writing result</info>    ');

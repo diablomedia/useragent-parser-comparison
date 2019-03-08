@@ -16,5 +16,11 @@
         "friendsofphp/php-cs-fixer": "2.14.2",
         "vimeo/psalm": "3.1.1",
         "phpstan/phpstan": "0.11.2"
+    },
+    "scripts": {
+        "phpstan": "phpstan analyse -c phpstan.neon --memory-limit=768M --no-progress",
+        "psalm": "psalm --show-info=false",
+        "php-cs-fixer-check": "php-cs-fixer fix --dry-run -vv",
+        "php-cs-fixer-fix": "php-cs-fixer fix -vv"
     }
 }
