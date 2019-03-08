@@ -12,7 +12,7 @@ $finder->ignoreDotFiles(true);
 $finder->ignoreVCS(true);
 $finder->sortByName();
 $finder->ignoreUnreadableDirs();
-$finder->in(__DIR__ . '/../vendor/endorphin-studio/browser-detector/tests/data/ua');
+$finder->in(__DIR__ . '/../vendor/endorphin-studio/browser-detector/tests/yaml');
 
 foreach ($finder as $fixture) {
     /** @var \Symfony\Component\Finder\SplFileInfo $fixture */
@@ -40,54 +40,14 @@ foreach ($finder as $fixture) {
             ],
         ];
 
-        foreach ($test->CheckList as $list) {
-            foreach ($list->Item as $item) {
-                switch ($item->Property) {
-                    case 'OS->getName()':
-                        $expected['platform']['name'] = (string) $item->Value;
-
-                        break;
-                    case 'OS->getVersion()':
-                        $expected['platform']['version'] = (string) $item->Value;
-
-                        break;
-                    case 'Browser->getName()':
-                        $expected['browser']['name'] = (string) $item->Value;
-
-                        break;
-                    case 'Device->getName()':
-                        $expected['device']['name'] = (string) $item->Value;
-
-                        break;
-                    case 'Device->getType()':
-                        $expected['device']['type'] = (string) $item->Value;
-
-                        break;
-                    case 'isMobile':
-                        $expected['device']['ismobile'] = (bool) $item->Value ? true : false;
-
-                        break;
-                    case 'Robot->getName()':
-                        $expected['browser']['name'] = (string) $item->Value;
-
-                        break;
-                }
-            }
-        }
-
-        foreach ($test->UAList->UA as $ua) {
+        foreach ($test->uaList as $ua) {
             $agent = (string) $ua;
 
-            if (!isset($uas[$agent])) {
-                $uas[$agent] = $expected;
-            } else {
-                $toInsert             = $expected;
-                $toInsert['browser']  = array_filter($expected['browser']);
-                $toInsert['platform'] = array_filter($expected['platform']);
-                $toInsert['device']   = array_filter($expected['device']);
-                $toInsert             = array_filter($expected);
-                $uas[$agent]          = array_replace_recursive($uas[$agent], $toInsert);
+            if (isset($uas[$agent])) {
+                continue;
             }
+
+            $uas[$agent] = $expected;
         }
     }
 }
@@ -95,7 +55,7 @@ foreach ($finder as $fixture) {
 // Get version from composer
 $package = new \PackageInfo\Package('endorphin-studio/browser-detector');
 
-echo json_encode([
+echo (new \JsonClass\Json())->encode([
     'tests'   => $uas,
     'version' => $package->getVersion(),
 ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

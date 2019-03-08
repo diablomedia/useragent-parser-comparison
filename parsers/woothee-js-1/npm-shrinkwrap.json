@@ -5,9 +5,9 @@
   "requires": true,
   "dependencies": {
     "woothee": {
-      "version": "1.8.0",
-      "resolved": "https://registry.npmjs.org/woothee/-/woothee-1.8.0.tgz",
-      "integrity": "sha512-LQpGzVtp4CpruV8vBst1A49vwUyWh3zQJt1xu+lxZTY5guISeaFXPJi2GNjGp06TtW4wCE6TUCVsE5XnPHhd6Q=="
+      "version": "1.8.1",
+      "resolved": "https://registry.npmjs.org/woothee/-/woothee-1.8.1.tgz",
+      "integrity": "sha512-0dItYaWRp/Q085x61xlN0G3VTkViPDKGfgBwTB2IAgAC3xg37+6EMLpkhvxh7V6aQ/UsJr1WK+7oWquW9ta+kQ=="
     }
   }
 }

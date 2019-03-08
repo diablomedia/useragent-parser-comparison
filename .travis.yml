@@ -6,9 +6,15 @@ php: 7.2
 
 os: linux
 
+env:
+  global:
+    - COMPOSER_DISCARD_CHANGES=1
+
 cache:
   directories:
     - $HOME/.composer/cache
+    - vendor
+    - node_modules
 
 stages:
   - check coding style
@@ -26,17 +32,15 @@ install:
 script: skip
 
 jobs:
-  fast_finish: true
   include:
     - stage: check coding style
       php: 7.2
-      script: vendor/bin/php-cs-fixer fix --dry-run -vv && yarn run prettier -l "**/*.js"
+      script:
+        - composer php-cs-fixer-check
+        - composer prettier-check
 
     - stage: static code analysis
       php: 7.2
       script:
-        - vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=768M --no-progress
-        - vendor/bin/psalm --show-info=false
-
-notifications:
-  email: false
+        - composer phpstan
+        - composer psalm

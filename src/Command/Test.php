@@ -4,7 +4,10 @@ declare(strict_types = 1);
 
 namespace UserAgentParserComparison\Command;
 
+use ExceptionalJSON\DecodeErrorException;
+use ExceptionalJSON\EncodeErrorException;
 use FilesystemIterator;
+use JsonClass\Json;
 use SplFileInfo;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -19,11 +22,6 @@ class Test extends Command
      * @var array
      */
     private $tests = [];
-
-    /**
-     * @var array
-     */
-    private $selectedTests = [];
 
     /**
      * @var string
@@ -50,7 +48,7 @@ class Test extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->collectTests();
+        $this->collectTests($output);
 
         $rows = [];
 
@@ -80,16 +78,17 @@ class Test extends Command
         );
         $question->setMultiselect(true);
 
-        $answers = $questionHelper->ask($input, $output, $question);
+        $answers       = $questionHelper->ask($input, $output, $question);
+        $selectedTests = [];
 
         foreach ($answers as $name) {
             if ($name === 'All Suites') {
-                $this->selectedTests = $this->tests;
+                $selectedTests = $this->tests;
 
                 break;
             }
 
-            $this->selectedTests[$name] = $this->tests[$name];
+            $selectedTests[$name] = $this->tests[$name];
         }
 
         $output->writeln('Choose which parsers you would like to run this test suite against');
@@ -115,7 +114,7 @@ class Test extends Command
 
         $usedTests = [];
 
-        foreach ($this->selectedTests as $testName => $testData) {
+        foreach ($selectedTests as $testName => $testData) {
             $output->write('Generating data for the ' . $testName . ' test suite... ');
             $this->results[$testName] = [];
 
@@ -123,11 +122,16 @@ class Test extends Command
 
             file_put_contents($expectedDir . '/' . $testName . '.json', $testOutput);
 
-            $testOutput = json_decode($testOutput, true);
-
-            if (json_last_error() !== JSON_ERROR_NONE || empty($testOutput)) {
+            try {
+                $testOutput = (new Json())->decode($testOutput, true);
+            } catch (DecodeErrorException $e) {
                 $output->writeln('<error>There was an error with the output from the ' . $testName . ' test suite.</error>');
 
+                continue;
+            }
+
+            if ($testOutput['tests'] === null) {
+                $output->writeln('<error>There was an error with the output from the ' . $testName . ' test suite, no tests were found.</error>');
                 continue;
             }
 
@@ -135,6 +139,9 @@ class Test extends Command
                 $testData['metadata']['version'] = $testOutput['version'];
             }
 
+            $output->writeln('<info>done! [' . count($testOutput['tests']) . ' tests]</info>');
+
+            $output->write('write test data for the ' . $testName . ' test suite into file... ');
             // write our test's file that we'll pass to the parsers
             $filename = $testFilesDir . '/' . $testName . '.txt';
 
@@ -149,14 +156,16 @@ class Test extends Command
             });
 
             file_put_contents($filename, implode(PHP_EOL, $agents));
-            $output->writeln('<info>  done!</info>');
+            $output->writeln('<info>  done! [' . count($agents) . ' tests found]</info>');
 
             foreach ($parsers as $parserName => $parser) {
-                $output->write("\t" . 'Testing against the ' . $parserName . ' parser... ');
+                $output->write('  <info> Testing against the <fg=green;options=bold,underscore>' . $parserName . '</> parser... </info>');
                 $result = $parser['parse']($filename);
 
                 if (empty($result)) {
-                    $output->writeln('<error>The ' . $parserName . ' parser did not return any data, there may have been an error</error>');
+                    $output->writeln(
+                        '<error>The <fg=red;options=bold,underscore>' . $parserName . '</> parser did not return any data, there may have been an error</error>'
+                    );
 
                     continue;
                 }
@@ -169,20 +178,41 @@ class Test extends Command
                     mkdir($resultsDir . '/' . $parserName);
                 }
 
+                try {
+                    $encoded = (new Json())->encode(
+                        $result,
+                        JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
+                    );
+                } catch (EncodeErrorException $e) {
+                    $output->writeln('<error> encoding the result failed!</error>');
+                    continue;
+                }
+
                 file_put_contents(
                     $resultsDir . '/' . $parserName . '/' . $testName . '.json',
-                    json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+                    $encoded
                 );
                 $output->writeln('<info> done!</info>');
-            }
 
-            $usedTests[$testName] = $testData;
+                $usedTests[$testName] = $testData;
+            }
+        }
+
+        try {
+            $encoded = (new Json())->encode(
+                ['tests' => $usedTests, 'parsers' => $parsers, 'date' => time()],
+                JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
+            );
+        } catch (EncodeErrorException $e) {
+            $output->writeln('<error>Encoding result metadata failed for the ' . $thisRunDirName . ' directory</error>');
+
+            return 1;
         }
 
         // write some test data to file
         file_put_contents(
             $thisRunDir . '/metadata.json',
-            json_encode(['tests' => $usedTests, 'parsers' => $parsers, 'date' => time()], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+            $encoded
         );
 
         $output->writeln('<comment>Parsing complete, data stored in ' . $thisRunDirName . ' directory</comment>');
@@ -190,7 +220,7 @@ class Test extends Command
         return 0;
     }
 
-    private function collectTests(): void
+    private function collectTests(OutputInterface $output): void
     {
         /** @var SplFileInfo $testDir */
         foreach (new FilesystemIterator($this->testsDir) as $testDir) {
@@ -199,7 +229,11 @@ class Test extends Command
                 $contents = file_get_contents($testDir->getPathname() . '/metadata.json');
 
                 if ($contents !== false) {
-                    $metadata = json_decode($contents, true);
+                    try {
+                        $metadata = (new Json())->decode($contents, true);
+                    } catch (DecodeErrorException $e) {
+                        $output->writeln('<error>An error occured while parsing results for the ' . $testDir->getPathname() . ' test suite</error>');
+                    }
                 }
             }
 
@@ -208,5 +242,7 @@ class Test extends Command
                 'metadata' => $metadata,
             ];
         }
+
+        ksort($this->tests);
     }
 }

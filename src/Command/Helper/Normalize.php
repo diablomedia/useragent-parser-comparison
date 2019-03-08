@@ -11,53 +11,72 @@ class Normalize extends Helper
     /**
      * @var string
      */
-    private $mapDir = __DIR__ . '/../../../mappings';
+    private const MAP_FILE = __DIR__ . '/../../../mappings/mappings.php';
 
     public function getName(): string
     {
         return 'normalize';
     }
 
-    public function normalize(array $parsed, string $source): array
+    public function normalize(array $parsed): array
     {
         $normalized = [];
+        $mappings   = [];
 
-        $mappings = [];
-
-        if (!empty($source)) {
-            if (file_exists($this->mapDir . '/' . $source . '.php')) {
-                $mappings = include $this->mapDir . '/' . $source . '.php';
-            }
+        if (file_exists(self::MAP_FILE)) {
+            $mappings = include self::MAP_FILE;
         }
 
-        foreach ($parsed as $section => $properties) {
+        $sections = ['browser', 'platform', 'device'];
+
+        foreach ($sections as $section) {
+            if (!array_key_exists($section, $parsed)) {
+                continue;
+            }
+
             $normalized[$section] = [];
+            $properties           = $parsed[$section];
 
             foreach ($properties as $key => $value) {
-                if ($value !== null) {
-                    if ($key === 'version') {
-                        $value = $this->truncateVersion(mb_strtolower((string) $value));
-                    } elseif ($value === false) {
-                        $value = '';
-                    } elseif ($value === true) {
-                        $value = '1';
-                    } else {
-                        $value = preg_replace('|[^0-9a-z]|', '', mb_strtolower((string) $value));
-                    }
+                if ($value === null) {
+                    $normalized[$section][$key] = $value;
+                    continue;
+                }
 
-                    // Special Windows normalization for parsers that don't differntiate the version of windows
-                    // in the name, but use the version.
-                    if ($section === 'platform' && $key === 'name' && $value === 'windows') {
-                        if (!empty($parsed['platform']['version'])) {
-                            $value .= preg_replace('|[^0-9a-z.]|', '', mb_strtolower($parsed['platform']['version']));
-                        }
-                    }
+                if ($key === 'version') {
+                    $value = $this->truncateVersion(mb_strtolower((string) $value));
+                } elseif ($value === false) {
+                    $value = 'false';
+                } elseif ($value === true) {
+                    $value = 'true';
+                } else {
+                    $value = preg_replace('|[^0-9a-z]|', '', mb_strtolower((string) $value));
+                }
 
-                    if (isset($mappings[$section][$key])) {
-                        if (isset($mappings[$section][$key][$value])) {
-                            $value = $mappings[$section][$key][$value];
-                        }
+                // Special Windows normalization for parsers that don't differntiate the version of windows
+                // in the name, but use the version.
+                if ($section === 'platform' && $key === 'name' && $value === 'windows') {
+                    if (!empty($parsed['platform']['version'])) {
+                        $value .= preg_replace('|[^0-9a-z.]|', '', mb_strtolower($parsed['platform']['version']));
                     }
+                }
+
+                if ($section === 'platform' && $key === 'name' && $value === 'windowsphone') {
+                    if (!empty($parsed['platform']['version'])) {
+                        $value .= preg_replace('|[^0-9a-z.]|', '', mb_strtolower($parsed['platform']['version']));
+                    }
+                }
+
+                if (isset($mappings[$section][$key])
+                    && is_array($mappings[$section][$key])
+                ) {
+                    $v = $mappings[$section][$key];
+                } else {
+                    $v = [];
+                }
+
+                if (is_array($v) && is_string($value) && array_key_exists($value, $v)) {
+                    $value = $v[$value];
                 }
 
                 $normalized[$section][$key] = $value;

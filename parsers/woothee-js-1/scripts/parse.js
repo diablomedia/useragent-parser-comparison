@@ -46,17 +46,17 @@ lineReader.on('line', function(line) {
         useragent: line,
         parsed: {
             browser: {
-                name: r.name,
-                version: r.version
+                name: r.name ? r.name : null,
+                version: r.version ? r.version : null
             },
             platform: {
-                name: r.os,
-                version: r.os_version
+                name: r.os ? r.os : null,
+                version: r.os_version ? r.os_version : null
             },
             device: {
                 name: null,
                 brand: null,
-                type: r.category,
+                type: r.category ? r.category : null,
                 ismobile: null
             }
         },

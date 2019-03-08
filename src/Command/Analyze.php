@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace UserAgentParserComparison\Command;
 
+use ExceptionalJSON\DecodeErrorException;
+use JsonClass\Json;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableCell;
@@ -88,7 +90,11 @@ class Analyze extends Command
         if (file_exists($this->runDir . '/' . $run . '/metadata.json')) {
             $contents = file_get_contents($this->runDir . '/' . $run . '/metadata.json');
             if ($contents !== false) {
-                $this->options = json_decode($contents, true);
+                try {
+                    $this->options = (new Json())->decode($contents, true);
+                } catch (DecodeErrorException $e) {
+                    $output->writeln('<error>An error occured while parsing metadata for run ' . $run . '</error>');
+                }
             } else {
                 $output->writeln(
                     '<error>Could not read file (' . $this->runDir . '/' . $run . '/metadata.json' . ')</error>'
@@ -131,39 +137,41 @@ class Analyze extends Command
                 $contents = file_get_contents($expectedFilename);
 
                 if ($contents === false) {
-                    $headerMessage   = '<error>Could not read file (' . $expectedFilename . ')</error>';
-                    $expectedResults = [];
-                } else {
-                    $expectedResults = json_decode($contents, true);
+                    $this->output->writeln('<error>Could not read file (' . $expectedFilename . ')</error>');
+                    continue;
+                }
+                try {
+                    $expectedResults = (new Json())->decode($contents, true);
                     $headerMessage   = '<fg=yellow>Parser comparison for ' . $testName . ' test suite' . (isset($testData['metadata']['version']) ? ' (' . $testData['metadata']['version'] . ')' : '') . '</>';
+                } catch (DecodeErrorException $e) {
+                    $this->output->writeln('<error>An error occured while parsing file (' . $expectedFilename . '), skipping</error>');
+                    continue;
                 }
             } else {
                 // When we aren't comparing to a test suite, the first parser's results become the expected results
-                $expectedResults = [];
-                $fileName        = $this->runDir . '/' . $run . '/results/' . array_keys(
-                    $this->options['parsers']
-                )[0] . '/normalized/' . $testName . '.json';
-                $contents = file_get_contents(
-                    $fileName
-                );
+                $expectedResults = ['tests' => []];
+                $fileName        = $this->runDir . '/' . $run . '/results/' . array_keys($this->options['parsers'])[0] . '/normalized/' . $testName . '.json';
+                $contents        = file_get_contents($fileName);
 
                 if ($contents !== false) {
-                    $testResult = json_decode(
-                        $contents,
-                        true
-                    );
+                    try {
+                        $testResult    = (new Json())->decode($contents, true);
+                        $headerMessage = '<fg=yellow>Parser comparison for ' . $testName . ' file, using ' . array_keys($this->options['parsers'])[0] . ' results as expected</>';
+                    } catch (DecodeErrorException $e) {
+                        $this->output->writeln('<error>An error occured while parsing metadata for run ' . $run . '</error>');
+                        continue;
+                    }
 
                     foreach ($testResult['results'] as $data) {
                         $expectedResults['tests'][$data['useragent']] = $data['parsed'];
                     }
-
-                    $headerMessage = '<fg=yellow>Parser comparison for ' . $testName . ' file, using ' . array_keys($this->options['parsers'])[0] . ' results as expected</>';
                 } else {
-                    $headerMessage = '<error>Could not read file (' . $fileName . ')</error>';
+                    $this->output->writeln('<error>Could not read file (' . $fileName . ')</error>');
+                    continue;
                 }
             }
 
-            if (!isset($expectedResults['tests']) || !is_array($expectedResults['tests'])) {
+            if (!isset($expectedResults['tests']) || !is_array($expectedResults['tests']) || empty($expectedResults['tests'])) {
                 continue;
             }
 
@@ -227,10 +235,13 @@ class Analyze extends Command
                     continue;
                 }
 
-                $testResult = json_decode(
-                    $contents,
-                    true
-                );
+                try {
+                    $testResult = (new Json())->decode($contents, true);
+                } catch (DecodeErrorException $e) {
+                    $this->output->writeln('<error>An error occured while parsing file (' . $fileName . '), skipping</error>');
+
+                    continue;
+                }
 
                 $passFail = [
                     'browser'  => ['pass' => 0, 'fail' => 0],
@@ -624,38 +635,40 @@ class Analyze extends Command
 
     private function analyzeFailures(string $test, string $parser, bool $justAgents = false): void
     {
-        if (!empty($this->failures[$test][$parser])) {
-            $table = new Table($this->output);
-            $table->setHeaders([
-                [new TableCell('UserAgent', ['colspan' => 3])],
-                ['Browser', 'Platform', 'Device'],
-            ]);
-
-            $rows = [];
-            foreach ($this->failures[$test][$parser] as $agent => $failData) {
-                $rows[] = [new TableCell((string) $agent, ['colspan' => 3])];
-                $rows[] = [
-                    isset($failData['browser']) ? $this->outputDiff($failData['browser']) : '',
-                    isset($failData['platform']) ? $this->outputDiff($failData['platform']) : '',
-                    isset($failData['device']) ? $this->outputDiff($failData['device']) : '',
-                ];
-                $rows[] = new TableSeparator();
-
-                if ($justAgents === true) {
-                    $this->output->writeln($agent);
-                }
-            }
-
-            array_pop($rows);
-
-            $table->setRows($rows);
-            if ($justAgents === false) {
-                $table->render();
-            }
-        } else {
+        if (empty($this->failures[$test][$parser])) {
             $this->output->writeln(
                 '<error>There were no failures for the ' . $parser . ' parser for the ' . $test . ' test suite</error>'
             );
+
+            return;
+        }
+
+        $table = new Table($this->output);
+        $table->setHeaders([
+            [new TableCell('UserAgent', ['colspan' => 3])],
+            ['Browser', 'Platform', 'Device'],
+        ]);
+
+        $rows = [];
+        foreach ($this->failures[$test][$parser] as $agent => $failData) {
+            $rows[] = [new TableCell((string) $agent, ['colspan' => 3])];
+            $rows[] = [
+                isset($failData['browser']) ? $this->outputDiff($failData['browser']) : '',
+                isset($failData['platform']) ? $this->outputDiff($failData['platform']) : '',
+                isset($failData['device']) ? $this->outputDiff($failData['device']) : '',
+            ];
+            $rows[] = new TableSeparator();
+
+            if ($justAgents === true) {
+                $this->output->writeln($agent);
+            }
+        }
+
+        array_pop($rows);
+
+        $table->setRows($rows);
+        if ($justAgents === false) {
+            $table->render();
         }
     }
 
@@ -723,7 +736,7 @@ class Analyze extends Command
                                 $key      = current(array_keys($compareRow[$parser]));
                                 $quantity = array_shift($compareRow[$parser]);
                                 if ($expected === '[n/a]' || $key === $expected || $key === '[n/a]') {
-                                    $row[] = ($key === '' ? '[no value]' : $key) . ' <info>(' . $quantity['count'] . ')</info>';
+                                    $row[] = ($key === '' ? '[no value]' : $key) . ' <fg=green>(' . $quantity['count'] . ')</>';
                                 } else {
                                     $row[] = ($key === '' ? '[no value]' : $key) . ' <fg=red>(' . $quantity['count'] . ')</>';
                                 }
@@ -748,18 +761,19 @@ class Analyze extends Command
 
     private function makeDiff(array $expected, array $actual): array
     {
+        if (empty($expected)) {
+            return [];
+        }
+
         $result = [];
+        $diff   = array_diff_assoc($expected, $actual);
 
-        if (!empty($expected)) {
-            $diff = array_diff_assoc($expected, $actual);
-
-            foreach ($diff as $field => $value) {
-                // We can only compare the fields that aren't null in either expected or actual
-                // to be "fair" to parsers that don't have all of the data (or have too much if the test
-                // suite doesn't contain the properties that a parser may)
-                if (isset($actual[$field], $expected[$field])) {
-                    $result[$field] = ['expected' => $value, 'actual' => $actual[$field]];
-                }
+        foreach ($diff as $field => $value) {
+            // We can only compare the fields that aren't null in either expected or actual
+            // to be "fair" to parsers that don't have all of the data (or have too much if the test
+            // suite doesn't contain the properties that a parser may)
+            if (isset($actual[$field], $expected[$field])) {
+                $result[$field] = ['expected' => $value, 'actual' => $actual[$field]];
             }
         }
 
@@ -771,13 +785,15 @@ class Analyze extends Command
         $score = 0;
 
         foreach ($expected as $field => $value) {
-            if ($value !== null) {
-                // this happens if our possible score calculation is called
-                if ($possible === true && $actual[$field] !== null) {
-                    ++$score;
-                } elseif ($value === $actual[$field]) {
-                    ++$score;
-                }
+            if ($value === null) {
+                continue;
+            }
+
+            // this happens if our possible score calculation is called
+            if ($possible === true && $actual[$field] !== null) {
+                ++$score;
+            } elseif ($value === $actual[$field]) {
+                ++$score;
             }
         }
 
@@ -786,12 +802,14 @@ class Analyze extends Command
 
     private function outputDiff(array $diff): string
     {
+        if (empty($diff)) {
+            return '';
+        }
+
         $output = '';
 
-        if (!empty($diff)) {
-            foreach ($diff as $field => $data) {
-                $output .= $field . ': <fg=white;bg=green>' . $data['expected'] . '</> <fg=white;bg=red>' . $data['actual'] . '</> ';
-            }
+        foreach ($diff as $field => $data) {
+            $output .= $field . ': <fg=white;bg=green>' . $data['expected'] . '</> <fg=white;bg=red>' . $data['actual'] . '</> ';
         }
 
         return $output;

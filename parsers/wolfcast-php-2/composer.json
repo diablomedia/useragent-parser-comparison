@@ -1,0 +1,6 @@
+{
+    "require": {
+        "wolfcast/browser-detection": "^2.5",
+        "thadafinser/package-info": "^1.0"
+    }
+}

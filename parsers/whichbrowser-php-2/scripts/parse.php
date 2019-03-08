@@ -47,17 +47,17 @@ while (!$file->eof()) {
         'useragent' => $agentString,
         'parsed'    => [
             'browser' => [
-                'name'    => !empty($r->browser->name) ? $r->browser->name : '',
-                'version' => !empty($r->browser->version) ? $r->browser->version->value : '',
+                'name'    => !empty($r->browser->name) ? $r->browser->name : null,
+                'version' => !empty($r->browser->version) ? $r->browser->version->value : null,
             ],
             'platform' => [
-                'name'    => !empty($r->os->name) ? $r->os->name : '',
-                'version' => !empty($r->os->version->value) ? $r->os->version->value : '',
+                'name'    => !empty($r->os->name) ? $r->os->name : null,
+                'version' => !empty($r->os->version->value) ? $r->os->version->value : null,
             ],
             'device' => [
-                'name'     => !empty($r->device->model) ? $r->device->model : '',
-                'brand'    => !empty($r->device->manufacturer) ? $r->device->manufacturer : '',
-                'type'     => !empty($r->device->type) ? $r->device->type : '',
+                'name'     => !empty($r->device->model) ? $r->device->model : null,
+                'brand'    => !empty($r->device->manufacturer) ? $r->device->manufacturer : null,
+                'type'     => !empty($r->device->type) ? $r->device->type : null,
                 'ismobile' => $r->isMobile() ? true : false,
             ],
         ],
@@ -72,7 +72,7 @@ $memory = memory_get_peak_usage();
 // Get version from composer
 $package = new \PackageInfo\Package('whichbrowser/parser');
 
-echo json_encode([
+echo (new \JsonClass\Json())->encode([
     'results'     => $results,
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,

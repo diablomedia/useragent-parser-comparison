@@ -219,6 +219,7 @@ Currently this is the list of parsers included:
  * Sinergi Browser Detector 6.x (https://github.com/sinergi/php-browser-detector)
  * UA Parser PHP 3.x (https://github.com/ua-parser/uap-php)
  * WhichBrowser 2.x (https://github.com/WhichBrowser/Parser)
+ * Wolfcast BrowserDetection 2.x (https://github.com/Wolfcast/BrowserDetection)
  * Woothee PHP 1.x (https://github.com/woothee/woothee-php)
  * ZSXSoft PHP-UserAgent 1.x (https://github.com/zsxsoft/php-useragent)
 

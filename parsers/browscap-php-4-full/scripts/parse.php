@@ -53,15 +53,15 @@ while (!$file->eof()) {
         'parsed'    => [
             'browser' => [
                 'name'    => $r->browser,
-                'version' => $r->version,
+                'version' => ($r->version === '0.0' ? null : $r->version),
             ],
             'platform' => [
                 'name'    => $r->platform,
-                'version' => $r->platform_version,
+                'version' => ($r->platform_version === '0.0' ? null : $r->platform_version),
             ],
             'device' => [
-                'name'     => $r->device_name,
-                'brand'    => $r->device_maker,
+                'name'     => $r->device_code_name,
+                'brand'    => $r->device_brand_name,
                 'type'     => $r->device_type,
                 'ismobile' => $r->ismobiledevice ? true : false,
             ],
@@ -79,7 +79,7 @@ $package = new \PackageInfo\Package('browscap/browscap-php');
 
 $bcCache = new \BrowscapPHP\Cache\BrowscapCache($cache, $logger);
 
-echo json_encode([
+echo (new \JsonClass\Json())->encode([
     'results'     => $results,
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,

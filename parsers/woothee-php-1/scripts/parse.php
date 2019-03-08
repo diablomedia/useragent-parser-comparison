@@ -48,17 +48,17 @@ while (!$file->eof()) {
         'useragent' => $agentString,
         'parsed'    => [
             'browser' => [
-                'name'    => $r['name'],
-                'version' => $r['version'],
+                'name'    => !empty($r['name']) ? $r['name'] : null,
+                'version' => !empty($r['version']) ? $r['version'] : null,
             ],
             'platform' => [
-                'name'    => $r['os'],
-                'version' => $r['os_version'],
+                'name'    => !empty($r['os']) ? $r['os'] : null,
+                'version' => !empty($r['os_version']) ? $r['os_version'] : null,
             ],
             'device' => [
                 'name'     => null,
                 'brand'    => null,
-                'type'     => $r['category'],
+                'type'     => !empty($r['category']) ? $r['category'] : null,
                 'ismobile' => null,
             ],
         ],
@@ -71,7 +71,7 @@ $file = null;
 // Get version from composer
 $package = new \PackageInfo\Package('woothee/woothee');
 
-echo json_encode([
+echo (new \JsonClass\Json())->encode([
     'results'     => $results,
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,

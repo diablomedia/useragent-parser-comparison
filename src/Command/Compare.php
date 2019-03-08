@@ -16,23 +16,35 @@ class Compare extends Command
     {
         $this->setName('compare')
             ->setDescription('Runs tests, normalizes the results then analyzes the results')
+            ->addArgument('run', InputArgument::OPTIONAL, 'The name of the test run, if omitted will be generated from date')
             ->addArgument('file', InputArgument::OPTIONAL, 'Path to a file to use as the source of useragents rather than test suites')
             ->setHelp('This command is a "meta" command that will execute the Test, Normalize and Analyze commands in order');
     }
 
+    /**
+     * @throws \Exception
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $file = $input->getArgument('file');
 
+        // Prepare our test directory to store the data from this run
+        $name = $input->getArgument('run');
+
+        if (empty($name)) {
+            $name = date('YmdHis');
+        }
+
         if ($file) {
-            $command    = $this->getApplication()->find('parse');
-            $name       = date('YmdHis');
-            $parseInput = new ArrayInput([
+            $command   = $this->getApplication()->find('parse');
+            $arguments = [
                 'command'     => 'parse',
                 'file'        => $file,
                 'run'         => $name,
                 '--no-output' => true,
-            ]);
+            ];
+
+            $parseInput = new ArrayInput($arguments);
             $returnCode = $command->run($parseInput, $output);
 
             if ($returnCode > 0) {
@@ -41,9 +53,7 @@ class Compare extends Command
                 return $returnCode;
             }
         } else {
-            $command = $this->getApplication()->find('test');
-            $name    = date('YmdHis');
-
+            $command   = $this->getApplication()->find('test');
             $arguments = [
                 'command' => 'test',
                 'run'     => $name,

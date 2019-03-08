@@ -26,8 +26,6 @@ $base = [
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$jsonParser = new \Seld\JsonLint\JsonParser();
-
 $finder = new \Symfony\Component\Finder\Finder();
 $finder->files();
 $finder->name('*.json');
@@ -51,15 +49,7 @@ foreach ($finder as $fixture) {
         continue;
     }
 
-    try {
-        $provider = $jsonParser->parse(
-            $content,
-            \Seld\JsonLint\JsonParser::DETECT_KEY_CONFLICTS | \Seld\JsonLint\JsonParser::PARSE_TO_ASSOC
-        );
-    } catch (\Seld\JsonLint\ParsingException $e) {
-        continue;
-    }
-
+    $provider     = (new \JsonClass\Json())->decode($content, true);
     $providerName = $fixture->getFilename();
 
     foreach ($provider as $data) {
@@ -71,19 +61,19 @@ foreach ($finder as $fixture) {
 
         switch ($providerName) {
             case 'browser-test.json':
-                $uas[$ua]['browser']['name']    = $data['expect']['name']    === 'undefined' ? '' : $data['expect']['name'];
-                $uas[$ua]['browser']['version'] = $data['expect']['version'] === 'undefined' ? '' : $data['expect']['version'];
+                $uas[$ua]['browser']['name']    = $data['expect']['name']    === 'undefined' ? null : $data['expect']['name'];
+                $uas[$ua]['browser']['version'] = $data['expect']['version'] === 'undefined' ? null : $data['expect']['version'];
 
                 break;
             case 'device-test.json':
-                $uas[$ua]['device']['name']  = $data['expect']['model']  === 'undefined' ? '' : $data['expect']['model'];
-                $uas[$ua]['device']['brand'] = $data['expect']['vendor'] === 'undefined' ? '' : $data['expect']['vendor'];
-                $uas[$ua]['device']['type']  = $data['expect']['type']   === 'undefined' ? '' : $data['expect']['type'];
+                $uas[$ua]['device']['name']  = $data['expect']['model']  === 'undefined' ? null : $data['expect']['model'];
+                $uas[$ua]['device']['brand'] = $data['expect']['vendor'] === 'undefined' ? null : $data['expect']['vendor'];
+                $uas[$ua]['device']['type']  = $data['expect']['type']   === 'undefined' ? null : $data['expect']['type'];
 
                 break;
             case 'os-test.json':
-                $uas[$ua]['platform']['name']    = $data['expect']['name']    === 'undefined' ? '' : $data['expect']['name'];
-                $uas[$ua]['platform']['version'] = $data['expect']['version'] === 'undefined' ? '' : $data['expect']['version'];
+                $uas[$ua]['platform']['name']    = $data['expect']['name']    === 'undefined' ? null : $data['expect']['name'];
+                $uas[$ua]['platform']['version'] = $data['expect']['version'] === 'undefined' ? null : $data['expect']['version'];
 
                 break;
             // Skipping cpu-test.json because we don't look at CPU data, which is all that file tests against
@@ -97,7 +87,7 @@ foreach ($finder as $fixture) {
 $package = json_decode(file_get_contents(__DIR__ . '/../node_modules/ua-parser-js/package.json'));
 $version = $package->version;
 
-echo json_encode([
+echo (new \JsonClass\Json())->encode([
     'tests'   => $uas,
     'version' => $version,
 ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

@@ -1,8 +1,11 @@
 {
     "require": {
         "ext-json": "*",
+        "ext-simplexml": "*",
         "php": "^7.1",
-        "symfony/console": "^4.2"
+        "symfony/console": "^4.2",
+        "mimmi20/browser-detector-version": "~6.0.3",
+        "mimmi20/json-class": "~2.0.2"
     },
     "autoload": {
         "psr-4": {
@@ -10,8 +13,16 @@
         }
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "2.14.0",
-        "vimeo/psalm": "3.0.15",
-        "phpstan/phpstan": "0.11.1"
+        "friendsofphp/php-cs-fixer": "2.14.2",
+        "vimeo/psalm": "3.1.1",
+        "phpstan/phpstan": "0.11.2"
+    },
+    "scripts": {
+        "phpstan": "phpstan analyse -c phpstan.neon --memory-limit=768M --no-progress",
+        "psalm": "psalm --show-info=false",
+        "php-cs-fixer-check": "php-cs-fixer fix --dry-run -vv",
+        "php-cs-fixer-fix": "php-cs-fixer fix -vv",
+        "prettier-check": "yarn run prettier --check \"**/*.js\"",
+        "prettier-fix": "yarn run prettier --write \"**/*.js\""
     }
 }

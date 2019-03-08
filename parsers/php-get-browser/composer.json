@@ -1,0 +1,5 @@
+{
+    "require": {
+        "mimmi20/json-class": "~2.0.1"
+    }
+}
