@@ -5,7 +5,8 @@ const r = parser.getParser('Test String');
 r.parse();
 const initTime = process.hrtime(initStart)[1] / 1000000000;
 
-const package = require(require('path').dirname(require.resolve('bowser')) + '/package.json');
+const package = require(require('path').dirname(require.resolve('bowser')) +
+    '/package.json');
 const version = package.version;
 
 let benchmark = false;

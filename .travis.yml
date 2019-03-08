@@ -31,7 +31,7 @@ jobs:
       php: 7.2
       script:
         - vendor/bin/php-cs-fixer fix --dry-run -vv
-        - yarn run prettier -l "**/*.js"
+        - yarn run prettier --check "**/*.js"
 
     - stage: static code analysis
       php: 7.2
