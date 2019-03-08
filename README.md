@@ -105,6 +105,12 @@ woothee-js-1            | 0.007s            | 0.009s             | 0.092s       
 woothee-php-1           | 0.008s            | 0.007s             | 0.05s              | 804.58 K            
 zsxsoft-php-1           | 0.005s            | 0.066s             | 0.051s             | 970.41 K            |         
 
+## Windows 10 system requirements
+
+Enabling sqlite php extension.
+
+Enabling wget command.
+
 ## How To Use
 
 Clone this repo, then install composer dependencies (if composer isn't installed on your system, reference http://getcomposer.org):
