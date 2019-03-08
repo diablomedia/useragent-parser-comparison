@@ -81,7 +81,7 @@ class Normalize extends Command
                     continue;
                 }
 
-                $message = sprintf('%sProcessing output from the <fg=yellow>%s</> test suite... ', "\t", $testFile->getBasename('.' . $testFile->getExtension()));
+                $message = sprintf('%sProcessing output from the <fg=yellow>%s</> test suite... ', '  ', $testFile->getBasename('.' . $testFile->getExtension()));
 
                 $output->write($message . '<info> parsing result</info>');
 
@@ -143,7 +143,7 @@ class Normalize extends Command
 
                     $testName = str_replace('.json', '', $resultFile->getFilename());
 
-                    $message = sprintf('%sProcessing results from the <fg=yellow>%s</> test suite... ', "\t", $testName);
+                    $message = sprintf('%sProcessing results from the <fg=yellow>%s</> test suite... ', '  ', $testName);
 
                     $output->write($message . '<info> parsing result</info>');
 

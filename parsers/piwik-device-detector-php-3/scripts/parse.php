@@ -68,9 +68,9 @@ while (!$file->eof()) {
                 'version' => $osInfo['version'] ?? null,
             ],
             'device' => [
-                'name'     => $model,
-                'brand'    => $brand,
-                'type'     => $device,
+                'name'     => $model ? $model : null,
+                'brand'    => $brand ? $brand : null,
+                'type'     => $device ? $device : null,
                 'ismobile' => $isMobile ? true : false,
             ],
         ],

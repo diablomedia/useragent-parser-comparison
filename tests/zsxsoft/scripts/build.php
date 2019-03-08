@@ -36,8 +36,8 @@ $tests = [];
 foreach ($provider as $data) {
     $ua = $data[0][0];
     if (!empty($ua)) {
-        $brand = '';
-        $model = '';
+        $brand = null;
+        $model = null;
 
         foreach ($brands as $brand) {
             if (mb_strpos($data[1][8], $brand) !== false) {
@@ -45,21 +45,21 @@ foreach ($provider as $data) {
 
                 break;
             }
-            $brand = '';
+            $brand = null;
         }
 
         $expected = [
             'browser' => [
-                'name'    => $data[1][2],
-                'version' => $data[1][3],
+                'name'    => empty($data[1][2]) ? null : $data[1][2],
+                'version' => empty($data[1][3]) ? null : $data[1][3],
             ],
             'platform' => [
-                'name'    => $data[1][5],
-                'version' => $data[1][6],
+                'name'    => empty($data[1][5]) ? null : $data[1][5],
+                'version' => empty($data[1][6]) ? null : $data[1][6],
             ],
             'device' => [
-                'name'     => $model,
-                'brand'    => $brand,
+                'name'     => empty($model) ? null : $model,
+                'brand'    => empty($brand) ? null : $brand,
                 'type'     => null,
                 'ismobile' => null,
             ],
