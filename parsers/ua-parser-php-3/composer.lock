@@ -205,16 +205,16 @@
         },
         {
             "name": "ua-parser/uap-php",
-            "version": "v3.8.3",
+            "version": "v3.8.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ua-parser/uap-php.git",
-                "reference": "851915a08d45055feaad1b6ff3074143df07a11e"
+                "reference": "f04d8fbe9aae8130e688a2bb325a40f4067c4dd7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ua-parser/uap-php/zipball/851915a08d45055feaad1b6ff3074143df07a11e",
-                "reference": "851915a08d45055feaad1b6ff3074143df07a11e",
+                "url": "https://api.github.com/repos/ua-parser/uap-php/zipball/f04d8fbe9aae8130e688a2bb325a40f4067c4dd7",
+                "reference": "f04d8fbe9aae8130e688a2bb325a40f4067c4dd7",
                 "shasum": ""
             },
             "require": {
@@ -222,7 +222,7 @@
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "*",
+                "phpunit/phpunit": "<8",
                 "symfony/console": "^2.0 || ^3.0 || ^4.0",
                 "symfony/filesystem": "^2.0 || ^3.0 || ^4.0",
                 "symfony/finder": "^2.0 || ^3.0 || ^4.0",
@@ -258,7 +258,7 @@
                 }
             ],
             "description": "A multi-language port of Browserscope's user agent parser.",
-            "time": "2019-01-29T12:24:04+00:00"
+            "time": "2019-02-14T09:54:15+00:00"
         }
     ],
     "packages-dev": [],

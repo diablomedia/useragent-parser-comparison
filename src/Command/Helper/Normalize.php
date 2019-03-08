@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace UserAgentParserComparison\Command\Helper;
 
+use function Safe\preg_replace;
 use Symfony\Component\Console\Helper\Helper;
 
 class Normalize extends Helper
@@ -75,7 +76,7 @@ class Normalize extends Helper
                     $v = [];
                 }
 
-                if (is_array($v) && is_string($value) && array_key_exists($value, $v)) {
+                if (is_array($v) && array_key_exists($value, $v)) {
                     $value = $v[$value];
                 }
 

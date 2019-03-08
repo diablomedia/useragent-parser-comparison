@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bowser": "^2.1.0"
+    "bowser": "^2.1.2"
   }
 }

@@ -4,9 +4,14 @@ declare(strict_types = 1);
 
 namespace UserAgentParserComparison\Command;
 
-use ExceptionalJSON\DecodeErrorException;
+use Exception;
 use FilesystemIterator;
-use JsonClass\Json;
+use function Safe\file_get_contents;
+use function Safe\file_put_contents;
+use function Safe\json_decode;
+use function Safe\json_encode;
+use function Safe\mkdir;
+use function Safe\sprintf;
 use SplFileInfo;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -57,13 +62,16 @@ class Normalize extends Command
         $this->options = ['tests' => [], 'parsers' => []];
 
         if (file_exists($this->runDir . '/' . $run . '/metadata.json')) {
-            $contents = file_get_contents($this->runDir . '/' . $run . '/metadata.json');
-            if ($contents !== false) {
+            try {
+                $contents = file_get_contents($this->runDir . '/' . $run . '/metadata.json');
+
                 try {
-                    $this->options = (new Json())->decode($contents, true);
-                } catch (DecodeErrorException $e) {
+                    $this->options = json_decode($contents, true);
+                } catch (Exception $e) {
                     $output->writeln('<error>An error occured while parsing metadata for run ' . $run . '</error>');
                 }
+            } catch (Exception $e) {
+                $output->writeln('<error>Could not read metadata file for run ' . $run . '</error>');
             }
         }
 
@@ -85,15 +93,15 @@ class Normalize extends Command
 
                 $output->write($message . '<info> parsing result</info>');
 
-                $contents = file_get_contents($testFile->getPathname());
-
-                if ($contents === false) {
+                try {
+                    $contents = file_get_contents($testFile->getPathname());
+                } catch (Exception $e) {
                     continue;
                 }
 
                 try {
-                    $data = (new Json())->decode($contents, true);
-                } catch (DecodeErrorException $e) {
+                    $data = json_decode($contents, true);
+                } catch (Exception $e) {
                     $output->writeln("\r" . $message . '<error>An error occured while normalizing test suite ' . $testFile->getFilename() . '</error>');
                     continue;
                 }
@@ -116,7 +124,7 @@ class Normalize extends Command
                 // Write normalized to file
                 file_put_contents(
                     $this->runDir . '/' . $run . '/expected/normalized/' . $testFile->getFilename(),
-                    (new Json())->encode($normalized, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+                    json_encode($normalized, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
                 );
 
                 $output->writeln("\r" . $message . '<info> done!</info>           ');
@@ -147,15 +155,15 @@ class Normalize extends Command
 
                     $output->write($message . '<info> parsing result</info>');
 
-                    $contents = file_get_contents($resultFile->getPathname());
-
-                    if ($contents === false) {
+                    try {
+                        $contents = file_get_contents($resultFile->getPathname());
+                    } catch (Exception $e) {
                         continue;
                     }
 
                     try {
-                        $data = (new Json())->decode($contents, true);
-                    } catch (DecodeErrorException $e) {
+                        $data = json_decode($contents, true);
+                    } catch (Exception $e) {
                         $output->writeln("\r" . $message . '<error>An error occured while parsing results for the ' . $testName . ' test suite</error>');
                         $data['results'] = [];
                     }
@@ -184,7 +192,7 @@ class Normalize extends Command
                     // Write normalized to file
                     file_put_contents(
                         $this->runDir . '/' . $run . '/results/' . $parserName . '/normalized/' . $resultFile->getFilename(),
-                        (new Json())->encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+                        json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
                     );
 
                     $output->writeln("\r" . $message . '<info> done!</info>           ');

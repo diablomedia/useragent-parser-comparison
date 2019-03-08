@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "2dbda5f0ab8533583c07959573879687",
@@ -52,16 +52,16 @@
         },
         {
             "name": "wolfcast/browser-detection",
-            "version": "2.5.1",
+            "version": "2.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Wolfcast/BrowserDetection.git",
-                "reference": "390aaab24f8e1dedea330b3dafb077dbe767a31a"
+                "reference": "975684529e7535551eb6c36b45847c5e7c0c64d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Wolfcast/BrowserDetection/zipball/390aaab24f8e1dedea330b3dafb077dbe767a31a",
-                "reference": "390aaab24f8e1dedea330b3dafb077dbe767a31a",
+                "url": "https://api.github.com/repos/Wolfcast/BrowserDetection/zipball/975684529e7535551eb6c36b45847c5e7c0c64d4",
+                "reference": "975684529e7535551eb6c36b45847c5e7c0c64d4",
                 "shasum": ""
             },
             "require": {
@@ -75,13 +75,13 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GNU LGPL 3 or any later version"
+                "LGPL-3.0-or-later"
             ],
             "authors": [
                 {
                     "name": "Alexandre Valiquette",
-                    "homepage": "http://wolfcast.com/",
-                    "role": "Main developer"
+                    "homepage": "https://wolfcast.com/",
+                    "role": "Lead developer"
                 }
             ],
             "description": "The Wolfcast BrowserDetection PHP class facilitates the identification of the user's environment such as Web browser, version, platform family, platform version or if it's a mobile device or not.",
@@ -94,7 +94,7 @@
                 "platform",
                 "version"
             ],
-            "time": "2016-11-28T22:55:36+00:00"
+            "time": "2019-03-01T02:28:33+00:00"
         }
     ],
     "packages-dev": [],

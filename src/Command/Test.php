@@ -4,10 +4,15 @@ declare(strict_types = 1);
 
 namespace UserAgentParserComparison\Command;
 
-use ExceptionalJSON\DecodeErrorException;
-use ExceptionalJSON\EncodeErrorException;
+use Exception;
 use FilesystemIterator;
-use JsonClass\Json;
+use function Safe\file_get_contents;
+use function Safe\file_put_contents;
+use function Safe\json_decode;
+use function Safe\json_encode;
+use function Safe\ksort;
+use function Safe\mkdir;
+use function Safe\sort;
 use SplFileInfo;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -123,8 +128,8 @@ class Test extends Command
             file_put_contents($expectedDir . '/' . $testName . '.json', $testOutput);
 
             try {
-                $testOutput = (new Json())->decode($testOutput, true);
-            } catch (DecodeErrorException $e) {
+                $testOutput = json_decode($testOutput, true);
+            } catch (Exception $e) {
                 $output->writeln('<error>There was an error with the output from the ' . $testName . ' test suite.</error>');
 
                 continue;
@@ -179,11 +184,11 @@ class Test extends Command
                 }
 
                 try {
-                    $encoded = (new Json())->encode(
+                    $encoded = json_encode(
                         $result,
                         JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
                     );
-                } catch (EncodeErrorException $e) {
+                } catch (Exception $e) {
                     $output->writeln('<error> encoding the result failed!</error>');
                     continue;
                 }
@@ -199,11 +204,11 @@ class Test extends Command
         }
 
         try {
-            $encoded = (new Json())->encode(
+            $encoded = json_encode(
                 ['tests' => $usedTests, 'parsers' => $parsers, 'date' => time()],
                 JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
             );
-        } catch (EncodeErrorException $e) {
+        } catch (Exception $e) {
             $output->writeln('<error>Encoding result metadata failed for the ' . $thisRunDirName . ' directory</error>');
 
             return 1;
@@ -226,14 +231,18 @@ class Test extends Command
         foreach (new FilesystemIterator($this->testsDir) as $testDir) {
             $metadata = [];
             if (file_exists($testDir->getPathname() . '/metadata.json')) {
-                $contents = file_get_contents($testDir->getPathname() . '/metadata.json');
+                try {
+                    $contents = file_get_contents($testDir->getPathname() . '/metadata.json');
+                } catch (Exception $e) {
+                    $output->writeln('<error>An error occured while reading the metadata file</error>');
 
-                if ($contents !== false) {
-                    try {
-                        $metadata = (new Json())->decode($contents, true);
-                    } catch (DecodeErrorException $e) {
-                        $output->writeln('<error>An error occured while parsing results for the ' . $testDir->getPathname() . ' test suite</error>');
-                    }
+                    continue;
+                }
+
+                try {
+                    $metadata = json_decode($contents, true);
+                } catch (Exception $e) {
+                    $output->writeln('<error>An error occured while parsing results for the ' . $testDir->getPathname() . ' test suite</error>');
                 }
             }
 

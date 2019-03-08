@@ -5,7 +5,14 @@ declare(strict_types = 1);
 namespace UserAgentParserComparison\Command;
 
 use Exception;
-use JsonClass\Json;
+use function Safe\fclose;
+use function Safe\file_put_contents;
+use function Safe\fopen;
+use function Safe\fputcsv;
+use function Safe\json_encode;
+use function Safe\mkdir;
+use function Safe\rewind;
+use function Safe\stream_get_contents;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableCell;
@@ -107,7 +114,7 @@ class Parse extends Command
 
                 file_put_contents(
                     $this->runDir . '/' . $name . '/results/' . $parserName . '/' . basename($filename) . '.json',
-                    (new Json())->encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+                    json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
                 );
             }
 
@@ -212,7 +219,7 @@ class Parse extends Command
         if ($name) {
             file_put_contents(
                 $this->runDir . '/' . $name . '/metadata.json',
-                (new Json())->encode(['parsers' => $parsers, 'date' => time(), 'file' => basename($filename)], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+                json_encode(['parsers' => $parsers, 'date' => time(), 'file' => basename($filename)], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
             );
         }
 
@@ -231,10 +238,6 @@ class Parse extends Command
             $fp = fopen($csvFile, 'a+');
         } else {
             $fp = fopen('php://temp', 'r+');
-        }
-
-        if ($fp === false) {
-            throw new Exception('Could not open file or stream');
         }
 
         fputcsv($fp, $input, $delimiter, $enclosure);

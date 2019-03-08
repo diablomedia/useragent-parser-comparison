@@ -155,16 +155,16 @@
         },
         {
             "name": "piwik/device-detector",
-            "version": "3.11.4",
+            "version": "3.11.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matomo-org/device-detector.git",
-                "reference": "c136bf9147bd8f33746b1915331fba133d076ed5"
+                "reference": "cce3213e9b42deaacd21d33c02811c59b6e54099"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/matomo-org/device-detector/zipball/c136bf9147bd8f33746b1915331fba133d076ed5",
-                "reference": "c136bf9147bd8f33746b1915331fba133d076ed5",
+                "url": "https://api.github.com/repos/matomo-org/device-detector/zipball/cce3213e9b42deaacd21d33c02811c59b6e54099",
+                "reference": "cce3213e9b42deaacd21d33c02811c59b6e54099",
                 "shasum": ""
             },
             "require": {
@@ -206,7 +206,7 @@
                 "parser",
                 "useragent"
             ],
-            "time": "2018-12-26T22:52:19+00:00"
+            "time": "2019-02-10T21:21:01+00:00"
         },
         {
             "name": "thadafinser/package-info",

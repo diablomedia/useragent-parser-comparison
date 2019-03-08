@@ -4,8 +4,12 @@ declare(strict_types = 1);
 
 namespace UserAgentParserComparison\Command;
 
-use ExceptionalJSON\DecodeErrorException;
-use JsonClass\Json;
+use Exception;
+use function Safe\file_get_contents;
+use function Safe\json_decode;
+use function Safe\ksort;
+use function Safe\sort;
+use function Safe\uasort;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableCell;
@@ -88,19 +92,20 @@ class Analyze extends Command
         }
 
         if (file_exists($this->runDir . '/' . $run . '/metadata.json')) {
-            $contents = file_get_contents($this->runDir . '/' . $run . '/metadata.json');
-            if ($contents !== false) {
-                try {
-                    $this->options = (new Json())->decode($contents, true);
-                } catch (DecodeErrorException $e) {
-                    $output->writeln('<error>An error occured while parsing metadata for run ' . $run . '</error>');
-                }
-            } else {
+            try {
+                $contents = file_get_contents($this->runDir . '/' . $run . '/metadata.json');
+            } catch (Exception $e) {
                 $output->writeln(
                     '<error>Could not read file (' . $this->runDir . '/' . $run . '/metadata.json' . ')</error>'
                 );
 
                 return 2;
+            }
+
+            try {
+                $this->options = json_decode($contents, true);
+            } catch (Exception $e) {
+                $output->writeln('<error>An error occured while parsing metadata for run ' . $run . '</error>');
             }
         } else {
             $output->writeln('<error>No options file found for this test run</error>');
@@ -134,16 +139,17 @@ class Analyze extends Command
             $expectedFilename = $this->runDir . '/' . $run . '/expected/normalized/' . $testName . '.json';
 
             if (file_exists($expectedFilename)) {
-                $contents = file_get_contents($expectedFilename);
-
-                if ($contents === false) {
+                try {
+                    $contents = file_get_contents($expectedFilename);
+                } catch (Exception $e) {
                     $this->output->writeln('<error>Could not read file (' . $expectedFilename . ')</error>');
                     continue;
                 }
+
                 try {
-                    $expectedResults = (new Json())->decode($contents, true);
+                    $expectedResults = json_decode($contents, true);
                     $headerMessage   = '<fg=yellow>Parser comparison for ' . $testName . ' test suite' . (isset($testData['metadata']['version']) ? ' (' . $testData['metadata']['version'] . ')' : '') . '</>';
-                } catch (DecodeErrorException $e) {
+                } catch (Exception $e) {
                     $this->output->writeln('<error>An error occured while parsing file (' . $expectedFilename . '), skipping</error>');
                     continue;
                 }
@@ -151,23 +157,23 @@ class Analyze extends Command
                 // When we aren't comparing to a test suite, the first parser's results become the expected results
                 $expectedResults = ['tests' => []];
                 $fileName        = $this->runDir . '/' . $run . '/results/' . array_keys($this->options['parsers'])[0] . '/normalized/' . $testName . '.json';
-                $contents        = file_get_contents($fileName);
-
-                if ($contents !== false) {
-                    try {
-                        $testResult    = (new Json())->decode($contents, true);
-                        $headerMessage = '<fg=yellow>Parser comparison for ' . $testName . ' file, using ' . array_keys($this->options['parsers'])[0] . ' results as expected</>';
-                    } catch (DecodeErrorException $e) {
-                        $this->output->writeln('<error>An error occured while parsing metadata for run ' . $run . '</error>');
-                        continue;
-                    }
-
-                    foreach ($testResult['results'] as $data) {
-                        $expectedResults['tests'][$data['useragent']] = $data['parsed'];
-                    }
-                } else {
+                try {
+                    $contents = file_get_contents($fileName);
+                } catch (Exception $e) {
                     $this->output->writeln('<error>Could not read file (' . $fileName . ')</error>');
                     continue;
+                }
+
+                try {
+                    $testResult    = json_decode($contents, true);
+                    $headerMessage = '<fg=yellow>Parser comparison for ' . $testName . ' file, using ' . array_keys($this->options['parsers'])[0] . ' results as expected</>';
+                } catch (Exception $e) {
+                    $this->output->writeln('<error>An error occured while parsing metadata for run ' . $run . '</error>');
+                    continue;
+                }
+
+                foreach ($testResult['results'] as $data) {
+                    $expectedResults['tests'][$data['useragent']] = $data['parsed'];
                 }
             }
 
@@ -227,17 +233,17 @@ class Analyze extends Command
                 }
 
                 $fileName = $this->runDir . '/' . $run . '/results/' . $parserName . '/normalized/' . $testName . '.json';
-                $contents = file_get_contents($fileName);
-
-                if ($contents === false) {
+                try {
+                    $contents = file_get_contents($fileName);
+                } catch (Exception $e) {
                     $this->output->writeln('<error>Could not read file (' . $fileName . '), skipping</error>');
 
                     continue;
                 }
 
                 try {
-                    $testResult = (new Json())->decode($contents, true);
-                } catch (DecodeErrorException $e) {
+                    $testResult = json_decode($contents, true);
+                } catch (Exception $e) {
                     $this->output->writeln('<error>An error occured while parsing file (' . $fileName . '), skipping</error>');
 
                     continue;
