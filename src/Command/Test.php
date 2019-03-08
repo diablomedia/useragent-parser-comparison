@@ -193,10 +193,10 @@ class Test extends Command
                     $encoded
                 );
                 $output->writeln('<info> done!</info>');
+                
+                $usedTests[$testName] = $testData;
             }
         }
-
-        $usedTests[$testName] = $testData;
 
         try {
             $encoded = (new Json())->encode(

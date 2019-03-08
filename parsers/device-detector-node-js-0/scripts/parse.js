@@ -36,9 +36,10 @@ lineReader.on('line', function(line) {
 
     const start = process.hrtime();
     let error = null,
-        result = {};
+        result = {},
+        r = null;
     try {
-        const r = detector.detect(line);
+        r = detector.detect(line);
     } catch (err) {
         error = err;
 
@@ -70,7 +71,7 @@ lineReader.on('line', function(line) {
         return;
     }
 
-    if (typeof r !== 'undefined') {
+    if (r !== null) {
         result = {
             useragent: line,
             parsed: {

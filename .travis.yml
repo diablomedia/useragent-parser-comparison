@@ -30,14 +30,14 @@ jobs:
     - stage: check coding style
       php: 7.2
       script:
-        - vendor/bin/php-cs-fixer fix --dry-run -vv
+        - composer php-cs-fixer-check
         - yarn run prettier --check "**/*.js"
 
     - stage: static code analysis
       php: 7.2
       script:
-        - vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=768M --no-progress
-        - vendor/bin/psalm --show-info=false
+        - composer phpstan
+        - composer psalm
 
 notifications:
   email: false

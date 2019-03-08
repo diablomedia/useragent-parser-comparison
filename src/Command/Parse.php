@@ -113,6 +113,12 @@ class Parse extends Command
 
             $rows = [];
             foreach ($result['results'] as $parsed) {
+                if (!isset($parsed['parsed'])) {
+                    $output->writeLn('<error>There was no "parsed" property in the result</error>');
+
+                    continue;
+                }
+
                 if ($normalize) {
                     $parsed['parsed'] = $normalizeHelper->normalize($parsed['parsed']);
                 }

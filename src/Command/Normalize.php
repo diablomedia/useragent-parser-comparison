@@ -166,11 +166,15 @@ class Normalize extends Command
                         continue;
                     }
 
-                    $output->write("\r" . $message . '<info> normalizing result</info>');
+                    $output->write("\r" . $message . '<info> normalizing result</info>' . "\n");
 
                     foreach ($data['results'] as $result) {
-                        $result['parsed'] = $this->normalize($result['parsed']);
-                        $normalized[]     = $result;
+                        if (!isset($result['parsed'])) {
+                            $output->writeLn('<error>There was no "parsed" property for the ' . $testName . ' test suite </error>');
+                        } else {
+                            $result['parsed'] = $this->normalize($result['parsed']);
+                            $normalized[]     = $result;
+                        }
                     }
 
                     $output->write("\r" . $message . '<info> writing result</info>    ');
