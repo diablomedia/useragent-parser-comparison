@@ -49,7 +49,7 @@ foreach ($finder as $fixture) {
         continue;
     }
 
-    $provider     = (new \JsonClass\Json())->decode($content, true);
+    $provider     = json_decode($content, true);
     $providerName = $fixture->getFilename();
 
     foreach ($provider as $data) {
@@ -87,7 +87,7 @@ foreach ($finder as $fixture) {
 $package = json_decode(file_get_contents(__DIR__ . '/../node_modules/ua-parser-js/package.json'));
 $version = $package->version;
 
-echo (new \JsonClass\Json())->encode([
+echo json_encode([
     'tests'   => $uas,
     'version' => $version,
 ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

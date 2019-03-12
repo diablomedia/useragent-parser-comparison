@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "75263871676bfc0b5b6eec87742ba881",
+    "content-hash": "2e73de76dffc037aa2cbe87302eb377d",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -143,44 +143,6 @@
                 "Browscap"
             ],
             "time": "2019-03-21T08:37:43+00:00"
-        },
-        {
-            "name": "daverandom/exceptional-json",
-            "version": "v1.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/DaveRandom/ExceptionalJSON.git",
-                "reference": "fed957142b4687b079495c80975666dd1a67d61d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/DaveRandom/ExceptionalJSON/zipball/fed957142b4687b079495c80975666dd1a67d61d",
-                "reference": "fed957142b4687b079495c80975666dd1a67d61d",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "ExceptionalJSON\\": "src/"
-                },
-                "files": [
-                    "src/functions.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Chris Wright"
-                }
-            ],
-            "description": "JSON encoding and decoding that throws exceptions on failure",
-            "time": "2018-06-11T11:25:57+00:00"
         },
         {
             "name": "justinrainbow/json-schema",
@@ -393,65 +355,6 @@
             ],
             "description": "the source interface for the browscap helper",
             "time": "2018-01-03T21:05:56+00:00"
-        },
-        {
-            "name": "mimmi20/json-class",
-            "version": "2.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mimmi20/json-class.git",
-                "reference": "d53745fbc4080d502bcf4126a77491be7902b252"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mimmi20/json-class/zipball/d53745fbc4080d502bcf4126a77491be7902b252",
-                "reference": "d53745fbc4080d502bcf4126a77491be7902b252",
-                "shasum": ""
-            },
-            "require": {
-                "daverandom/exceptional-json": "^1.0.4",
-                "ext-json": "*",
-                "php": "^7.1"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.13",
-                "localheinz/composer-normalize": "^1.0.0",
-                "localheinz/phpstan-rules": "^0.4 || ^0.5",
-                "pepakriz/phpstan-exception-rules": "^0.3 || ^0.4",
-                "phpstan/phpstan": "^0.10",
-                "phpstan/phpstan-deprecation-rules": "^0.10",
-                "phpstan/phpstan-phpunit": "^0.10",
-                "phpstan/phpstan-strict-rules": "^0.10",
-                "phpunit/phpunit": "^7.5",
-                "squizlabs/php_codesniffer": "^3.4"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "JsonClass\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Thomas Müller",
-                    "homepage": "https://github.com/mimmi20",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Contributors",
-                    "homepage": "https://github.com/mimmi20/json-class/graphs/contributors"
-                }
-            ],
-            "description": "Class wrapper for ",
-            "homepage": "https://github.com/mimmi20/json-class",
-            "keywords": [
-                "json"
-            ],
-            "time": "2019-01-02T21:26:59+00:00"
         },
         {
             "name": "mimmi20/ua-browser-type",
@@ -742,16 +645,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v4.2.4",
+            "version": "v4.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "9dc2299a016497f9ee620be94524e6c0af0280a9"
+                "reference": "24206aff3efe6962593297e57ef697ebb220e384"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/9dc2299a016497f9ee620be94524e6c0af0280a9",
-                "reference": "9dc2299a016497f9ee620be94524e6c0af0280a9",
+                "url": "https://api.github.com/repos/symfony/console/zipball/24206aff3efe6962593297e57ef697ebb220e384",
+                "reference": "24206aff3efe6962593297e57ef697ebb220e384",
                 "shasum": ""
             },
             "require": {
@@ -810,7 +713,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-02-23T15:17:42+00:00"
+            "time": "2019-04-01T07:32:59+00:00"
         },
         {
             "name": "symfony/contracts",
@@ -882,7 +785,7 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v4.2.4",
+            "version": "v4.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",

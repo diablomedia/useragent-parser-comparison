@@ -58,7 +58,7 @@ foreach ($finder as $fixture) {
                     'version' => ($data['properties']['Platform_Version'] === '0.0' ? null : $data['properties']['Platform_Version']),
                 ],
                 'device' => [
-                    'name'     => $data['properties']['Device_Code_Name'],
+                    'name'     => $data['properties']['Device_Name'],
                     'brand'    => $data['properties']['Device_Brand_Name'],
                     'type'     => $data['properties']['Device_Type'],
                     'ismobile' => $isMobile,
@@ -73,7 +73,7 @@ foreach ($finder as $fixture) {
 // Get version from composer
 $package = new \PackageInfo\Package('browscap/browscap');
 
-echo (new \JsonClass\Json())->encode([
+echo json_encode([
     'tests'   => $tests,
     'version' => $package->getVersion(),
 ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

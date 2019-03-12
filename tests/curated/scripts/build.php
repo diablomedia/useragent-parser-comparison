@@ -27,6 +27,6 @@ foreach ($finder as $file) {
     }
 }
 
-echo (new \JsonClass\Json())->encode([
+echo json_encode([
     'tests' => $tests,
 ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

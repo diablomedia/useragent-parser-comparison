@@ -11,7 +11,7 @@ if ($content === '' || $content === PHP_EOL) {
     exit;
 }
 
-$provider = (new \JsonClass\Json())->decode($content, true);
+$provider = json_decode($content, true);
 
 foreach ($provider as $ua => $data) {
     if (!empty($ua)) {
@@ -39,7 +39,7 @@ foreach ($provider as $ua => $data) {
 // Get version from composer
 $package = new \PackageInfo\Package('donatj/phpuseragentparser');
 
-echo (new \JsonClass\Json())->encode([
+echo json_encode([
     'tests'   => $tests,
     'version' => $package->getVersion(),
 ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

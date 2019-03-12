@@ -61,11 +61,11 @@ while (!$file->eof()) {
         'parsed'    => [
             'browser' => [
                 'name'    => $clientInfo['name'] ?? null,
-                'version' => $clientInfo['version'] ?? null,
+                'version' => (!empty($clientInfo['version']) ? $clientInfo['version'] : null),
             ],
             'platform' => [
                 'name'    => $osInfo['name'] ?? null,
-                'version' => $osInfo['version'] ?? null,
+                'version' => (!empty($osInfo['version']) ? $osInfo['version'] : null),
             ],
             'device' => [
                 'name'     => $model ? $model : null,
@@ -83,7 +83,7 @@ $file = null;
 // Get version from composer
 $package = new \PackageInfo\Package('piwik/device-detector');
 
-echo (new \JsonClass\Json())->encode([
+echo json_encode([
     'results'     => $results,
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,

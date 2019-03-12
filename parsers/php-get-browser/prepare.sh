@@ -10,11 +10,3 @@ if [ ! -e "browscap.ini" ]; then
 fi
 
 cd "$parent_path"
-
-composer_command="composer"
-
-command -v "$composer_command" >/dev/null 2>&1 || {
-    composer_command="composer.phar"
-}
-
-$composer_command install

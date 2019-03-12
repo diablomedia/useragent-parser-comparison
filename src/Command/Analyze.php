@@ -72,6 +72,63 @@ class Analyze extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+//        $table = new Table($output);
+//        $table->setColumnWidth(0, 50);
+//        $table->setColumnMaxWidth(0, 50);
+//        $table->setColumnWidth(1, 50);
+//        $table->setColumnMaxWidth(1, 50);
+//        $table->setColumnWidth(2, 50);
+//        $table->setColumnMaxWidth(2, 50);
+//        $table->setStyle('box');
+//        $table->setHeaders([
+//            [new TableCell('UserAgent', ['colspan' => 3])],
+//            [new TableCell('Browser'), new TableCell('Platform'), new TableCell('Device')],
+//        ]);
+//
+//        $rows = [];
+//
+//        $rows[] = [new TableCell('Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en; rv:1.8.1.11) Gecko/20071128 Camino/1.5.4', ['colspan' => 3])];
+//        $rows[] = [
+//            new TableCell('name: <fg=white;bg=green>camino</> <fg=white;bg=red>mozilla50macintoshuintelmacosxenrv18111gecko</> version: <fg=white;bg=green>1.5</> <fg=white;bg=red>20071128</> '),
+//            new TableCell(''),
+//            new TableCell(''),
+//        ];
+//        $rows[] = new TableSeparator();
+//
+//        $rows[] = [new TableCell('Mozilla/5.0 (X11; Linux i686; rv:7.0.1) Gecko/20111106 IceCat/7.0.1', ['colspan' => 3])];
+//        $rows[] = [
+//            new TableCell('name: <fg=white;bg=green>firefox</> <fg=white;bg=red>mozilla50x11linuxi686rv701gecko</> version: <fg=white;bg=green>7.0</> <fg=white;bg=red>20111106</> '),
+//            new TableCell(''),
+//            new TableCell(''),
+//        ];
+//        $rows[] = new TableSeparator();
+//
+//        $rows[] = [new TableCell('Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)', ['colspan' => 3])];
+//        $rows[] = [
+//            new TableCell('name: <fg=white;bg=green>yandexbot</> <fg=white;bg=red>mozilla50compatibleyandexbot</> version: <fg=white;bg=green>3.0</> <fg=white;bg=red>3.0;</> '),
+//            new TableCell(''),
+//            new TableCell(''),
+//        ];
+//        $rows[] = new TableSeparator();
+//
+//        $rows[] = [new TableCell('Googlebot-Video/1.0', ['colspan' => 3])];
+//        $rows[] = [
+//            new TableCell('name: <fg=white;bg=green>googlebotvideo</> <fg=white;bg=red>googlebot</> '),
+//            new TableCell(''),
+//            new TableCell(''),
+//        ];
+//        $rows[] = [new TableCell('YUANDA50_12864_11B_HW (MRE\2.5.00(800) resolution\320480 chipset\MT6250 touch\1 tpannel\1 camera\1 gsensor\0 keyboard\reduced) C529AH_JY_539_W1.11B.V2.2 Release/2012.09.26 WAP Browser/MAUI (HTTP PGDL; HTTPS) Profile/ Q03C1-2.40 fr-FR', ['colspan' => 3])];
+//        $rows[] = [
+//            new TableCell('name: <fg=white;bg=green>googlebotvideo</> <fg=white;bg=red>googlebot</> '),
+//            new TableCell(''),
+//            new TableCell(''),
+//        ];
+//
+//        $table->setRows($rows);
+//        $table->render();
+//
+//        return 0;
+
         $this->input  = $input;
         $this->output = $output;
 
@@ -327,14 +384,42 @@ class Analyze extends Command
                     }
                 }
 
+                if (array_sum($passFail['browser']) === 0) {
+                    $browserContent = '<fg=white;bg=blue>-</>';
+                } else {
+                    $browserPercentage = $passFail['browser']['pass'] / array_sum($passFail['browser']) * 100;
+                    $browserContent    = $this->colorByPercent($browserPercentage) . $passFail['browser']['pass'] . '/' . array_sum($passFail['browser']) . ' ' . round($browserPercentage, 2, \PHP_ROUND_HALF_DOWN) . '%</>';
+                }
+
+                if (array_sum($passFail['platform']) === 0) {
+                    $platformContent = '<fg=white;bg=blue>-</>';
+                } else {
+                    $platformPercentage = $passFail['platform']['pass'] / array_sum($passFail['platform']) * 100;
+                    $platformContent    = $this->colorByPercent($platformPercentage) . $passFail['platform']['pass'] . '/' . array_sum($passFail['platform']) . ' ' . round($platformPercentage, 2, \PHP_ROUND_HALF_DOWN) . '%</>';
+                }
+
+                if (array_sum($passFail['device']) === 0) {
+                    $deviceContent = '<fg=white;bg=blue>-</>';
+                } else {
+                    $devicePercentage = $passFail['device']['pass'] / array_sum($passFail['device']) * 100;
+                    $deviceContent    = $this->colorByPercent($devicePercentage) . $passFail['device']['pass'] . '/' . array_sum($passFail['device']) . ' ' . round($devicePercentage, 2, \PHP_ROUND_HALF_DOWN) . '%</>';
+                }
+
+                if ($possibleScores[$parserName][$testName] === 0) {
+                    $summaryContent = '<fg=white;bg=blue>-</>';
+                } else {
+                    $summaryPercentage = $parserScores[$parserName][$testName] / $possibleScores[$parserName][$testName] * 100;
+                    $summaryContent    = $this->colorByPercent($summaryPercentage) . $parserScores[$parserName][$testName] . '/' . $possibleScores[$parserName][$testName] . ' ' . round($summaryPercentage, 2, \PHP_ROUND_HALF_DOWN) . '%</>';
+                }
+
                 $rows[] = [
                     $parserName,
                     $parserData['metadata']['version'] ?? 'n/a',
-                    $passFail['browser']['pass'] . '/' . array_sum($passFail['browser']) . ' ' . (array_sum($passFail['browser']) === 0 ? '0.0' : round($passFail['browser']['pass'] / array_sum($passFail['browser']) * 100, 2, \PHP_ROUND_HALF_DOWN)) . '%',
-                    $passFail['platform']['pass'] . '/' . array_sum($passFail['platform']) . ' ' . (array_sum($passFail['platform']) === 0 ? '0.0' : round($passFail['platform']['pass'] / array_sum($passFail['platform']) * 100, 2, \PHP_ROUND_HALF_DOWN)) . '%',
-                    $passFail['device']['pass'] . '/' . array_sum($passFail['device']) . ' ' . (array_sum($passFail['device']) === 0 ? '0.0' : round($passFail['device']['pass'] / array_sum($passFail['device']) * 100, 2, \PHP_ROUND_HALF_DOWN)) . '%',
+                    $browserContent,
+                    $platformContent,
+                    $deviceContent,
                     round($testResult['parse_time'] + $testResult['init_time'], 3) . 's',
-                    $parserScores[$parserName][$testName] . '/' . $possibleScores[$parserName][$testName] . ' ' . ($possibleScores[$parserName][$testName] === 0 ? '0.0' : round($parserScores[$parserName][$testName] / $possibleScores[$parserName][$testName] * 100, 2, \PHP_ROUND_HALF_DOWN)) . '%',
+                    $summaryContent,
                 ];
 
                 if (!isset($totals[$parserName])) {
@@ -364,15 +449,44 @@ class Analyze extends Command
         if (count($this->options['tests']) > 1) {
             $rows[] = [new TableCell('<fg=yellow>Total for all Test suites</>', ['colspan' => 6])];
             $rows[] = new TableSeparator();
+
             foreach ($totals as $parser => $total) {
+                if (array_sum($total['browser']) === 0) {
+                    $browserContent = '<fg=white;bg=blue>-</>';
+                } else {
+                    $browserPercentage = $total['browser']['pass'] / array_sum($total['browser']) * 100;
+                    $browserContent    = $this->colorByPercent($browserPercentage) . $total['browser']['pass'] . '/' . array_sum($total['browser']) . ' ' . round($browserPercentage, 2, \PHP_ROUND_HALF_DOWN) . '%</>';
+                }
+
+                if (array_sum($total['platform']) === 0) {
+                    $platformContent = '<fg=white;bg=blue>-</>';
+                } else {
+                    $platformPercentage = $total['platform']['pass'] / array_sum($total['platform']) * 100;
+                    $platformContent    = $this->colorByPercent($platformPercentage) . $total['platform']['pass'] . '/' . array_sum($total['platform']) . ' ' . round($platformPercentage, 2, \PHP_ROUND_HALF_DOWN) . '%</>';
+                }
+
+                if (array_sum($total['device']) === 0) {
+                    $deviceContent = '<fg=white;bg=blue>-</>';
+                } else {
+                    $devicePercentage = $total['device']['pass'] / array_sum($total['device']) * 100;
+                    $deviceContent    = $this->colorByPercent($devicePercentage) . $total['device']['pass'] . '/' . array_sum($total['device']) . ' ' . round($devicePercentage, 2, \PHP_ROUND_HALF_DOWN) . '%</>';
+                }
+
+                if ($total['score']['possible'] === 0) {
+                    $summaryContent = '<fg=white;bg=blue>-</>';
+                } else {
+                    $summaryPercentage = $total['score']['earned'] / $total['score']['possible'] * 100;
+                    $summaryContent    = $this->colorByPercent($summaryPercentage) . $total['score']['earned'] . '/' . $total['score']['possible'] . ' ' . round($summaryPercentage, 2, \PHP_ROUND_HALF_DOWN) . '%</>';
+                }
+
                 $rows[] = [
                     $parser,
                     isset($this->options['parsers'][$parser]['metadata']['version']) ? $this->options['parsers'][$parser]['metadata']['version'] : 'n/a',
-                    $total['browser']['pass'] . '/' . array_sum($total['browser']) . ' ' . (array_sum($total['browser']) === 0 ? '0.0' : round($total['browser']['pass'] / array_sum($total['browser']) * 100, 2, \PHP_ROUND_HALF_DOWN)) . '%',
-                    $total['platform']['pass'] . '/' . array_sum($total['platform']) . ' ' . (array_sum($total['platform']) === 0 ? '0.0' : round($total['platform']['pass'] / array_sum($total['platform']) * 100, 2, \PHP_ROUND_HALF_DOWN)) . '%',
-                    $total['device']['pass'] . '/' . array_sum($total['device']) . ' ' . (array_sum($total['device']) === 0 ? '0.0' : round($total['device']['pass'] / array_sum($total['device']) * 100, 2, \PHP_ROUND_HALF_DOWN)) . '%',
+                    $browserContent,
+                    $platformContent,
+                    $deviceContent,
                     round($total['time'], 3) . 's',
-                    $total['score']['earned'] . '/' . $total['score']['possible'] . ' ' . ($total['score']['possible'] === 0 ? '0.0' : round($total['score']['earned'] / $total['score']['possible'] * 100, 2, \PHP_ROUND_HALF_DOWN)) . '%',
+                    $summaryContent,
                 ];
             }
 
@@ -652,33 +766,81 @@ class Analyze extends Command
             return;
         }
 
+        $output = "<?php\n";
+
         $table = new Table($this->output);
+        //$table->setColumnWidth(0, 50);
+        //$table->setColumnMaxWidth(0, 50);
+        //$table->setColumnWidth(1, 50);
+        //$table->setColumnMaxWidth(1, 50);
+        //$table->setColumnWidth(2, 50);
+        //$table->setColumnMaxWidth(2, 50);
+        $table->setStyle('box');
+
+        $output .= "
+        \$table = new Table(\$this->output);
+        \$table->setColumnWidth(0, 50);
+        \$table->setColumnMaxWidth(0, 50);
+        \$table->setColumnWidth(1, 50);
+        \$table->setColumnMaxWidth(1, 50);
+        \$table->setColumnWidth(2, 50);
+        \$table->setColumnMaxWidth(2, 50);
+        \$table->setStyle('box');";
+
         $table->setHeaders([
             [new TableCell('UserAgent', ['colspan' => 3])],
-            ['Browser', 'Platform', 'Device'],
+            [new TableCell('Browser'), new TableCell('Platform'), new TableCell('Device')],
         ]);
+
+        $output .= "
+        \$table->setHeaders([
+            [new TableCell('UserAgent', ['colspan' => 3])],
+            [new TableCell('Browser'), new TableCell('Platform'), new TableCell('Device')],
+        ]);
+        
+        \$rows = [];
+        ";
 
         $rows = [];
         foreach ($this->failures[$test][$parser] as $agent => $failData) {
-            $rows[] = [new TableCell((string) $agent, ['colspan' => 3])];
-            $rows[] = [
-                isset($failData['browser']) ? $this->outputDiff($failData['browser']) : '',
-                isset($failData['platform']) ? $this->outputDiff($failData['platform']) : '',
-                isset($failData['device']) ? $this->outputDiff($failData['device']) : '',
-            ];
-            $rows[] = new TableSeparator();
-
             if ($justAgents === true) {
                 $this->output->writeln($agent);
+            } else {
+                $rows[] = [new TableCell((string) $agent, ['colspan' => 3])];
+                $rows[] = [
+                    new TableCell(isset($failData['browser']) ? $this->outputDiff($failData['browser']) : ''),
+                    new TableCell(isset($failData['platform']) ? $this->outputDiff($failData['platform']) : ''),
+                    new TableCell(isset($failData['device']) ? $this->outputDiff($failData['device']) : ''),
+                ];
+                $rows[] = new TableSeparator();
+
+                $output .= "
+        \$rows[] = [new TableCell('" . (string) $agent . "', ['colspan' => 3])];
+        \$rows[] = [
+                    new TableCell('" . (isset($failData['browser']) ? $this->outputDiff($failData['browser']) : '') . "'),
+                    new TableCell('" . (isset($failData['platform']) ? $this->outputDiff($failData['platform']) : '') . "'),
+                    new TableCell('" . (isset($failData['device']) ? $this->outputDiff($failData['device']) : '') . "'),
+                ];
+        \$rows[] = new TableSeparator();
+                ";
             }
         }
 
-        array_pop($rows);
-
-        $table->setRows($rows);
         if ($justAgents === false) {
+            array_pop($rows);
+
+            $table->setRows($rows);
+
+            $output .= "
+        \$table->setRows(\$rows);
+        \$table->render();
+            ";
+
+
             $table->render();
         }
+
+        file_put_contents('output.txt', $output);
     }
 
     private function showComparison(string $test, string $compareKey, string $compareSubKey, bool $justFails = false): void
@@ -822,5 +984,30 @@ class Analyze extends Command
         }
 
         return $output;
+    }
+
+    private function colorByPercent(float $percent): string
+    {
+        if ($percent >= 100.0) {
+            return '<fg=green;bg=black;options=bold>';
+        }
+
+        if ($percent >= 95.0) {
+            return '<fg=green;bg=black>';
+        }
+
+        if ($percent >= 90.0) {
+            return '<fg=yellow;bg=black;options=bold>';
+        }
+
+        if ($percent >= 85.0) {
+            return '<fg=yellow;bg=black>';
+        }
+
+        if ($percent < 50.0) {
+            return '<fg=red;bg=black>';
+        }
+
+        return '</>';
     }
 }

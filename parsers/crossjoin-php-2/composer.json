@@ -2,7 +2,6 @@
     "require": {
         "crossjoin/browscap": "^2.0",
         "thadafinser/package-info": "^1.0",
-        "ext-sqlite3": "*",
-        "mimmi20/json-class": "~2.0.1"
+        "ext-sqlite3": "*"
     }
 }

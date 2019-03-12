@@ -13,6 +13,7 @@ use function Safe\json_encode;
 use function Safe\ksort;
 use function Safe\mkdir;
 use function Safe\sort;
+use function Safe\sprintf;
 use SplFileInfo;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -120,23 +121,27 @@ class Test extends Command
         $usedTests = [];
 
         foreach ($selectedTests as $testName => $testData) {
-            $output->write('Generating data for the ' . $testName . ' test suite... ');
+            $message = sprintf('Generating data for the <fg=yellow>%s</> test suite... ', $testName);
+
+            $output->write($message . '<info> building test suite</info>');
             $this->results[$testName] = [];
 
             $testOutput = trim((string) shell_exec($testData['path'] . '/build.sh'));
+
+            $output->write("\r" . $message . '<info> writing test suite</info>    ');
 
             file_put_contents($expectedDir . '/' . $testName . '.json', $testOutput);
 
             try {
                 $testOutput = json_decode($testOutput, true);
             } catch (Exception $e) {
-                $output->writeln('<error>There was an error with the output from the ' . $testName . ' test suite.</error>');
+                $output->writeln("\r" . $message . '<error>There was an error with the output from the ' . $testName . ' test suite.</error>');
 
                 continue;
             }
 
             if ($testOutput['tests'] === null) {
-                $output->writeln('<error>There was an error with the output from the ' . $testName . ' test suite, no tests were found.</error>');
+                $output->writeln("\r" . $message . '<error>There was an error with the output from the ' . $testName . ' test suite, no tests were found.</error>');
                 continue;
             }
 
@@ -144,9 +149,8 @@ class Test extends Command
                 $testData['metadata']['version'] = $testOutput['version'];
             }
 
-            $output->writeln('<info>done! [' . count($testOutput['tests']) . ' tests]</info>');
+            $output->write("\r" . $message . '<info>  write test data into file...</info>');
 
-            $output->write('write test data for the ' . $testName . ' test suite into file... ');
             // write our test's file that we'll pass to the parsers
             $filename = $testFilesDir . '/' . $testName . '.txt';
 
@@ -161,15 +165,17 @@ class Test extends Command
             });
 
             file_put_contents($filename, implode(PHP_EOL, $agents));
-            $output->writeln('<info>  done! [' . count($agents) . ' tests found]</info>');
+            $output->writeln("\r" . $message . '<info>  done! [' . count($agents) . ' tests found]</info>       ');
 
             foreach ($parsers as $parserName => $parser) {
-                $output->write('  <info> Testing against the <fg=green;options=bold,underscore>' . $parserName . '</> parser... </info>');
+                $testMessage = sprintf('  Testing against the <fg=green;options=bold,underscore>%s</> parser...', $parserName);
+                $output->write($testMessage . ' <info> parsing</info>');
+
                 $result = $parser['parse']($filename);
 
                 if (empty($result)) {
                     $output->writeln(
-                        '<error>The <fg=red;options=bold,underscore>' . $parserName . '</> parser did not return any data, there may have been an error</error>'
+                        "\r" . $testMessage . ' <error>The parser did not return any data, there may have been an error</error>'
                     );
 
                     continue;
@@ -189,7 +195,7 @@ class Test extends Command
                         JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
                     );
                 } catch (Exception $e) {
-                    $output->writeln('<error> encoding the result failed!</error>');
+                    $output->writeln("\r" . $testMessage . ' <error>encoding the result failed!</error>');
                     continue;
                 }
 
@@ -197,7 +203,7 @@ class Test extends Command
                     $resultsDir . '/' . $parserName . '/' . $testName . '.json',
                     $encoded
                 );
-                $output->writeln('<info> done!</info>');
+                $output->writeln("\r" . $testMessage . ' <info> done!</info>                                                                                 ');
 
                 $usedTests[$testName] = $testData;
             }

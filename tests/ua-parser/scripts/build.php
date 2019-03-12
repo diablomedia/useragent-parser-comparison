@@ -151,7 +151,7 @@ foreach ($finder as $fixture) {
     processFixture($fixture, $tests, $cache);
 }
 
-echo (new \JsonClass\Json())->encode([
+echo json_encode([
     'tests'   => $tests,
     'version' => file_get_contents(__DIR__ . '/../version.txt'),
 ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

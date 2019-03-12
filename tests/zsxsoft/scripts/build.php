@@ -72,7 +72,7 @@ foreach ($provider as $data) {
 // Get version from composer
 $package = new \PackageInfo\Package('zsxsoft/php-useragent');
 
-echo (new \JsonClass\Json())->encode([
+echo json_encode([
     'tests'   => $tests,
     'version' => $package->getVersion(),
 ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

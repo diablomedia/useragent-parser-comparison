@@ -5,9 +5,9 @@
   "requires": true,
   "dependencies": {
     "bowser": {
-      "version": "2.1.2",
-      "resolved": "https://registry.npmjs.org/bowser/-/bowser-2.1.2.tgz",
-      "integrity": "sha512-K64ZigDayqlptyKVEiCDPPKQ2/SyPT/jsgJPwZOcpR3WA2bYojlHLeTHN+IRc/vbMz3F6CV62nnAo01+0zYrsQ=="
+      "version": "2.2.1",
+      "resolved": "https://registry.npmjs.org/bowser/-/bowser-2.2.1.tgz",
+      "integrity": "sha512-5juDN48U85WUgYctziMoE4KMZ0LhfJzKmTWgdCVrkZQsmQxlOpDhbS91JnXiNmyfQkgppbuF6Vv3z+fuxz86pQ=="
     }
   }
 }

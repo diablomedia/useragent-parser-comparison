@@ -53,7 +53,7 @@ while (!$file->eof()) {
             ],
             'platform' => [
                 'name'    => $r->os->family,
-                'version' => $r->ua->toVersion(),
+                'version' => $r->os->toVersion() === '0' ? null : $r->os->toVersion(),
             ],
             'device' => [
                 'name'     => $r->device->model,
@@ -75,7 +75,7 @@ $package = new \PackageInfo\Package('ua-parser/uap-php');
 
 $regexVersion = file_get_contents(__DIR__ . '/../version.txt');
 
-echo (new \JsonClass\Json())->encode([
+echo json_encode([
     'results'     => $results,
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,

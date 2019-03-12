@@ -71,7 +71,7 @@ $memory = memory_get_peak_usage();
 // Get version from composer
 $package = new \PackageInfo\Package('donatj/phpuseragentparser');
 
-echo (new \JsonClass\Json())->encode([
+echo json_encode([
     'results'     => $results,
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,

@@ -59,7 +59,7 @@ while (!$file->eof()) {
                 'version' => ($r->platform_version === '0.0' ? null : $r->platform_version),
             ],
             'device' => [
-                'name'     => $r->device_code_name,
+                'name'     => $r->device_name,
                 'brand'    => $r->device_brand_name,
                 'type'     => $r->device_type,
                 'ismobile' => $r->ismobiledevice ? true : false,
@@ -76,7 +76,7 @@ $memory = memory_get_peak_usage();
 // Get version from composer
 $package = new \PackageInfo\Package('browscap/browscap-php');
 
-echo (new \JsonClass\Json())->encode([
+echo json_encode([
     'results'     => $results,
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,

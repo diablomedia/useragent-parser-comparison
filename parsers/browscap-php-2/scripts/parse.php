@@ -75,7 +75,7 @@ $file = null;
 // Get version from composer
 $package = new \PackageInfo\Package('browscap/browscap-php');
 
-echo (new \JsonClass\Json())->encode([
+echo json_encode([
     'results'     => $results,
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,

@@ -64,8 +64,7 @@ $file = null;
 
 $memory = memory_get_peak_usage();
 
-require __DIR__ . '/../vendor/autoload.php';
-echo (new \JsonClass\Json())->encode([
+echo json_encode([
     'results'     => $results,
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,

@@ -2,7 +2,6 @@
     "require": {
         "browscap/browscap": "^6.0.29",
         "symfony/finder": "^4.2",
-        "thadafinser/package-info": "^1.0",
-        "mimmi20/json-class": "~2.0.1"
+        "thadafinser/package-info": "^1.0"
     }
 }

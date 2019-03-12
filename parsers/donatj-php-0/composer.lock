@@ -4,46 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6454bfc7f092b288138169ff15819f7d",
+    "content-hash": "2e5d1d514b1cec755ce4a1f0539f3fc4",
     "packages": [
-        {
-            "name": "daverandom/exceptional-json",
-            "version": "v1.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/DaveRandom/ExceptionalJSON.git",
-                "reference": "fed957142b4687b079495c80975666dd1a67d61d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/DaveRandom/ExceptionalJSON/zipball/fed957142b4687b079495c80975666dd1a67d61d",
-                "reference": "fed957142b4687b079495c80975666dd1a67d61d",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "ExceptionalJSON\\": "src/"
-                },
-                "files": [
-                    "src/functions.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Chris Wright"
-                }
-            ],
-            "description": "JSON encoding and decoding that throws exceptions on failure",
-            "time": "2018-06-11T11:25:57+00:00"
-        },
         {
             "name": "donatj/phpuseragentparser",
             "version": "v0.9.0",
@@ -94,65 +56,6 @@
                 "useragent"
             ],
             "time": "2017-10-23T16:52:52+00:00"
-        },
-        {
-            "name": "mimmi20/json-class",
-            "version": "2.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mimmi20/json-class.git",
-                "reference": "d53745fbc4080d502bcf4126a77491be7902b252"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mimmi20/json-class/zipball/d53745fbc4080d502bcf4126a77491be7902b252",
-                "reference": "d53745fbc4080d502bcf4126a77491be7902b252",
-                "shasum": ""
-            },
-            "require": {
-                "daverandom/exceptional-json": "^1.0.4",
-                "ext-json": "*",
-                "php": "^7.1"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.13",
-                "localheinz/composer-normalize": "^1.0.0",
-                "localheinz/phpstan-rules": "^0.4 || ^0.5",
-                "pepakriz/phpstan-exception-rules": "^0.3 || ^0.4",
-                "phpstan/phpstan": "^0.10",
-                "phpstan/phpstan-deprecation-rules": "^0.10",
-                "phpstan/phpstan-phpunit": "^0.10",
-                "phpstan/phpstan-strict-rules": "^0.10",
-                "phpunit/phpunit": "^7.5",
-                "squizlabs/php_codesniffer": "^3.4"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "JsonClass\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Thomas Müller",
-                    "homepage": "https://github.com/mimmi20",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Contributors",
-                    "homepage": "https://github.com/mimmi20/json-class/graphs/contributors"
-                }
-            ],
-            "description": "Class wrapper for ",
-            "homepage": "https://github.com/mimmi20/json-class",
-            "keywords": [
-                "json"
-            ],
-            "time": "2019-01-02T21:26:59+00:00"
         },
         {
             "name": "thadafinser/package-info",

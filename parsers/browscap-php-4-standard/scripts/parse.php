@@ -79,7 +79,7 @@ $package = new \PackageInfo\Package('browscap/browscap-php');
 
 $bcCache = new \BrowscapPHP\Cache\BrowscapCache($cache, $logger);
 
-echo (new \JsonClass\Json())->encode([
+echo json_encode([
     'results'     => $results,
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,

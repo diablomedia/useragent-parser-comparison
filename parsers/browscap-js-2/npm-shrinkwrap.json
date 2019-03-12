@@ -5,14 +5,14 @@
   "requires": true,
   "dependencies": {
     "browscap-js": {
-      "version": "2.2.6000030",
-      "resolved": "https://registry.npmjs.org/browscap-js/-/browscap-js-2.2.6000030.tgz",
-      "integrity": "sha512-IrweTS3aApeD7KldIP93hmTFo67INMEn/IN030nxAwZrkRgU63b7Eg+kF4F9SzNv8ORwkrXmhc6DEaE7nq4EOQ==",
+      "version": "2.2.6000032",
+      "resolved": "https://registry.npmjs.org/browscap-js/-/browscap-js-2.2.6000032.tgz",
+      "integrity": "sha512-YW+IntClYeFmbN7GMUZvoPi7WmJw1LzwkUsG/E9Zx4o20VLTAomZa7oWIbPreuFZFlt1DxUHjuhIZQ2uAYPtHw==",
       "requires": {
-        "browscap-js-cache": "^1.2.0",
-        "browscap-json-cache-files": "^1.2.6000030",
-        "md5": "^2.0.0",
-        "synchronous-promise": "^1.0.18||^2.0.4"
+        "browscap-js-cache": "1.2.0",
+        "browscap-json-cache-files": "1.2.6000032",
+        "md5": "2.2.1",
+        "synchronous-promise": "2.0.7"
       }
     },
     "browscap-js-cache": {
@@ -21,9 +21,9 @@
       "integrity": "sha1-VN8MfBREDPQxUXOFSSIZ7lqtFfI="
     },
     "browscap-json-cache-files": {
-      "version": "1.2.6000030",
-      "resolved": "https://registry.npmjs.org/browscap-json-cache-files/-/browscap-json-cache-files-1.2.6000030.tgz",
-      "integrity": "sha512-kIfCVAl9saGheSmPI7s865NirDJODHBfK37tkUQzhnuzGsdqTgF4wgFrk5xIgDO53UpGF6mCxmWXiHyaR6M9iQ=="
+      "version": "1.2.6000032",
+      "resolved": "https://registry.npmjs.org/browscap-json-cache-files/-/browscap-json-cache-files-1.2.6000032.tgz",
+      "integrity": "sha512-tzlQG8qvuq0ZCoxZA4JjY6pUKYKgFceYFdg1pOS7rTKX1zJDDKTtTKhnZlHwbZ1AEKDlL3Sl95ClrtmR32dufA=="
     },
     "charenc": {
       "version": "0.0.2",
@@ -45,15 +45,15 @@
       "resolved": "https://registry.npmjs.org/md5/-/md5-2.2.1.tgz",
       "integrity": "sha1-U6s41f48iJG6RlMp6iP6wFQBJvk=",
       "requires": {
-        "charenc": "~0.0.1",
-        "crypt": "~0.0.1",
-        "is-buffer": "~1.1.1"
+        "charenc": "0.0.2",
+        "crypt": "0.0.2",
+        "is-buffer": "1.1.6"
       }
     },
     "synchronous-promise": {
-      "version": "2.0.6",
-      "resolved": "https://registry.npmjs.org/synchronous-promise/-/synchronous-promise-2.0.6.tgz",
-      "integrity": "sha512-TyOuWLwkmtPL49LHCX1caIwHjRzcVd62+GF6h8W/jHOeZUFHpnd2XJDVuUlaTaLPH1nuu2M69mfHr5XbQJnf/g=="
+      "version": "2.0.7",
+      "resolved": "https://registry.npmjs.org/synchronous-promise/-/synchronous-promise-2.0.7.tgz",
+      "integrity": "sha512-16GbgwTmFMYFyQMLvtQjvNWh30dsFe1cAW5Fg1wm5+dg84L9Pe36mftsIRU95/W2YsISxsz/xq4VB23sqpgb/A=="
     }
   }
 }

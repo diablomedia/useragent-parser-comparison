@@ -3,7 +3,6 @@
         "doctrine/cache": "^1.8",
         "symfony/finder": "^4.2",
         "symfony/yaml": "^4.2",
-        "thadafinser/package-info": "^1.0",
-        "mimmi20/json-class": "~2.0.1"
+        "thadafinser/package-info": "^1.0"
     }
 }
