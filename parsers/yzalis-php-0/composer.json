@@ -1,0 +1,6 @@
+{
+    "require": {
+        "yzalis/ua-parser": "^0.3",
+        "thadafinser/package-info": "^1.0"
+    }
+}
