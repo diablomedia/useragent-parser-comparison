@@ -591,16 +591,16 @@
         },
         {
             "name": "mimmi20/ua-display-size",
-            "version": "1.0.8",
+            "version": "1.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mimmi20/ua-display-size.git",
-                "reference": "1cf436f927f454d7077e4b969e3f12a1efd4c474"
+                "reference": "9a32cc6ac6aa09aca3a96dc3a00ce157b2beb150"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mimmi20/ua-display-size/zipball/1cf436f927f454d7077e4b969e3f12a1efd4c474",
-                "reference": "1cf436f927f454d7077e4b969e3f12a1efd4c474",
+                "url": "https://api.github.com/repos/mimmi20/ua-display-size/zipball/9a32cc6ac6aa09aca3a96dc3a00ce157b2beb150",
+                "reference": "9a32cc6ac6aa09aca3a96dc3a00ce157b2beb150",
                 "shasum": ""
             },
             "require": {
@@ -650,7 +650,7 @@
                 "user agent",
                 "user-agent"
             ],
-            "time": "2019-03-09T15:14:22+00:00"
+            "time": "2019-03-14T19:27:13+00:00"
         },
         {
             "name": "mimmi20/ua-generic-request",
