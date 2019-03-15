@@ -1,0 +1,7 @@
+{
+    "name": "Browser Detector 5.0",
+    "language": "PHP",
+    "local": true,
+    "api": false,
+    "data_source": "browser-detector"
+}

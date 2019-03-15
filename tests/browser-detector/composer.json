@@ -1,0 +1,11 @@
+{
+    "require": {
+        "mimmi20/browser-detector": "^5.0",
+        "symfony/finder": "^4.1",
+        "seld/jsonlint": "^1.7",
+        "thadafinser/package-info": "^1.0"
+    },
+    "autoload": {
+        "files": ["scripts/ResultFactory.php"]
+    }
+}

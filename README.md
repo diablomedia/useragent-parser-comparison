@@ -211,6 +211,7 @@ Currently this is the list of parsers included:
  * Crossjoin Browscap 1.x (https://github.com/crossjoin/Browscap/tree/1.x)
  * Crossjoin Browscap 2.x (https://github.com/crossjoin/Browscap/tree/2.x)
  * Crossjoin Browscap 3.x (PHP7 only) (https://github.com/crossjoin/Browscap/tree/3.x)
+ * BrowserDetector 5.x (https://github.com/mimmi20/BrowserDetector)
  * Donatj UserAgent Parser 0.x (https://github.com/donatj/PhpUserAgent)
  * Endorphin Browser Detector 3.x (https://github.com/endorphin-studio/browser-detector)
  * Jenssegers Agent 2.x (https://github.com/jenssegers/agent)
