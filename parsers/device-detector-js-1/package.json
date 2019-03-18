@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "device-detector-js": "^1.0.0"
+    "device-detector-js": "^1.1.0"
   }
 }
