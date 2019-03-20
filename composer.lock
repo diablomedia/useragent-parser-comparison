@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7a6ae4b3c3ff57c667b019b51253e07f",
+    "content-hash": "eab8021a0e403343afb9e7b548ad88ee",
     "packages": [
         {
             "name": "symfony/console",
@@ -931,29 +931,30 @@
         },
         {
             "name": "maglnet/composer-require-checker",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maglnet/ComposerRequireChecker.git",
-                "reference": "20a7a3b27938b64eb5680c2744a2acf9f23f878d"
+                "reference": "2d0ed3c76913a24bee08e324446aa47dd1ab37fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maglnet/ComposerRequireChecker/zipball/20a7a3b27938b64eb5680c2744a2acf9f23f878d",
-                "reference": "20a7a3b27938b64eb5680c2744a2acf9f23f878d",
+                "url": "https://api.github.com/repos/maglnet/ComposerRequireChecker/zipball/2d0ed3c76913a24bee08e324446aa47dd1ab37fb",
+                "reference": "2d0ed3c76913a24bee08e324446aa47dd1ab37fb",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "ext-phar": "*",
-                "nikic/php-parser": "~4.0",
-                "php": "~7.1",
-                "symfony/console": "~3.0|~4.0",
-                "webmozart/glob": "^4.1@dev"
+                "nikic/php-parser": "^4.0",
+                "php": "^7.1",
+                "symfony/console": "^3.4.17 | ^4.1.6",
+                "webmozart/glob": "^4.1"
             },
             "require-dev": {
                 "mikey179/vfsstream": "^1.6",
-                "phpunit/phpunit": "~6.0"
+                "phpstan/phpstan": "^0.10.3",
+                "phpunit/phpunit": "^6.0"
             },
             "bin": [
                 "bin/composer-require-checker"
@@ -961,7 +962,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0-dev"
+                    "dev-master": "1.1-dev"
                 }
             },
             "autoload": {
@@ -986,7 +987,7 @@
                 }
             ],
             "description": "CLI tool to analyze composer dependencies and verify that no unknown symbols are used in the sources of a package",
-            "homepage": "https://github.com/Ocramius/ComposerRequireChecker",
+            "homepage": "https://github.com/maglnet/ComposerRequireChecker",
             "keywords": [
                 "analysis",
                 "cli",
@@ -996,7 +997,7 @@
                 "require",
                 "requirements"
             ],
-            "time": "2018-09-03T09:27:25+00:00"
+            "time": "2019-03-19T20:16:54+00:00"
         },
         {
             "name": "muglug/package-versions-56",
