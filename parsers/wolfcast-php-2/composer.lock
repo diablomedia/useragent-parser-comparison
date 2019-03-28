@@ -52,16 +52,16 @@
         },
         {
             "name": "wolfcast/browser-detection",
-            "version": "2.9.2",
+            "version": "2.9.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Wolfcast/BrowserDetection.git",
-                "reference": "975684529e7535551eb6c36b45847c5e7c0c64d4"
+                "reference": "9350b2d69aa8dfd2d526000bc0fb52a0baf611d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Wolfcast/BrowserDetection/zipball/975684529e7535551eb6c36b45847c5e7c0c64d4",
-                "reference": "975684529e7535551eb6c36b45847c5e7c0c64d4",
+                "url": "https://api.github.com/repos/Wolfcast/BrowserDetection/zipball/9350b2d69aa8dfd2d526000bc0fb52a0baf611d2",
+                "reference": "9350b2d69aa8dfd2d526000bc0fb52a0baf611d2",
                 "shasum": ""
             },
             "require": {
@@ -94,7 +94,7 @@
                 "platform",
                 "version"
             ],
-            "time": "2019-03-01T02:28:33+00:00"
+            "time": "2019-03-27T20:01:00+00:00"
         }
     ],
     "packages-dev": [],

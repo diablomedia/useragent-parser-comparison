@@ -20,7 +20,7 @@ $parseTime = 0;
 
 $start = microtime(true);
 require __DIR__ . '/../vendor/autoload.php';
-$parser   = new \BrowserDetection('Test String');
+$parser   = new \Wolfcast\BrowserDetection('Test String');
 $initTime = microtime(true) - $start;
 
 $file = new SplFileObject($agentListFile);
@@ -34,7 +34,7 @@ while (!$file->eof()) {
     }
 
     $start  = microtime(true);
-    $result = new \BrowserDetection($agentString);
+    $result = new \Wolfcast\BrowserDetection($agentString);
     $end    = microtime(true) - $start;
 
     $parseTime += $end;
