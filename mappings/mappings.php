@@ -430,6 +430,7 @@ return [
             'amiga'                 => 'amigaos',
             'androidforgoogletv'    => 'android',
             'androidtv'             => 'android',
+            'appletv'               => 'tvos',
             'cyanogenmod'           => 'android',
             'mocordroid'            => 'android',
             'yunos'                 => 'android',
@@ -577,6 +578,7 @@ return [
             'windows10mobile'       => 'windowsphone10',
             'windowsphone10.0'      => 'windowsphone10',
             'winmobile'             => 'windowsmobile',
+            'windowsmobile81'       => 'windowsmobile',
             'windowsmobileos'       => 'windowsmobile',
             'xbox'                  => 'xboxos',
             'xboxone'               => 'xboxos',
@@ -688,6 +690,7 @@ return [
             'paddreamer97we'                => 'paddreamer97whiteedition',
             'windowsdesktop'                => 'generaldesktop',
             'pc'                            => 'generaldesktop',
+            'zunehd'                        => 'zune',
         ],
         'brand' => [
             'appleinc'        => 'apple',

@@ -1,8 +1,0 @@
-{
-    "require": {
-        "endorphin-studio/browser-detector": "^4.0",
-        "symfony/finder": "^4.2",
-        "thadafinser/package-info": "^1.0",
-        "mimmi20/json-class": "~2.0.1"
-    }
-}
