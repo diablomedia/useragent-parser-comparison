@@ -76,8 +76,9 @@ lineReader.on('line', function(line) {
             useragent: line,
             parsed: {
                 browser: {
-                    name: r.client.name ? r.client.name : null,
-                    version: r.client.version ? r.client.version : null
+                    name: r.client && r.client.name ? r.client.name : null,
+                    version:
+                        r.client && r.client.version ? r.client.version : null
                 },
                 platform: {
                     name: r.os && r.os.name ? r.os.name : null,
