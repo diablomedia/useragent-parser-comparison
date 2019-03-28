@@ -123,7 +123,7 @@ class Test extends Command
             $output->write('Generating data for the ' . $testName . ' test suite... ');
             $this->results[$testName] = [];
 
-            $testOutput = trim((string) shell_exec($testData['path'] . '/build.sh'));
+            $testOutput = trim((string) shell_exec( 'sh '. $testData['path'] . '/build.sh'));
 
             file_put_contents($expectedDir . '/' . $testName . '.json', $testOutput);
 
