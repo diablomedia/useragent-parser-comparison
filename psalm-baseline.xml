@@ -42,12 +42,12 @@
   </file>
   <file src="src/Command/Helper/Parsers.php">
     <ForbiddenCode occurrences="1">
-      <code>shell_exec($parserDir-&gt;getPathname() . '/parse.sh ' . implode(' ', $args))</code>
+      <code>shell_exec('sh ' . $parserDir-&gt;getPathname() . '/parse.sh ' . implode(' ', $args))</code>
     </ForbiddenCode>
   </file>
   <file src="src/Command/Test.php">
     <ForbiddenCode occurrences="1">
-      <code>shell_exec($testData['path'] . '/build.sh')</code>
+      <code>shell_exec('sh ' . $testData['path'] . '/build.sh')</code>
     </ForbiddenCode>
   </file>
 </files>
