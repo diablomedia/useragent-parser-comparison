@@ -42,31 +42,31 @@ foreach ($finder as $fixture) {
 
     $provider = Yaml::parse(file_get_contents($fixture->getPathname()));
 
-    if (isset($provider['checkList']['name']) && strpos($fixture->getPathname(), '/browser/') !== false) {
+    if (isset($provider['checkList']['name']) && mb_strpos($fixture->getPathname(), '/browser/') !== false) {
         $expected = [
             'browser' => [
                 'name' => $provider['checkList']['name'],
             ],
         ];
-        
+
         if (isset($provider['checkList']['type'])) {
             $expected['device'] = [
                 'type' => $provider['checkList']['type'],
             ];
         }
-    } elseif (isset($provider['checkList']['name']) && strpos($fixture->getPathname(), '/device/') !== false) {
+    } elseif (isset($provider['checkList']['name']) && mb_strpos($fixture->getPathname(), '/device/') !== false) {
         $expected = [
             'device' => [
                 'name' => $provider['checkList']['name'],
             ],
         ];
-        
+
         if (isset($provider['checkList']['type'])) {
             $expected['device'] = [
                 'type' => $provider['checkList']['type'],
             ];
         }
-    } elseif (isset($provider['checkList']['name']) && strpos($fixture->getPathname(), '/os/') !== false) {
+    } elseif (isset($provider['checkList']['name']) && mb_strpos($fixture->getPathname(), '/os/') !== false) {
         if ($provider['checkList']['name'] === 'Windows') {
             $name = $provider['checkList']['name'] . $provider['checkList']['version'];
         } else {
@@ -77,7 +77,7 @@ foreach ($finder as $fixture) {
                 'name' => $name,
             ],
         ];
-    } elseif (isset($provider['checkList']['name']) && strpos($fixture->getPathname(), '/robot/') !== false) {
+    } elseif (isset($provider['checkList']['name']) && mb_strpos($fixture->getPathname(), '/robot/') !== false) {
         $expected = [
             'browser' => [
                 'name' => $provider['checkList']['name'],
@@ -96,7 +96,7 @@ foreach ($finder as $fixture) {
 
         if (isset($uas[$agent])) {
             $uas[$agent] = array_merge($uas[$agent], $expected);
-            //continue;
+        //continue;
         } else {
             $uas[$agent] = array_merge($defaultExpected, $expected);
         }

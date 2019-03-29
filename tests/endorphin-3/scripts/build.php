@@ -89,7 +89,7 @@ foreach ($finder as $fixture) {
                 }
             }
         } elseif ($fixture->getFilename() === 'models.xml') {
-            $osName = '';
+            $osName   = '';
             $expected = [];
             foreach ($test->CheckList->Item as $item) {
                 if ($item->Property->__toString() === 'OS->getName()') {
@@ -102,12 +102,12 @@ foreach ($finder as $fixture) {
                     $osName = $osName . $item->Value->__toString();
                 }
             }
-            
+
             $expected['platform']['name'] = $osName;
         } else {
             $expected = [];
         }
-        
+
         if (empty($expected)) {
             continue;
         }
