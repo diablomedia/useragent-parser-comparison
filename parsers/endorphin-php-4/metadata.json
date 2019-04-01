@@ -1,0 +1,7 @@
+{
+    "name": "Endorphin Browser Detector 4.x",
+    "language": "PHP",
+    "local": true,
+    "api": false,
+    "data_source": "endorphin-4"
+}
