@@ -155,16 +155,16 @@
         },
         {
             "name": "piwik/device-detector",
-            "version": "3.11.5",
+            "version": "3.11.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matomo-org/device-detector.git",
-                "reference": "cce3213e9b42deaacd21d33c02811c59b6e54099"
+                "reference": "96d35ccd3dacf973b9b24a52686018cc047d45ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/matomo-org/device-detector/zipball/cce3213e9b42deaacd21d33c02811c59b6e54099",
-                "reference": "cce3213e9b42deaacd21d33c02811c59b6e54099",
+                "url": "https://api.github.com/repos/matomo-org/device-detector/zipball/96d35ccd3dacf973b9b24a52686018cc047d45ae",
+                "reference": "96d35ccd3dacf973b9b24a52686018cc047d45ae",
                 "shasum": ""
             },
             "require": {
@@ -206,7 +206,7 @@
                 "parser",
                 "useragent"
             ],
-            "time": "2019-02-10T21:21:01+00:00"
+            "time": "2019-03-24T11:37:05+00:00"
         },
         {
             "name": "symfony/finder",

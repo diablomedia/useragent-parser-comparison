@@ -19,8 +19,13 @@ $results   = [];
 $parseTime = 0;
 
 $start = microtime(true);
-require __DIR__ . '/../vendor/autoload.php';
-$parser   = new \Wolfcast\BrowserDetection('Test String');
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use EndorphinStudio\Detector\Detector;
+
+$detector = new Detector();
+
+$detector->analyse('Test String');
 $initTime = microtime(true) - $start;
 
 $file = new SplFileObject($agentListFile);
@@ -33,9 +38,11 @@ while (!$file->eof()) {
         continue;
     }
 
-    $start  = microtime(true);
-    $result = new \Wolfcast\BrowserDetection($agentString);
-    $end    = microtime(true) - $start;
+    $start = microtime(true);
+    $r     = $detector->analyse($agentString);
+    $end   = microtime(true) - $start;
+
+    $r = json_decode(json_encode($r));
 
     $parseTime += $end;
 
@@ -47,30 +54,29 @@ while (!$file->eof()) {
         'useragent' => $agentString,
         'parsed'    => [
             'browser' => [
-                'name'    => $result->getName(),
-                'version' => $result->getVersion(),
+                'name'    => $r->isRobot ? (isset($r->robot) ? $r->robot->name : null) : (isset($r->browser) ? $r->browser->name : null),
+                'version' => isset($r->browser) ? $r->browser->version : null,
             ],
             'platform' => [
-                'name'    => $result->getPlatform(),
-                'version' => $result->getPlatformVersion(true),
+                'name'    => isset($r->os) ? $r->os->name : null,
+                'version' => isset($r->os) ? $r->os->version : null,
             ],
             'device' => [
-                'name'     => null,
+                'name'     => isset($r->device) ? $r->device->name : null,
                 'brand'    => null,
-                'type'     => null,
-                'ismobile' => $result->isMobile(),
+                'type'     => isset($r->device) ? $r->device->type : null,
+                'ismobile' => $r->isMobile ? true : false,
             ],
         ],
         'time' => $end,
     ];
 }
 
-$file = null;
-
+$file   = null;
 $memory = memory_get_peak_usage();
 
 // Get version from composer
-$package = new \PackageInfo\Package('wolfcast/browser-detection');
+$package = new \PackageInfo\Package('endorphin-studio/browser-detector');
 
 echo json_encode([
     'results'     => $results,
