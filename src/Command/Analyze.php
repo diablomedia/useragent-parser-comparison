@@ -225,6 +225,9 @@ class Analyze extends Command
                 }
             }
 
+            $parserScores   = [];
+            $possibleScores = [];
+
             foreach ($this->options['parsers'] as $parserName => $parserData) {
                 if (!file_exists($this->runDir . '/' . $run . '/results/' . $parserName . '/normalized/' . $testName . '.json')) {
                     $this->output->writeln('<error>No output found for the ' . $parserName . ' parser, skipping</error>');
