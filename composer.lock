@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "095cd9aa70e87a74c5037edca1a2eaac",
+    "content-hash": "665120cc734b61ca1ac12fe655639efa",
     "packages": [
         {
             "name": "symfony/console",
@@ -2734,16 +2734,16 @@
         },
         {
             "name": "vimeo/psalm",
-            "version": "3.2.4",
+            "version": "3.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vimeo/psalm.git",
-                "reference": "3a11e1ff5b9539303ffdecafdc3d24c33fa81073"
+                "reference": "6e010d9db95275725e5ad6409c387eb173091f72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/3a11e1ff5b9539303ffdecafdc3d24c33fa81073",
-                "reference": "3a11e1ff5b9539303ffdecafdc3d24c33fa81073",
+                "url": "https://api.github.com/repos/vimeo/psalm/zipball/6e010d9db95275725e5ad6409c387eb173091f72",
+                "reference": "6e010d9db95275725e5ad6409c387eb173091f72",
                 "shasum": ""
             },
             "require": {
@@ -2759,7 +2759,7 @@
                 "php": "^7.0",
                 "php-cs-fixer/diff": "^1.2",
                 "phpmyadmin/sql-parser": "^4.0",
-                "symfony/console": "^3.0||^4.0",
+                "symfony/console": "^3.3||^4.0",
                 "webmozart/glob": "^4.1",
                 "webmozart/path-util": "^2.3"
             },
@@ -2810,7 +2810,7 @@
                 "inspection",
                 "php"
             ],
-            "time": "2019-03-25T20:32:36+00:00"
+            "time": "2019-04-12T15:32:35+00:00"
         },
         {
             "name": "webmozart/assert",
