@@ -9,10 +9,6 @@
       <code>$questions[array_search('Change Parser', $questions)]</code>
       <code>$questions[array_search('Change Property', $questions)]</code>
     </PossiblyInvalidArrayOffset>
-    <PossiblyUndefinedVariable occurrences="2">
-      <code>$parserScores</code>
-      <code>$possibleScores</code>
-    </PossiblyUndefinedVariable>
     <PropertyNotSetInConstructor occurrences="3">
       <code>$summaryTable</code>
       <code>$input</code>
