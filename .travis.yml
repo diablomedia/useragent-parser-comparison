@@ -43,4 +43,4 @@ jobs:
       php: 7.2
       script:
         - composer phpstan
-        - composer psalm
+        - composer psalm -- --shepherd
