@@ -33,6 +33,12 @@ script: skip
 
 jobs:
   include:
+    - stage: test
+      php: 7.2
+      script:
+        - ./bin/update
+        - yes '' | ./bin/console/parse ./files/travis-test.txt --no-output
+
     - stage: check coding style
       php: 7.2
       script:
