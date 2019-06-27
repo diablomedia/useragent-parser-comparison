@@ -3,6 +3,7 @@ sudo: false
 dist: trusty
 
 php: 7.2
+node_js: 8
 
 os: linux
 
@@ -24,6 +25,7 @@ before_install:
   - phpenv config-rm xdebug.ini || echo "xdebug not available"
   - echo 'opcache.enable=1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - echo 'opcache.enable_cli=1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - travis_retry npm i -g npm
 
 install:
   - travis_retry composer install --optimize-autoloader --prefer-dist --no-progress --no-interaction --no-suggest -vv
