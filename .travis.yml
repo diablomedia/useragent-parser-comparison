@@ -36,7 +36,7 @@ jobs:
     - stage: test
       php: 7.2
       script:
-        - ./bin/update
+        - ./bin/prepare
         - yes '' | ./bin/console parse ./files/travis-test.txt --no-output
 
     - stage: check coding style
