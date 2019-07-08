@@ -63,16 +63,16 @@
         },
         {
             "name": "browscap/browscap",
-            "version": "6.0.33",
+            "version": "6.0.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/browscap/browscap.git",
-                "reference": "7f93035283bcfcfda18929c8c94202fd0281f6b6"
+                "reference": "0672ef30212413cf61fc734063058deaad2c0608"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/browscap/browscap/zipball/7f93035283bcfcfda18929c8c94202fd0281f6b6",
-                "reference": "7f93035283bcfcfda18929c8c94202fd0281f6b6",
+                "url": "https://api.github.com/repos/browscap/browscap/zipball/0672ef30212413cf61fc734063058deaad2c0608",
+                "reference": "0672ef30212413cf61fc734063058deaad2c0608",
                 "shasum": ""
             },
             "require": {
@@ -142,7 +142,7 @@
             "keywords": [
                 "Browscap"
             ],
-            "time": "2019-05-06T18:24:25+00:00"
+            "time": "2019-06-26T13:53:55+00:00"
         },
         {
             "name": "daverandom/exceptional-json",
