@@ -709,8 +709,6 @@ class Analyze extends Command
             return;
         }
 
-        $output = "<?php\n";
-
         $table = new Table($this->output);
         $table->setColumnWidth(0, 50);
         $table->setColumnMaxWidth(0, 50);
