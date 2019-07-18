@@ -59,7 +59,7 @@ while (!$file->eof()) {
                 'version' => ($r->platform_version === '0.0' ? null : $r->platform_version),
             ],
             'device' => [
-                'name'     => $r->device_code_name,
+                'name'     => $r->device_name,
                 'brand'    => $r->device_brand_name,
                 'type'     => $r->device_type,
                 'ismobile' => $r->ismobiledevice ? true : false,

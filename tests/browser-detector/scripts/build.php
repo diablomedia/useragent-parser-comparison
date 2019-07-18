@@ -79,7 +79,7 @@ foreach ($finder as $file) {
                 'version' => ($osVersion === '0.0.0' ? null : $osVersion),
             ],
             'device' => [
-                'name'     => $expectedResult->getDevice()->getDeviceName(),
+                'name'     => $expectedResult->getDevice()->getMarketingName(),
                 'brand'    => $expectedResult->getDevice()->getBrand()->getBrandName(),
                 'type'     => $expectedResult->getDevice()->getType()->getName(),
                 'ismobile' => $expectedResult->getDevice()->getType()->isMobile(),
@@ -94,4 +94,4 @@ $package = new \PackageInfo\Package('mimmi20/browser-detector');
 echo json_encode([
     'tests'   => $allTests,
     'version' => $package->getVersion(),
-]);
+], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
