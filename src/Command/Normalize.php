@@ -59,8 +59,6 @@ class Normalize extends Command
         $output->writeln('<comment>Normalizing data from test run: ' . $run . '</comment>');
         $this->options = ['tests' => [], 'parsers' => []];
 
-        $this->options = ['tests' => [], 'parsers' => []];
-
         if (file_exists($this->runDir . '/' . $run . '/metadata.json')) {
             try {
                 $contents = file_get_contents($this->runDir . '/' . $run . '/metadata.json');
@@ -150,8 +148,7 @@ class Normalize extends Command
                     }
 
                     $testName = str_replace('.json', '', $resultFile->getFilename());
-
-                    $message = sprintf('%sProcessing results from the <fg=yellow>%s</> test suite... ', '  ', $testName);
+                    $message  = sprintf('%sProcessing results from the <fg=yellow>%s</> test suite... ', '  ', $testName);
 
                     $output->write($message . '<info> parsing result</info>');
 
@@ -174,7 +171,7 @@ class Normalize extends Command
                         continue;
                     }
 
-                    $output->write("\r" . $message . '<info> normalizing result</info>' . "\n");
+                    $output->write("\r" . $message . '<info> normalizing result</info>');
 
                     foreach ($data['results'] as $result) {
                         if (!isset($result['parsed'])) {
