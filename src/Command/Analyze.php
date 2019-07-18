@@ -6,7 +6,6 @@ namespace UserAgentParserComparison\Command;
 
 use Exception;
 use function Safe\file_get_contents;
-use function Safe\file_put_contents;
 use function Safe\json_decode;
 use function Safe\ksort;
 use function Safe\sort;
@@ -748,8 +747,6 @@ class Analyze extends Command
 
             $table->render();
         }
-
-        file_put_contents('output.txt', $output);
     }
 
     private function showComparison(string $test, string $compareKey, string $compareSubKey, bool $justFails = false): void
