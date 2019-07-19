@@ -65,7 +65,7 @@ $memory = memory_get_peak_usage();
 $package = new \PackageInfo\Package('endorphin-studio/browser-detector');
 
 echo json_encode([
-    'results'     => $results,
+    'result'      => $result,
     'parse_time'  => $parseTime,
     'init_time'   => $initTime,
     'memory_used' => $memory,
