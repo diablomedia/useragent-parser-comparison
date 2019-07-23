@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace UserAgentParserComparison\Command;
 
 use Exception;
+use function Safe\array_flip;
 use function Safe\file_get_contents;
 use function Safe\json_decode;
 use function Safe\ksort;
