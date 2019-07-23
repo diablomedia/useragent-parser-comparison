@@ -145,8 +145,8 @@
             "authors": [
                 {
                     "name": "Thomas Müller",
-                    "homepage": "https://github.com/mimmi20",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "homepage": "https://github.com/mimmi20"
                 },
                 {
                     "name": "Contributors",
@@ -206,16 +206,16 @@
         },
         {
             "name": "ua-parser/uap-php",
-            "version": "v3.9.0",
+            "version": "v3.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ua-parser/uap-php.git",
-                "reference": "c7627a8527d7efefad4e8ec593d4a195b9163260"
+                "reference": "2b7130ce5030a880e9d6c4d8463fd181dfd94711"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ua-parser/uap-php/zipball/c7627a8527d7efefad4e8ec593d4a195b9163260",
-                "reference": "c7627a8527d7efefad4e8ec593d4a195b9163260",
+                "url": "https://api.github.com/repos/ua-parser/uap-php/zipball/2b7130ce5030a880e9d6c4d8463fd181dfd94711",
+                "reference": "2b7130ce5030a880e9d6c4d8463fd181dfd94711",
                 "shasum": ""
             },
             "require": {
@@ -259,7 +259,7 @@
                 }
             ],
             "description": "A multi-language port of Browserscope's user agent parser.",
-            "time": "2019-06-22T08:54:17+00:00"
+            "time": "2019-07-15T14:27:12+00:00"
         }
     ],
     "packages-dev": [],

@@ -344,8 +344,8 @@
             "authors": [
                 {
                     "name": "Thomas Müller",
-                    "homepage": "https://github.com/mimmi20",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "homepage": "https://github.com/mimmi20"
                 },
                 {
                     "name": "Contributors",

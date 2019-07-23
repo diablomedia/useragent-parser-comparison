@@ -7,7 +7,6 @@ namespace UserAgentParserComparison\Command;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -18,12 +17,8 @@ class Compare extends Command
     {
         $this->setName('compare')
             ->setDescription('Runs tests, normalizes the results then analyzes the results')
-            ->setDefinition(
-                new InputDefinition([
-                    new InputOption('run', 'r', InputOption::VALUE_OPTIONAL, 'The name of the test run, if omitted will be generated from date'),
-                    new InputArgument('file', InputArgument::OPTIONAL, 'Path to a file to use as the source of useragents rather than test suites'),
-                ])
-            )
+            ->addOption('run', 'r', InputOption::VALUE_OPTIONAL, 'The name of the test run, if omitted will be generated from date')
+            ->addArgument('file', InputArgument::OPTIONAL, 'Path to a file to use as the source of useragents rather than test suites')
             ->setHelp('This command is a "meta" command that will execute the Test, Normalize and Analyze commands in order');
     }
 

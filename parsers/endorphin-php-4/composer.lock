@@ -8,30 +8,27 @@
     "packages": [
         {
             "name": "endorphin-studio/browser-detector",
-            "version": "4.0.2",
+            "version": "4.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/endorphin-studio/browser-detector.git",
-                "reference": "bb5e2d34917e98fd4a1214e146bb2ec64390bc13"
+                "reference": "ae1d6d96205c04216ef0b78b2d141d738d7c9ef2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/endorphin-studio/browser-detector/zipball/bb5e2d34917e98fd4a1214e146bb2ec64390bc13",
-                "reference": "bb5e2d34917e98fd4a1214e146bb2ec64390bc13",
+                "url": "https://api.github.com/repos/endorphin-studio/browser-detector/zipball/ae1d6d96205c04216ef0b78b2d141d738d7c9ef2",
+                "reference": "ae1d6d96205c04216ef0b78b2d141d738d7c9ef2",
                 "shasum": ""
             },
             "require": {
-                "endorphin-studio/browser-detector-data": ">=1.0.0a",
-                "endorphin-studio/browser-detector-detection": ">=1.0.0",
+                "endorphin-studio/browser-detector-data": ">=1.0.3",
+                "endorphin-studio/browser-detector-detection": ">=1.0.1",
                 "endorphin-studio/browser-detector-tools": ">=1.0.0",
-                "php": ">=7.0"
+                "php": ">=7.0 <7.3"
             },
             "require-dev": {
-                "endorphin-studio/browser-detector-data": ">=1.0.0a",
-                "endorphin-studio/browser-detector-detection": ">=1.0.0",
-                "endorphin-studio/browser-detector-tools": ">=1.0.0",
-                "phpunit/phpunit": "^6.5.11",
-                "twig/twig": "^2.5.0"
+                "doctrine/instantiator": "1.0.5",
+                "phpunit/phpunit": "6.5.14"
             },
             "type": "library",
             "autoload": {
@@ -56,20 +53,20 @@
                 "user-agent",
                 "user-agent-string"
             ],
-            "time": "2018-10-18T09:11:25+00:00"
+            "time": "2019-07-22T08:44:12+00:00"
         },
         {
             "name": "endorphin-studio/browser-detector-data",
-            "version": "1.0.2",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/endorphin-studio/browser-detector-data.git",
-                "reference": "d75f9b4de8ba2abcbc362125cafc948e8fbd8d1e"
+                "reference": "1e7e2782d8cc1425c2140f230eb52e019825e9d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/endorphin-studio/browser-detector-data/zipball/d75f9b4de8ba2abcbc362125cafc948e8fbd8d1e",
-                "reference": "d75f9b4de8ba2abcbc362125cafc948e8fbd8d1e",
+                "url": "https://api.github.com/repos/endorphin-studio/browser-detector-data/zipball/1e7e2782d8cc1425c2140f230eb52e019825e9d2",
+                "reference": "1e7e2782d8cc1425c2140f230eb52e019825e9d2",
                 "shasum": ""
             },
             "require": {
@@ -97,24 +94,24 @@
                 }
             ],
             "description": "Data for endorphin-studio/browser-detector",
-            "time": "2019-06-28T07:44:43+00:00"
+            "time": "2019-07-22T08:09:30+00:00"
         },
         {
             "name": "endorphin-studio/browser-detector-detection",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/endorphin-studio/browser-detector-detection.git",
-                "reference": "d7b7ecadcb4faf0d6f4ef391dfcd49f6ffb1f52c"
+                "reference": "bbd230e575e6ca365d5f65d90e04d3b89151a020"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/endorphin-studio/browser-detector-detection/zipball/d7b7ecadcb4faf0d6f4ef391dfcd49f6ffb1f52c",
-                "reference": "d7b7ecadcb4faf0d6f4ef391dfcd49f6ffb1f52c",
+                "url": "https://api.github.com/repos/endorphin-studio/browser-detector-detection/zipball/bbd230e575e6ca365d5f65d90e04d3b89151a020",
+                "reference": "bbd230e575e6ca365d5f65d90e04d3b89151a020",
                 "shasum": ""
             },
             "require": {
-                "endorphin-studio/browser-detector-data": ">=1.0.0b",
+                "endorphin-studio/browser-detector-data": ">=1.0.3",
                 "endorphin-studio/browser-detector-tools": ">=1.0.0",
                 "php": ">=7.0"
             },
@@ -135,7 +132,7 @@
                 }
             ],
             "description": "Detection for endorphin-studio/browser-detector",
-            "time": "2018-10-18T08:25:11+00:00"
+            "time": "2019-07-16T09:34:49+00:00"
         },
         {
             "name": "endorphin-studio/browser-detector-tools",
