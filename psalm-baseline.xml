@@ -1,5 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files>
+<files
+  psalm-version="3.4.9@aa0efcf026e353ce2a4b66c4d3d81caebbf0966a"
+  php-version="
+    php:7.2.19;
+    apc:5.1.8;
+    apcu:5.1.8;
+    ast:0.1.5;
+    bcmath:7.2.19;
+    bz2:7.2.19;
+    calendar:7.2.19;
+    Core:7.2.19;
+    ctype:7.2.19;
+    curl:7.2.19;
+    date:7.2.19;
+    dba:7.2.19;
+    dom:20031129;
+    exif:7.2.19;
+    fileinfo:1.0.5;
+    filter:7.2.19;
+    ftp:7.2.19;
+    gd:7.2.19;
+    gettext:7.2.19;
+    gmp:7.2.19;
+    hash:1.0;
+    iconv:7.2.19;
+    intl:1.1.0;
+    json:1.6.0;
+    ldap:7.2.19;
+    libxml:7.2.19;
+    mbstring:7.2.19;
+    mysqli:7.2.19;
+    mysqlnd:mysqlnd 5.0.12-dev - 20150407 - $Id: 3591daad22de08524295e1bd073aceeff11e6579 $;
+    odbc:7.2.19;
+    openssl:7.2.19;
+    pcntl:7.2.19;
+    pcre:7.2.19;
+    PDO:7.2.19;
+    pdo_dblib:7.2.19;
+    pdo_mysql:7.2.19;
+    PDO_ODBC:7.2.19;
+    pdo_pgsql:7.2.19;
+    pdo_sqlite:7.2.19;
+    pgsql:7.2.19;
+    Phar:2.0.2;
+    phpdbg_webhelper:0.5.0;
+    posix:7.2.19;
+    pspell:7.2.19;
+    readline:7.2.19;
+    Reflection:7.2.19;
+    session:7.2.19;
+    shmop:7.2.19;
+    SimpleXML:7.2.19;
+    soap:7.2.19;
+    sockets:7.2.19;
+    sodium:7.2.19;
+    SPL:7.2.19;
+    sqlite3:7.2.19;
+    standard:7.2.19;
+    sysvmsg:7.2.19;
+    sysvsem:7.2.19;
+    sysvshm:7.2.19;
+    tidy:7.2.19;
+    tokenizer:7.2.19;
+    wddx:7.2.19;
+    xml:7.2.19;
+    xmlreader:7.2.19;
+    xmlrpc:7.2.19;
+    xmlwriter:7.2.19;
+    xsl:7.2.19;
+    Zend OPcache:7.2.19;
+    Zend OPcache:7.2.19;
+    zip:1.15.4;
+    zlib:7.2.19
+  "
+>
   <file src="src/Command/Analyze.php">
     <InvalidArrayOffset occurrences="2">
       <code>$questions[array_search('Change Test Suite', $questions)]</code>
@@ -14,6 +88,15 @@
       <code>$input</code>
       <code>$output</code>
     </PropertyNotSetInConstructor>
+    <RedundantCondition occurrences="7">
+      <code>!isset($selectedTest) || $answer === 'Change Test Suite'</code>
+      <code>!isset($selectedParser) || $answer === 'Change Parser'</code>
+      <code>!isset($justAgents) || $answer === 'Show Full Diff'</code>
+      <code>!isset($selectedTest) || $answer === 'Change Test Suite'</code>
+      <code>!isset($section) || $answer === 'Change Section'</code>
+      <code>!isset($property) || $answer === 'Change Section'</code>
+      <code>!isset($justFails) || $answer === 'Show All'</code>
+    </RedundantCondition>
     <UndefinedVariable occurrences="7">
       <code>$selectedTest</code>
       <code>$selectedParser</code>
