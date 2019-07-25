@@ -1,0 +1,15 @@
+{
+  "name": "vigour-ua-js-1",
+  "version": "1.0.0",
+  "description": "vigour-ua-js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vigour-ua": "^4.0.0"
+  }
+}
