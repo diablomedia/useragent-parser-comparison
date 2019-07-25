@@ -1,0 +1,7 @@
+{
+    "require": {
+        "cbschuld/browser.php": "^1.9",
+        "thadafinser/package-info": "^1.0",
+        "mimmi20/json-class": "~2.0.1"
+    }
+}
