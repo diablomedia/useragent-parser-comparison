@@ -61,7 +61,7 @@ class Test extends Command
         $output->writeln('These are all of the tests available, choose which you would like to run');
 
         $questions = array_keys($this->tests);
-        sort($questions);
+        sort($questions, SORT_FLAG_CASE | SORT_NATURAL);
 
         $i = 1;
         foreach ($questions as $name) {

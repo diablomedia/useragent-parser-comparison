@@ -97,7 +97,7 @@ class Parsers extends Helper
         $table->render();
 
         $questions = array_keys($names);
-        sort($questions);
+        sort($questions, SORT_FLAG_CASE | SORT_NATURAL);
 
         if ($multiple === true) {
             $questions[] = 'All Parsers';
