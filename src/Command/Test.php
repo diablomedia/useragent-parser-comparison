@@ -58,7 +58,7 @@ class Test extends Command
 
         $rows = [];
 
-        $output->writeln('These are all of the tests available, choose which you would like to run');
+        $output->writeln('These are all available test suites, choose which you would like to run');
 
         $questions = array_keys($this->tests);
         sort($questions);
@@ -98,6 +98,8 @@ class Test extends Command
         }
 
         $output->writeln('Choose which parsers you would like to run this test suite against');
+
+        /** @var \UserAgentParserComparison\Command\Helper\Parsers $parserHelper */
         $parserHelper = $this->getHelper('parsers');
         $parsers      = $parserHelper->getParsers($input, $output);
 

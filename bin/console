@@ -18,6 +18,9 @@ $application->getHelperSet()->set($parserHelper);
 $normalizeHelper = new \UserAgentParserComparison\Command\Helper\Normalize();
 $application->getHelperSet()->set($normalizeHelper);
 
+$testsHelper = new \UserAgentParserComparison\Command\Helper\Tests();
+$application->getHelperSet()->set($testsHelper);
+
 $application->add(new \UserAgentParserComparison\Command\Test());
 $application->add(new \UserAgentParserComparison\Command\Normalize());
 $application->add(new \UserAgentParserComparison\Command\Parse());

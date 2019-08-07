@@ -121,6 +121,7 @@ class Parsers extends Helper
             $question->setMultiselect(true);
         }
 
+        /** @var \Symfony\Component\Console\Helper\QuestionHelper $helper */
         $helper  = $this->helperSet->get('question');
         $answers = $helper->ask($input, $output, $question);
 

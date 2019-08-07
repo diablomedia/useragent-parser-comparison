@@ -11,6 +11,7 @@ use function Safe\json_decode;
 use function Safe\ksort;
 use function Safe\sort;
 use function Safe\uasort;
+use function Safe\sprintf;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableCell;
@@ -80,41 +81,46 @@ class Analyze extends Command
         $run = $input->getArgument('run');
 
         if (empty($run)) {
-            // @todo Show user the available runs, perhaps limited to 10 or something, for now, throw an error
-            $output->writeln('<error>run argument is required</error>');
+            /** @var \UserAgentParserComparison\Command\Helper\Tests $testHelper */
+            $testHelper = $this->getHelper('tests');
+            $run        = $testHelper->getTest($input, $output);
 
-            return 1;
+            if (null === $run) {
+                $output->writeln('<error>No valid test run found</error>');
+
+                return 1;
+            }
         }
 
         if (!file_exists($this->runDir . '/' . $run)) {
-            $output->writeln('<error>No run directory found with that id (' . $run . ')</error>');
+            $output->writeln(sprintf('<error>No run directory found with that id (%s)</error>', $run));
 
             return 1;
         }
 
-        if (file_exists($this->runDir . '/' . $run . '/metadata.json')) {
-            try {
-                $contents = file_get_contents($this->runDir . '/' . $run . '/metadata.json');
-            } catch (Exception $e) {
-                $output->writeln(
-                    '<error>Could not read file (' . $this->runDir . '/' . $run . '/metadata.json' . ')</error>'
-                );
+        $metaDataFile = $this->runDir . '/' . $run . '/metadata.json';
 
-                return 2;
-            }
-
-            try {
-                $this->options = json_decode($contents, true);
-            } catch (Exception $e) {
-                $output->writeln('<error>An error occured while parsing metadata for run ' . $run . '</error>');
-            }
-        } else {
-            $output->writeln('<error>No options file found for this test run</error>');
+        if (!file_exists($metaDataFile)) {
+            $output->writeln(sprintf('<error>No options file found for run (%s)</error>', $run));
 
             return 2;
         }
 
-        $output->writeln('<info>Analyzing data from test run: ' . $run . '</info>');
+        try {
+            $contents = file_get_contents($metaDataFile);
+        } catch (Exception $e) {
+            $output->writeln(sprintf('<error>Could not read file (%s)</error>', $metaDataFile));
+
+            return 2;
+        }
+
+        try {
+            $this->options = json_decode($contents, true);
+        } catch (Exception $e) {
+            $output->writeln(sprintf('<error>An error occured while parsing metadata for run (%s)</error>', $run));
+        }
+
+        $output->writeln(sprintf('<info>Analyzing data from test run: %s</info>', $run));
 
         if (!empty($this->options['tests'])) {
             $tests = $this->options['tests'];
@@ -124,7 +130,7 @@ class Analyze extends Command
             ];
             $this->options['tests'] = $tests;
         } else {
-            $output->writeln('<error>Error in options file for this test run</error>');
+            $output->writeln(sprintf('<error>Error in options file for run (%s)</error>', $run));
 
             return 3;
         }
@@ -149,9 +155,9 @@ class Analyze extends Command
 
                 try {
                     $expectedResults = json_decode($contents, true);
-                    $headerMessage   = '<fg=yellow>Parser comparison for ' . $testName . ' test suite' . (isset($testData['metadata']['version']) ? ' (' . $testData['metadata']['version'] . ')' : '') . '</>';
+                    $headerMessage   = sprintf('Parser comparison for <fg=yellow>%s%s</>', $testData['metadata']['name'], (isset($testData['metadata']['version']) ? ' (' . $testData['metadata']['version'] . ')' : ''));
                 } catch (Exception $e) {
-                    $this->output->writeln('<error>An error occured while parsing file (' . $expectedFilename . '), skipping</error>');
+                    $this->output->writeln(sprintf('<error>An error occured while parsing file (%s), skipping</error>', $expectedFilename));
                     continue;
                 }
             } else {
@@ -167,9 +173,9 @@ class Analyze extends Command
 
                 try {
                     $testResult    = json_decode($contents, true);
-                    $headerMessage = '<fg=yellow>Parser comparison for ' . $testName . ' file, using ' . array_keys($this->options['parsers'])[0] . ' results as expected</>';
+                    $headerMessage = sprintf('<fg=yellow>Parser comparison for %s file, using %s results as expected</>', $testName, array_keys($this->options['parsers'])[0]);
                 } catch (Exception $e) {
-                    $this->output->writeln('<error>An error occured while parsing metadata for run ' . $run . '</error>');
+                    $this->output->writeln(sprintf('<error>An error occured while parsing metadata for run %s, skipping</error>', $run));
                     continue;
                 }
 
@@ -231,7 +237,7 @@ class Analyze extends Command
 
             foreach ($this->options['parsers'] as $parserName => $parserData) {
                 if (!file_exists($this->runDir . '/' . $run . '/results/' . $parserName . '/normalized/' . $testName . '.json')) {
-                    $this->output->writeln('<error>No output found for the ' . $parserName . ' parser, skipping</error>');
+                    $this->output->writeln(sprintf('<error>No output found for the %s parser, skipping</error>', $parserName));
 
                     continue;
                 }
@@ -240,7 +246,7 @@ class Analyze extends Command
                 try {
                     $contents = file_get_contents($fileName);
                 } catch (Exception $e) {
-                    $this->output->writeln('<error>Could not read file (' . $fileName . '), skipping</error>');
+                    $this->output->writeln(sprintf('<error>Could not read file (%s), skipping</error>', $fileName));
 
                     continue;
                 }
@@ -248,7 +254,7 @@ class Analyze extends Command
                 try {
                     $testResult = json_decode($contents, true);
                 } catch (Exception $e) {
-                    $this->output->writeln('<error>An error occured while parsing file (' . $fileName . '), skipping</error>');
+                    $this->output->writeln(sprintf('<error>An error occured while parsing file (%s), skipping</error>', $fileName));
 
                     continue;
                 }
@@ -357,7 +363,7 @@ class Analyze extends Command
                 }
 
                 $rows[] = [
-                    $parserName,
+                    $parserData['metadata']['name'],
                     $parserData['metadata']['version'] ?? 'n/a',
                     $browserContent,
                     $platformContent,
@@ -711,17 +717,29 @@ class Analyze extends Command
         }
 
         $table = new Table($this->output);
-        $table->setColumnWidth(0, 50);
-        $table->setColumnMaxWidth(0, 50);
-        $table->setColumnWidth(1, 50);
-        $table->setColumnMaxWidth(1, 50);
-        $table->setColumnWidth(2, 50);
-        $table->setColumnMaxWidth(2, 50);
+        $table->setColumnWidth(0, 15);
+        $table->setColumnMaxWidth(0, 15);
+        $table->setColumnWidth(1, 15);
+        $table->setColumnMaxWidth(1, 15);
+        $table->setColumnWidth(2, 15);
+        $table->setColumnMaxWidth(2, 15);
+        $table->setColumnWidth(3, 15);
+        $table->setColumnMaxWidth(3, 15);
+        $table->setColumnWidth(4, 15);
+        $table->setColumnMaxWidth(4, 15);
+        $table->setColumnWidth(5, 15);
+        $table->setColumnMaxWidth(5, 15);
+        $table->setColumnWidth(6, 15);
+        $table->setColumnMaxWidth(6, 15);
+        $table->setColumnWidth(7, 15);
+        $table->setColumnMaxWidth(7, 15);
+        $table->setColumnWidth(8, 15);
+        $table->setColumnMaxWidth(8, 15);
         $table->setStyle('box');
 
         $table->setHeaders([
-            [new TableCell('UserAgent', ['colspan' => 3])],
-            [new TableCell('Browser'), new TableCell('Platform'), new TableCell('Device')],
+            [new TableCell('UserAgent', ['colspan' => 8])],
+            [new TableCell('Browser', ['colspan' => 3]), new TableCell('Platform', ['colspan' => 3]), new TableCell('Device', ['colspan' => 3])],
         ]);
 
         $rows = [];
@@ -729,7 +747,38 @@ class Analyze extends Command
             if ($justAgents === true) {
                 $this->output->writeln($agent);
             } else {
-                $rows[] = [new TableCell((string) $agent, ['colspan' => 3])];
+                $rows[] = [new TableCell((string) $agent, ['colspan' => 8])];
+
+                if (isset($failData['browser'])) {
+                    $browserCols = $this->outputDiff($failData['browser']);
+                } else {
+                    $browserCols = [
+                        new TableCell(),
+                        new TableCell(),
+                        new TableCell(),
+                    ];
+                }
+
+                if (isset($failData['platform'])) {
+                    $platformCols = $this->outputDiff($failData['platform']);
+                } else {
+                    $platformCols = [
+                        new TableCell(),
+                        new TableCell(),
+                        new TableCell(),
+                    ];
+                }
+
+                if (isset($failData['device'])) {
+                    $deviceCols = $this->outputDiff($failData['device']);
+                } else {
+                    $deviceCols = [
+                        new TableCell(),
+                        new TableCell(),
+                        new TableCell(),
+                    ];
+                }
+
                 $rows[] = [
                     new TableCell(isset($failData['browser']) ? $this->outputDiff($failData['browser']) : ''),
                     new TableCell(isset($failData['platform']) ? $this->outputDiff($failData['platform']) : ''),
