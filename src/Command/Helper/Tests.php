@@ -6,15 +6,14 @@ namespace UserAgentParserComparison\Command\Helper;
 
 use Exception;
 use FilesystemIterator;
-use Symfony\Component\Console\Helper\TableCell;
-use Symfony\Component\Console\Helper\TableSeparator;
 use function Safe\file_get_contents;
 use function Safe\json_decode;
 use function Safe\ksort;
-use function Safe\sort;
 use SplFileInfo;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Helper\TableCell;
+use Symfony\Component\Console\Helper\TableSeparator;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
@@ -35,6 +34,7 @@ class Tests extends Helper
     {
         $rows  = [];
         $names = [];
+        $tests = [];
 
         /** @var SplFileInfo $testDir */
         foreach (new FilesystemIterator($this->testDir) as $testDir) {
@@ -47,6 +47,13 @@ class Tests extends Helper
                 continue;
             }
 
+            $tests[$testDir->getFilename()] = $testDir;
+        }
+
+        ksort($tests, SORT_FLAG_CASE | SORT_NATURAL);
+
+        /** @var SplFileInfo $testDir */
+        foreach ($tests as $testDir) {
             try {
                 $contents = file_get_contents($testDir->getPathname() . '/metadata.json');
 
@@ -66,7 +73,7 @@ class Tests extends Helper
             $parserNames = array_keys($metadata['parsers']);
             $valid       = true;
 
-            if (0 === $countRows) {
+            if ($countRows === 0) {
                 $valid = false;
             }
 
@@ -78,9 +85,10 @@ class Tests extends Helper
                 $valid = false;
             }
 
-            $runName = empty($metadata['date']) ? $testDir->getFilename() : date('Y-m-d H:i:s', $metadata['date']);
+            $runName = empty($metadata['date']) ? 'n/a' : date('Y-m-d H:i:s', $metadata['date']);
 
             $rows[] = [
+                new TableCell(($valid ? '<fg=green;bg=black>' : '<fg=red;bg=black>') . $testDir->getFilename() . '</>', ['rowspan' => $countRows]),
                 new TableCell(($valid ? '<fg=green;bg=black>' : '<fg=red;bg=black>') . $runName . '</>', ['rowspan' => $countRows]),
                 new TableCell(empty($metadata['tests']) ? '' : $metadata['tests'][$testNames[0]]['metadata']['name']),
                 new TableCell(empty($metadata['tests']) ? '' : ($metadata['tests'][$testNames[0]]['metadata']['version'] ?? 'n/a')),
@@ -89,7 +97,7 @@ class Tests extends Helper
             ];
 
             if ($countRows > 1) {
-                for ($i = 1, $max = $countRows; $i < $max; $i++) {
+                for ($i = 1, $max = $countRows; $i < $max; ++$i) {
                     $rows[] = [
                         new TableCell((empty($metadata['tests']) || !array_key_exists($i, $testNames)) ? '' : $metadata['tests'][$testNames[$i]]['metadata']['name']),
                         new TableCell((empty($metadata['tests']) || !array_key_exists($i, $testNames)) ? '' : ($metadata['tests'][$testNames[$i]]['metadata']['version'] ?? 'n/a')),
@@ -102,7 +110,7 @@ class Tests extends Helper
             $rows[] = new TableSeparator();
 
             if ($valid) {
-                $names[$runName] = $testDir->getFilename();
+                $names[$testDir->getFilename()] = $testDir->getFilename();
             }
         }
 
@@ -113,8 +121,8 @@ class Tests extends Helper
         $table = new Table($output);
         $table->setHeaders(
             [
-                [new TableCell('Name / Date', ['rowspan' => 2]), new TableCell('Test Suites', ['colspan' => 2]), new TableCell('Parsers', ['colspan' => 2])],
-                [new TableCell('Name'), new TableCell('Version'), new TableCell('Name'), new TableCell('Version')]
+                [new TableCell('Name / Date', ['rowspan' => 2, 'colspan' => 2]), new TableCell('Test Suites', ['colspan' => 2]), new TableCell('Parsers', ['colspan' => 2])],
+                [new TableCell('Name'), new TableCell('Version'), new TableCell('Name'), new TableCell('Version')],
             ]
         );
 
@@ -123,9 +131,7 @@ class Tests extends Helper
         $table->setRows($rows);
         $table->render();
 
-        $questions = array_keys($names);
-        sort($questions, SORT_FLAG_CASE | SORT_NATURAL);
-
+        $questions    = array_keys($names);
         $questionText = 'Select the test run to use';
 
         $question = new ChoiceQuestion(

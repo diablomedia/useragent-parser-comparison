@@ -10,8 +10,8 @@ use function Safe\file_get_contents;
 use function Safe\json_decode;
 use function Safe\ksort;
 use function Safe\sort;
-use function Safe\uasort;
 use function Safe\sprintf;
+use function Safe\uasort;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableCell;
@@ -85,7 +85,7 @@ class Analyze extends Command
             $testHelper = $this->getHelper('tests');
             $run        = $testHelper->getTest($input, $output);
 
-            if (null === $run) {
+            if ($run === null) {
                 $output->writeln('<error>No valid test run found</error>');
 
                 return 1;
