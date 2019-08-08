@@ -717,29 +717,17 @@ class Analyze extends Command
         }
 
         $table = new Table($this->output);
-        $table->setColumnWidth(0, 15);
-        $table->setColumnMaxWidth(0, 15);
-        $table->setColumnWidth(1, 15);
-        $table->setColumnMaxWidth(1, 15);
-        $table->setColumnWidth(2, 15);
-        $table->setColumnMaxWidth(2, 15);
-        $table->setColumnWidth(3, 15);
-        $table->setColumnMaxWidth(3, 15);
-        $table->setColumnWidth(4, 15);
-        $table->setColumnMaxWidth(4, 15);
-        $table->setColumnWidth(5, 15);
-        $table->setColumnMaxWidth(5, 15);
-        $table->setColumnWidth(6, 15);
-        $table->setColumnMaxWidth(6, 15);
-        $table->setColumnWidth(7, 15);
-        $table->setColumnMaxWidth(7, 15);
-        $table->setColumnWidth(8, 15);
-        $table->setColumnMaxWidth(8, 15);
+        $table->setColumnWidth(0, 50);
+        $table->setColumnMaxWidth(0, 50);
+        $table->setColumnWidth(1, 50);
+        $table->setColumnMaxWidth(1, 50);
+        $table->setColumnWidth(2, 50);
+        $table->setColumnMaxWidth(2, 50);
         $table->setStyle('box');
 
         $table->setHeaders([
-            [new TableCell('UserAgent', ['colspan' => 8])],
-            [new TableCell('Browser', ['colspan' => 3]), new TableCell('Platform', ['colspan' => 3]), new TableCell('Device', ['colspan' => 3])],
+            [new TableCell('UserAgent', ['colspan' => 3])],
+            [new TableCell('Browser'), new TableCell('Platform'), new TableCell('Device')],
         ]);
 
         $rows = [];
@@ -747,37 +735,7 @@ class Analyze extends Command
             if ($justAgents === true) {
                 $this->output->writeln($agent);
             } else {
-                $rows[] = [new TableCell((string) $agent, ['colspan' => 8])];
-
-                if (isset($failData['browser'])) {
-                    $browserCols = $this->outputDiff($failData['browser']);
-                } else {
-                    $browserCols = [
-                        new TableCell(),
-                        new TableCell(),
-                        new TableCell(),
-                    ];
-                }
-
-                if (isset($failData['platform'])) {
-                    $platformCols = $this->outputDiff($failData['platform']);
-                } else {
-                    $platformCols = [
-                        new TableCell(),
-                        new TableCell(),
-                        new TableCell(),
-                    ];
-                }
-
-                if (isset($failData['device'])) {
-                    $deviceCols = $this->outputDiff($failData['device']);
-                } else {
-                    $deviceCols = [
-                        new TableCell(),
-                        new TableCell(),
-                        new TableCell(),
-                    ];
-                }
+                $rows[] = [new TableCell((string) $agent, ['colspan' => 3])];
 
                 $rows[] = [
                     new TableCell(isset($failData['browser']) ? $this->outputDiff($failData['browser']) : ''),
