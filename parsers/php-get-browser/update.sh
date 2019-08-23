@@ -8,7 +8,7 @@ wget --quiet -Onewversion.txt "http://browscap.org/version-number"
 diff --brief version.txt newversion.txt >/dev/null
 comp_value=$?
 
-if [ $comp_value -eq 1 ]
+if [ $comp_value -ge 1 ]
 then
     echo "Updating browscap data file"
     wget --quiet -Obrowscap.ini "http://browscap.org/stream?q=Full_PHP_BrowsCapINI"

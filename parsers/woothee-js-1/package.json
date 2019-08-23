@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "woothee": "^1.8.1"
+    "woothee": "^1.10.0"
   }
 }

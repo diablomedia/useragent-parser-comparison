@@ -8,26 +8,27 @@
     "packages": [
         {
             "name": "endorphin-studio/browser-detector",
-            "version": "4.0.1",
+            "version": "4.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/endorphin-studio/browser-detector.git",
-                "reference": "46aac38f52264f40d1d6743ee02eac96d7888749"
+                "reference": "ae1d6d96205c04216ef0b78b2d141d738d7c9ef2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/endorphin-studio/browser-detector/zipball/46aac38f52264f40d1d6743ee02eac96d7888749",
-                "reference": "46aac38f52264f40d1d6743ee02eac96d7888749",
+                "url": "https://api.github.com/repos/endorphin-studio/browser-detector/zipball/ae1d6d96205c04216ef0b78b2d141d738d7c9ef2",
+                "reference": "ae1d6d96205c04216ef0b78b2d141d738d7c9ef2",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0",
-                "symfony/http-foundation": ">=v3.4.14",
-                "symfony/yaml": ">=v3.4.14"
+                "endorphin-studio/browser-detector-data": ">=1.0.3",
+                "endorphin-studio/browser-detector-detection": ">=1.0.1",
+                "endorphin-studio/browser-detector-tools": ">=1.0.0",
+                "php": ">=7.0 <7.3"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6.5.11",
-                "twig/twig": "^2.5.0"
+                "doctrine/instantiator": "1.0.5",
+                "phpunit/phpunit": "6.5.14"
             },
             "type": "library",
             "autoload": {
@@ -52,34 +53,194 @@
                 "user-agent",
                 "user-agent-string"
             ],
-            "time": "2018-09-17T08:03:36+00:00"
+            "time": "2019-07-22T08:44:12+00:00"
         },
         {
-            "name": "symfony/http-foundation",
-            "version": "v4.2.4",
+            "name": "endorphin-studio/browser-detector-data",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "850a667d6254ccf6c61d853407b16f21c4579c77"
+                "url": "https://github.com/endorphin-studio/browser-detector-data.git",
+                "reference": "1e7e2782d8cc1425c2140f230eb52e019825e9d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/850a667d6254ccf6c61d853407b16f21c4579c77",
-                "reference": "850a667d6254ccf6c61d853407b16f21c4579c77",
+                "url": "https://api.github.com/repos/endorphin-studio/browser-detector-data/zipball/1e7e2782d8cc1425c2140f230eb52e019825e9d2",
+                "reference": "1e7e2782d8cc1425c2140f230eb52e019825e9d2",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1.3",
-                "symfony/polyfill-mbstring": "~1.1"
+                "endorphin-studio/browser-detector-tools": ">=1.0.0",
+                "php": ">=7.0",
+                "symfony/http-foundation": "v3.4.14",
+                "symfony/yaml": "v3.4.14"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "EndorphinStudio\\Detector\\Data\\": "src/Data",
+                    "EndorphinStudio\\Detector\\Storage\\": "src/Storage",
+                    "EndorphinStudio\\Detector\\Exception\\": "src/Exception"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Serhii Nekhaienko",
+                    "email": "sergey.nekhaenko@gmail.com"
+                }
+            ],
+            "description": "Data for endorphin-studio/browser-detector",
+            "time": "2019-07-22T08:09:30+00:00"
+        },
+        {
+            "name": "endorphin-studio/browser-detector-detection",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/endorphin-studio/browser-detector-detection.git",
+                "reference": "bbd230e575e6ca365d5f65d90e04d3b89151a020"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/endorphin-studio/browser-detector-detection/zipball/bbd230e575e6ca365d5f65d90e04d3b89151a020",
+                "reference": "bbd230e575e6ca365d5f65d90e04d3b89151a020",
+                "shasum": ""
+            },
+            "require": {
+                "endorphin-studio/browser-detector-data": ">=1.0.3",
+                "endorphin-studio/browser-detector-tools": ">=1.0.0",
+                "php": ">=7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "EndorphinStudio\\Detector\\Detection\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Serhii Nekhaienko",
+                    "email": "sergey.nekhaenko@gmail.com"
+                }
+            ],
+            "description": "Detection for endorphin-studio/browser-detector",
+            "time": "2019-07-16T09:34:49+00:00"
+        },
+        {
+            "name": "endorphin-studio/browser-detector-tools",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/endorphin-studio/browser-detector-tools.git",
+                "reference": "30a6973e6c6dc97e2526b11614505bf862c24875"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/endorphin-studio/browser-detector-tools/zipball/30a6973e6c6dc97e2526b11614505bf862c24875",
+                "reference": "30a6973e6c6dc97e2526b11614505bf862c24875",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "EndorphinStudio\\Detector\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Serhii Nekhaienko",
+                    "email": "sergey.nekhaenko@gmail.com"
+                }
+            ],
+            "description": "Tools for endorphin-studio/browser-detector",
+            "time": "2018-10-17T12:10:59+00:00"
+        },
+        {
+            "name": "paragonie/random_compat",
+            "version": "v9.99.99",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paragonie/random_compat.git",
+                "reference": "84b4dfb120c6f9b4ff7b3685f9b8f1aa365a0c95"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/84b4dfb120c6f9b4ff7b3685f9b8f1aa365a0c95",
+                "reference": "84b4dfb120c6f9b4ff7b3685f9b8f1aa365a0c95",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7"
             },
             "require-dev": {
-                "predis/predis": "~1.0",
-                "symfony/expression-language": "~3.4|~4.0"
+                "phpunit/phpunit": "4.*|5.*",
+                "vimeo/psalm": "^1"
+            },
+            "suggest": {
+                "ext-libsodium": "Provides a modern crypto API that can be used to generate random bytes."
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Paragon Initiative Enterprises",
+                    "email": "security@paragonie.com",
+                    "homepage": "https://paragonie.com"
+                }
+            ],
+            "description": "PHP 5.x polyfill for random_bytes() and random_int() from PHP 7",
+            "keywords": [
+                "csprng",
+                "polyfill",
+                "pseudorandom",
+                "random"
+            ],
+            "time": "2018-07-02T15:55:56+00:00"
+        },
+        {
+            "name": "symfony/http-foundation",
+            "version": "v3.4.14",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/http-foundation.git",
+                "reference": "19a3267828046a2a4a05e3dc2954bbd2e0ad9fa6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/19a3267828046a2a4a05e3dc2954bbd2e0ad9fa6",
+                "reference": "19a3267828046a2a4a05e3dc2954bbd2e0ad9fa6",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5.9|>=7.0.8",
+                "symfony/polyfill-mbstring": "~1.1",
+                "symfony/polyfill-php70": "~1.6"
+            },
+            "require-dev": {
+                "symfony/expression-language": "~2.8|~3.0|~4.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.2-dev"
+                    "dev-master": "3.4-dev"
                 }
             },
             "autoload": {
@@ -106,7 +267,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2019-02-26T08:03:39+00:00"
+            "time": "2018-08-01T14:04:26+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -226,21 +387,80 @@
             "time": "2019-02-06T07:57:58+00:00"
         },
         {
-            "name": "symfony/yaml",
-            "version": "v4.2.4",
+            "name": "symfony/polyfill-php70",
+            "version": "v1.11.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/yaml.git",
-                "reference": "761fa560a937fd7686e5274ff89dcfa87a5047df"
+                "url": "https://github.com/symfony/polyfill-php70.git",
+                "reference": "bc4858fb611bda58719124ca079baff854149c89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/761fa560a937fd7686e5274ff89dcfa87a5047df",
-                "reference": "761fa560a937fd7686e5274ff89dcfa87a5047df",
+                "url": "https://api.github.com/repos/symfony/polyfill-php70/zipball/bc4858fb611bda58719124ca079baff854149c89",
+                "reference": "bc4858fb611bda58719124ca079baff854149c89",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1.3",
+                "paragonie/random_compat": "~1.0|~2.0|~9.99",
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.11-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Php70\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ],
+                "classmap": [
+                    "Resources/stubs"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill backporting some PHP 7.0+ features to lower PHP versions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "time": "2019-02-06T07:57:58+00:00"
+        },
+        {
+            "name": "symfony/yaml",
+            "version": "v3.4.14",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/yaml.git",
+                "reference": "810af2d35fc72b6cf5c01116806d2b65ccaaf2e2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/810af2d35fc72b6cf5c01116806d2b65ccaaf2e2",
+                "reference": "810af2d35fc72b6cf5c01116806d2b65ccaaf2e2",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5.9|>=7.0.8",
                 "symfony/polyfill-ctype": "~1.8"
             },
             "conflict": {
@@ -255,7 +475,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.2-dev"
+                    "dev-master": "3.4-dev"
                 }
             },
             "autoload": {
@@ -282,7 +502,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2019-02-23T15:17:42+00:00"
+            "time": "2018-07-26T11:19:56+00:00"
         },
         {
             "name": "thadafinser/package-info",

@@ -5,14 +5,14 @@
   "requires": true,
   "dependencies": {
     "browscap-js": {
-      "version": "4.0.6000030",
-      "resolved": "https://registry.npmjs.org/browscap-js/-/browscap-js-4.0.6000030.tgz",
-      "integrity": "sha512-2u7zRaL2aZnP/XRM4l7z1HUS5NHZMwPEXzSMRR78CB+Wx9bpf0BK6wJZYOXH2KpdFSpien1ZDAQd1NRvOl78BA==",
+      "version": "4.0.6000032",
+      "resolved": "https://registry.npmjs.org/browscap-js/-/browscap-js-4.0.6000032.tgz",
+      "integrity": "sha512-P1+vgg95+Km6aNl4XArfreiECpeiT4MM2IjIBtuovajPj5+kk5Qfwg968BMiHvuCf3Z0mPLlBXYOB0fUDJEJFA==",
       "requires": {
         "browscap-js-cache": "^2.0.1",
-        "browscap-json-cache-files": "^1.2.6000030",
+        "browscap-json-cache-files": "^1.2.6000032",
         "md5": "^2.0.0",
-        "synchronous-promise": "^2.0.5"
+        "synchronous-promise": "^2.0.6"
       }
     },
     "browscap-js-cache": {
@@ -21,9 +21,9 @@
       "integrity": "sha512-WEEtDm/OD8UfhCuzE0dYHIhGScwaPmktLJU8a5ftJ/Hd7lgcuosKiGosqCThALZiPzco0/AEGqqMX+2kVGkOXg=="
     },
     "browscap-json-cache-files": {
-      "version": "1.2.6000030",
-      "resolved": "https://registry.npmjs.org/browscap-json-cache-files/-/browscap-json-cache-files-1.2.6000030.tgz",
-      "integrity": "sha512-kIfCVAl9saGheSmPI7s865NirDJODHBfK37tkUQzhnuzGsdqTgF4wgFrk5xIgDO53UpGF6mCxmWXiHyaR6M9iQ=="
+      "version": "1.2.6000032",
+      "resolved": "https://registry.npmjs.org/browscap-json-cache-files/-/browscap-json-cache-files-1.2.6000032.tgz",
+      "integrity": "sha512-tzlQG8qvuq0ZCoxZA4JjY6pUKYKgFceYFdg1pOS7rTKX1zJDDKTtTKhnZlHwbZ1AEKDlL3Sl95ClrtmR32dufA=="
     },
     "charenc": {
       "version": "0.0.2",
@@ -51,9 +51,9 @@
       }
     },
     "synchronous-promise": {
-      "version": "2.0.6",
-      "resolved": "https://registry.npmjs.org/synchronous-promise/-/synchronous-promise-2.0.6.tgz",
-      "integrity": "sha512-TyOuWLwkmtPL49LHCX1caIwHjRzcVd62+GF6h8W/jHOeZUFHpnd2XJDVuUlaTaLPH1nuu2M69mfHr5XbQJnf/g=="
+      "version": "2.0.9",
+      "resolved": "https://registry.npmjs.org/synchronous-promise/-/synchronous-promise-2.0.9.tgz",
+      "integrity": "sha512-LO95GIW16x69LuND1nuuwM4pjgFGupg7pZ/4lU86AmchPKrhk0o2tpMU2unXRrqo81iAFe1YJ0nAGEVwsrZAgg=="
     }
   }
 }
