@@ -5,18 +5,18 @@
   "requires": true,
   "dependencies": {
     "device-detector-js": {
-      "version": "1.1.0",
-      "resolved": "https://registry.npmjs.org/device-detector-js/-/device-detector-js-1.1.0.tgz",
-      "integrity": "sha512-Z9Ih5yFiAOAXyQEr4arOFSCt9IQXDIKdXn5jslosT6217zs5SXOiAJx/JLeOsDwKm8k3k6J9cwXUjckr4Y7Xlw==",
+      "version": "1.1.1",
+      "resolved": "https://registry.npmjs.org/device-detector-js/-/device-detector-js-1.1.1.tgz",
+      "integrity": "sha512-5WEK8GDH6qGLkOpHn362emYJ2Tk5Auk8anj77HLd9yfiFmZNto1wb9ysfSYbKlhesGBdjPQ8tU1fLk9RxcLLlQ==",
       "requires": {
-        "lodash": "4.17.10",
+        "lodash": "^4.17.11",
         "lru-cache": "4.1.3"
       }
     },
     "lodash": {
-      "version": "4.17.10",
-      "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.10.tgz",
-      "integrity": "sha512-UejweD1pDoXu+AD825lWwp4ZGtSwgnpZxb3JDViD7StjQz+Nb/6l093lx4OQ0foGWNRoc19mWy7BzL+UAK2iVg=="
+      "version": "4.17.15",
+      "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.15.tgz",
+      "integrity": "sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A=="
     },
     "lru-cache": {
       "version": "4.1.3",
