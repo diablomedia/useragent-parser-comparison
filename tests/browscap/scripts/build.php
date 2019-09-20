@@ -58,7 +58,7 @@ foreach ($finder as $fixture) {
                     'version' => ($data['properties']['Platform_Version'] === '0.0' ? null : $data['properties']['Platform_Version']),
                 ],
                 'device' => [
-                    'name'     => $data['properties']['Device_Code_Name'],
+                    'name'     => $data['properties']['Device_Name'],
                     'brand'    => $data['properties']['Device_Brand_Name'],
                     'type'     => $data['properties']['Device_Type'],
                     'ismobile' => $isMobile,

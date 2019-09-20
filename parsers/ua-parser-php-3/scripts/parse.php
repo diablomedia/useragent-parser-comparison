@@ -53,7 +53,7 @@ while (!$file->eof()) {
             ],
             'platform' => [
                 'name'    => $r->os->family,
-                'version' => $r->ua->toVersion(),
+                'version' => $r->os->toVersion() === '0' ? null : $r->os->toVersion(),
             ],
             'device' => [
                 'name'     => $r->device->model,

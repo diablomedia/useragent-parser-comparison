@@ -61,7 +61,7 @@ while (!$file->eof()) {
                 'version' => $r->getOs()->getVersion()->getVersion(),
             ],
             'device' => [
-                'name'     => $r->getDevice()->getDeviceName(),
+                'name'     => $r->getDevice()->getMarketingName(),
                 'brand'    => $r->getDevice()->getBrand()->getBrandName(),
                 'type'     => $r->getDevice()->getType()->getName(),
                 'ismobile' => $r->getDevice()->getType()->isMobile() ? 'true' : 'false',
@@ -84,4 +84,4 @@ echo json_encode([
     'init_time'   => $initTime,
     'memory_used' => $memory,
     'version'     => $package->getVersion(),
-], JSON_UNESCAPED_SLASHES);
+], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
