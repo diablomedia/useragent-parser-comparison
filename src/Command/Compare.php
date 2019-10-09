@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace UserAgentParserComparison\Command;
 
+use Exception;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
@@ -23,7 +24,7 @@ class Compare extends Command
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -32,12 +33,18 @@ class Compare extends Command
         // Prepare our test directory to store the data from this run
         $name = $input->getOption('run');
 
+        $application = $this->getApplication();
+
+        if ($application === null) {
+            throw new Exception('Could not retrieve Symfony Application, aborting');
+        }
+
         if (empty($name)) {
             $name = date('YmdHis');
         }
 
         if ($file) {
-            $command   = $this->getApplication()->find('parse');
+            $command   = $application->find('parse');
             $arguments = [
                 'command'     => 'parse',
                 'file'        => $file,
@@ -54,7 +61,7 @@ class Compare extends Command
                 return $returnCode;
             }
         } else {
-            $command   = $this->getApplication()->find('test');
+            $command   = $application->find('test');
             $arguments = [
                 'command' => 'test',
                 'run'     => $name,
@@ -70,7 +77,7 @@ class Compare extends Command
             }
         }
 
-        $command   = $this->getApplication()->find('normalize');
+        $command   = $application->find('normalize');
         $arguments = [
             'command' => 'normalize',
             'run'     => $name,
@@ -85,7 +92,7 @@ class Compare extends Command
             return $returnCode;
         }
 
-        $command   = $this->getApplication()->find('analyze');
+        $command   = $application->find('analyze');
         $arguments = [
             'command' => 'analyze',
             'run'     => $name,
