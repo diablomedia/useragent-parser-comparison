@@ -89,8 +89,8 @@
             "authors": [
                 {
                     "name": "Thomas Müller",
-                    "role": "Developer",
-                    "homepage": "https://github.com/mimmi20"
+                    "homepage": "https://github.com/mimmi20",
+                    "role": "Developer"
                 },
                 {
                     "name": "Contributors",
