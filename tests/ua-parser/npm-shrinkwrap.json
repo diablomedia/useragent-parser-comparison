@@ -5,7 +5,7 @@
   "requires": true,
   "dependencies": {
     "uap-core": {
-      "version": "github:ua-parser/uap-core#d6985a73a0c3dc16c6df01de31035ec175753939",
+      "version": "github:ua-parser/uap-core#286809e09706ea891b9434ed875574d65e0ff6b7",
       "from": "github:ua-parser/uap-core"
     }
   }
