@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3668f576c9fdb74cc5a7fb08dfa8aab9",
+    "content-hash": "37b2063898935d6a231cd4ba50b74a1b",
     "packages": [
         {
             "name": "psr/container",
@@ -441,16 +441,16 @@
     "packages-dev": [
         {
             "name": "amphp/amp",
-            "version": "v2.3.2",
+            "version": "v2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/amp.git",
-                "reference": "9fa04aa6f87a8200fc0961de6bcc5465785c0c6f"
+                "reference": "13930a582947831bb66ff1aeac28672fd91c38ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/amp/zipball/9fa04aa6f87a8200fc0961de6bcc5465785c0c6f",
-                "reference": "9fa04aa6f87a8200fc0961de6bcc5465785c0c6f",
+                "url": "https://api.github.com/repos/amphp/amp/zipball/13930a582947831bb66ff1aeac28672fd91c38ea",
+                "reference": "13930a582947831bb66ff1aeac28672fd91c38ea",
                 "shasum": ""
             },
             "require": {
@@ -514,7 +514,7 @@
                 "non-blocking",
                 "promise"
             ],
-            "time": "2019-10-26T14:31:57+00:00"
+            "time": "2019-11-11T19:32:05+00:00"
         },
         {
             "name": "amphp/byte-stream",
@@ -2909,16 +2909,16 @@
         },
         {
             "name": "vimeo/psalm",
-            "version": "3.6.4",
+            "version": "3.6.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vimeo/psalm.git",
-                "reference": "3e98c800ec72e06eed7546956823ff395fc30c75"
+                "reference": "b1aae0d1a5a11908e0e5f9eb6795ab7bb3f43577"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/3e98c800ec72e06eed7546956823ff395fc30c75",
-                "reference": "3e98c800ec72e06eed7546956823ff395fc30c75",
+                "url": "https://api.github.com/repos/vimeo/psalm/zipball/b1aae0d1a5a11908e0e5f9eb6795ab7bb3f43577",
+                "reference": "b1aae0d1a5a11908e0e5f9eb6795ab7bb3f43577",
                 "shasum": ""
             },
             "require": {
@@ -2928,7 +2928,7 @@
                 "felixfbecker/advanced-json-rpc": "^3.0.3",
                 "felixfbecker/language-server-protocol": "^1.4",
                 "netresearch/jsonmapper": "^1.0",
-                "nikic/php-parser": "^4.2",
+                "nikic/php-parser": "4.2.*",
                 "ocramius/package-versions": "^1.2",
                 "openlss/lib-array2xml": "^1.0",
                 "php": "^7.1.3",
@@ -2993,7 +2993,7 @@
                 "inspection",
                 "php"
             ],
-            "time": "2019-11-06T18:13:02+00:00"
+            "time": "2019-11-12T05:52:10+00:00"
         },
         {
             "name": "webmozart/assert",
