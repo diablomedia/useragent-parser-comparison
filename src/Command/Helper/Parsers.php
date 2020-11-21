@@ -64,7 +64,7 @@ class Parsers extends Helper
                         $args[] = '--benchmark';
                     }
 
-                    $result = shell_exec($parserDir->getPathname() . '/parse.sh ' . implode(' ', $args));
+                    $result = shell_exec('sh ' . $parserDir->getPathname() . '/parse.sh ' . implode(' ', $args));
 
                     if ($result !== null) {
                         $result = trim($result);

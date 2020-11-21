@@ -126,7 +126,7 @@ class Test extends Command
             $output->write($message . '<info> building test suite</info>');
             $this->results[$testName] = [];
 
-            $testOutput = trim((string) shell_exec($testData['path'] . '/build.sh'));
+            $testOutput = trim((string) shell_exec('sh ' . $testData['path'] . '/build.sh'));
 
             $output->write("\r" . $message . '<info> writing test suite</info>    ');
 
