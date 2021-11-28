@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2c52ad7e4d4bfea0de62a6ed1b8f264d",
+    "content-hash": "22fc8c24ee70a0d3addd3edc3e95eb01",
     "packages": [
         {
             "name": "daverandom/exceptional-json",
@@ -42,39 +42,40 @@
                 }
             ],
             "description": "JSON encoding and decoding that throws exceptions on failure",
+            "support": {
+                "issues": "https://github.com/DaveRandom/ExceptionalJSON/issues",
+                "source": "https://github.com/DaveRandom/ExceptionalJSON/tree/v1.0.4"
+            },
             "time": "2018-06-11T11:25:57+00:00"
         },
         {
             "name": "mimmi20/json-class",
-            "version": "2.0.4",
+            "version": "2.0.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mimmi20/json-class.git",
-                "reference": "f24f8504c4e91bd42d26588893625603e845670d"
+                "reference": "b45b88efcfb481684bcde0345dbf631044f16af3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mimmi20/json-class/zipball/f24f8504c4e91bd42d26588893625603e845670d",
-                "reference": "f24f8504c4e91bd42d26588893625603e845670d",
+                "url": "https://api.github.com/repos/mimmi20/json-class/zipball/b45b88efcfb481684bcde0345dbf631044f16af3",
+                "reference": "b45b88efcfb481684bcde0345dbf631044f16af3",
                 "shasum": ""
             },
             "require": {
-                "daverandom/exceptional-json": "^1.0.4",
+                "daverandom/exceptional-json": "~1.0.4",
                 "ext-json": "*",
-                "php": "^7.1"
+                "php": "^7.1.3 || ^8.0.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.15",
-                "infection/infection": "^0.12.0 || ^0.13.0",
-                "localheinz/composer-normalize": "^1.1.0",
-                "localheinz/phpstan-rules": "^0.10",
-                "pepakriz/phpstan-exception-rules": "^0.8",
-                "phpstan/phpstan": "^0.11",
-                "phpstan/phpstan-deprecation-rules": "^0.11",
-                "phpstan/phpstan-phpunit": "^0.11",
-                "phpstan/phpstan-strict-rules": "^0.11",
-                "phpunit/phpunit": "^7.5 || ^8.0",
-                "squizlabs/php_codesniffer": "^3.4"
+                "infection/infection": "~0.13.6 || ~0.18 || ~0.20.2",
+                "mimmi20/coding-standard": "~1.0.9",
+                "pepakriz/phpstan-exception-rules": "~0.11.4",
+                "phpstan/extension-installer": "~1.1.0",
+                "phpstan/phpstan": "~0.12.68",
+                "phpstan/phpstan-deprecation-rules": "~0.12.6",
+                "phpstan/phpstan-phpunit": "~0.12.17",
+                "phpunit/phpunit": "~7.5.20 || ~8.5.13 || ~9.5.0"
             },
             "type": "library",
             "autoload": {
@@ -97,12 +98,13 @@
                     "homepage": "https://github.com/mimmi20/json-class/graphs/contributors"
                 }
             ],
-            "description": "Class wrapper for ",
+            "description": "Class wrapper for daverandom/exceptional-json",
             "homepage": "https://github.com/mimmi20/json-class",
-            "keywords": [
-                "json"
-            ],
-            "time": "2019-06-23T15:27:34+00:00"
+            "support": {
+                "issues": "https://github.com/mimmi20/json-class/issues",
+                "source": "https://github.com/mimmi20/json-class"
+            },
+            "time": "2021-01-19T10:14:50+00:00"
         },
         {
             "name": "psr/cache",
@@ -148,64 +150,23 @@
                 "psr",
                 "psr-6"
             ],
+            "support": {
+                "source": "https://github.com/php-fig/cache/tree/master"
+            },
             "time": "2016-08-06T20:24:11+00:00"
         },
         {
-            "name": "thadafinser/package-info",
-            "version": "v1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ThaDafinser/PackageInfo.git",
-                "reference": "3cc580385cf694ba83eda3bbf7ea716a2253ea5a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ThaDafinser/PackageInfo/zipball/3cc580385cf694ba83eda3bbf7ea716a2253ea5a",
-                "reference": "3cc580385cf694ba83eda3bbf7ea716a2253ea5a",
-                "shasum": ""
-            },
-            "require": {
-                "composer-plugin-api": "^1.0",
-                "php": "~5.6|~7.0"
-            },
-            "require-dev": {
-                "composer/composer": "^1.2.0",
-                "phpunit/phpunit": "^5.4.7"
-            },
-            "type": "composer-plugin",
-            "extra": {
-                "class": "PackageInfo\\Installer"
-            },
-            "autoload": {
-                "psr-4": {
-                    "PackageInfo\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "ThaDafinser",
-                    "email": "martin.keckeis1@gmail.com"
-                }
-            ],
-            "description": "Composer plugin that provides efficient querying for installed package versions (no runtime IO)",
-            "time": "2016-08-09T11:14:48+00:00"
-        },
-        {
             "name": "whichbrowser/parser",
-            "version": "v2.0.37",
+            "version": "v2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WhichBrowser/Parser-PHP.git",
-                "reference": "9c6ad8eadc23294b1c66d92876c11f13c5d4cf48"
+                "reference": "bcf642a1891032de16a5ab976fd352753dd7f9a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WhichBrowser/Parser-PHP/zipball/9c6ad8eadc23294b1c66d92876c11f13c5d4cf48",
-                "reference": "9c6ad8eadc23294b1c66d92876c11f13c5d4cf48",
+                "url": "https://api.github.com/repos/WhichBrowser/Parser-PHP/zipball/bcf642a1891032de16a5ab976fd352753dd7f9a0",
+                "reference": "bcf642a1891032de16a5ab976fd352753dd7f9a0",
                 "shasum": ""
             },
             "require": {
@@ -213,12 +174,13 @@
                 "psr/cache": "^1.0"
             },
             "require-dev": {
+                "cache/array-adapter": "^1.1",
                 "icomefromthenet/reverse-regex": "0.0.6.3",
-                "phpunit/php-code-coverage": "^2.2|^3.0",
-                "phpunit/phpunit": "^4.0|^5.0",
-                "satooshi/php-coveralls": "^1.0",
-                "squizlabs/php_codesniffer": "2.5.*",
-                "symfony/yaml": ">=2.8"
+                "php-coveralls/php-coveralls": "^2.0",
+                "phpunit/php-code-coverage": "^5.0 || ^7.0",
+                "phpunit/phpunit": "^6.0 || ^8.0",
+                "squizlabs/php_codesniffer": "^3.5",
+                "symfony/yaml": "~3.4 || ~4.0"
             },
             "suggest": {
                 "cache/array-adapter": "Allows testing of the caching functionality"
@@ -251,15 +213,20 @@
                 "ua",
                 "useragent"
             ],
-            "time": "2018-10-02T09:26:41+00:00"
+            "support": {
+                "issues": "https://github.com/WhichBrowser/Parser-PHP/issues",
+                "source": "https://github.com/WhichBrowser/Parser-PHP/tree/v2.1.2"
+            },
+            "time": "2021-05-10T10:18:11+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": [],
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.1.0"
 }

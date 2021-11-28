@@ -1,0 +1,1478 @@
+# https://docs.github.com/en/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+
+updates:
+  - package-ecosystem: "composer"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+#    ignore:
+#      - dependency-name: infection/infection
+#        versions:
+#          - ">= 0"
+#      - dependency-name: phpunit/phpunit
+#        versions:
+#          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "parsers/browscap-php-2/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "parsers/browscap-php-3-full/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "parsers/browscap-php-3-lite/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "parsers/browscap-php-3-standard/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "parsers/browscap-php-4-full/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "parsers/browscap-php-4-lite/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "parsers/browscap-php-4-standard/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "parsers/browser-detector-php-5/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "parsers/crossjoin-php-1/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "parsers/crossjoin-php-2/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "parsers/crossjoin-php-3/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "parsers/donatj-php-0/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "parsers/endorphin-php-3/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "parsers/endorphin-php-4/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "parsers/jenssegers-agent-php-2/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "parsers/php-get-browser/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "parsers/piwik-device-detector-php-3/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "parsers/sinergi-php-6/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "parsers/ua-parser-php-3/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "parsers/whichbrowser-php-2/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "parsers/wolfcast-php-2/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "parsers/woothee-php-1/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "parsers/yzalis-php-0/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "parsers/zsxsoft-php-1/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "tests/browscap/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "tests/browser-detector/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "tests/curated/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "tests/donatj/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "tests/endorphin-3/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "tests/endorphin-4/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "tests/piwik/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "tests/sinergi/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "tests/ua-parser/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "tests/uaparserjs/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "tests/whichbrowser/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "tests/woothee/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "tests/yzalis/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "composer"
+    directory: "tests/zsxsoft/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "npm"
+    directory: "parsers/3rd-eden-useragent-js-2/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "npm"
+    directory: "parsers/bowser-js-2/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "npm"
+    directory: "parsers/browscap-js-1/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "npm"
+    directory: "parsers/browscap-js-2/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "npm"
+    directory: "parsers/browscap-js-3/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "npm"
+    directory: "parsers/browscap-js-4/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "npm"
+    directory: "parsers/browser-detect-js/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "npm"
+    directory: "parsers/detect-browser-js-4/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "npm"
+    directory: "parsers/device-detector-js-1/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "npm"
+    directory: "parsers/device-detector-node-js-0/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "npm"
+    directory: "parsers/express-useragent-js/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "npm"
+    directory: "parsers/fex-uadevice-js/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "npm"
+    directory: "parsers/uaparser-js-0/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "npm"
+    directory: "parsers/whichbrowser-js-0/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "npm"
+    directory: "parsers/woothee-js-1/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "npm"
+    directory: "tests/ua-parser/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "npm"
+    directory: "tests/uaparserjs/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: increase
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+  #    ignore:
+  #      - dependency-name: infection/infection
+  #        versions:
+  #          - ">= 0"
+  #      - dependency-name: phpunit/phpunit
+  #        versions:
+  #          - ">= 0"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    commit-message:
+      include: "scope"
+      prefix: "github-actions"

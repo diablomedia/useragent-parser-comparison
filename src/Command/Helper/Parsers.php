@@ -6,10 +6,10 @@ namespace UserAgentParserComparison\Command\Helper;
 
 use Exception;
 use FilesystemIterator;
-use function Safe\file_get_contents;
-use function Safe\json_decode;
-use function Safe\ksort;
-use function Safe\sort;
+use function file_get_contents;
+use function json_decode;
+use function ksort;
+use function sort;
 use SplFileInfo;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Helper\Table;

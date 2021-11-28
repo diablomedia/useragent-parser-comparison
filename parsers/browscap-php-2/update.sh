@@ -10,5 +10,3 @@ command -v "$composer_command" >/dev/null 2>&1 || {
 }
 
 $composer_command update
-
-php scripts/prepare.php

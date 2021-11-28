@@ -10,5 +10,3 @@ command -v "$composer_command" >/dev/null 2>&1 || {
 }
 
 $composer_command update
-
-./vendor/bin/browscap-php browscap:update --cache ./data --remote-file PHP_BrowscapINI

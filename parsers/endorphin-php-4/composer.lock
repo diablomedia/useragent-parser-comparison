@@ -4,31 +4,34 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e95980f6b34fe72a0a8d392d17f6d2ed",
+    "content-hash": "b49026bf7e7544bbcb16f5cf564d9b9d",
     "packages": [
         {
             "name": "endorphin-studio/browser-detector",
-            "version": "4.0.4",
+            "version": "4.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/endorphin-studio/browser-detector.git",
-                "reference": "ae1d6d96205c04216ef0b78b2d141d738d7c9ef2"
+                "reference": "bb5e2d34917e98fd4a1214e146bb2ec64390bc13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/endorphin-studio/browser-detector/zipball/ae1d6d96205c04216ef0b78b2d141d738d7c9ef2",
-                "reference": "ae1d6d96205c04216ef0b78b2d141d738d7c9ef2",
+                "url": "https://api.github.com/repos/endorphin-studio/browser-detector/zipball/bb5e2d34917e98fd4a1214e146bb2ec64390bc13",
+                "reference": "bb5e2d34917e98fd4a1214e146bb2ec64390bc13",
                 "shasum": ""
             },
             "require": {
-                "endorphin-studio/browser-detector-data": ">=1.0.3",
-                "endorphin-studio/browser-detector-detection": ">=1.0.1",
+                "endorphin-studio/browser-detector-data": ">=1.0.0a",
+                "endorphin-studio/browser-detector-detection": ">=1.0.0",
                 "endorphin-studio/browser-detector-tools": ">=1.0.0",
-                "php": ">=7.0 <7.3"
+                "php": ">=7.0"
             },
             "require-dev": {
-                "doctrine/instantiator": "1.0.5",
-                "phpunit/phpunit": "6.5.14"
+                "endorphin-studio/browser-detector-data": ">=1.0.0a",
+                "endorphin-studio/browser-detector-detection": ">=1.0.0",
+                "endorphin-studio/browser-detector-tools": ">=1.0.0",
+                "phpunit/phpunit": "^6.5.11",
+                "twig/twig": "^2.5.0"
             },
             "type": "library",
             "autoload": {
@@ -53,27 +56,31 @@
                 "user-agent",
                 "user-agent-string"
             ],
-            "time": "2019-07-22T08:44:12+00:00"
+            "support": {
+                "issues": "https://github.com/endorphin-studio/browser-detector/issues",
+                "source": "https://github.com/endorphin-studio/browser-detector/tree/4.0"
+            },
+            "time": "2018-10-18T09:11:25+00:00"
         },
         {
             "name": "endorphin-studio/browser-detector-data",
-            "version": "1.0.5",
+            "version": "1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/endorphin-studio/browser-detector-data.git",
-                "reference": "1e7e2782d8cc1425c2140f230eb52e019825e9d2"
+                "reference": "ec9bb80d4ad2882e0916b39b0bb771535bea15e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/endorphin-studio/browser-detector-data/zipball/1e7e2782d8cc1425c2140f230eb52e019825e9d2",
-                "reference": "1e7e2782d8cc1425c2140f230eb52e019825e9d2",
+                "url": "https://api.github.com/repos/endorphin-studio/browser-detector-data/zipball/ec9bb80d4ad2882e0916b39b0bb771535bea15e9",
+                "reference": "ec9bb80d4ad2882e0916b39b0bb771535bea15e9",
                 "shasum": ""
             },
             "require": {
-                "endorphin-studio/browser-detector-tools": ">=1.0.0",
+                "endorphin-studio/browser-detector-tools": "^1.2",
                 "php": ">=7.0",
-                "symfony/http-foundation": "v3.4.14",
-                "symfony/yaml": "v3.4.14"
+                "symfony/http-foundation": ">=v3.4.14",
+                "symfony/yaml": ">=v3.4.14"
             },
             "type": "library",
             "autoload": {
@@ -94,25 +101,29 @@
                 }
             ],
             "description": "Data for endorphin-studio/browser-detector",
-            "time": "2019-07-22T08:09:30+00:00"
+            "support": {
+                "issues": "https://github.com/endorphin-studio/browser-detector-data/issues",
+                "source": "https://github.com/endorphin-studio/browser-detector-data/tree/master"
+            },
+            "time": "2020-06-03T21:31:07+00:00"
         },
         {
             "name": "endorphin-studio/browser-detector-detection",
-            "version": "1.0.1",
+            "version": "2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/endorphin-studio/browser-detector-detection.git",
-                "reference": "bbd230e575e6ca365d5f65d90e04d3b89151a020"
+                "reference": "2fe3bc32d4255efde7aba7d5adefac28db569c8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/endorphin-studio/browser-detector-detection/zipball/bbd230e575e6ca365d5f65d90e04d3b89151a020",
-                "reference": "bbd230e575e6ca365d5f65d90e04d3b89151a020",
+                "url": "https://api.github.com/repos/endorphin-studio/browser-detector-detection/zipball/2fe3bc32d4255efde7aba7d5adefac28db569c8f",
+                "reference": "2fe3bc32d4255efde7aba7d5adefac28db569c8f",
                 "shasum": ""
             },
             "require": {
-                "endorphin-studio/browser-detector-data": ">=1.0.3",
-                "endorphin-studio/browser-detector-tools": ">=1.0.0",
+                "endorphin-studio/browser-detector-data": "^1.2",
+                "endorphin-studio/browser-detector-tools": "^1.2",
                 "php": ">=7.0"
             },
             "type": "library",
@@ -132,20 +143,24 @@
                 }
             ],
             "description": "Detection for endorphin-studio/browser-detector",
-            "time": "2019-07-16T09:34:49+00:00"
+            "support": {
+                "issues": "https://github.com/endorphin-studio/browser-detector-detection/issues",
+                "source": "https://github.com/endorphin-studio/browser-detector-detection/tree/master"
+            },
+            "time": "2020-06-03T21:33:54+00:00"
         },
         {
             "name": "endorphin-studio/browser-detector-tools",
-            "version": "1.0.0",
+            "version": "1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/endorphin-studio/browser-detector-tools.git",
-                "reference": "30a6973e6c6dc97e2526b11614505bf862c24875"
+                "reference": "b2e89f23449470e727521baf8dcb4f0a9b45936d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/endorphin-studio/browser-detector-tools/zipball/30a6973e6c6dc97e2526b11614505bf862c24875",
-                "reference": "30a6973e6c6dc97e2526b11614505bf862c24875",
+                "url": "https://api.github.com/repos/endorphin-studio/browser-detector-tools/zipball/b2e89f23449470e727521baf8dcb4f0a9b45936d",
+                "reference": "b2e89f23449470e727521baf8dcb4f0a9b45936d",
                 "shasum": ""
             },
             "require": {
@@ -164,85 +179,113 @@
             "authors": [
                 {
                     "name": "Serhii Nekhaienko",
-                    "email": "sergey.nekhaenko@gmail.com"
+                    "email": "serhii.nekhaienko@gmail.com"
                 }
             ],
             "description": "Tools for endorphin-studio/browser-detector",
-            "time": "2018-10-17T12:10:59+00:00"
+            "support": {
+                "issues": "https://github.com/endorphin-studio/browser-detector-tools/issues",
+                "source": "https://github.com/endorphin-studio/browser-detector-tools/tree/master"
+            },
+            "time": "2020-06-03T21:27:38+00:00"
         },
         {
-            "name": "paragonie/random_compat",
-            "version": "v9.99.99",
+            "name": "symfony/deprecation-contracts",
+            "version": "v2.5.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "84b4dfb120c6f9b4ff7b3685f9b8f1aa365a0c95"
+                "url": "https://github.com/symfony/deprecation-contracts.git",
+                "reference": "6f981ee24cf69ee7ce9736146d1c57c2780598a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/84b4dfb120c6f9b4ff7b3685f9b8f1aa365a0c95",
-                "reference": "84b4dfb120c6f9b4ff7b3685f9b8f1aa365a0c95",
+                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/6f981ee24cf69ee7ce9736146d1c57c2780598a8",
+                "reference": "6f981ee24cf69ee7ce9736146d1c57c2780598a8",
                 "shasum": ""
             },
             "require": {
-                "php": "^7"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.*|5.*",
-                "vimeo/psalm": "^1"
-            },
-            "suggest": {
-                "ext-libsodium": "Provides a modern crypto API that can be used to generate random bytes."
+                "php": ">=7.1"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "2.5-dev"
+                },
+                "thanks": {
+                    "name": "symfony/contracts",
+                    "url": "https://github.com/symfony/contracts"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "function.php"
+                ]
+            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "authors": [
                 {
-                    "name": "Paragon Initiative Enterprises",
-                    "email": "security@paragonie.com",
-                    "homepage": "https://paragonie.com"
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "PHP 5.x polyfill for random_bytes() and random_int() from PHP 7",
-            "keywords": [
-                "csprng",
-                "polyfill",
-                "pseudorandom",
-                "random"
+            "description": "A generic function and convention to trigger deprecation notices",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v2.5.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
             ],
-            "time": "2018-07-02T15:55:56+00:00"
+            "time": "2021-07-12T14:48:14+00:00"
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v3.4.14",
+            "version": "v5.3.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "19a3267828046a2a4a05e3dc2954bbd2e0ad9fa6"
+                "reference": "d1e7059ebeb0b8f9fe5eb5b26eacd2e3c1f371cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/19a3267828046a2a4a05e3dc2954bbd2e0ad9fa6",
-                "reference": "19a3267828046a2a4a05e3dc2954bbd2e0ad9fa6",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/d1e7059ebeb0b8f9fe5eb5b26eacd2e3c1f371cc",
+                "reference": "d1e7059ebeb0b8f9fe5eb5b26eacd2e3c1f371cc",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.5.9|>=7.0.8",
+                "php": ">=7.2.5",
+                "symfony/deprecation-contracts": "^2.1",
                 "symfony/polyfill-mbstring": "~1.1",
-                "symfony/polyfill-php70": "~1.6"
+                "symfony/polyfill-php80": "^1.16"
             },
             "require-dev": {
-                "symfony/expression-language": "~2.8|~3.0|~4.0"
+                "predis/predis": "~1.0",
+                "symfony/cache": "^4.4|^5.0",
+                "symfony/expression-language": "^4.4|^5.0",
+                "symfony/mime": "^4.4|^5.0"
+            },
+            "suggest": {
+                "symfony/mime": "To use the file extension guesser"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.4-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\HttpFoundation\\": ""
@@ -265,26 +308,43 @@
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Symfony HttpFoundation Component",
+            "description": "Defines an object-oriented layer for the HTTP specification",
             "homepage": "https://symfony.com",
-            "time": "2018-08-01T14:04:26+00:00"
+            "support": {
+                "source": "https://github.com/symfony/http-foundation/tree/v5.3.11"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-11-04T16:37:19+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.12.0",
+            "version": "v1.23.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "550ebaac289296ce228a706d0867afc34687e3f4"
+                "reference": "46cd95797e9df938fdd2b03693b5fca5e64b01ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/550ebaac289296ce228a706d0867afc34687e3f4",
-                "reference": "550ebaac289296ce228a706d0867afc34687e3f4",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/46cd95797e9df938fdd2b03693b5fca5e64b01ce",
+                "reference": "46cd95797e9df938fdd2b03693b5fca5e64b01ce",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=7.1"
             },
             "suggest": {
                 "ext-ctype": "For best performance"
@@ -292,7 +352,11 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.12-dev"
+                    "dev-main": "1.23-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
                 }
             },
             "autoload": {
@@ -325,24 +389,41 @@
                 "polyfill",
                 "portable"
             ],
-            "time": "2019-08-06T08:03:45+00:00"
+            "support": {
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.23.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-02-19T12:13:01+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.12.0",
+            "version": "v1.23.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "b42a2f66e8f1b15ccf25652c3424265923eb4f17"
+                "reference": "9174a3d80210dca8daa7f31fec659150bbeabfc6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/b42a2f66e8f1b15ccf25652c3424265923eb4f17",
-                "reference": "b42a2f66e8f1b15ccf25652c3424265923eb4f17",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/9174a3d80210dca8daa7f31fec659150bbeabfc6",
+                "reference": "9174a3d80210dca8daa7f31fec659150bbeabfc6",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=7.1"
             },
             "suggest": {
                 "ext-mbstring": "For best performance"
@@ -350,7 +431,11 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.12-dev"
+                    "dev-main": "1.23-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
                 }
             },
             "autoload": {
@@ -384,35 +469,55 @@
                 "portable",
                 "shim"
             ],
-            "time": "2019-08-06T08:03:45+00:00"
+            "support": {
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.23.1"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-05-27T12:26:48+00:00"
         },
         {
-            "name": "symfony/polyfill-php70",
-            "version": "v1.12.0",
+            "name": "symfony/polyfill-php80",
+            "version": "v1.23.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/polyfill-php70.git",
-                "reference": "54b4c428a0054e254223797d2713c31e08610831"
+                "url": "https://github.com/symfony/polyfill-php80.git",
+                "reference": "1100343ed1a92e3a38f9ae122fc0eb21602547be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php70/zipball/54b4c428a0054e254223797d2713c31e08610831",
-                "reference": "54b4c428a0054e254223797d2713c31e08610831",
+                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/1100343ed1a92e3a38f9ae122fc0eb21602547be",
+                "reference": "1100343ed1a92e3a38f9ae122fc0eb21602547be",
                 "shasum": ""
             },
             "require": {
-                "paragonie/random_compat": "~1.0|~2.0|~9.99",
-                "php": ">=5.3.3"
+                "php": ">=7.1"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.12-dev"
+                    "dev-main": "1.23-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Symfony\\Polyfill\\Php70\\": ""
+                    "Symfony\\Polyfill\\Php80\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -427,6 +532,10 @@
             ],
             "authors": [
                 {
+                    "name": "Ion Bazan",
+                    "email": "ion.bazan@gmail.com"
+                },
+                {
                     "name": "Nicolas Grekas",
                     "email": "p@tchwork.com"
                 },
@@ -435,7 +544,7 @@
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Symfony polyfill backporting some PHP 7.0+ features to lower PHP versions",
+            "description": "Symfony polyfill backporting some PHP 8.0+ features to lower PHP versions",
             "homepage": "https://symfony.com",
             "keywords": [
                 "compatibility",
@@ -443,41 +552,57 @@
                 "portable",
                 "shim"
             ],
-            "time": "2019-08-06T08:03:45+00:00"
+            "support": {
+                "source": "https://github.com/symfony/polyfill-php80/tree/v1.23.1"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-07-28T13:41:28+00:00"
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.4.14",
+            "version": "v5.3.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "810af2d35fc72b6cf5c01116806d2b65ccaaf2e2"
+                "reference": "226638aa877bc4104e619a15f27d8141cd6b4e4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/810af2d35fc72b6cf5c01116806d2b65ccaaf2e2",
-                "reference": "810af2d35fc72b6cf5c01116806d2b65ccaaf2e2",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/226638aa877bc4104e619a15f27d8141cd6b4e4a",
+                "reference": "226638aa877bc4104e619a15f27d8141cd6b4e4a",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.5.9|>=7.0.8",
+                "php": ">=7.2.5",
+                "symfony/deprecation-contracts": "^2.1",
                 "symfony/polyfill-ctype": "~1.8"
             },
             "conflict": {
-                "symfony/console": "<3.4"
+                "symfony/console": "<4.4"
             },
             "require-dev": {
-                "symfony/console": "~3.4|~4.0"
+                "symfony/console": "^4.4|^5.0"
             },
             "suggest": {
                 "symfony/console": "For validating YAML files using the lint command"
             },
+            "bin": [
+                "Resources/bin/yaml-lint"
+            ],
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.4-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\Yaml\\": ""
@@ -500,61 +625,35 @@
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Symfony Yaml Component",
+            "description": "Loads and dumps YAML files",
             "homepage": "https://symfony.com",
-            "time": "2018-07-26T11:19:56+00:00"
-        },
-        {
-            "name": "thadafinser/package-info",
-            "version": "v1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ThaDafinser/PackageInfo.git",
-                "reference": "3cc580385cf694ba83eda3bbf7ea716a2253ea5a"
+            "support": {
+                "source": "https://github.com/symfony/yaml/tree/v5.3.11"
             },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ThaDafinser/PackageInfo/zipball/3cc580385cf694ba83eda3bbf7ea716a2253ea5a",
-                "reference": "3cc580385cf694ba83eda3bbf7ea716a2253ea5a",
-                "shasum": ""
-            },
-            "require": {
-                "composer-plugin-api": "^1.0",
-                "php": "~5.6|~7.0"
-            },
-            "require-dev": {
-                "composer/composer": "^1.2.0",
-                "phpunit/phpunit": "^5.4.7"
-            },
-            "type": "composer-plugin",
-            "extra": {
-                "class": "PackageInfo\\Installer"
-            },
-            "autoload": {
-                "psr-4": {
-                    "PackageInfo\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
+            "funding": [
                 {
-                    "name": "ThaDafinser",
-                    "email": "martin.keckeis1@gmail.com"
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
                 }
             ],
-            "description": "Composer plugin that provides efficient querying for installed package versions (no runtime IO)",
-            "time": "2016-08-09T11:14:48+00:00"
+            "time": "2021-11-20T16:42:42+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": [],
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.1.0"
 }

@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace UserAgentParserComparison\Command\Helper;
 
-use function Safe\preg_replace;
+use function preg_replace;
 use Symfony\Component\Console\Helper\Helper;
 
 class Normalize extends Helper

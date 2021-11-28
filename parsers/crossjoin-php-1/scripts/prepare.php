@@ -13,7 +13,7 @@ $browscap->getBrowser()->getData();
 
 $browscap->getUpdater()->setInterval(0);
 
-// Run the browscap data update and preparation
+// Run the browscap data update.sh and preparation
 $browscap->update();
 
 echo 'Finished' . PHP_EOL;

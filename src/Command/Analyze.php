@@ -5,12 +5,12 @@ declare(strict_types = 1);
 namespace UserAgentParserComparison\Command;
 
 use Exception;
-use function Safe\array_flip;
-use function Safe\file_get_contents;
-use function Safe\json_decode;
-use function Safe\ksort;
-use function Safe\sort;
-use function Safe\uasort;
+use function array_flip;
+use function file_get_contents;
+use function json_decode;
+use function ksort;
+use function sort;
+use function uasort;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableCell;

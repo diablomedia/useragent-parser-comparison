@@ -1,10 +1,26 @@
 parameters:
-  level: 7
+  level: max
+  parallel:
+    maximumNumberOfProcesses: 1
+    processTimeout: 200.0
   paths:
-    - src 
-    - bin 
+    - src
+    - bin
     - mappings
-  excludes_analyse:
-    - */tests/*/data/*
-includes:
-    - vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon
+  scanFiles:
+    - %currentWorkingDirectory%/vendor/autoload.php
+    - %currentWorkingDirectory%/vendor/squizlabs/php_codesniffer/autoload.php
+    - %currentWorkingDirectory%/vendor/squizlabs/php_codesniffer/src/Util/Tokens.php
+  checkGenericClassInNonGenericObjectType: false
+  checkMissingIterableValueType: false
+  treatPhpDocTypesAsCertain: false
+  exceptions:
+    implicitThrows: false
+    checkedExceptionRegexes:
+      - '#Exception#'
+      - '#Throwable#'
+    check:
+      missingCheckedExceptionInThrows: true
+      tooWideThrowType: true
+#  ignoreErrors:
+#    - '~Useless \@throws~'

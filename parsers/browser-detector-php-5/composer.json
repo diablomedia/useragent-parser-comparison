@@ -1,8 +1,13 @@
 {
     "require": {
-        "mimmi20/browser-detector": "^5.0",
-        "thadafinser/package-info": "^1.0",
-        "roave/doctrine-simplecache": "^1.1",
-        "monolog/monolog": "^1.23"
-    }
+        "mimmi20/browser-detector": "^5.0.0",
+        "roave/doctrine-simplecache": "^1.1.0",
+        "monolog/monolog": "^2.3.5"
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }
